@@ -49,3 +49,13 @@ RewriteRule . /index.php [L]
 </IfModule>
 
 # END WordPress
+
+# BEGIN DEMO NOCACHE
+# Serve demo.html fresh (bypass LiteSpeed cache) - added 2026-09-02
+# Last rule wins: must stay AFTER the LSCACHE block (which sets Cache-Control:no-autoflush)
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{REQUEST_URI} ^/demo\.html$
+RewriteRule .* - [E=Cache-Control:no-cache]
+</IfModule>
+# END DEMO NOCACHE
