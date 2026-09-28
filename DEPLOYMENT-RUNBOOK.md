@@ -112,3 +112,12 @@ WP_DEPLOY_TARGET
 
 Without these secrets the validation and theme artifact jobs still run, while
 the production deploy job is skipped safely.
+
+## Live VPS layout (fixed 2026-09-28)
+
+- Git working tree on the VPS: `/home/sampreshan.tech` (this repo's root). Web root: `/home/sampreshan.tech/public_html` (this repo's `public_html/`).
+- Previously the repo had been cloned *inside* `public_html`, which removed WordPress core from the docroot and caused HTTP 500. The broken tree is kept at `/home/sampreshan.tech/public_html.broken-20260928-061352` for rollback.
+- Server-only (not in Git): `public_html/wp-config.php`, `public_html/.htaccess`, `wp-content/uploads/`, `wp-content/wpcode/`.
+- Child theme source is `/buddyboss-theme-child`; deploy with
+  `rsync -a --delete buddyboss-theme-child/ public_html/wp-content/themes/buddyboss-theme-child/` then `chown -R sampr4722:sampr4722` and purge LiteSpeed Cache.
+- Update the server: `cd /home/sampreshan.tech && git pull --ff-only` (never clone into `public_html`).
