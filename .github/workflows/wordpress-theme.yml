@@ -82,16 +82,20 @@ jobs:
 
       - name: Deploy child theme
         if: steps.config.outputs.configured == 'true'
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ env.WP_DEPLOY_HOST }}
-          port: ${{ env.WP_DEPLOY_PORT || 22 }}
-          username: ${{ env.WP_DEPLOY_USER }}
-          key: ${{ env.WP_DEPLOY_KEY }}
-          source: buddyboss-theme-child
-          target: ${{ env.WP_DEPLOY_TARGET }}
-          overwrite: true
-          rm: false
+        shell: bash
+        run: |
+          set -euo pipefail
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$WP_DEPLOY_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "${WP_DEPLOY_PORT:-22}" -H "$WP_DEPLOY_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          # Files stay owned by the site user; sync content only (no perms/times/owner).
+          rsync -rlz --checksum --no-perms --no-times --omit-dir-times \
+            --exclude '.DS_Store' --exclude 'node_modules/' \
+            -e "ssh -i ~/.ssh/deploy_key -p ${WP_DEPLOY_PORT:-22} -o IdentitiesOnly=yes" \
+            buddyboss-theme-child/ \
+            "$WP_DEPLOY_USER@$WP_DEPLOY_HOST:${WP_DEPLOY_TARGET%/}/buddyboss-theme-child/"
+          rm -f ~/.ssh/deploy_key
 
       - name: Smoke test live homepage
         if: steps.config.outputs.configured == 'true'
