@@ -2,13 +2,14 @@
 
 Status: **Draft / cross-check only**
 
-This package preserves the repository-side implementation that was removed from `shivbodhtrust.org` because it belongs with the Sampreshan editorial platform.
+This package preserves the repository-side implementation and full two-branch menu map removed from `shivbodhtrust.org` because they belong with the Sampreshan editorial platform.
 
 ## Scope
 
-- Adiguru editorial page/navigation mapping
+- Adiguru parent page and all five child pages/menu items
+- Dharmasevaka parent page and all five child pages/menu items
 - Peetham page template and data helper
-- Dharmasevaka and related editorial route inventory
+- Legacy route and WordPress ID inventory
 - Related About/FAQ source excerpts
 
 ## Mandatory review before adoption
@@ -16,8 +17,9 @@ This package preserves the repository-side implementation that was removed from 
 1. Verify every title, name, affiliation, mahavakya and destination URL.
 2. Separate editorial content from puja/booking UI. No booking box or service CTA may be imported.
 3. Export the original WordPress page content and media after a verified backup; database content is not present in the source repository.
-4. Implement in `buddyboss-theme-child/` only after review in a separate production PR.
-5. Do not copy this audit folder into `public_html/` and do not deploy it as a theme.
+4. Recreate both complete parent/child menu branches using `MENU_MIGRATION.md` and `menu-structure.json`.
+5. Implement in `buddyboss-theme-child/` only after review in a separate production PR.
+6. Do not copy this audit folder into `public_html/` and do not deploy it as a theme.
 
 ## Provenance
 
