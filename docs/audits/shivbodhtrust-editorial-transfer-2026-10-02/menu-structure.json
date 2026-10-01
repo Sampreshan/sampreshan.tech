@@ -1,0 +1,85 @@
+{
+  "status": "audit-required",
+  "target_repository": "Sampreshan/sampreshan.tech",
+  "branches": [
+    {
+      "label": "Aadyaguru Shankaracharya Ji",
+      "legacy_page_id": 83,
+      "destination_path": "/adi-shankaracharya/",
+      "children": [
+        {
+          "order": 1,
+          "legacy_page_id": 70,
+          "label": "Purvamnaya Govardhan Matha (Puri, Odisha)",
+          "destination_path": "/puri-peetha/"
+        },
+        {
+          "order": 2,
+          "legacy_page_id": 68,
+          "label": "Paschimamnaya Dwarka Sharada Peetham (Dwarka, Gujarat)",
+          "destination_path": "/dwarka-peetha/"
+        },
+        {
+          "order": 3,
+          "legacy_page_id": 72,
+          "label": "Uttaraminaya Jyotirmath Peeth (Joshimath, Uttarakhand)",
+          "destination_path": "/jyotishpeetha/"
+        },
+        {
+          "order": 4,
+          "legacy_page_id": 66,
+          "label": "Dakshinamnaya Sri Sharada Peetham (Sringeri, Karnataka)",
+          "destination_path": "/sringeri-peetha/"
+        },
+        {
+          "order": 5,
+          "legacy_page_id": 74,
+          "label": "Kanchi Kamakoti Peetham",
+          "destination_path": "/kanchi-peetha/"
+        }
+      ]
+    },
+    {
+      "label": "Dharmasevaka",
+      "legacy_page_id": 59,
+      "destination_path": "/dharmasevaka/",
+      "remove_booking_wrapper": true,
+      "children": [
+        {
+          "order": 1,
+          "legacy_page_id": 89,
+          "label": "Jagadguru Shankaracharya Swami-Sadanand Saraswat Ji",
+          "destination_path": null,
+          "slug_source": "wordpress-export"
+        },
+        {
+          "order": 2,
+          "legacy_page_id": 91,
+          "label": "Jagadguru Shankaracharya Swami Shri Avimukteshwaranand Saraswati Ji Maharaj",
+          "destination_path": null,
+          "slug_source": "wordpress-export"
+        },
+        {
+          "order": 3,
+          "legacy_page_id": 85,
+          "label": "Jagadguru Shankaracharya Sri Sri Vidhushekhara Bharati Sannidhanam",
+          "destination_path": "/swami-vidhushekhara-bharati/"
+        },
+        {
+          "order": 4,
+          "legacy_page_id": 87,
+          "label": "Jagadguru Shankaracharya Swami Shri Nischalananda Saraswati Ji Maharaj",
+          "destination_path": null,
+          "slug_source": "wordpress-export"
+        },
+        {
+          "order": 5,
+          "legacy_page_id": 113,
+          "label": "Sri-Satya-Chandrashekarendra-Saraswathi-Shankaracharya",
+          "destination_path": null,
+          "slug_source": "wordpress-export"
+        }
+      ]
+    }
+  ]
+}
