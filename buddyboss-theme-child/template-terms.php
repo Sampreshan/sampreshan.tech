@@ -138,7 +138,7 @@ get_header();
             </h2>
             <div class="sp-page__content">
                 <p><?php esc_html_e( 'We reserve the right to suspend or terminate your account at any time, without prior notice, for conduct that violates these terms or is harmful to the community.', 'sampreshan-child' ); ?></p>
-                <p><?php esc_html_e( 'You may delete your account at any time by contacting us at info@sampreshan.tech.', 'sampreshan-child' ); ?></p>
+                <p><?php esc_html_e( 'You may delete your account at any time by contacting us at connect@sampreshan.tech.', 'sampreshan-child' ); ?></p>
             </div>
         </section>
 
@@ -151,7 +151,7 @@ get_header();
                 <p><?php esc_html_e( 'For questions about these Terms & Conditions:', 'sampreshan-child' ); ?></p>
                 <p>
                     <strong><?php esc_html_e( 'ShivBodh Trust', 'sampreshan-child' ); ?></strong><br>
-                    <?php esc_html_e( 'Email:', 'sampreshan-child' ); ?> <a href="mailto:info@sampreshan.tech">info@sampreshan.tech</a><br>
+                    <?php esc_html_e( 'Email:', 'sampreshan-child' ); ?> <a href="mailto:connect@sampreshan.tech">connect@sampreshan.tech</a><br>
                     <?php esc_html_e( 'Website:', 'sampreshan-child' ); ?> <a href="https://shivbodhtrust.org" target="_blank" rel="noopener">shivbodhtrust.org</a>
                 </p>
             </div>
