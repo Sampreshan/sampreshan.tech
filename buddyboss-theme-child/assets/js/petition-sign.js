@@ -123,13 +123,19 @@
             + '<feComposite in="c" in2="b" operator="in" result="g"/>'
             + '<feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>'
             + '</filter>'
+            + '<radialGradient id="ibE' + u + '" cx="0.38" cy="0.32" r="0.72"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="65%" stop-color="#F4EEE4"/><stop offset="100%" stop-color="#C9B9A2"/></radialGradient>'
+            + '<radialGradient id="ibR' + u + '" cx="0.5" cy="0.5" r="0.5"><stop offset="0%" stop-color="#FFD080"/><stop offset="45%" stop-color="#FF9933"/><stop offset="85%" stop-color="#B34700"/><stop offset="100%" stop-color="#6B2A00"/></radialGradient>'
             + '</defs>'
-            + '<rect x="14" y="8" width="36" height="9" rx="4.5" fill="url(#ibB' + u + ')" filter="url(#ibGlow' + u + ')"/>'
-            + '<rect x="26" y="17" width="12" height="30" rx="3" fill="url(#ibS' + u + ')" filter="url(#ibGlow' + u + ')"/>'
-            + '<rect x="14" y="47" width="36" height="9" rx="4.5" fill="url(#ibB' + u + ')" filter="url(#ibGlow' + u + ')"/>'
-            + '<rect x="17" y="10" width="30" height="2" rx="1" fill="#FFFFFF" opacity="0.65"/>'
-            + '<rect x="28" y="19" width="2.6" height="26" rx="1.3" fill="#FFFFFF" opacity="0.5"/>'
-            + '<rect x="17" y="49" width="30" height="2" rx="1" fill="#FFFFFF" opacity="0.65"/>'
+            + '<rect x="14" y="7" width="36" height="9" rx="4.5" fill="url(#ibB' + u + ')" filter="url(#ibGlow' + u + ')"/>'
+            + '<rect x="26" y="16" width="12" height="32" rx="3" fill="url(#ibS' + u + ')" filter="url(#ibGlow' + u + ')"/>'
+            + '<rect x="14" y="48" width="36" height="9" rx="4.5" fill="url(#ibB' + u + ')" filter="url(#ibGlow' + u + ')"/>'
+            + '<rect x="17" y="9" width="30" height="2" rx="1" fill="#FFFFFF" opacity="0.65"/>'
+            + '<rect x="17" y="50" width="30" height="2" rx="1" fill="#FFFFFF" opacity="0.65"/>'
+            /* Eye in the I: "I see you, I support you." */
+            + '<circle cx="32" cy="32" r="10" fill="url(#ibE' + u + ')" stroke="#C2410C" stroke-width="1.4"/>'
+            + '<circle cx="32.6" cy="32.6" r="5.6" fill="url(#ibR' + u + ')"/>'
+            + '<circle cx="32.6" cy="32.6" r="2.6" fill="#120600"/>'
+            + '<circle cx="30.2" cy="30" r="1.6" fill="#FFFFFF" opacity="0.95"/>'
             + '</svg>';
     }
     function ibadgeWrap() {
@@ -237,7 +243,7 @@
                 var title = btn.dataset.title || document.title;
 
                 if (navigator.share) {
-                    navigator.share({ title: title, url: url }).catch(function () {});
+                    navigator.share({ title: title, url: url }).catch(function () { });
                 } else {
                     navigator.clipboard.writeText(url).then(function () {
                         showToast('Link copied to clipboard!', 'success');

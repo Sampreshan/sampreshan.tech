@@ -18,6 +18,14 @@ $is_logged_in = is_user_logged_in();
     <div class="d3-hero__light" aria-hidden="true"></div>
     <div class="d3-hero__grid" aria-hidden="true"></div>
 
+    <?php if ( function_exists( 'sp_pigeon' ) ) : ?>
+    <!-- Kabootar post: messenger doves carry the community's voice across the hero. -->
+    <div class="sp-pigeon-flight" aria-hidden="true">
+        <div class="sp-pigeon sp-pigeon--near"><div class="sp-pigeon__bob"><?php sp_pigeon( 'hn', true ); ?></div></div>
+        <div class="sp-pigeon sp-pigeon--far"><div class="sp-pigeon__bob"><?php sp_pigeon( 'hf', false ); ?></div></div>
+    </div>
+    <?php endif; ?>
+
     <div class="d3-hero__grid-inner">
         <div class="d3-hero__copy">
             <p class="d3-hero__eyebrow">
@@ -42,7 +50,7 @@ $is_logged_in = is_user_logged_in();
             <ul class="d3-hero__points">
                 <li><?php sp_icon_auto( 'dharma', 'sp-icon--sm', '' ); ?><?php esc_html_e( 'One platform for Sanatanis worldwide', 'sampreshan-child' ); ?></li>
                 <li><?php sp_icon_auto( 'shankh', 'sp-icon--sm', '' ); ?><?php esc_html_e( 'Issue Sampreshan — raise your voice', 'sampreshan-child' ); ?></li>
-                <li><span class="sp-ibadge sp-ibadge--sm" aria-hidden="true">I</span><?php esc_html_e( 'Every support counts', 'sampreshan-child' ); ?></li>
+                <li><?php sp_icon_auto( 'ibadge', 'sp-icon--sm', '' ); ?><?php esc_html_e( 'Every support counts', 'sampreshan-child' ); ?></li>
             </ul>
         </div>
 
@@ -54,6 +62,7 @@ $is_logged_in = is_user_logged_in();
                 <img class="d3-hero__mandala" src="<?php echo esc_url( sp_art_url( 'mandala.svg' ) ); ?>" alt="" width="400" height="400" loading="lazy" decoding="async" />
             <?php endif; ?>
             <div class="d3-hero__object">
+                <div class="d3-hero__shankh"><?php sp_icon_auto( 'shankh', 'sp-icon', '' ); ?></div>
                 <div class="d3-hero__card">
                     <img class="d3-hero__logo" src="<?php echo esc_url( $logo_url ); ?>" alt="" width="120" height="120" fetchpriority="high" />
                     <p class="d3-hero__logo-name"><?php echo esc_html( $site_name ); ?></p>
@@ -95,7 +104,7 @@ $is_logged_in = is_user_logged_in();
                 <p class="d3-card__text"><?php esc_html_e( 'Raise any Dharma-related problem directly on the platform. People sign up with email, read your issue and carry it forward.', 'sampreshan-child' ); ?></p>
             </div>
             <div class="d3-card">
-                <div class="d3-card__icon"><span class="sp-ibadge" aria-hidden="true">I</span></div>
+                <div class="d3-card__icon"><?php sp_icon_auto( 'ibadge', 'sp-icon--md', '' ); ?></div>
                 <h3 class="d3-card__title"><?php esc_html_e( 'I — The Badge of Support', 'sampreshan-child' ); ?></h3>
                 <p class="d3-card__text"><?php esc_html_e( 'Every support counts — just like a Like. The more people share and support, the more supporters you gather. More supporters, louder voice.', 'sampreshan-child' ); ?></p>
             </div>

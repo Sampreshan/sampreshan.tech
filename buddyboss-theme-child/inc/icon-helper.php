@@ -175,8 +175,22 @@ if ( ! function_exists( 'sp_logo_url' ) ) {
             }
         }
 
-        // 2. Original uploaded logo — the one already set on the live site.
-        return content_url( 'uploads/2026/06/sampreshan-logo-svg.svg' );
+        // 2. Uploaded brand logo — first candidate that actually exists on
+        //    disk. The June SVG was lost from uploads, which rendered a broken
+        //    <img> everywhere, so never return a path without checking it.
+        $candidates = array(
+            'uploads/2026/06/sampreshan-logo-svg.svg',
+            'uploads/2026/10/cropped-sampreshanalogo-1.png',
+            'uploads/2026/10/sampreshanalogo.png',
+        );
+        foreach ( $candidates as $rel ) {
+            if ( file_exists( WP_CONTENT_DIR . '/' . $rel ) ) {
+                return content_url( $rel );
+            }
+        }
+
+        // 3. Bundled brand fallback.
+        return get_stylesheet_directory_uri() . '/assets/brand/favicon.svg';
     }
 }
 
@@ -219,10 +233,18 @@ if ( ! function_exists( 'sp_pigeon' ) ) {
         ?>
         <svg class="sp-pigeon__svg" viewBox="0 0 220 150" aria-hidden="true" focusable="false">
             <defs>
-                <linearGradient id="pg-body-<?php echo esc_attr( $s ); ?>" x1="0" y1="0" x2="0" y2="1">
+                <!-- Radial body light (key light top-right) gives the dove volume. -->
+                <radialGradient id="pg-body-<?php echo esc_attr( $s ); ?>" cx="0.68" cy="0.22" r="0.85">
                     <stop offset="0" stop-color="#FFFFFF" />
-                    <stop offset="0.55" stop-color="#E9EDF3" />
-                    <stop offset="1" stop-color="#C6CEDA" />
+                    <stop offset="0.45" stop-color="#EEF1F6" />
+                    <stop offset="0.8" stop-color="#C9D1DD" />
+                    <stop offset="1" stop-color="#97A3B5" />
+                </radialGradient>
+                <!-- Iridescent kabootar neck (green to violet sheen). -->
+                <linearGradient id="pg-neck-<?php echo esc_attr( $s ); ?>" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#5FBF9A" stop-opacity="0.85" />
+                    <stop offset="0.5" stop-color="#7C6BC4" stop-opacity="0.75" />
+                    <stop offset="1" stop-color="#B45FA8" stop-opacity="0.5" />
                 </linearGradient>
                 <linearGradient id="pg-wing-<?php echo esc_attr( $s ); ?>" x1="0" y1="0" x2="1" y2="1">
                     <stop offset="0" stop-color="#FFFFFF" />
@@ -251,8 +273,12 @@ if ( ! function_exists( 'sp_pigeon' ) ) {
             <!-- body -->
             <path d="M30,100 C55,88 70,78 92,74 C100,72 108,66 116,60 C124,52 136,50 144,56 C150,60 150,68 144,72 C138,78 140,84 136,90 C120,104 80,110 52,106 C40,104 32,102 30,100 Z" fill="url(#pg-body-<?php echo esc_attr( $s ); ?>)" />
             <ellipse cx="100" cy="94" rx="34" ry="10" fill="#FFFFFF" opacity="0.65" />
+            <path d="M48,104 C78,108 116,102 134,90" fill="none" stroke="#7E8A9C" stroke-width="3" stroke-opacity="0.35" stroke-linecap="round" />
+            <path d="M118,60 C124,54 134,52 140,56 C134,64 130,72 128,80 C124,74 120,68 118,60 Z" fill="url(#pg-neck-<?php echo esc_attr( $s ); ?>)" />
+            <ellipse cx="136" cy="58" rx="6" ry="3" fill="#FFFFFF" opacity="0.7" />
             <path d="M60,82 C85,70 115,68 138,74" fill="none" stroke="#AEB8C6" stroke-width="4" stroke-opacity="0.45" stroke-linecap="round" />
             <!-- head details -->
+            <circle cx="140" cy="62" r="4.2" fill="#E0851A" />
             <circle cx="140" cy="62" r="3" fill="#26303B" />
             <circle cx="141" cy="61" r="1" fill="#FFFFFF" />
             <path d="M152,62 L168,66 L151,71 Z" fill="#E0851A" />
@@ -262,6 +288,9 @@ if ( ! function_exists( 'sp_pigeon' ) ) {
                 <path d="M104,72 C96,52 80,30 52,18 C50,17 48,18 49,20 C66,44 82,62 94,78 C97,82 103,78 104,72 Z" fill="url(#pg-wing-<?php echo esc_attr( $s ); ?>)" stroke="#8E99A8" stroke-width="1" stroke-opacity="0.5" />
                 <path d="M92,60 C80,48 68,38 56,32" fill="none" stroke="#9AA5B5" stroke-width="1.5" stroke-opacity="0.6" stroke-linecap="round" />
                 <path d="M98,66 C88,56 78,48 68,42" fill="none" stroke="#9AA5B5" stroke-width="1.2" stroke-opacity="0.5" stroke-linecap="round" />
+                <!-- primary feather tips: darker edge reads as depth -->
+                <path d="M52,18 C56,26 60,32 64,38 M58,22 C62,30 66,36 70,42" fill="none" stroke="#6F7C90" stroke-width="1.4" stroke-opacity="0.55" stroke-linecap="round" />
+                <path d="M60,28 C76,34 90,50 100,66" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.75" stroke-linecap="round" />
             </g>
             <?php if ( $mail ) : ?>
             <!-- letter on a string -->
