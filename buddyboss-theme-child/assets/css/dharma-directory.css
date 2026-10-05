@@ -125,6 +125,8 @@
     text-decoration: none;
 }
 .sp-dharma-follow:hover { background: #c2410c; color: #fff; }
+.sp-page a.sp-dharma-follow,
+.sp-page button.sp-dharma-follow:not(.is-following) { color: #fff; }
 .sp-dharma-follow.is-following { border-color: #15803d; background: #ecfdf3; color: #166534; }
 .sp-dharma-follow--compact { padding: .45rem .7rem; font-size: .8rem; }
 
