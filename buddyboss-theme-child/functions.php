@@ -160,7 +160,7 @@ require_once get_stylesheet_directory() . '/inc/iconscout/client.php';
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.6' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.7' );
 }
 
 /**
@@ -1785,3 +1785,22 @@ function sp_sanitize_petition_input( $data ) {
     return $data;
 }
 add_filter( 'wp_insert_post_data', 'sp_sanitize_petition_input', 10, 1 );
+
+/**
+ * Retired duplicate pages: 301 their old URLs to the canonical page so
+ * bookmarks and search results don't land on a 404.
+ */
+function sp_retired_page_redirects() {
+    if ( ! is_404() ) {
+        return;
+    }
+    $map  = array(
+        'contact-2' => '/contact/',
+    );
+    $path = trim( (string) wp_parse_url( isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '', PHP_URL_PATH ), '/' );
+    if ( isset( $map[ $path ] ) ) {
+        wp_safe_redirect( home_url( $map[ $path ] ), 301 );
+        exit;
+    }
+}
+add_action( 'template_redirect', 'sp_retired_page_redirects', 1 );

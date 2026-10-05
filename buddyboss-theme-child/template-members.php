@@ -67,7 +67,7 @@ $bb_members_url = function_exists( 'bp_get_members_directory_permalink' ) ? bp_g
                 $avatar   = get_avatar_url( $mid, array( 'size' => 160 ) );
                 $loc      = function_exists( 'sp_profile_get_field' ) ? sp_profile_get_field( 'location', $mid ) : '';
                 $bio      = function_exists( 'sp_profile_get_field' ) ? sp_profile_get_field( 'bio', $mid ) : '';
-                $prof_url = function_exists( 'bp_core_get_user_domain' ) ? bp_core_get_user_domain( $mid ) : home_url( '/members/' . $m->user_nicename . '/' );
+                $prof_url = sp_member_profile_url( $mid );
                 $pet_n    = count_user_posts( $mid, 'petition' );
             ?>
                 <article class="sp-member-card">
