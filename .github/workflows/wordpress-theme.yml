@@ -103,7 +103,9 @@ jobs:
           set -u
           theme="$1/buddyboss-theme-child"
           owner="$(stat -c '%U:%G' "$theme")"
-          chown -R "$owner" "$theme" 2>/dev/null || echo "chown skipped (deploy user is not root)"
+          chown -R "$owner" "$theme" 2>/dev/null \
+            || sudo -n /usr/bin/chown -R "$owner" "$theme" 2>/dev/null \
+            || echo "chown skipped (no permission; see /etc/sudoers.d/sampreshan-deploy-chown)"
           wp_root="$(cd "$1/../.." && pwd)"
           if command -v wp >/dev/null 2>&1; then
             wp --path="$wp_root" --allow-root litespeed-purge all 2>/dev/null || true
