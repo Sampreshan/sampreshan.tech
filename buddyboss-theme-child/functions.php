@@ -160,7 +160,7 @@ require_once get_stylesheet_directory() . '/inc/iconscout/client.php';
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.4' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.6' );
 }
 
 /**
@@ -439,6 +439,7 @@ require_once get_stylesheet_directory() . '/inc/notifications/center.php';
 require_once get_stylesheet_directory() . '/inc/seo/schema.php';
 require_once get_stylesheet_directory() . '/inc/migrated-acharya-pages.php';
 require_once get_stylesheet_directory() . '/inc/dharma-directory.php';
+require_once get_stylesheet_directory() . '/inc/ai-agent/ajax.php';
 
 /**
  * Skip link — the first focusable element on every page (WCAG 2.4.1).
@@ -747,6 +748,31 @@ function sampreshan_child_enqueue_styles() {
             array( 'sampreshan-icon-system' ),
             SAMPRESHAN_CHILD_VERSION
         );
+    }
+
+    // Sampreshan Sahayak widget: only when the server-side key is configured,
+    // matching the footer markup guard so nothing loads for an absent widget.
+    if ( function_exists( 'sp_ai_agent_is_configured' ) && sp_ai_agent_is_configured() ) {
+        // Cached guest pages would otherwise serve an expired nonce; LiteSpeed
+        // swaps registered nonces via ESI.
+        do_action( 'litespeed_nonce', 'sp_ai_agent_chat' );
+        wp_enqueue_style(
+            'sampreshan-ai-agent',
+            get_stylesheet_directory_uri() . '/assets/css/ai-agent.css',
+            array( 'sampreshan-icon-system' ),
+            SAMPRESHAN_CHILD_VERSION
+        );
+        wp_enqueue_script(
+            'sampreshan-ai-agent',
+            get_stylesheet_directory_uri() . '/assets/js/ai-agent.js',
+            array(),
+            SAMPRESHAN_CHILD_VERSION,
+            true
+        );
+        wp_localize_script( 'sampreshan-ai-agent', 'SampreshanSahayak', array(
+            'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+            'nonce'   => wp_create_nonce( 'sp_ai_agent_chat' ),
+        ) );
     }
 
     // Custom login page styles — load on the /login page or when digit
