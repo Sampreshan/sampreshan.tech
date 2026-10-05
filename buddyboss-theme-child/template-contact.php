@@ -80,7 +80,7 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['sp_contact_nonce'] 
                 <div>
                     <div class="sp-contact-info__item-label"><?php esc_html_e( 'Email', 'sampreshan-child' ); ?></div>
                     <div class="sp-contact-info__item-value">
-                        <a href="mailto:info@sampreshan.tech">info@sampreshan.tech</a>
+                        <a href="mailto:connect@sampreshan.tech">connect@sampreshan.tech</a>
                     </div>
                 </div>
             </div>
