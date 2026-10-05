@@ -221,3 +221,23 @@ if ( ! function_exists( 'sp_profile_user_edit_admin_fields' ) ) {
     add_action( 'personal_options_update', 'sp_profile_save_admin_fields' );
     add_action( 'edit_user_profile_update', 'sp_profile_save_admin_fields' );
 }
+
+/**
+ * Public profile URL for a member.
+ *
+ * BuddyBoss Platform is not active on the live site, so /members/<slug>/
+ * has no route and 404s. Fall back to the theme's profile page, which
+ * already renders any member via ?user_id=.
+ *
+ * @param int $user_id Member ID.
+ * @return string
+ */
+if ( ! function_exists( 'sp_member_profile_url' ) ) {
+    function sp_member_profile_url( $user_id ) {
+        $user_id = (int) $user_id;
+        if ( function_exists( 'bp_core_get_user_domain' ) ) {
+            return bp_core_get_user_domain( $user_id );
+        }
+        return add_query_arg( 'user_id', $user_id, home_url( '/profile/' ) );
+    }
+}

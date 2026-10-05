@@ -63,8 +63,7 @@ $sp_feed_id  = $sp_feed_url ? url_to_postid( $sp_feed_url ) : 0;
 
                 <div class="site-header__user-menu">
                     <?php
-                    $bp_name = function_exists( 'bp_core_get_username' ) ? bp_core_get_username( $current_user->ID ) : '';
-                    $profile_link = $bp_name ? home_url( '/members/' . $bp_name . '/' ) : home_url( '/profile/' );
+                    $profile_link = function_exists( 'sp_member_profile_url' ) ? sp_member_profile_url( $current_user->ID ) : home_url( '/profile/' );
                     ?>
                     <a class="site-header__avatar" href="<?php echo esc_url( $profile_link ); ?>" aria-label="<?php echo esc_attr( $current_user->display_name ); ?>">
                         <?php
