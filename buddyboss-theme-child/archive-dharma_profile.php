@@ -16,7 +16,7 @@ $args   = array(
     'post_status'    => 'publish',
     'posts_per_page' => 12,
     'paged'          => max( 1, (int) get_query_var( 'paged' ) ),
-    'orderby'        => 'title',
+    'orderby'        => array( 'menu_order' => 'ASC', 'title' => 'ASC' ),
     'order'          => 'ASC',
 );
 if ( '' !== $search ) { $args['s'] = $search; }
