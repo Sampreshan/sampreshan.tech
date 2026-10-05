@@ -160,7 +160,7 @@ require_once get_stylesheet_directory() . '/inc/iconscout/client.php';
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.8' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.9' );
 }
 
 /**
@@ -911,6 +911,32 @@ function sampreshan_child_enqueue_styles() {
         SAMPRESHAN_CHILD_VERSION,
         true
     );
+
+    // Notification bell + Anusaran follow toggle (members only).
+    if ( is_user_logged_in() ) {
+        wp_enqueue_style(
+            'sampreshan-notifications',
+            get_stylesheet_directory_uri() . '/assets/css/notifications.css',
+            array(),
+            SAMPRESHAN_CHILD_VERSION
+        );
+        wp_enqueue_script(
+            'sampreshan-notifications',
+            get_stylesheet_directory_uri() . '/assets/js/notifications.js',
+            array(),
+            SAMPRESHAN_CHILD_VERSION,
+            true
+        );
+        do_action( 'litespeed_nonce', 'sp_notifications' );
+        wp_localize_script(
+            'sampreshan-notifications',
+            'SampreshanNotif',
+            array(
+                'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+                'nonce'   => wp_create_nonce( 'sp_notifications' ),
+            )
+        );
+    }
 
     // Theme toggle JS (dark mode, persisted) — global footer.
     wp_enqueue_script(

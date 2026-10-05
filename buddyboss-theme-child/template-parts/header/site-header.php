@@ -56,10 +56,17 @@ $sp_feed_id  = $sp_feed_url ? url_to_postid( $sp_feed_url ) : 0;
             </button>
 
             <?php if ( $is_logged_in ) : ?>
-                <button class="site-header__notification-btn" type="button" aria-label="Notifications">
-                    <?php sp_icon_auto( 'bell', 'sp-icon--md', __( 'Notifications', 'sampreshan-child' ) ); ?>
-                    <span class="site-header__notification-badge" aria-hidden="true"></span>
-                </button>
+                <div class="sp-notif" data-sp-notif>
+                    <button class="site-header__notification-btn" type="button" aria-label="<?php esc_attr_e( 'Notifications', 'sampreshan-child' ); ?>" aria-expanded="false" aria-controls="sp-notif-panel" data-sp-notif-toggle>
+                        <?php sp_icon_auto( 'bell', 'sp-icon--md', __( 'Notifications', 'sampreshan-child' ) ); ?>
+                        <span class="site-header__notification-badge" aria-hidden="true" hidden data-sp-notif-badge></span>
+                    </button>
+                    <div class="sp-notif__panel" id="sp-notif-panel" role="region" aria-label="<?php esc_attr_e( 'Notifications', 'sampreshan-child' ); ?>" hidden>
+                        <p class="sp-notif__head"><?php esc_html_e( 'Notifications', 'sampreshan-child' ); ?></p>
+                        <ul class="sp-notif__list" data-sp-notif-list></ul>
+                        <p class="sp-notif__empty" data-sp-notif-empty hidden><?php esc_html_e( 'No notifications yet. Follow an Acharya or Peeth to get their updates here.', 'sampreshan-child' ); ?></p>
+                    </div>
+                </div>
 
                 <div class="site-header__user-menu">
                     <?php
