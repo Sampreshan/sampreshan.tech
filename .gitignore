@@ -12,8 +12,56 @@ public_html/*.save
 public_html/*.tmp
 public_html/wp-content/uploads/
 public_html/wp-content/cache/
+public_html/wp-content/litespeed/
 public_html/wp-content/upgrade/
 public_html/wp-content/upgrade-temp-backup/
 
 # Codespaces/local development
 .devcontainer/.env
+
+# ---- Node / build ----
+node_modules/
+*.log
+
+# ---- OS files ----
+.DS_Store
+Thumbs.db
+
+# ---- Local config ----
+.env
+.local.env
+
+# ---- Backup archives (keep the SQL dump in repo per decision) ----
+*.tar.gz
+*.zip
+backups/
+extract.sh
+
+# ---- Editor ----
+.idea/
+.vscode/
+*.code-workspace
+
+# ---- Agent / Skill files ----
+.claude/
+.workbuddy-ai/
+.serena/
+.codex/
+.continue/
+.kilo/
+ops/
+push-via-api.sh
+.playwright-mcp/
+
+# Server-local (VPS: repo root = /home/sampreshan.tech, web root = public_html/)
+/backup/
+/backups/
+/logs/
+/.trash/
+/public_html.broken-*/
+/*.sql
+/*.xml
+# Live child theme is deployed from /buddyboss-theme-child (repo root) into wp-content/themes/
+public_html/wp-content/themes/buddyboss-theme-child/
+public_html/wp-content/themes/.buddyboss-theme-child.*
+public_html/wp-content/wpcode/
