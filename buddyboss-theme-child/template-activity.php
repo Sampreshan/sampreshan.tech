@@ -19,6 +19,10 @@ $items = new WP_Query( array(
     'order'          => 'DESC',
 ) );
 
+$dharma_updates = ( is_user_logged_in() && function_exists( 'sp_dharma_feed_profile_ids' ) )
+    ? sp_dharma_updates_for_profiles( sp_dharma_feed_profile_ids(), 6 )
+    : null;
+
 $show_story_form = is_user_logged_in() && ! empty( $_GET['new_story'] );
 $start_url       = home_url( '/start-a-petition/' );
 ?>
@@ -56,6 +60,37 @@ $start_url       = home_url( '/start-a-petition/' );
                 </div>
             </form>
         </div>
+    <?php endif; ?>
+
+    <?php if ( $dharma_updates && $dharma_updates->have_posts() ) : ?>
+        <section class="sp-feed sp-feed--dharma" aria-label="<?php esc_attr_e( 'Updates from Acharyas and Peeths you follow', 'sampreshan-child' ); ?>">
+            <?php while ( $dharma_updates->have_posts() ) : $dharma_updates->the_post();
+                $source = get_post( sp_dharma_update_profile_id( get_the_ID() ) );
+            ?>
+                <article class="sp-feed__item sp-dash-card sp-dash-card--pad">
+                    <div class="sp-feed__head">
+                        <span class="sp-feed__avatar" aria-hidden="true">
+                            <?php $thumb = $source ? sp_dharma_profile_image_url( $source->ID, 'thumbnail' ) : ''; ?>
+                            <?php if ( $thumb ) : ?>
+                                <img src="<?php echo esc_url( $thumb ); ?>" alt="" width="36" height="36" loading="lazy" />
+                            <?php else : ?>
+                                <?php sp_icon_auto( 'account', 'sp-icon--sm', '' ); ?>
+                            <?php endif; ?>
+                        </span>
+                        <div class="sp-feed__who">
+                            <strong><?php echo esc_html( $source ? $source->post_title : __( 'Dharma update', 'sampreshan-child' ) ); ?></strong>
+                            <small><?php esc_html_e( 'shared an update', 'sampreshan-child' ); ?> &middot; <?php echo esc_html( human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) ); ?> <?php esc_html_e( 'ago', 'sampreshan-child' ); ?></small>
+                        </div>
+                        <span class="sp-dash-pill sp-dash-pill--active"><?php esc_html_e( 'Anusaran', 'sampreshan-child' ); ?></span>
+                    </div>
+                    <h2 class="sp-feed__title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+                    <p class="sp-feed__excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt() ?: wp_strip_all_tags( get_the_content() ), 28 ) ); ?></p>
+                    <div class="sp-dash-row__actions">
+                        <a class="sp-dash-link" href="<?php the_permalink(); ?>"><?php esc_html_e( 'Read →', 'sampreshan-child' ); ?></a>
+                    </div>
+                </article>
+            <?php endwhile; wp_reset_postdata(); ?>
+        </section>
     <?php endif; ?>
 
     <?php if ( $items->have_posts() ) : ?>

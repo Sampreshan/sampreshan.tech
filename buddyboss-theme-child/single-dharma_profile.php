@@ -15,7 +15,7 @@ while ( have_posts() ) : the_post();
     $veda       = (string) get_post_meta( $profile_id, '_sp_dharma_veda', true );
     $mahavakya  = (string) get_post_meta( $profile_id, '_sp_dharma_mahavakya', true );
     $image_url  = sp_dharma_profile_image_url( $profile_id, 'large' );
-    $updates    = sp_dharma_updates_for_profiles( array( $profile_id ), 10 );
+    $updates    = sp_dharma_updates_for_profiles( 'peeth' === sp_dharma_profile_kind( $profile_id ) ? sp_dharma_same_peeth_ids( $profile_id ) : array( $profile_id ), 10 );
 ?>
 <main id="main" class="sp-page sp-dharma-profile" role="main">
     <header class="sp-dharma-profile__hero">
@@ -29,7 +29,7 @@ while ( have_posts() ) : the_post();
             <a class="btn btn--ghost" href="<?php echo esc_url( add_query_arg( 'profile', $profile_id, home_url( '/start-a-petition/' ) ) ); ?>"><?php esc_html_e( 'Raise a connected issue', 'sampreshan-child' ); ?></a>
             <a class="btn btn--ghost" href="<?php echo esc_url( sp_dharma_directory_url() ); ?>"><?php esc_html_e( 'All profiles', 'sampreshan-child' ); ?></a>
         </div>
-        <p class="sp-dharma-profile__followers"><?php echo esc_html( sprintf( _n( '%s member follows this profile', '%s members follow this profile', sp_dharma_follow_count( $profile_id ), 'sampreshan-child' ), number_format_i18n( sp_dharma_follow_count( $profile_id ) ) ) ); ?></p>
+        <p class="sp-dharma-profile__followers" data-sp-follow-count><?php echo esc_html( sprintf( _n( '%s member follows this profile', '%s members follow this profile', sp_dharma_follow_count( $profile_id ), 'sampreshan-child' ), number_format_i18n( sp_dharma_follow_count( $profile_id ) ) ) ); ?></p>
     </header>
     <div class="sp-dharma-profile__layout">
         <article class="sp-dharma-content">

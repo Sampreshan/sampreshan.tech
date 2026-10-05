@@ -2,11 +2,9 @@
 /**
  * Sampreshan Notification Center — on-site petition notifications.
  *
- * Petition events (new I, starter updates, victory, welcome) are pushed
- * into the BuddyPress/BuddyBoss native notifications API, so they appear
- * in the theme's own bell + notifications screen on desktop, tablet and
- * mobile with zero custom UI to maintain. Email + dashboard activity
- * continue to work alongside.
+ * Petition events (new I, starter updates, victory, welcome) and Dharma
+ * updates from followed Acharyas/Peeths are stored per user and shown in
+ * the header bell. Email + dashboard activity continue to work alongside.
  *
  * @package SampreShan_Child
  */
@@ -14,25 +12,99 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 /**
- * Push one notification (no-op when BP notifications are unavailable).
+ * Per-user notification store. BuddyBoss Platform is not active on this
+ * site, so notifications live in user meta (newest first, capped) and are
+ * rendered by the header bell via AJAX.
+ */
+const SP_NOTIF_META = '_sp_notifications';
+const SP_NOTIF_MAX  = 60;
+
+function sp_notif_get_all( $user_id ) {
+    $items = get_user_meta( (int) $user_id, SP_NOTIF_META, true );
+    return is_array( $items ) ? $items : array();
+}
+
+function sp_notif_save_all( $user_id, $items ) {
+    update_user_meta( (int) $user_id, SP_NOTIF_META, array_slice( array_values( $items ), 0, SP_NOTIF_MAX ) );
+}
+
+function sp_notif_unread_count( $user_id ) {
+    $count = 0;
+    foreach ( sp_notif_get_all( $user_id ) as $item ) {
+        if ( ! empty( $item['new'] ) ) { $count++; }
+    }
+    return $count;
+}
+
+/**
+ * Push one notification for a user.
  */
 function sp_notify_user( $user_id, $action, $petition_id = 0, $secondary_id = 0, $allow_duplicate = false ) {
     $user_id = (int) $user_id;
-    if ( $user_id <= 0 ) { return false; }
-    if ( ! function_exists( 'bp_notifications_add_notification' ) ) { return false; }
-    if ( function_exists( 'bp_is_active' ) && ! bp_is_active( 'notifications' ) ) { return false; }
+    if ( $user_id <= 0 || ! get_userdata( $user_id ) ) { return false; }
 
-    return bp_notifications_add_notification( array(
-        'user_id'           => $user_id,
-        'item_id'           => (int) $petition_id,
-        'secondary_item_id' => (int) $secondary_id,
-        'component_name'    => 'sampreshan',
-        'component_action'  => sanitize_key( $action ),
-        'date_notified'     => function_exists( 'bp_core_current_time' ) ? bp_core_current_time() : current_time( 'mysql' ),
-        'is_new'            => 1,
-        'allow_duplicate'   => (bool) $allow_duplicate,
+    $action = sanitize_key( $action );
+    $items  = sp_notif_get_all( $user_id );
+    if ( ! $allow_duplicate ) {
+        foreach ( $items as $item ) {
+            if ( $item['action'] === $action && (int) $item['item'] === (int) $petition_id && (int) $item['secondary'] === (int) $secondary_id ) {
+                return false;
+            }
+        }
+    }
+
+    array_unshift( $items, array(
+        'id'        => wp_generate_uuid4(),
+        'action'    => $action,
+        'item'      => (int) $petition_id,
+        'secondary' => (int) $secondary_id,
+        'time'      => time(),
+        'new'       => 1,
     ) );
+    sp_notif_save_all( $user_id, $items );
+    return true;
 }
+
+/**
+ * Text + link for one stored notification, via the existing formatters.
+ */
+function sp_notif_render( $item ) {
+    $out = apply_filters( 'bp_notifications_get_notifications_for_user', '', (int) $item['item'], (int) $item['secondary'], 1, 'array', $item['action'], 'sampreshan', 0 );
+    return ( is_array( $out ) && ! empty( $out['text'] ) ) ? $out : null;
+}
+
+function sp_notif_ajax_list() {
+    if ( ! is_user_logged_in() ) { wp_send_json_error( null, 401 ); }
+    check_ajax_referer( 'sp_notifications', 'nonce' );
+
+    $user_id = get_current_user_id();
+    $list    = array();
+    foreach ( array_slice( sp_notif_get_all( $user_id ), 0, 20 ) as $item ) {
+        $rendered = sp_notif_render( $item );
+        if ( ! $rendered ) { continue; }
+        $list[] = array(
+            'text' => $rendered['text'],
+            'link' => esc_url_raw( $rendered['link'] ),
+            'ago'  => sprintf( __( '%s ago', 'sampreshan-child' ), human_time_diff( (int) $item['time'], time() ) ),
+            'new'  => ! empty( $item['new'] ),
+        );
+    }
+    wp_send_json_success( array( 'items' => $list, 'unread' => sp_notif_unread_count( $user_id ) ) );
+}
+add_action( 'wp_ajax_sp_notifications_list', 'sp_notif_ajax_list' );
+
+function sp_notif_ajax_mark_read() {
+    if ( ! is_user_logged_in() ) { wp_send_json_error( null, 401 ); }
+    check_ajax_referer( 'sp_notifications', 'nonce' );
+
+    $user_id = get_current_user_id();
+    $items   = sp_notif_get_all( $user_id );
+    foreach ( $items as &$item ) { $item['new'] = 0; }
+    unset( $item );
+    sp_notif_save_all( $user_id, $items );
+    wp_send_json_success( array( 'unread' => 0 ) );
+}
+add_action( 'wp_ajax_sp_notifications_read', 'sp_notif_ajax_mark_read' );
 
 /**
  * Recent signer IDs for fan-out (excludes nobody; caller filters actor).
@@ -53,8 +125,11 @@ function sp_notif_recent_signer_ids( $petition_id, $limit = 15 ) {
  * Drop older unread notifications of the same kind so updates never pile up.
  */
 function sp_notif_clear_kind( $user_id, $petition_id, $action ) {
-    if ( ! function_exists( 'bp_notifications_delete_notifications_by_item_id' ) ) { return; }
-    bp_notifications_delete_notifications_by_item_id( (int) $user_id, (int) $petition_id, 'sampreshan', sanitize_key( $action ) );
+    $action = sanitize_key( $action );
+    $items  = array_filter( sp_notif_get_all( $user_id ), function ( $item ) use ( $petition_id, $action ) {
+        return ! ( $item['action'] === $action && (int) $item['item'] === (int) $petition_id );
+    } );
+    sp_notif_save_all( $user_id, $items );
 }
 
 /**
