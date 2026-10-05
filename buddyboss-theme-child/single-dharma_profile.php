@@ -108,7 +108,7 @@ while ( have_posts() ) : the_post();
     <article class="sp-folio">
         <header class="sp-folio__hero">
             <div class="sp-folio__portrait">
-                <?php if ( $image_url ) : ?><img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" width="640" height="640" loading="eager" /><?php endif; ?>
+                <?php if ( $image_url ) : ?><img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" width="640" height="640" loading="eager" /><?php else : ?><span class="sp-folio__placeholder" aria-hidden="true">ॐ</span><?php endif; ?>
             </div>
             <div class="sp-folio__intro">
                 <?php if ( $data ) : ?><p class="sp-folio__role"><?php echo esc_html( $data['role'] ); ?></p><?php endif; ?>

@@ -226,6 +226,7 @@ function sp_dharma_data_all() {
             'kind'      => 'acharya',
             'order'     => 31,
             'peeth'     => 'uttaraminaya-jyotirmath-peeth',
+            'title'     => 'Swami Avimukteshwaranand Saraswati',
             'role'      => 'Declared Shankaracharya of Jyotish Peeth (succession sub judice)',
             'name_hi'   => 'स्वामी अविमुक्तेश्वरानन्द सरस्वती',
             'summary'   => 'Disciple of Swami Swaroopanand Saraswati, declared Shankaracharya of Jyotish Peeth in September 2022; the succession is before the Supreme Court of India.',
@@ -405,7 +406,7 @@ function sp_dharma_profile_by_slug( $slug ) {
  * Acharya profiles. Bump the version to re-run after editing the data.
  */
 function sp_dharma_sync_reference_data() {
-    $version = '2026-10-a';
+    $version = '2026-10-b';
     if ( get_option( 'sp_dharma_data_version' ) === $version ) {
         return;
     }
