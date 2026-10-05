@@ -160,7 +160,7 @@ require_once get_stylesheet_directory() . '/inc/iconscout/client.php';
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.12' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.13' );
 }
 
 /**
@@ -439,6 +439,7 @@ require_once get_stylesheet_directory() . '/inc/notifications/center.php';
 require_once get_stylesheet_directory() . '/inc/seo/schema.php';
 require_once get_stylesheet_directory() . '/inc/migrated-acharya-pages.php';
 require_once get_stylesheet_directory() . '/inc/dharma-directory.php';
+require_once get_stylesheet_directory() . '/inc/dharma-data.php';
 require_once get_stylesheet_directory() . '/inc/ai-agent/ajax.php';
 
 /**
