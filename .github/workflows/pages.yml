@@ -51,6 +51,7 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Build static demo artifact
+        id: build
         env:
           PAGES_OPTIONAL_DIRS: ${{ github.event.inputs.optional_dirs || 'assets css js images img fonts' }}
           PAGES_OPTIONAL_FILES: ${{ github.event.inputs.optional_files || 'favicon.ico robots.txt sitemap.xml' }}
@@ -58,27 +59,32 @@ jobs:
           set -euo pipefail
           rm -rf site
           mkdir -p site
-          copied=0
-          [ -f index.html ] && cp index.html site/ && copied=1
-          [ -f demo.html ] && cp demo.html site/ && copied=1
-          [ -f preview.html ] && cp preview.html site/ && copied=1
+          # Use if-blocks: a trailing false `[ ] && cp` would abort under set -e.
+          entry=0
+          for file in index.html demo.html preview.html; do
+            if [ -f "$file" ]; then cp "$file" site/; entry=1; fi
+          done
           for dir in $PAGES_OPTIONAL_DIRS; do
-            [ -d "$dir" ] && cp -R "$dir" site/ && copied=1
+            if [ -d "$dir" ]; then cp -R "$dir" site/; fi
           done
           for file in $PAGES_OPTIONAL_FILES; do
-            [ -f "$file" ] && cp "$file" site/ && copied=1
+            if [ -f "$file" ]; then cp "$file" site/; fi
           done
-          if [ "$copied" -eq 0 ]; then
-            echo "No static demo files found to publish."
-            exit 1
+          if [ "$entry" -eq 0 ]; then
+            echo "::notice::No demo entry HTML (index/demo/preview.html) in repo root; skipping Pages deploy."
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
           touch site/.nojekyll
+          echo "publish=true" >> "$GITHUB_OUTPUT"
 
       - name: Upload artifact
+        if: steps.build.outputs.publish == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: 'site'
 
       - name: Deploy to GitHub Pages
+        if: steps.build.outputs.publish == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
