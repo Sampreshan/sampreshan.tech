@@ -32,6 +32,13 @@ function sp_dharma_register_content_types() {
             'show_admin_column' => true,
             'show_in_rest'      => true,
             'rewrite'           => array( 'slug' => 'peeth' ),
+            // Peeths are curated by site administrators only.
+            'capabilities'      => array(
+                'manage_terms' => 'manage_options',
+                'edit_terms'   => 'manage_options',
+                'delete_terms' => 'manage_options',
+                'assign_terms' => 'manage_options',
+            ),
         )
     );
 
@@ -53,6 +60,7 @@ function sp_dharma_register_content_types() {
             'rewrite'      => array( 'slug' => 'dharmacharya', 'with_front' => false ),
             'menu_icon'    => 'dashicons-groups',
             'supports'     => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions' ),
+            'capability_type' => array( 'dharma_profile', 'dharma_profiles' ),
             'map_meta_cap' => true,
         )
     );
@@ -72,11 +80,36 @@ function sp_dharma_register_content_types() {
             'rewrite'      => array( 'slug' => 'dharma-update', 'with_front' => false ),
             'menu_icon'    => 'dashicons-megaphone',
             'supports'     => array( 'title', 'editor', 'excerpt', 'thumbnail', 'author', 'revisions' ),
+            'capability_type' => array( 'dharma_update', 'dharma_updates' ),
             'map_meta_cap' => true,
         )
     );
 }
 add_action( 'init', 'sp_dharma_register_content_types', 5 );
+
+/**
+ * Acharya/Peeth profiles and their updates are admin-only: grant the custom
+ * capabilities to administrators and nobody else. Members can only follow.
+ */
+function sp_dharma_grant_admin_caps() {
+    $version = '1';
+    if ( get_option( 'sp_dharma_caps_version' ) === $version ) {
+        return;
+    }
+    $admin = get_role( 'administrator' );
+    if ( ! $admin ) {
+        return;
+    }
+    foreach ( array( sp_dharma_profile_post_type(), sp_dharma_update_post_type() ) as $type ) {
+        foreach ( (array) get_post_type_object( $type )->cap as $cap ) {
+            if ( ! in_array( $cap, array( 'read', 'edit_posts' ), true ) ) {
+                $admin->add_cap( $cap );
+            }
+        }
+    }
+    update_option( 'sp_dharma_caps_version', $version );
+}
+add_action( 'init', 'sp_dharma_grant_admin_caps', 6 );
 
 function sp_dharma_legacy_profile_content( $slug, $fallback_content ) {
     $legacy = get_page_by_path( $slug, OBJECT, 'page' );
@@ -347,6 +380,61 @@ function sp_dharma_is_following( $profile_id, $user_id = 0 ) {
     return in_array( (int) $profile_id, sp_dharma_followed_ids( $user_id ), true );
 }
 
+function sp_dharma_profile_kind( $profile_id ) {
+    return 'peeth' === get_post_meta( (int) $profile_id, '_sp_dharma_kind', true ) ? 'peeth' : 'acharya';
+}
+
+/**
+ * Profiles sharing a Peeth term with the given profile (including itself).
+ */
+function sp_dharma_same_peeth_ids( $profile_id ) {
+    $terms = wp_get_object_terms( (int) $profile_id, 'dharma_peeth', array( 'fields' => 'ids' ) );
+    if ( is_wp_error( $terms ) || empty( $terms ) ) {
+        return array( (int) $profile_id );
+    }
+    $ids   = get_posts(
+        array(
+            'post_type'      => sp_dharma_profile_post_type(),
+            'post_status'    => 'publish',
+            'posts_per_page' => -1,
+            'fields'         => 'ids',
+            'tax_query'      => array( array( 'taxonomy' => 'dharma_peeth', 'field' => 'term_id', 'terms' => $terms ) ),
+        )
+    );
+    $ids[] = (int) $profile_id;
+    return array_values( array_unique( array_map( 'intval', $ids ) ) );
+}
+
+/**
+ * Profiles whose updates reach a follower: following a Peeth also covers its
+ * Acharya; following an Acharya covers that Acharya only.
+ */
+function sp_dharma_feed_profile_ids( $user_id = 0 ) {
+    $ids = array();
+    foreach ( sp_dharma_followed_ids( $user_id ) as $profile_id ) {
+        $ids = array_merge( $ids, 'peeth' === sp_dharma_profile_kind( $profile_id ) ? sp_dharma_same_peeth_ids( $profile_id ) : array( $profile_id ) );
+    }
+    return array_values( array_unique( $ids ) );
+}
+
+/**
+ * Peeth profile for a Peeth term, used for the follow button on term pages.
+ */
+function sp_dharma_peeth_profile_for_term( $term_id ) {
+    $ids = get_posts(
+        array(
+            'post_type'      => sp_dharma_profile_post_type(),
+            'post_status'    => 'publish',
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+            'meta_key'       => '_sp_dharma_kind',
+            'meta_value'     => 'peeth',
+            'tax_query'      => array( array( 'taxonomy' => 'dharma_peeth', 'field' => 'term_id', 'terms' => (int) $term_id ) ),
+        )
+    );
+    return $ids ? (int) $ids[0] : 0;
+}
+
 function sp_dharma_follow_count( $profile_id ) {
     return max( 0, (int) get_post_meta( (int) $profile_id, '_sp_dharma_follow_count', true ) );
 }
@@ -369,7 +457,7 @@ function sp_dharma_follow_button( $profile_id, $classes = '' ) {
 
     $following = sp_dharma_is_following( $profile_id );
     ?>
-    <form class="sp-dharma-follow-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+    <form class="sp-dharma-follow-form" data-sp-dharma-follow method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
         <input type="hidden" name="action" value="sp_toggle_dharma_follow" />
         <input type="hidden" name="profile_id" value="<?php echo esc_attr( $profile_id ); ?>" />
         <input type="hidden" name="redirect_to" value="<?php echo esc_url( add_query_arg( 'anusaran', $following ? 'removed' : 'added', get_permalink( $profile_id ) ) ); ?>" />
@@ -392,8 +480,18 @@ function sp_dharma_toggle_follow() {
         wp_die( esc_html__( 'The requested profile could not be found.', 'sampreshan-child' ), 404 );
     }
     check_admin_referer( 'sp_toggle_dharma_follow_' . $profile_id );
+    sp_dharma_apply_toggle( get_current_user_id(), $profile_id );
 
-    $user_id   = get_current_user_id();
+    $redirect = isset( $_POST['redirect_to'] ) ? wp_unslash( $_POST['redirect_to'] ) : get_permalink( $profile_id );
+    wp_safe_redirect( wp_validate_redirect( $redirect, get_permalink( $profile_id ) ) );
+    exit;
+}
+add_action( 'admin_post_sp_toggle_dharma_follow', 'sp_dharma_toggle_follow' );
+
+/**
+ * Flip a user's follow state for a profile. Returns true when now following.
+ */
+function sp_dharma_apply_toggle( $user_id, $profile_id ) {
     $following = sp_dharma_followed_ids( $user_id );
     $key       = array_search( $profile_id, $following, true );
     if ( false === $key ) {
@@ -404,12 +502,34 @@ function sp_dharma_toggle_follow() {
         update_post_meta( $profile_id, '_sp_dharma_follow_count', max( 0, sp_dharma_follow_count( $profile_id ) - 1 ) );
     }
     update_user_meta( $user_id, '_sp_dharma_following', array_values( $following ) );
-
-    $redirect = isset( $_POST['redirect_to'] ) ? wp_unslash( $_POST['redirect_to'] ) : get_permalink( $profile_id );
-    wp_safe_redirect( wp_validate_redirect( $redirect, get_permalink( $profile_id ) ) );
-    exit;
+    return false === $key;
 }
-add_action( 'admin_post_sp_toggle_dharma_follow', 'sp_dharma_toggle_follow' );
+
+/**
+ * AJAX follow toggle so the page does not reload; the form still works
+ * without JavaScript via admin-post.
+ */
+function sp_dharma_ajax_toggle_follow() {
+    if ( ! is_user_logged_in() ) {
+        wp_send_json_error( null, 401 );
+    }
+    $profile_id = isset( $_POST['profile_id'] ) ? absint( $_POST['profile_id'] ) : 0;
+    if ( $profile_id <= 0 || sp_dharma_profile_post_type() !== get_post_type( $profile_id ) ) {
+        wp_send_json_error( null, 404 );
+    }
+    check_ajax_referer( 'sp_toggle_dharma_follow_' . $profile_id );
+
+    $now = sp_dharma_apply_toggle( get_current_user_id(), $profile_id );
+    wp_send_json_success(
+        array(
+            'following' => $now,
+            'label'     => $now ? __( 'Anusaran mein hai', 'sampreshan-child' ) : __( 'Anusaran karein', 'sampreshan-child' ),
+            'count'     => sp_dharma_follow_count( $profile_id ),
+            'countText' => sprintf( _n( '%s member follows this profile', '%s members follow this profile', sp_dharma_follow_count( $profile_id ), 'sampreshan-child' ), number_format_i18n( sp_dharma_follow_count( $profile_id ) ) ),
+        )
+    );
+}
+add_action( 'wp_ajax_sp_toggle_dharma_follow', 'sp_dharma_ajax_toggle_follow' );
 
 function sp_dharma_update_profile_id( $update_id ) {
     return absint( get_post_meta( (int) $update_id, '_sp_dharma_profile_id', true ) );
@@ -501,15 +621,28 @@ function sp_dharma_notify_followers_on_publish( $new_status, $old_status, $post 
         return;
     }
 
-    $followers = get_users(
-        array(
-            'meta_key'     => '_sp_dharma_following',
-            'meta_value'   => '"' . $profile_id . '"',
-            'meta_compare' => 'LIKE',
-            'fields'       => 'ID',
-        )
-    );
-    foreach ( $followers as $user_id ) {
+    // Followers of the profile itself, plus followers of its Peeth.
+    $sources = array( $profile_id );
+    foreach ( sp_dharma_same_peeth_ids( $profile_id ) as $related_id ) {
+        if ( 'peeth' === sp_dharma_profile_kind( $related_id ) ) {
+            $sources[] = $related_id;
+        }
+    }
+    $followers = array();
+    foreach ( array_unique( $sources ) as $source_id ) {
+        $followers = array_merge(
+            $followers,
+            get_users(
+                array(
+                    'meta_key'     => '_sp_dharma_following',
+                    'meta_value'   => 'i:' . (int) $source_id . ';',
+                    'meta_compare' => 'LIKE',
+                    'fields'       => 'ID',
+                )
+            )
+        );
+    }
+    foreach ( array_unique( array_map( 'intval', $followers ) ) as $user_id ) {
         sp_notify_user( (int) $user_id, 'dharma_update', (int) $post->ID, $profile_id );
     }
     update_post_meta( $post->ID, '_sp_dharma_update_notified', current_time( 'mysql' ) );
@@ -581,7 +714,7 @@ function sp_dharma_dashboard_section() {
             'orderby'        => 'post__in',
         )
     );
-    $updates = sp_dharma_updates_for_profiles( $followed, 5 );
+    $updates = sp_dharma_updates_for_profiles( sp_dharma_feed_profile_ids(), 5 );
     ?>
     <section class="sp-dharma-dashboard sp-dash-card sp-dash-card--pad" aria-labelledby="sp-dharma-dashboard-title">
         <div class="sp-dharma-section-head">
