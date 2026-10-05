@@ -63,15 +63,79 @@
     z-index: 1;
 }
 
+/* Hero pigeons sit above the light/grid but below the copy (z-index 2). */
+.d3-hero .sp-pigeon-flight {
+    z-index: 1;
+}
+
+/* 3D shankh floats in front of the logo card. translateZ inside the
+   preserve-3d object makes it parallax harder than the card on mouse-move. */
+.d3-hero__shankh {
+    position: absolute;
+    top: -4%;
+    right: -6%;
+    z-index: 3;
+    width: clamp(96px, 30%, 150px);
+    transform: translateZ(70px) rotate(-14deg);
+    pointer-events: none;
+}
+
+.d3-hero__shankh .sp-icon,
+.d3-hero__shankh svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    --sp-icon-size: 100%;
+}
+
+.d3-hero__shankh svg {
+    filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 18px rgba(255, 153, 51, 0.35));
+    animation: sp-shankh-float 6s ease-in-out infinite;
+    transform-origin: 50% 60%;
+}
+
+@keyframes sp-shankh-float {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg) scale(1);
+    }
+
+    50% {
+        transform: translateY(-12px) rotate(6deg) scale(1.04);
+    }
+}
+
+@media (max-width: 767px) {
+    .d3-hero__shankh {
+        width: 84px;
+        right: 0;
+        top: -2%;
+    }
+}
+
 @keyframes sp-spin {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @keyframes sp-breathe {
+
     0%,
-    100% { transform: scale(1);     opacity: 0.75; }
-    50%  { transform: scale(1.055); opacity: 1; }
+    100% {
+        transform: scale(1);
+        opacity: 0.75;
+    }
+
+    50% {
+        transform: scale(1.055);
+        opacity: 1;
+    }
 }
 
 /* Phones: keep the rings (cheap, one element) and drop the rotating mandala
@@ -139,27 +203,25 @@
     content: "";
     width: clamp(24px, 5vw, 56px);
     height: 1px;
-    background: linear-gradient(
-        to right,
-        transparent,
-        var(--d-accent, #ff9933)
-    );
+    background: linear-gradient(to right,
+            transparent,
+            var(--d-accent, #ff9933));
 }
 
 .sp-ornament::after {
-    background: linear-gradient(
-        to left,
-        transparent,
-        var(--d-accent, #ff9933)
-    );
+    background: linear-gradient(to left,
+            transparent,
+            var(--d-accent, #ff9933));
 }
 
 /* ==========================================================================
    REDUCED MOTION
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
+
     .d3-hero__rings,
-    .d3-hero__mandala {
+    .d3-hero__mandala,
+    .d3-hero__shankh svg {
         animation: none !important;
         will-change: auto;
     }
@@ -171,6 +233,7 @@
 
 /* Windows High Contrast — decorative art should not interfere. */
 @media (forced-colors: active) {
+
     .d3-hero__rings,
     .d3-hero__mandala,
     .sp-jali::before {
