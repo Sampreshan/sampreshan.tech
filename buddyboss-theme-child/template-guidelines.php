@@ -121,7 +121,7 @@ get_header();
                 <p><?php esc_html_e( 'If you encounter content that violates these guidelines, please report it immediately.', 'sampreshan-child' ); ?></p>
                 <p>
                     <?php esc_html_e( 'Email us at', 'sampreshan-child' ); ?>
-                    <a href="mailto:info@sampreshan.tech">info@sampreshan.tech</a>
+                    <a href="mailto:connect@sampreshan.tech">connect@sampreshan.tech</a>
                     <?php esc_html_e( 'with the details and we will take appropriate action.', 'sampreshan-child' ); ?>
                 </p>
             </div>

@@ -107,7 +107,7 @@ get_header();
                 <p><?php esc_html_e( 'If you have any questions about this Disclaimer, please contact us:', 'sampreshan-child' ); ?></p>
                 <p>
                     <strong><?php esc_html_e( 'ShivBodh Trust', 'sampreshan-child' ); ?></strong><br>
-                    <?php esc_html_e( 'Email:', 'sampreshan-child' ); ?> <a href="mailto:info@sampreshan.tech">info@sampreshan.tech</a><br>
+                    <?php esc_html_e( 'Email:', 'sampreshan-child' ); ?> <a href="mailto:connect@sampreshan.tech">connect@sampreshan.tech</a><br>
                     <?php esc_html_e( 'Website:', 'sampreshan-child' ); ?> <a href="https://shivbodhtrust.org" target="_blank" rel="noopener">shivbodhtrust.org</a>
                 </p>
             </div>
