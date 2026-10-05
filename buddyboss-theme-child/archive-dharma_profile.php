@@ -55,7 +55,7 @@ $profiles = new WP_Query( $args );
                 $kind       = (string) get_post_meta( $profile_id, '_sp_dharma_kind', true );
                 $image_url  = sp_dharma_profile_image_url( $profile_id, 'medium_large' );
                 ?>
-                <article class="sp-dharma-profile-card">
+                <article class="sp-dharma-profile-card sp-dharma-profile-card--<?php echo esc_attr( 'peeth' === $kind ? 'peeth' : 'acharya' ); ?>">
                     <?php if ( $image_url ) : ?><a class="sp-dharma-card__image" href="<?php the_permalink(); ?>" tabindex="-1" aria-hidden="true"><img src="<?php echo esc_url( $image_url ); ?>" alt="" loading="lazy" /></a><?php endif; ?>
                     <?php if ( $kind ) : ?><p class="sp-dharma-card__kind"><?php echo esc_html( 'peeth' === $kind ? __( 'Peeth profile', 'sampreshan-child' ) : __( 'Acharya profile', 'sampreshan-child' ) ); ?></p><?php endif; ?>
                     <p class="sp-dharma-card__peeth"><?php echo esc_html( $peeth_name ); ?></p>

@@ -21,7 +21,7 @@ while ( have_posts() ) : the_post();
     <header class="sp-dharma-profile__hero">
         <p class="sp-section__eyebrow"><?php echo esc_html( $peeth ); ?></p>
         <h1><?php the_title(); ?></h1>
-        <?php if ( $image_url ) : ?><img class="sp-dharma-profile__image" src="<?php echo esc_url( $image_url ); ?>" alt="" width="960" height="540" loading="eager" /><?php endif; ?>
+        <?php if ( $image_url ) : ?><img class="sp-dharma-profile__image<?php echo 'peeth' === sp_dharma_profile_kind( $profile_id ) ? '' : ' sp-dharma-profile__image--portrait'; ?>" src="<?php echo esc_url( $image_url ); ?>" alt="" width="960" height="540" loading="eager" /><?php endif; ?>
         <?php if ( $mahavakya ) : ?><p class="sp-dharma-profile__maha"><?php echo esc_html( $mahavakya ); ?></p><?php endif; ?>
         <p class="sp-dharma-profile__intro"><?php echo esc_html( get_the_excerpt() ); ?></p>
         <div class="sp-dharma-profile__actions">

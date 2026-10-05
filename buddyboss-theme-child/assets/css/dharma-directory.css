@@ -95,6 +95,10 @@
 .sp-dharma-profile-card dd,
 .sp-dharma-facts-panel dd,
 .sp-dharma-facts dd { margin: .12rem 0 0; font-weight: 700; }
+.sp-dharma-profile-card dd { color: #292524; }
+/* Acharya portraits are square; show the whole face instead of a 16:9 crop. */
+.sp-dharma-profile-card--acharya .sp-dharma-card__image { background: #f5f5f4; }
+.sp-dharma-profile-card--acharya .sp-dharma-card__image img { aspect-ratio: 4 / 3; object-fit: contain; }
 
 .sp-dharma-card__footer,
 .sp-dharma-section-head,
@@ -106,7 +110,7 @@
     flex-wrap: wrap;
 }
 .sp-dharma-card__footer { margin-top: auto; }
-.sp-dharma-card__footer > a,
+.sp-dharma-card__footer > a:not(.sp-dharma-follow),
 .sp-text-link { color: var(--saffron-600, #c2410c); font-weight: 700; text-decoration: none; }
 .sp-dharma-follow-form { display: inline; margin: 0; }
 .sp-dharma-follow {
@@ -129,6 +133,7 @@
 
 .sp-dharma-profile__maha { margin: .25rem 0 .75rem; color: #fed7aa; font-family: Georgia, serif; font-size: 1.25rem; font-style: italic; }
 .sp-dharma-profile__image { display: block; width: min(100%, 760px); max-height: 420px; margin: 1.25rem 0 0; border: 1px solid rgba(255,255,255,.22); border-radius: 16px; object-fit: cover; }
+.sp-dharma-profile__image--portrait { width: min(100%, 420px); aspect-ratio: 1; object-fit: contain; background: #f5f5f4; }
 .sp-dharma-profile__actions { justify-content: flex-start; margin-top: 1.25rem; }
 .sp-dharma-profile__followers { margin: 1rem 0 0; color: rgba(255, 255, 255, .68); font-size: .875rem; }
 .sp-dharma-profile__layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 320px); gap: 1.5rem; margin-top: 1.5rem; }
