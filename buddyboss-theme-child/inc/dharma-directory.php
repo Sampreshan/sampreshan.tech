@@ -449,7 +449,8 @@ function sp_dharma_follow_button( $profile_id, $classes = '' ) {
         printf(
             '<a class="sp-dharma-follow %1$s" href="%2$s">%3$s</a>',
             esc_attr( $classes ),
-            esc_url( wp_login_url( get_permalink( $profile_id ) ) ),
+            // The theme hides wp-login.php links, so use the site's own login page.
+            esc_url( add_query_arg( 'redirect_to', rawurlencode( get_permalink( $profile_id ) ), home_url( '/login/' ) ) ),
             esc_html__( 'Anusaran karein', 'sampreshan-child' )
         );
         return;

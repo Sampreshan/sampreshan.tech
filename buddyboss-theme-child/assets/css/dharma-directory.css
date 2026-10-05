@@ -142,6 +142,15 @@
 .sp-dharma-profile__updates,
 .sp-dharma-dashboard { border: 1px solid var(--border-subtle, #e7e5e4); border-radius: 18px; background: var(--card, #fff); }
 .sp-dharma-content { padding: clamp(1.25rem, 3vw, 2rem); line-height: 1.8; }
+/* Light panels: dark-mode text colours would otherwise be white on white. */
+.sp-dharma-content,
+.sp-dharma-facts-panel,
+.sp-dharma-profile__updates,
+.sp-dharma-dashboard,
+.sp-dharma-content :is(h1, h2, h3, h4, p, li, strong, blockquote),
+.sp-dharma-facts-panel :is(h2, dd),
+.sp-dharma-profile__updates :is(h2, h3, h3 a) { color: #1c1917; }
+.sp-dharma-content a { color: #c2410c; }
 .sp-dharma-facts-panel { padding: 1.25rem; align-self: start; }
 .sp-dharma-facts-panel h2 { margin-top: 0; font-size: 1.15rem; }
 .sp-dharma-facts-panel dl,
