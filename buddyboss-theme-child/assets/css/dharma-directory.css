@@ -273,3 +273,13 @@
     .sp-wiki__toc { display: block; }
     .sp-folio__facts { grid-template-columns: 1fr; }
 }
+
+/* Light surfaces inside the dark site skin: future.css sets
+   body.sp-future headings/links to light colours, so match its specificity. */
+body.sp-future :is(.sp-wiki, .sp-folio__card, .sp-folio__facts, .sp-dharma-refs, .sp-dharma-profile__updates, .sp-dharma-peeth-card, .sp-dharma-profile-card) :is(h1, h2, h3, h4) { color: #1c1917; }
+body.sp-future :is(.sp-wiki, .sp-folio__card, .sp-dharma-refs, .sp-dharma-profile__updates) a:not(.sp-dharma-follow) { color: #c2410c; }
+body.sp-future :is(.sp-wiki__people, .sp-dharma-peeth-card__acharyas) a,
+body.sp-future .sp-dharma-peeth-card h3 a,
+body.sp-future .sp-dharma-profile-card h2 a { color: #1c1917; }
+body.sp-future :is(.sp-wiki, .sp-dharma-refs, .sp-dharma-profile__updates, .sp-dharma-peeth-card, .sp-dharma-profile-card) .sp-dharma-muted { color: #57534e; }
+body.sp-future .sp-folio h1 { color: #fff; }
