@@ -57,4 +57,37 @@ if ( empty( $peeths ) ) {
             </article>
         <?php endforeach; ?>
     </div>
+
+    <?php
+    $acharyas = array();
+    foreach ( $peeths as list( $post, $item ) ) {
+        foreach ( sp_dharma_peeth_acharya_posts( $item ) as $acharya ) {
+            $acharyas[] = array( $acharya, $post );
+        }
+    }
+    ?>
+    <?php if ( $acharyas ) : ?>
+        <div class="sp-fu-sechead sp-dharma-acharya-row__head">
+            <div>
+                <p class="sp-fu-eyebrow"><?php esc_html_e( 'Acharya profiles', 'sampreshan-child' ); ?></p>
+                <h3 class="sp-fu-sectitle"><?php esc_html_e( 'Acharyas of the Peeths', 'sampreshan-child' ); ?></h3>
+            </div>
+        </div>
+        <div class="sp-dharma-acharya-row">
+            <?php foreach ( $acharyas as list( $acharya, $peeth ) ) : ?>
+                <?php $img = sp_dharma_profile_image_url( $acharya->ID, 'medium' ); $a = sp_dharma_data( $acharya ); ?>
+                <article class="sp-dharma-acharya-card">
+                    <a class="sp-dharma-acharya-card__media" href="<?php echo esc_url( get_permalink( $acharya ) ); ?>" tabindex="-1" aria-hidden="true">
+                        <?php if ( $img ) : ?><img src="<?php echo esc_url( $img ); ?>" alt="" width="160" height="160" loading="lazy" /><?php else : ?><span aria-hidden="true">ॐ</span><?php endif; ?>
+                    </a>
+                    <h4><a href="<?php echo esc_url( get_permalink( $acharya ) ); ?>"><?php echo esc_html( get_the_title( $acharya ) ); ?></a></h4>
+                    <?php if ( ! empty( $a['role'] ) ) : ?><p class="sp-dharma-acharya-card__role"><?php echo esc_html( $a['role'] ); ?></p><?php endif; ?>
+                    <div class="sp-dharma-acharya-card__cta">
+                        <a class="sp-dharma-acharya-card__profile" href="<?php echo esc_url( get_permalink( $acharya ) ); ?>"><?php esc_html_e( 'View profile', 'sampreshan-child' ); ?></a>
+                        <?php sp_dharma_follow_button( $acharya->ID, 'sp-dharma-follow--compact' ); ?>
+                    </div>
+                </article>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
 </section>
