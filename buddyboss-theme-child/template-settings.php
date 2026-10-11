@@ -42,6 +42,16 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['sp_settings_nonce']
             }
         }
 
+        if ( empty( $errors ) && function_exists( 'sp_avatar_handle_upload' ) ) {
+            if ( ! empty( $_POST['sp_avatar_remove'] ) ) {
+                sp_avatar_remove( $user_id );
+            }
+            $uploaded = sp_avatar_handle_upload( $user_id );
+            if ( is_wp_error( $uploaded ) ) {
+                $errors[] = $uploaded->get_error_message();
+            }
+        }
+
         if ( empty( $errors ) ) {
             wp_update_user( array( 'ID' => $user_id, 'display_name' => $display ) );
             if ( function_exists( 'sp_profile_set_field' ) ) {
@@ -117,8 +127,23 @@ get_header();
             </div>
         <?php endif; ?>
 
-        <form method="post" action="<?php echo esc_url( get_permalink() ); ?>" class="sp-settings-form">
+        <form method="post" action="<?php echo esc_url( get_permalink() ); ?>" class="sp-settings-form" enctype="multipart/form-data">
             <?php wp_nonce_field( 'sp_save_settings', 'sp_settings_nonce' ); ?>
+
+            <div class="sp-form-group sp-avatar-field">
+                <span class="sp-form-label"><?php esc_html_e( 'Profile photo', 'sampreshan-child' ); ?></span>
+                <div class="sp-avatar-field__row">
+                    <img class="sp-avatar-field__img" src="<?php echo esc_url( get_avatar_url( $user_id, array( 'size' => 160 ) ) ); ?>" alt="" width="80" height="80" />
+                    <div>
+                        <label class="btn btn--ghost" for="sp-avatar"><?php esc_html_e( 'Choose photo', 'sampreshan-child' ); ?></label>
+                        <input class="sp-avatar-field__input" id="sp-avatar" type="file" name="sp_avatar" accept="image/jpeg,image/png,image/webp" />
+                        <?php if ( function_exists( 'sp_avatar_attachment_id' ) && sp_avatar_attachment_id( $user_id ) ) : ?>
+                            <label class="sp-avatar-field__remove"><input type="checkbox" name="sp_avatar_remove" value="1" /> <?php esc_html_e( 'Remove photo', 'sampreshan-child' ); ?></label>
+                        <?php endif; ?>
+                        <p class="sp-dash-muted"><?php esc_html_e( 'JPG, PNG or WebP, up to 2 MB. Click Save Changes to apply.', 'sampreshan-child' ); ?></p>
+                    </div>
+                </div>
+            </div>
 
             <div class="sp-form-group">
                 <label class="sp-form-label" for="sp-display"><?php esc_html_e( 'Display name', 'sampreshan-child' ); ?></label>
