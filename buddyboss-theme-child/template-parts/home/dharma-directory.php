@@ -105,6 +105,7 @@ if ( empty( $peeths ) ) {
                 <p class="sp-fu-eyebrow"><?php esc_html_e( 'Sampradayas', 'sampreshan-child' ); ?></p>
                 <h3 class="sp-fu-sectitle"><?php esc_html_e( 'Sampradayas of Bharat', 'sampreshan-child' ); ?></h3>
             </div>
+            <a class="sp-fu-link" href="<?php echo esc_url( add_query_arg( 'kind', 'sampradaya', sp_dharma_directory_url() ) ); ?>"><?php esc_html_e( 'All sampradayas', 'sampreshan-child' ); ?> &rarr;</a>
         </div>
         <div class="sp-dharma-acharya-row sp-dharma-sampradaya-row">
             <?php foreach ( $sampradayas as list( $post, $item ) ) : ?>
