@@ -26,11 +26,11 @@ while ( have_posts() ) : the_post();
         <?php if ( $peeth_post ) : ?><span aria-hidden="true">/</span><a href="<?php echo esc_url( get_permalink( $peeth_post ) ); ?>"><?php echo esc_html( get_the_title( $peeth_post ) ); ?></a><?php endif; ?>
     </nav>
 
-<?php if ( 'peeth' === $kind ) : ?>
+<?php if ( in_array( $kind, array( 'peeth', 'sampradaya' ), true ) ) : ?>
     <?php $sections = $data ? $data['sections'] : array(); ?>
     <article class="sp-wiki">
         <header class="sp-wiki__head">
-            <p class="sp-wiki__kicker"><?php esc_html_e( 'Peeth', 'sampreshan-child' ); ?></p>
+            <p class="sp-wiki__kicker"><?php echo esc_html( 'sampradaya' === $kind ? sprintf( __( 'Sampradaya · %s', 'sampreshan-child' ), sp_sampradaya_family_label( $data['family'] ?? '' ) ) : __( 'Peeth', 'sampreshan-child' ) ); ?></p>
             <h1><?php the_title(); ?></h1>
             <?php if ( ! empty( $data['name_hi'] ) ) : ?><p class="sp-wiki__alt" lang="hi"><?php echo esc_html( $data['name_hi'] ); ?></p><?php endif; ?>
             <div class="sp-wiki__actions">

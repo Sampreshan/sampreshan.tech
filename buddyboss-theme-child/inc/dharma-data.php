@@ -19,6 +19,17 @@ function sp_dharma_reviewed_on() {
 }
 
 function sp_dharma_data_all() {
+    static $all = null;
+    if ( null === $all ) {
+        $all = sp_dharma_core_data();
+        if ( function_exists( 'sp_sampradaya_data_all' ) ) {
+            $all = array_merge( $all, sp_sampradaya_data_all() );
+        }
+    }
+    return $all;
+}
+
+function sp_dharma_core_data() {
     return array(
 
         /* ------------------------------------------------------------ Peeths */
@@ -468,7 +479,7 @@ function sp_dharma_profile_by_slug( $slug ) {
  * Acharya profiles. Bump the version to re-run after editing the data.
  */
 function sp_dharma_sync_reference_data() {
-    $version = '2026-10-c';
+    $version = '2026-10-d';
     if ( get_option( 'sp_dharma_data_version' ) === $version ) {
         return;
     }

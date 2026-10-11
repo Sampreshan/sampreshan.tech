@@ -381,7 +381,8 @@ function sp_dharma_is_following( $profile_id, $user_id = 0 ) {
 }
 
 function sp_dharma_profile_kind( $profile_id ) {
-    return 'peeth' === get_post_meta( (int) $profile_id, '_sp_dharma_kind', true ) ? 'peeth' : 'acharya';
+    $kind = get_post_meta( (int) $profile_id, '_sp_dharma_kind', true );
+    return in_array( $kind, array( 'peeth', 'sampradaya' ), true ) ? $kind : 'acharya';
 }
 
 /**
