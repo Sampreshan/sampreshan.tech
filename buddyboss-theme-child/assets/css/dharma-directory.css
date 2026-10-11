@@ -283,3 +283,8 @@ body.sp-future .sp-dharma-peeth-card h3 a,
 body.sp-future .sp-dharma-profile-card h2 a { color: #1c1917; }
 body.sp-future :is(.sp-wiki, .sp-dharma-refs, .sp-dharma-profile__updates, .sp-dharma-peeth-card, .sp-dharma-profile-card) .sp-dharma-muted { color: #57534e; }
 body.sp-future .sp-folio h1 { color: #fff; }
+
+/* Acharya biography card (same on every profile). */
+.sp-folio__about { margin: 1.25rem 0; }
+.sp-folio__about p { line-height: 1.75; margin: 0 0 .85rem; }
+.sp-folio__about p:last-child { margin-bottom: 0; }

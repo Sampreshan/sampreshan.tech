@@ -135,6 +135,13 @@ while ( have_posts() ) : the_post();
             </section>
         <?php endif; ?>
 
+        <?php if ( ! empty( $data['about'] ) ) : ?>
+            <section class="sp-folio__card sp-folio__about" aria-labelledby="sp-folio-about">
+                <h2 id="sp-folio-about"><?php esc_html_e( 'Life & teaching', 'sampreshan-child' ); ?></h2>
+                <?php foreach ( $data['about'] as $para ) : ?><p><?php echo esc_html( $para ); ?></p><?php endforeach; ?>
+            </section>
+        <?php endif; ?>
+
         <div class="sp-folio__grid">
             <?php if ( $timeline ) : ?>
                 <section class="sp-folio__card" aria-labelledby="sp-folio-journey">

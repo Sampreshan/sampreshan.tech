@@ -176,21 +176,29 @@ function sp_dharma_data_all() {
             'name_hi'   => 'जगद्गुरु शंकराचार्य स्वामी श्री निश्चलानन्द सरस्वती',
             'summary'   => 'Jagadguru Shankaracharya of the Purvamnaya Govardhana Peetham, Puri, since 1992, known for his teaching of Vedanta and Vedic mathematics.',
             'facts'     => array(
-                'Purvashrama name' => 'Nilambar Jha',
-                'Born'             => '30 June 1943, Haripur Bakshi Tol, Madhubani, Bihar',
-                'Guru'             => 'Swami Niranjanadeva Tirtha',
+                'Purvashrama name'    => 'Nilambar Jha',
+                'Born'                => '30 June 1943, Haripur Bakshi Tol, Madhubani, Bihar',
+                'Guru'                => 'Swami Karpatri (sannyasa); appointed by Swami Niranjanadeva Tirtha',
+                'Sannyasa'            => '18 April 1974, Haridwar',
                 'Peethadhipati since' => '9 February 1992',
-                'Lineage'          => '145th Shankaracharya',
+                'Lineage'             => '145th Shankaracharya, Govardhana Peetham',
+            ),
+            'about'     => array(
+                'Born into a Maithil family of Sanskrit scholars, the son of Pandit Lalvamshi Jha and Smt Gita Devi, he left home at seventeen in search of spiritual life. As a brahmachari named Dhruvachaitanya he studied the Vedas and shastras at Kashi, Vrindavan, Naimisharanya, Badrikashram, Rishikesh, Haridwar, Puri and Sringeri.',
+                'He received sannyasa from Swami Karpatri in 1974, studied the Prasthanatrayi and Advaita texts under him, and from 1982 to 1987 studied with Swami Niranjanadeva Tirtha of Puri, who anointed him the 145th Shankaracharya in 1992.',
             ),
             'timeline'  => array(
-                '1943' => 'Born at Haripur Bakshi Tol, Madhubani district, Bihar.',
-                '1974' => 'Received sannyasa.',
-                '1992' => 'Appointed Shankaracharya of the Govardhana Peetham on 9 February by Swami Niranjanadeva Tirtha.',
+                '1943' => 'Born on 30 June at Haripur Bakshi Tol, Madhubani district, Bihar.',
+                '1966' => 'Held in Tihar jail for 52 days from 9 November for taking part in Swami Karpatri\'s cow-protection movement.',
+                '1974' => 'Received sannyasa from Swami Karpatri at Haridwar on 18 April and was named Nischalananda Saraswati.',
+                '1982' => 'Began five years of study with Swami Niranjanadeva Tirtha, Shankaracharya of Puri (to 1987).',
+                '1992' => 'Anointed 145th Shankaracharya of the Govardhana Peetham on 9 February.',
             ),
             'work'      => array(
-                'Teaching and writing on Advaita Vedanta and dharma.',
+                'Discourses and writings on Advaita Vedanta, dharma and national questions, delivered across India.',
                 'Scholarship on Vedic mathematics.',
-                'Founded the Ved Gurukulam of the Peetham.',
+                'Founded Aditya Vahini and Ananda Vahini under the Peeth Parishad.',
+                'Oversees the Peetham\'s Ved Gurukulam and Gaushala.',
             ),
             'sources'   => array(
                 'Govardhan Peeth — official biography' => 'https://govardhanpeeth.org/en/about-us-en/swami-nischalananda-saraswati',
@@ -206,19 +214,33 @@ function sp_dharma_data_all() {
             'name_hi'   => 'जगद्गुरु शंकराचार्य स्वामी सदानन्द सरस्वती',
             'summary'   => 'Shankaracharya of the Paschimamnaya Sri Sharada Peetham, Dwarka, since September 2022, and a long-time disciple of Swami Swaroopanand Saraswati.',
             'facts'     => array(
+                'Purvashrama name'    => 'Ramesh Awasthi',
+                'Born'                => '31 August 1958, Bargi (near Karakbel), Narsinghpur, Madhya Pradesh',
                 'Guru'                => 'Swami Swaroopanand Saraswati',
-                'Earlier role'        => 'Dandi Swami of the Dwarka Peetham',
+                'Sannyasa'            => '15 April 2003 (Dandi sannyasa), Kashi',
                 'Peethadhipati since' => '12 September 2022',
+                'Lineage'             => 'Shankaracharya, Dwarka Sharada Peetham',
+            ),
+            'about'     => array(
+                'The son of Ayurvedacharya Pandit Vidyadhar Awasthi and Smt Mankunwar Devi, he had his early schooling at Bargi and Sanskrit education at the Jyotirishwar Rishikul Sanskrit Vidyalaya, Jhoteshwar, and later studied vyakarana, nyaya, Veda and Vedanta in Kashi.',
+                'He came to the ashram of Swami Swaroopanand Saraswati as a boy and served him for about five decades, becoming Dandi Swami (second-in-command) of the Dwarka Peetham. After his guru\'s passing he was announced as Shankaracharya of Dwarka in 2022.',
             ),
             'timeline'  => array(
-                '2022' => 'Announced as Shankaracharya of the Dwarka Sharada Peetham on 12 September at Paramhansi Ganga Ashram, Narsinghpur, after the passing of Swami Swaroopanand Saraswati.',
+                '1958' => 'Born on 31 August at Bargi, near Karakbel, Narsinghpur district, Madhya Pradesh.',
+                '1970' => 'Left school as a boy and joined the ashram of Swami Swaroopanand Saraswati at Jhoteshwar.',
+                '2003' => 'Received Dandi sannyasa from his guru at Kashi on 15 April and was named Swami Sadanand Saraswati.',
+                '2022' => 'Announced as Shankaracharya of the Dwarka Sharada Peetham on 12 September at Paramhansi Ganga Ashram, Narsinghpur.',
             ),
             'work'      => array(
-                'Served the Peetham for decades as a disciple and Dandi Swami of Swami Swaroopanand Saraswati.',
+                'Served for decades as disciple and Dandi Swami of Swami Swaroopanand Saraswati.',
+                'Has written or translated about a dozen books in Hindi, Sanskrit, Gujarati and English.',
+                'Founded Shri Shankaracharya Bal Vidya Niketan, Jhoteshwar, for children of tribal areas.',
             ),
             'sources'   => array(
+                'Dainik Jagran — Successors and Kashi (2022)' => 'https://www.jagran.com/uttar-pradesh/varanasi-city-sankaracharya-swami-swaroopanand-saraswati-successor-dandi-swami-sadananda-saraswati-and-swami-avimukteshwarananda-have-a-special-relationship-with-varanasi-jagran-special-23066236.html',
+                'Shankaracharya Netralaya — Jivan parichay' => 'https://shankaracharyanetralaya.org/shri-shankaracharya-parichaya/',
+                'Dainik Bhaskar — Early life (2022)' => 'https://www.bhaskar.com/local/mp/narsinghpur/news/sadanand-ji-the-new-shankaracharya-of-dwarkapeeth-had-left-his-8th-studies-and-went-to-paramhansi-ashram-130318216.html',
                 'ThePrint / PTI — New Shankaracharyas (2022)' => 'https://theprint.in/india/dwarka-and-jyotish-peeths-get-new-shankaracharyas-after-swami-swaroopanand-laid-to-rest-in-mp-ashram/1125992/',
-                'The Hindu — Swami Swaroopanand Saraswati dies (2022)' => 'https://www.thehindu.com/news/national/dwarka-peeth-shankaracharya-swami-swaroopanand-saraswati-dies/article65879697.ece',
             ),
         ),
 
@@ -231,24 +253,33 @@ function sp_dharma_data_all() {
             'name_hi'   => 'स्वामी अविमुक्तेश्वरानन्द सरस्वती',
             'summary'   => 'Disciple of Swami Swaroopanand Saraswati, declared Shankaracharya of Jyotish Peeth in September 2022; the succession is before the Supreme Court of India.',
             'facts'     => array(
-                'Birthplace'   => 'Brahmanpur, Pratapgarh district, Uttar Pradesh',
-                'Education'    => 'Shastri and Acharya, Sampurnanand Sanskrit University, Varanasi',
-                'Guru'         => 'Swami Swaroopanand Saraswati',
-                'Declared'     => '12 September 2022',
-                'Status'       => 'Coronation stayed by the Supreme Court, 15 October 2022',
+                'Purvashrama name'    => 'Umashankar (surname reported as Upadhyay or Pandey)',
+                'Born'                => '15 August 1969, Brahmanpur, Pratapgarh, Uttar Pradesh',
+                'Guru'                => 'Swami Swaroopanand Saraswati',
+                'Sannyasa'            => '15 April 2003 (Dandi sannyasa), Kashi',
+                'Peethadhipati since' => 'Declared 12 September 2022; coronation stayed by the Supreme Court',
+                'Lineage'             => 'Claimant, Jyotish Peeth (sub judice)',
+            ),
+            'about'     => array(
+                'Born in Pratapgarh district, he studied at Varanasi, completing Shastri and Acharya at Sampurnanand Sanskrit University. While serving Swami Karpatri he came into contact with Swami Swaroopanand Saraswati and became his disciple.',
+                'He received Dandi sannyasa in Kashi in 2003 together with Swami Sadanand Saraswati. After Swami Swaroopanand Saraswati\'s death he was declared Shankaracharya of Jyotish Peeth; the Supreme Court stayed his coronation in October 2022 and the succession case remains pending.',
             ),
             'timeline'  => array(
-                '2022' => 'Declared Shankaracharya of Jyotish Peeth on 12 September; on 15 October the Supreme Court stayed his coronation in the pending succession case.',
+                '1969' => 'Born on 15 August at Brahmanpur, Pratapgarh district, Uttar Pradesh.',
+                '2003' => 'Received Dandi sannyasa from Swami Swaroopanand Saraswati at Kashi on 15 April.',
+                '2022' => 'Declared Shankaracharya of Jyotish Peeth on 12 September; on 15 October the Supreme Court stayed his coronation.',
                 '2026' => 'The Supreme Court matter remained pending at the time of review.',
             ),
             'work'      => array(
                 'Studied Sanskrit and shastra at Sampurnanand Sanskrit University, Varanasi.',
                 'Long association with Swami Swaroopanand Saraswati as disciple.',
+                'Public campaigns on the Ganga and on the heritage of Kashi, as reported in the press.',
             ),
             'notice'    => 'The succession to Jyotish Peeth is sub judice before the Supreme Court of India. This profile records publicly reported facts and takes no position on the dispute.',
             'sources'   => array(
                 'The Hindu — SC stops coronation (Oct 2022)' => 'https://www.thehindu.com/news/national/sc-stops-coronation-of-swami-avimukteshwaranand-saraswati-as-shankaracharya-of-jyotish-peeth/article66014458.ece',
                 'ThePrint — Profile' => 'https://theprint.in/india/avimukteshwaranand-seer-who-skipped-ram-temple-consecration-expelled-rahul-is-now-mad-at-yogi-govt/2832926/',
+                'Dainik Jagran — Successors and Kashi (2022)' => 'https://www.jagran.com/uttar-pradesh/varanasi-city-sankaracharya-swami-swaroopanand-saraswati-successor-dandi-swami-sadananda-saraswati-and-swami-avimukteshwarananda-have-a-special-relationship-with-varanasi-jagran-special-23066236.html',
                 'India Today — Supreme Court matter (Jan 2026)' => 'https://www.indiatoday.in/india/story/prayagraj-magh-mela-shankaracharya-controversy-supreme-court-notice-swami-avimukteshwaranand-appointment-dispute-2856021-2026-01-22',
             ),
         ),
@@ -263,12 +294,19 @@ function sp_dharma_data_all() {
             'summary'   => 'The 36th and presiding Jagadguru of the Dakshinamnaya Sri Sharada Peetham, Sringeri.',
             'facts'     => array(
                 'Purvashrama name'    => 'Seetharama Anjaneyalu',
+                'Born'                => '1951, Andhra Pradesh',
                 'Guru'                => 'Sri Abhinava Vidyatirtha Mahaswamiji (35th)',
                 'Sannyasa'            => '11 November 1974',
                 'Peethadhipati since' => '1989',
-                'Lineage'             => '36th Jagadguru',
+                'Lineage'             => '36th Jagadguru, Sringeri Sharada Peetham',
+            ),
+            'about'     => array(
+                'Born into a Telugu Vedic family, he learnt Sanskrit and the Vedas from his father alongside school. At fifteen, in 1966, he approached the 35th Jagadguru, Sri Abhinava Vidyatirtha Mahaswamiji, who accepted him as a disciple.',
+                'He was initiated into sannyasa and named successor in 1974, and has presided over the Peetham since 1989. In 2015 he initiated Sri Vidhushekhara Bharati as his successor-designate.',
             ),
             'timeline'  => array(
+                '1951' => 'Born in Andhra Pradesh.',
+                '1966' => 'Became a disciple of Sri Abhinava Vidyatirtha Mahaswamiji.',
                 '1974' => 'Received sannyasa on 11 November and was named successor by Sri Abhinava Vidyatirtha Mahaswamiji.',
                 '1989' => 'Assumed the Peetham as the 36th Jagadguru.',
                 '2015' => 'Initiated Sri Vidhushekhara Bharati as successor-designate on 23 January.',
@@ -276,6 +314,7 @@ function sp_dharma_data_all() {
             'work'      => array(
                 'Presides over the Sringeri Sharada Peetham and its temples and institutions.',
                 'Teaching of Vedanta and the shastras.',
+                'Vijaya yatras (tours) across India to guide devotees.',
             ),
             'sources'   => array(
                 'Sringeri — official biography' => 'https://www.sringeri.net/jagadgurus/sri-bharati-tirtha-mahaswamiji',
@@ -292,14 +331,19 @@ function sp_dharma_data_all() {
             'name_hi'   => 'जगद्गुरु श्री विधुशेखर भारती सन्निधानम्',
             'summary'   => 'Successor-designate of the Sringeri Sharada Peetham, initiated in 2015 by the 36th Jagadguru, Sri Bharati Tirtha Mahaswamiji.',
             'facts'     => array(
-                'Purvashrama name' => 'Kuppa Venkateshwara Prasada Sharma',
-                'Born'             => '24 July 1993, Tirupati, Andhra Pradesh',
-                'Guru'             => 'Sri Bharati Tirtha Mahaswamiji (36th)',
-                'Sannyasa'         => '23 January 2015',
-                'Status'           => 'Successor-designate (37th)',
+                'Purvashrama name'    => 'Kuppa Venkateshwara Prasada Sharma',
+                'Born'                => '24 July 1993, Tirupati, Andhra Pradesh',
+                'Guru'                => 'Sri Bharati Tirtha Mahaswamiji (36th)',
+                'Sannyasa'            => '23 January 2015, Sringeri',
+                'Peethadhipati since' => 'Successor-designate since 23 January 2015',
+                'Lineage'             => '37th Jagadguru (designate), Sringeri Sharada Peetham',
+            ),
+            'about'     => array(
+                'Born into a Vedic family at Tirupati, he chanted the entire Krishna Yajur Veda in Moola and Krama and from 2009 studied the shastras directly under Sri Bharati Tirtha Mahaswamiji at Sringeri.',
+                'Named successor on 4 January 2015, he received sannyasa on 23 January 2015 and now assists the Jagadguru in the work of the Peetham, giving discourses in several languages.',
             ),
             'timeline'  => array(
-                '1993' => 'Born at Tirupati, Andhra Pradesh.',
+                '1993' => 'Born on 24 July at Tirupati, Andhra Pradesh.',
                 '2009' => 'Began studying the shastras under the Jagadguru.',
                 '2015' => 'Named successor on 4 January; received sannyasa and was initiated as successor-designate on 23 January.',
             ),
@@ -325,19 +369,26 @@ function sp_dharma_data_all() {
             'summary'   => 'The 70th and presiding Acharya of the Kanchi Kamakoti Peetham since 2018.',
             'facts'     => array(
                 'Purvashrama name'    => 'Sankaranarayanan',
-                'Born'                => '13 March 1969',
+                'Born'                => '13 March 1969, Periyapalayam, near Arani, Tamil Nadu',
                 'Guru'                => 'Sri Jayendra Saraswati (69th)',
-                'Sannyasa'            => '29 May 1983',
+                'Sannyasa'            => '29 May 1983, Kanchipuram',
                 'Peethadhipati since' => '28 February 2018',
+                'Lineage'             => '70th Acharya, Kanchi Kamakoti Peetham',
+            ),
+            'about'     => array(
+                'He was taken into the Peetham as Sri Sankara Vijayendra Saraswati on 29 May 1983, while still a student at Polur, and trained under both his guru Sri Jayendra Saraswati and his parama-guru Sri Chandrasekharendra Saraswati, travelling with them across India.',
+                'He became the presiding Acharya in February 2018. He has started youth training centres such as Bhakti Kendra, Dharma Kendra and Karma Kendra and supported many publications of the Matam in Indian and foreign languages.',
             ),
             'timeline'  => array(
-                '1969' => 'Born on 13 March.',
+                '1969' => 'Born on 13 March at Periyapalayam, near Arani.',
                 '1983' => 'Received sannyasa on 29 May and was named successor by Sri Jayendra Saraswati.',
                 '2018' => 'Became the presiding Acharya on 28 February.',
                 '2025' => 'Initiated Sri Satya Chandrashekarendra Saraswati as junior pontiff on 30 April.',
             ),
             'work'      => array(
                 'Presides over the Peetham and its institutions at Kanchipuram.',
+                'Youth training centres: Bhakti Kendra, Dharma Kendra, Karma Kendra.',
+                'Publications of the Matam in Indian and foreign languages.',
             ),
             'sources'   => array(
                 'SCSVMV — 70th Sankaracharya' => 'https://kanchiuniv.ac.in/70thSankaracharya.htm',
@@ -354,20 +405,31 @@ function sp_dharma_data_all() {
             'name_hi'   => 'श्री सत्य चन्द्रशेखरेन्द्र सरस्वती',
             'summary'   => 'A Rig Vedic scholar from Andhra Pradesh, initiated as the 71st Acharya and successor of the Kanchi Kamakoti Peetham on 30 April 2025.',
             'facts'     => array(
-                'Purvashrama name' => 'Duddu Satya Venkata Surya Subrahmanya Ganesha Sharma Dravid',
-                'Guru'             => 'Sri Shankara Vijayendra Saraswati (70th)',
-                'Sannyasa'         => '30 April 2025 (Akshaya Tritiya), Kanchipuram',
-                'Status'           => 'Junior pontiff and successor (71st)',
+                'Purvashrama name'    => 'Duddu Satya Venkata Surya Subrahmanya Ganesha Sharma Dravid',
+                'Born'                => 'Annavaram region, Andhra Pradesh',
+                'Guru'                => 'Sri Shankara Vijayendra Saraswati (70th)',
+                'Sannyasa'            => '30 April 2025 (Akshaya Tritiya), Kanchipuram',
+                'Peethadhipati since' => 'Junior pontiff since 30 April 2025',
+                'Lineage'             => '71st Acharya (successor), Kanchi Kamakoti Peetham',
+            ),
+            'about'     => array(
+                'He comes from a priestly family of Annavaram, where his father serves as a vrata purohit at the Sri Satyanarayana Swamy temple. He studied the Rig Veda and served as a Rig Vedic scholar at the Sri Gnana Saraswathi Devasthanam, Basara, Telangana.',
+                'Under the guidance of the Peetham he went on to study the Yajur and Sama Vedas, the Shadangas and the Dashopanishads. On Akshaya Tritiya 2025 he received sannyasa at Kanchipuram as the 71st Acharya.',
             ),
             'timeline'  => array(
+                '2009' => 'First had darshan of the Kanchi Shankaracharya, at Tirupati, in May.',
+                '2024' => 'From 14 April, continued advanced study under a plan set by the 70th Acharya.',
                 '2025' => 'Received sannyasa and was anointed junior pontiff at Kanchipuram on 30 April.',
             ),
             'work'      => array(
                 'Rig Vedic scholar.',
+                'Served at the Sri Gnana Saraswathi Devasthanam, Basara.',
+                'Studies of the Yajur and Sama Vedas, Shadangas and Dashopanishads.',
             ),
             'sources'   => array(
                 'The Hindu — 71st pontiff anointed (2025)' => 'https://www.thehindu.com/news/national/tamil-nadu/satya-chandrasekharendra-saraswathi-anointed-as-71st-pontiff-of-kanchi-kamakoti-peetam/article69507701.ece',
-                'New Indian Express (2025)' => 'https://www.newindianexpress.com/states/tamil-nadu/2025/Apr/30/rig-vedic-scholar-satya-chandrashekarendra-anointed-as-junior-pontiff-of-kanchi-kamakoti-peetam-3',
+                'The Federal — Junior pontiff anointed (2025)' => 'https://thefederal.com/category/states/south/tamil-nadu/satya-chandrashekarendra-kanchi-kamakoti-peetam-184394',
+                'The Commune — Profile (2025)' => 'https://thecommunemag.com/who-is-duddu-satya-venkata-surya-subramanya-ganesha-sharma-dravid-the-71st-shankaracharya-of-kanchi-kamakoti-peetam/',
             ),
         ),
     );
@@ -406,7 +468,7 @@ function sp_dharma_profile_by_slug( $slug ) {
  * Acharya profiles. Bump the version to re-run after editing the data.
  */
 function sp_dharma_sync_reference_data() {
-    $version = '2026-10-b';
+    $version = '2026-10-c';
     if ( get_option( 'sp_dharma_data_version' ) === $version ) {
         return;
     }
