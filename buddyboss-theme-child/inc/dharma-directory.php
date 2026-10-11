@@ -451,7 +451,7 @@ function sp_dharma_follow_button( $profile_id, $classes = '' ) {
             esc_attr( $classes ),
             // The theme hides wp-login.php links, so use the site's own login page.
             esc_url( add_query_arg( 'redirect_to', rawurlencode( get_permalink( $profile_id ) ), home_url( '/login/' ) ) ),
-            esc_html__( 'Anusaran karein', 'sampreshan-child' )
+            esc_html__( 'Anusaran', 'sampreshan-child' )
         );
         return;
     }
@@ -464,7 +464,7 @@ function sp_dharma_follow_button( $profile_id, $classes = '' ) {
         <input type="hidden" name="redirect_to" value="<?php echo esc_url( add_query_arg( 'anusaran', $following ? 'removed' : 'added', get_permalink( $profile_id ) ) ); ?>" />
         <?php wp_nonce_field( 'sp_toggle_dharma_follow_' . $profile_id ); ?>
         <button class="sp-dharma-follow <?php echo esc_attr( $classes . ( $following ? ' is-following' : '' ) ); ?>" type="submit">
-            <?php echo esc_html( $following ? __( 'Anusaran mein hai', 'sampreshan-child' ) : __( 'Anusaran karein', 'sampreshan-child' ) ); ?>
+            <?php echo esc_html( $following ? __( 'Anusaran mein hai', 'sampreshan-child' ) : __( 'Anusaran', 'sampreshan-child' ) ); ?>
         </button>
     </form>
     <?php
@@ -524,7 +524,7 @@ function sp_dharma_ajax_toggle_follow() {
     wp_send_json_success(
         array(
             'following' => $now,
-            'label'     => $now ? __( 'Anusaran mein hai', 'sampreshan-child' ) : __( 'Anusaran karein', 'sampreshan-child' ),
+            'label'     => $now ? __( 'Anusaran mein hai', 'sampreshan-child' ) : __( 'Anusaran', 'sampreshan-child' ),
             'count'     => sp_dharma_follow_count( $profile_id ),
             'countText' => sprintf( _n( '%s member follows this profile', '%s members follow this profile', sp_dharma_follow_count( $profile_id ), 'sampreshan-child' ), number_format_i18n( sp_dharma_follow_count( $profile_id ) ) ),
         )
