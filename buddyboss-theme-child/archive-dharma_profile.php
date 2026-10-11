@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
 $search = isset( $_GET['q'] ) ? sanitize_text_field( wp_unslash( $_GET['q'] ) ) : '';
 $peeth  = isset( $_GET['peeth'] ) ? sanitize_title( wp_unslash( $_GET['peeth'] ) ) : '';
+$kind_f = isset( $_GET['kind'] ) ? sanitize_key( wp_unslash( $_GET['kind'] ) ) : '';
+if ( ! in_array( $kind_f, array( 'peeth', 'acharya', 'sampradaya' ), true ) ) { $kind_f = ''; }
 $terms  = get_terms( array( 'taxonomy' => 'dharma_peeth', 'hide_empty' => false ) );
 $args   = array(
     'post_type'      => sp_dharma_profile_post_type(),
@@ -20,6 +22,9 @@ $args   = array(
     'order'          => 'ASC',
 );
 if ( '' !== $search ) { $args['s'] = $search; }
+if ( '' !== $kind_f ) {
+    $args['meta_query'] = array( array( 'key' => '_sp_dharma_kind', 'value' => $kind_f ) );
+}
 if ( '' !== $peeth ) {
     $args['tax_query'] = array( array( 'taxonomy' => 'dharma_peeth', 'field' => 'slug', 'terms' => $peeth ) );
 }
@@ -34,8 +39,14 @@ $profiles = new WP_Query( $args );
     <form class="sp-dharma-filters" method="get" action="<?php echo esc_url( sp_dharma_directory_url() ); ?>" role="search">
         <label>
             <span class="screen-reader-text"><?php esc_html_e( 'Search Acharyas and Peeths', 'sampreshan-child' ); ?></span>
-            <input type="search" name="q" value="<?php echo esc_attr( $search ); ?>" placeholder="<?php esc_attr_e( 'Search an Acharya or Peeth…', 'sampreshan-child' ); ?>" />
+            <input type="search" name="q" value="<?php echo esc_attr( $search ); ?>" placeholder="<?php esc_attr_e( 'Search a Peeth, Acharya or Sampradaya…', 'sampreshan-child' ); ?>" />
         </label>
+        <select name="kind" aria-label="<?php esc_attr_e( 'Profile type', 'sampreshan-child' ); ?>">
+            <option value=""><?php esc_html_e( 'All profiles', 'sampreshan-child' ); ?></option>
+            <option value="peeth" <?php selected( $kind_f, 'peeth' ); ?>><?php esc_html_e( 'Peeths', 'sampreshan-child' ); ?></option>
+            <option value="acharya" <?php selected( $kind_f, 'acharya' ); ?>><?php esc_html_e( 'Acharyas', 'sampreshan-child' ); ?></option>
+            <option value="sampradaya" <?php selected( $kind_f, 'sampradaya' ); ?>><?php esc_html_e( 'Sampradayas', 'sampreshan-child' ); ?></option>
+        </select>
         <select name="peeth">
             <option value=""><?php esc_html_e( 'All Peeths', 'sampreshan-child' ); ?></option>
             <?php foreach ( $terms as $term ) : ?>
