@@ -304,3 +304,7 @@ body.sp-future .sp-folio h1 { color: #fff; }
 body.sp-future .sp-dharma-acharya-card h4 a { color: #1c1917; }
 body.sp-future .sp-dharma-acharya-card__role { color: #57534e; }
 body.sp-future .sp-dharma-acharya-card a.sp-dharma-acharya-card__profile { color: #c2410c; }
+
+/* Home: Sampradaya cards reuse the Acharya card layout. */
+.sp-dharma-sampradaya-card__family { margin: .25rem 0 0; font-size: .68rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #c2410c; }
+body.sp-future .sp-dharma-sampradaya-card__family { color: #c2410c; }
