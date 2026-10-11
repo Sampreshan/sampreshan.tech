@@ -160,7 +160,7 @@ require_once get_stylesheet_directory() . '/inc/iconscout/client.php';
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.21' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.22' );
 }
 
 /**
@@ -1838,3 +1838,16 @@ function sp_retired_page_redirects() {
     }
 }
 add_action( 'template_redirect', 'sp_retired_page_redirects', 1 );
+
+/**
+ * Professional icon layer — enqueued after every other stylesheet so it
+ * can strip the legacy 3D drop-shadow stacks from the icon glyphs.
+ */
+add_action( 'wp_enqueue_scripts', function () {
+    wp_enqueue_style(
+        'sampreshan-icons-pro',
+        get_stylesheet_directory_uri() . '/assets/css/icons-pro.css',
+        array(),
+        SAMPRESHAN_CHILD_VERSION
+    );
+}, 999 );
