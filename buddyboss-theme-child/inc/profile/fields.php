@@ -68,9 +68,7 @@ if ( ! function_exists( 'sp_profile_completeness' ) ) {
         if ( $user_id <= 0 ) { return 0; }
 
         $checks = array(
-            'avatar'     => (bool) get_user_meta( $user_id, 'sp_has_avatar', true )
-                            || ( function_exists( 'bp_get_user_has_avatar' ) && bp_get_user_has_avatar( $user_id ) )
-                            || (bool) get_avatar( $user_id ),
+            'avatar'     => function_exists( 'sp_avatar_attachment_id' ) ? (bool) sp_avatar_attachment_id( $user_id ) : (bool) get_user_meta( $user_id, 'sp_has_avatar', true ),
             'name'       => (bool) trim( get_the_author_meta( 'display_name', $user_id ) ),
             'bio'        => (bool) trim( sp_profile_get_field( 'bio', $user_id ) ),
             'gotra'      => (bool) trim( sp_profile_get_field( 'gotra', $user_id ) ),
