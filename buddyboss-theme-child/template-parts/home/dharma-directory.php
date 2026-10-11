@@ -31,7 +31,7 @@ if ( empty( $peeths ) ) {
         </div>
         <a class="sp-fu-link" href="<?php echo esc_url( sp_dharma_directory_url() ); ?>"><?php esc_html_e( 'Explore all profiles', 'sampreshan-child' ); ?> &rarr;</a>
     </div>
-    <p class="sp-dharma-home__intro"><?php esc_html_e( 'Read verified, sourced profiles of the Peeths of the Shankara tradition and their Acharyas, and follow them for programme and news updates.', 'sampreshan-child' ); ?></p>
+    <p class="sp-dharma-home__intro"><?php esc_html_e( 'One place for sourced profiles of the four Amnaya Shankaracharya Peethas, the Kanchi Kamakoti Peetham, their Acharyas and the major sampradayas of Bharat. Follow them for programme and news updates.', 'sampreshan-child' ); ?></p>
     <div class="sp-dharma-peeth-rail">
         <?php foreach ( $peeths as list( $post, $item ) ) : ?>
             <?php $image = sp_dharma_profile_image_url( $post->ID, 'medium_large' ); ?>
@@ -57,4 +57,72 @@ if ( empty( $peeths ) ) {
             </article>
         <?php endforeach; ?>
     </div>
+
+    <?php
+    $acharyas = array();
+    foreach ( $peeths as list( $post, $item ) ) {
+        foreach ( sp_dharma_peeth_acharya_posts( $item ) as $acharya ) {
+            $acharyas[] = array( $acharya, $post );
+        }
+    }
+    ?>
+    <?php if ( $acharyas ) : ?>
+        <div class="sp-fu-sechead sp-dharma-acharya-row__head">
+            <div>
+                <p class="sp-fu-eyebrow"><?php esc_html_e( 'Acharya profiles', 'sampreshan-child' ); ?></p>
+                <h3 class="sp-fu-sectitle"><?php esc_html_e( 'Acharyas of the Peeths', 'sampreshan-child' ); ?></h3>
+            </div>
+        </div>
+        <div class="sp-dharma-acharya-row">
+            <?php foreach ( $acharyas as list( $acharya, $peeth ) ) : ?>
+                <?php $img = sp_dharma_profile_image_url( $acharya->ID, 'medium' ); $a = sp_dharma_data( $acharya ); ?>
+                <article class="sp-dharma-acharya-card">
+                    <a class="sp-dharma-acharya-card__media" href="<?php echo esc_url( get_permalink( $acharya ) ); ?>" tabindex="-1" aria-hidden="true">
+                        <?php if ( $img ) : ?><img src="<?php echo esc_url( $img ); ?>" alt="" width="160" height="160" loading="lazy" /><?php else : ?><span aria-hidden="true">ॐ</span><?php endif; ?>
+                    </a>
+                    <h4><a href="<?php echo esc_url( get_permalink( $acharya ) ); ?>"><?php echo esc_html( get_the_title( $acharya ) ); ?></a></h4>
+                    <?php if ( ! empty( $a['role'] ) ) : ?><p class="sp-dharma-acharya-card__role"><?php echo esc_html( $a['role'] ); ?></p><?php endif; ?>
+                    <div class="sp-dharma-acharya-card__cta">
+                        <a class="sp-dharma-acharya-card__profile" href="<?php echo esc_url( get_permalink( $acharya ) ); ?>"><?php esc_html_e( 'View profile', 'sampreshan-child' ); ?></a>
+                        <?php sp_dharma_follow_button( $acharya->ID, 'sp-dharma-follow--compact' ); ?>
+                    </div>
+                </article>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+
+    <?php
+    $sampradayas = array();
+    foreach ( sp_dharma_data_all() as $slug => $item ) {
+        if ( 'sampradaya' === $item['kind'] && ( $post = sp_dharma_profile_by_slug( $slug ) ) ) {
+            $sampradayas[] = array( $post, $item );
+        }
+    }
+    ?>
+    <?php if ( $sampradayas ) : ?>
+        <div class="sp-fu-sechead sp-dharma-acharya-row__head">
+            <div>
+                <p class="sp-fu-eyebrow"><?php esc_html_e( 'Sampradayas', 'sampreshan-child' ); ?></p>
+                <h3 class="sp-fu-sectitle"><?php esc_html_e( 'Sampradayas of Bharat', 'sampreshan-child' ); ?></h3>
+            </div>
+            <a class="sp-fu-link" href="<?php echo esc_url( add_query_arg( 'kind', 'sampradaya', sp_dharma_directory_url() ) ); ?>"><?php esc_html_e( 'All sampradayas', 'sampreshan-child' ); ?> &rarr;</a>
+        </div>
+        <div class="sp-dharma-acharya-row sp-dharma-sampradaya-row">
+            <?php foreach ( $sampradayas as list( $post, $item ) ) : ?>
+                <?php $img = sp_dharma_profile_image_url( $post->ID, 'medium' ); ?>
+                <article class="sp-dharma-acharya-card sp-dharma-sampradaya-card">
+                    <a class="sp-dharma-acharya-card__media" href="<?php echo esc_url( get_permalink( $post ) ); ?>" tabindex="-1" aria-hidden="true">
+                        <?php if ( $img ) : ?><img src="<?php echo esc_url( $img ); ?>" alt="" width="160" height="160" loading="lazy" /><?php else : ?><span aria-hidden="true">ॐ</span><?php endif; ?>
+                    </a>
+                    <p class="sp-dharma-sampradaya-card__family"><?php echo esc_html( sp_sampradaya_family_label( $item['family'] ) ); ?></p>
+                    <h4><a href="<?php echo esc_url( get_permalink( $post ) ); ?>"><?php echo esc_html( get_the_title( $post ) ); ?></a></h4>
+                    <?php if ( ! empty( $item['name_hi'] ) ) : ?><p class="sp-dharma-acharya-card__role" lang="hi"><?php echo esc_html( $item['name_hi'] ); ?></p><?php endif; ?>
+                    <div class="sp-dharma-acharya-card__cta">
+                        <a class="sp-dharma-acharya-card__profile" href="<?php echo esc_url( get_permalink( $post ) ); ?>"><?php esc_html_e( 'Read more', 'sampreshan-child' ); ?></a>
+                        <?php sp_dharma_follow_button( $post->ID, 'sp-dharma-follow--compact' ); ?>
+                    </div>
+                </article>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
 </section>

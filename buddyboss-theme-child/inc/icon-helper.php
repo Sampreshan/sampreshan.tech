@@ -169,7 +169,8 @@ if ( ! function_exists( 'sp_logo_url' ) ) {
         // 1. Customizer logo wins if set.
         $custom_id = function_exists( 'get_theme_mod' ) ? (int) get_theme_mod( 'custom_logo' ) : 0;
         if ( $custom_id > 0 ) {
-            $src = wp_get_attachment_image_src( $custom_id, 'full' );
+            // 'medium_large' keeps the 1.6 MB master out of every header.
+            $src = wp_get_attachment_image_src( $custom_id, 'medium_large' );
             if ( $src && ! empty( $src[0] ) ) {
                 return $src[0];
             }
@@ -179,6 +180,8 @@ if ( ! function_exists( 'sp_logo_url' ) ) {
         //    disk. The June SVG was lost from uploads, which rendered a broken
         //    <img> everywhere, so never return a path without checking it.
         $candidates = array(
+            'uploads/2026/10/Sampreshan-Logo-768x768.png',
+            'uploads/2026/10/Sampreshan-Logo.png',
             'uploads/2026/06/sampreshan-logo-svg.svg',
             'uploads/2026/10/cropped-sampreshanalogo-1.png',
             'uploads/2026/10/sampreshanalogo.png',

@@ -486,3 +486,10 @@
     cursor: pointer;
 }
 .btn--danger:hover { background: #991b1b; }
+
+/* Profile photo upload (replaces Gravatar). */
+.sp-avatar-field__row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.sp-avatar-field__img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 3px #fed7aa; }
+.sp-avatar-field__input { display: block; margin-top: .5rem; font-size: .85rem; max-width: 100%; }
+.sp-avatar-field__remove { display: block; margin-top: .4rem; font-size: .85rem; }
+.sp-avatar-field .sp-dash-muted { margin: .35rem 0 0; font-size: .8rem; }

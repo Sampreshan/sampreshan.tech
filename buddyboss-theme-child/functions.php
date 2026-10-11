@@ -160,7 +160,7 @@ require_once get_stylesheet_directory() . '/inc/iconscout/client.php';
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.15' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.22' );
 }
 
 /**
@@ -434,11 +434,13 @@ require_once get_stylesheet_directory() . '/inc/framer-embed.php';
  */
 require_once get_stylesheet_directory() . '/inc/petitions/loader.php';
 require_once get_stylesheet_directory() . '/inc/profile/fields.php';
+require_once get_stylesheet_directory() . '/inc/profile/avatar.php';
 require_once get_stylesheet_directory() . '/inc/auth/loader.php';
 require_once get_stylesheet_directory() . '/inc/notifications/center.php';
 require_once get_stylesheet_directory() . '/inc/seo/schema.php';
 require_once get_stylesheet_directory() . '/inc/migrated-acharya-pages.php';
 require_once get_stylesheet_directory() . '/inc/dharma-directory.php';
+require_once get_stylesheet_directory() . '/inc/sampradaya-data.php';
 require_once get_stylesheet_directory() . '/inc/dharma-data.php';
 require_once get_stylesheet_directory() . '/inc/ai-agent/ajax.php';
 
@@ -1120,6 +1122,11 @@ add_action( 'init', 'sampreshan_child_disable_buddyboss_template_override', 1 );
  */
 function sampreshan_child_favicons() {
     $base = get_stylesheet_directory_uri() . '/assets/brand/';
+    // When a Site Icon is set (the brand logo), WordPress prints the icons itself.
+    if ( has_site_icon() ) {
+        echo '<meta name="theme-color" content="#FF9933" />' . "\n";
+        return;
+    }
     ?>
     <link rel="icon" type="image/svg+xml" href="<?php echo esc_url( $base . 'favicon.svg' ); ?>" />
     <link rel="alternate icon" type="image/png" href="<?php echo esc_url( $base . 'favicon-32.svg' ); ?>" />
@@ -1831,3 +1838,16 @@ function sp_retired_page_redirects() {
     }
 }
 add_action( 'template_redirect', 'sp_retired_page_redirects', 1 );
+
+/**
+ * Professional icon layer — enqueued after every other stylesheet so it
+ * can strip the legacy 3D drop-shadow stacks from the icon glyphs.
+ */
+add_action( 'wp_enqueue_scripts', function () {
+    wp_enqueue_style(
+        'sampreshan-icons-pro',
+        get_stylesheet_directory_uri() . '/assets/css/icons-pro.css',
+        array(),
+        SAMPRESHAN_CHILD_VERSION
+    );
+}, 999 );

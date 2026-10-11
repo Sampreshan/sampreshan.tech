@@ -1,6 +1,6 @@
 # SampreShan Icon System
 
-Permanent, resolution-independent 3D icon layer for the entire sampreshan.tech site. One file, every breakpoint, every device — no rasterization, no retina duplicates, no broken paths.
+Permanent, resolution-independent professional icon layer (Phosphor Duotone MIT + Material Design Icons Apache-2.0; shankh is original) for the entire sampreshan.tech site. One file, every breakpoint, every device — no rasterization, no retina duplicates, no broken paths.
 
 ## Why this exists
 

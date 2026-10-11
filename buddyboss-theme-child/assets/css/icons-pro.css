@@ -1,0 +1,59 @@
+/* ============================================================
+   Professional icon set (Phosphor Duotone + MDI, MIT / Apache-2.0)
+   Replaces the old multi-colour 3D gradient art. Glyphs are
+   single-colour `currentColor` with a 20% duotone layer, so the
+   colour modifiers (--saffron, --white, --muted…) finally apply.
+   Loaded last: it neutralises the drop-shadow stacks from
+   icon-system.css / icons-transparent.css / premium-3d.css.
+   ============================================================ */
+.sp-icon svg,
+.sp-icon__svg,
+body.sp-future .sp-icon svg,
+body.sp-future .sp-icon__svg,
+body.sp-dark .sp-icon svg,
+body.sp-dark .sp-icon__svg {
+    filter: none;
+    fill: currentColor;
+    overflow: visible;
+    shape-rendering: geometricPrecision;
+}
+
+/* Hover: a subtle lift only — no glow halos. */
+a:hover .sp-icon:not(.sp-icon--no-hover) svg,
+button:hover .sp-icon:not(.sp-icon--no-hover) svg,
+body.sp-future a:hover .sp-icon:not(.sp-icon--no-hover) svg,
+body.sp-future button:hover .sp-icon:not(.sp-icon--no-hover) svg,
+body.sp-dark a:hover .sp-icon:not(.sp-icon--no-hover) svg,
+body.sp-dark button:hover .sp-icon:not(.sp-icon--no-hover) svg {
+    filter: none;
+}
+a:hover .sp-icon:not(.sp-icon--no-hover),
+button:hover .sp-icon:not(.sp-icon--no-hover) {
+    transform: translateY(-1px);
+}
+
+/* Large showcase icons keep a soft single shadow for depth. */
+.sp-icon--xl svg,
+.sp-icon--2xl svg,
+.sp-icon--3xl svg {
+    filter: drop-shadow(0 2px 6px rgba(10, 26, 61, 0.14));
+}
+body.sp-future .sp-icon--xl svg,
+body.sp-future .sp-icon--2xl svg,
+body.sp-future .sp-icon--3xl svg {
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
+}
+
+/* Touch devices: no hover jitter, and tiny icons never go below 16px. */
+@media (hover: none) {
+    a:hover .sp-icon,
+    button:hover .sp-icon { transform: none; }
+}
+@media (max-width: 767px) {
+    .sp-icon--xs { --sp-icon-size: 14px; }
+    .sp-icon--sm { --sp-icon-size: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sp-icon, .sp-icon svg { transition: none; transform: none !important; }
+}
