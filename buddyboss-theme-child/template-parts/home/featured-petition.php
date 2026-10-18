@@ -110,12 +110,12 @@ $featured_icon  = function_exists( 'sp_cause_icon' ) ? sp_cause_icon( $featured_
                 <div class="d3-featured__actions">
                     <?php if ( $is_petition_cpt && is_user_logged_in() && current_user_can( 'sign_petitions' ) ) : ?>
                         <button type="button" class="d3-btn d3-btn--primary d3-btn--lg sp-sign-button<?php echo $user_signed ? ' is-signed' : ''; ?>" data-petition-id="<?php echo esc_attr( $petition_id ); ?>" data-signed="<?php echo $user_signed ? '1' : '0'; ?>">
-                            <?php sp_icon_e( 'ibadge', 'sp-icon--sm', '' ); ?>
+                            <?php sp_support_eye( 26 ); ?>
                             <?php echo $user_signed ? esc_html__( 'Supported', 'sampreshan-child' ) : esc_html__( 'Support This Issue', 'sampreshan-child' ); ?>
                         </button>
                     <?php else : ?>
                         <a class="d3-btn d3-btn--primary d3-btn--lg" href="<?php echo esc_url( $petition_url ); ?>">
-                            <?php sp_icon_e( 'ibadge', 'sp-icon--sm', '' ); ?>
+                            <?php sp_support_eye( 26 ); ?>
                             <?php echo esc_html__( 'Support This Issue', 'sampreshan-child' ); ?>
                         </a>
                     <?php endif; ?>
