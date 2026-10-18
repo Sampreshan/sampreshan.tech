@@ -26,3 +26,4 @@
 .sp-notif__empty { margin: 0; padding: 0.75rem 1rem 1rem; color: var(--text-muted); }
 .site-header__notification-badge[hidden] { display: none; }
 .sp-feed--dharma { margin-bottom: 1.5rem; }
+.sp-notif__empty .sp-icon--kit { display: block; margin: 0 auto .5rem; }
