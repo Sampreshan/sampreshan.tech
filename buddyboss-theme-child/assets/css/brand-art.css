@@ -75,11 +75,12 @@
     top: -4%;
     right: -6%;
     z-index: 3;
-    width: clamp(96px, 30%, 150px);
-    transform: translateZ(70px) rotate(-14deg);
+    width: clamp(130px, 42%, 230px);
+    transform: translateZ(70px) rotate(-10deg);
     pointer-events: none;
 }
 
+.d3-hero__shankh img,
 .d3-hero__shankh .sp-icon,
 .d3-hero__shankh svg {
     display: block;
@@ -88,6 +89,7 @@
     --sp-icon-size: 100%;
 }
 
+.d3-hero__shankh img,
 .d3-hero__shankh svg {
     filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 18px rgba(255, 153, 51, 0.35));
     animation: sp-shankh-float 6s ease-in-out infinite;
@@ -108,7 +110,7 @@
 
 @media (max-width: 767px) {
     .d3-hero__shankh {
-        width: 84px;
+        width: 120px;
         right: 0;
         top: -2%;
     }
@@ -221,6 +223,7 @@
 
     .d3-hero__rings,
     .d3-hero__mandala,
+    .d3-hero__shankh img,
     .d3-hero__shankh svg {
         animation: none !important;
         will-change: auto;

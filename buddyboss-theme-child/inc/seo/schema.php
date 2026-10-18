@@ -252,7 +252,7 @@ function sp_seo_public_description( $description ) {
         'contact-2'             => 'Contact SampreShan for community questions, feedback, collaboration and platform support.',
         'community-guidelines'  => 'Read the SampreShan community guidelines for respectful dialogue, participation and shared Sanatana values.',
         'petitions'             => 'Discover and support public petitions from the SampreShan community across social welfare, culture, education and dharmic causes.',
-        'feed-2'                => 'Read the latest SampreShan community stories, updates and petitions from members across the sangha.',
+        'community-center'      => 'Read the latest SampreShan community stories, updates and petitions from members across the sangha.',
         'community'             => 'Connect with SampreShan members and discover community conversations, groups and shared causes.',
         'start-a-petition'      => 'Start a petition on SampreShan and bring a meaningful Sanatana, cultural or community cause to people who can support it.',
         'privacy-policy'        => 'Read the SampreShan privacy policy and learn how account, community and platform data is handled.',

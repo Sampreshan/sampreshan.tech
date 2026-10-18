@@ -85,7 +85,9 @@
         }).then(function (res) {
             btn.disabled = false;
             if (!res || !res.success) { form.submit(); return; }
-            btn.textContent = res.data.label;
+            var lbl = btn.querySelector('.sp-dharma-follow__label');
+            if (lbl) { lbl.textContent = res.data.label; } else { btn.textContent = res.data.label; }
+            btn.title = res.data.label;
             btn.classList.toggle('is-following', res.data.following);
             var count = document.querySelector('[data-sp-follow-count]');
             if (count && res.data.countText) { count.textContent = res.data.countText; }

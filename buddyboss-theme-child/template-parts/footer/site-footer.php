@@ -54,7 +54,7 @@ $logo_url     = function_exists( 'sp_logo_url' ) ? sp_logo_url() : content_url( 
                     <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>">About</a></li>
                     <li><a href="<?php echo esc_url( home_url( '/petitions/' ) ); ?>">Petitions</a></li>
                     <li><a href="<?php echo esc_url( home_url( '/start-a-petition/' ) ); ?>">Start a Petition</a></li>
-                    <li><a href="<?php echo esc_url( function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/feed-2/' ) ); ?>">Feed</a></li>
+                    <li><a href="<?php echo esc_url( function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/community-center/' ) ); ?>">Feed</a></li>
                     <li><a href="<?php echo esc_url( home_url( '/community/' ) ); ?>">Community</a></li>
                     <?php if ( $is_logged_in ) : ?>
                         <li><a href="<?php echo esc_url( home_url( '/dashboard/' ) ); ?>">Dashboard</a></li>

@@ -21,6 +21,10 @@ get_header();
         $dharma_tpl = get_stylesheet_directory() . '/template-parts/home/dharma-directory.php';
         if ( file_exists( $dharma_tpl ) ) { include $dharma_tpl; }
 
+        /* === PEETH NEWS & PROGRAMMES (auto-imported) === */
+        $news_tpl = get_stylesheet_directory() . '/template-parts/home/dharma-news.php';
+        if ( file_exists( $news_tpl ) ) { include $news_tpl; }
+
         /* === SECTION DIVIDER (original wave artwork) === */
         if ( function_exists( 'sp_art_url' ) && sp_art_url( 'wave.svg' ) ) {
             echo '<img class="sp-wave" src="' . esc_url( sp_art_url( 'wave.svg' ) ) . '"'
