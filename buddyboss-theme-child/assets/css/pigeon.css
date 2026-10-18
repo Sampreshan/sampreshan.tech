@@ -1,0 +1,119 @@
+.sp-pigeon {
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    line-height: 0;
+    -webkit-tap-highlight-color: transparent
+}
+
+.sp-pigeon:focus-visible {
+    outline: 2px solid #E8731A;
+    outline-offset: 4px;
+    border-radius: 12px
+}
+
+.sp-pigeon svg {
+    overflow: visible
+}
+
+.sp-pigeon__bird {
+    animation: sp-pigeon-bob 1.2s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: center
+}
+
+.sp-pigeon__wing--far {
+    transform-box: view-box;
+    transform-origin: 132px 100px;
+    animation: sp-pigeon-flap .6s ease-in-out infinite
+}
+
+.sp-pigeon__wing--near {
+    transform-box: view-box;
+    transform-origin: 150px 114px;
+    animation: sp-pigeon-flap-near .6s ease-in-out infinite
+}
+
+.sp-pigeon__thread {
+    transform-box: view-box;
+    transform-origin: 210px 94px;
+    animation: sp-pigeon-sway 1.2s ease-in-out infinite
+}
+
+.sp-pigeon.is-sending .sp-pigeon__bird {
+    animation: sp-pigeon-dart .9s ease-out
+}
+
+.sp-pigeon.is-sending .sp-pigeon__wing--far,
+.sp-pigeon.is-sending .sp-pigeon__wing--near {
+    animation-duration: .22s
+}
+
+@keyframes sp-pigeon-bob {
+
+    0%,
+    100% {
+        transform: translateY(0)
+    }
+
+    50% {
+        transform: translateY(-5px)
+    }
+}
+
+@keyframes sp-pigeon-flap {
+
+    0%,
+    100% {
+        transform: rotate(0) scaleY(1)
+    }
+
+    50% {
+        transform: rotate(-14deg) scaleY(.55)
+    }
+}
+
+@keyframes sp-pigeon-flap-near {
+
+    0%,
+    100% {
+        transform: scaleY(1)
+    }
+
+    50% {
+        transform: scaleY(2.2)
+    }
+}
+
+@keyframes sp-pigeon-sway {
+
+    0%,
+    100% {
+        transform: rotate(0)
+    }
+
+    50% {
+        transform: rotate(8deg)
+    }
+}
+
+@keyframes sp-pigeon-dart {
+    0% {
+        transform: translate(0, 0)
+    }
+
+    40% {
+        transform: translate(18px, -8px)
+    }
+
+    100% {
+        transform: translate(0, 0)
+    }
+}
+
+@media (prefers-reduced-motion:reduce) {
+    .sp-pigeon * {
+        animation: none !important
+    }
+}
