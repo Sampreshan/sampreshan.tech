@@ -365,3 +365,13 @@ button:hover > .sp-icon--kit .sp-icon__img { transform: translateY(-1px) scale(1
     a:hover > .sp-icon--kit .sp-icon__img,
     button:hover > .sp-icon--kit .sp-icon__img { transform: none; }
 }
+
+/* Emoji in content are replaced by these (inc/no-emoji.php). */
+.sp-inline-icon {
+    display: inline-block;
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 .15em;
+    vertical-align: -0.25em;
+    object-fit: contain;
+}
