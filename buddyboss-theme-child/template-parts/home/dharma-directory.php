@@ -41,7 +41,7 @@ if ( empty( $peeths ) ) {
                     <?php if ( ! empty( $item['infobox']['Amnaya (direction)'] ) ) : ?><span><?php echo esc_html( $item['infobox']['Amnaya (direction)'] ); ?></span><?php endif; ?>
                 </a>
                 <div class="sp-dharma-peeth-card__body">
-                    <h3><a href="<?php echo esc_url( get_permalink( $post ) ); ?>"><?php echo esc_html( get_the_title( $post ) ); ?></a></h3>
+                    <h3><?php sp_icon_e( sp_dharma_icon_name( $post ), 'sp-icon--lg' ); ?><a href="<?php echo esc_url( get_permalink( $post ) ); ?>"><?php echo esc_html( get_the_title( $post ) ); ?></a></h3>
                     <?php if ( ! empty( $item['infobox']['Mahavakya'] ) ) : ?><p class="sp-dharma-card__maha"><?php echo esc_html( $item['infobox']['Mahavakya'] ); ?></p><?php endif; ?>
                     <ul class="sp-dharma-peeth-card__acharyas">
                         <?php foreach ( sp_dharma_peeth_acharya_posts( $item ) as $acharya ) : ?>

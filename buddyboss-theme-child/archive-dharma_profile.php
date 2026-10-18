@@ -70,7 +70,7 @@ $profiles = new WP_Query( $args );
                     <?php if ( $image_url ) : ?><a class="sp-dharma-card__image" href="<?php the_permalink(); ?>" tabindex="-1" aria-hidden="true"><img src="<?php echo esc_url( $image_url ); ?>" alt="" loading="lazy" /></a><?php endif; ?>
                     <?php if ( $kind ) : ?><p class="sp-dharma-card__kind"><?php echo esc_html( 'sampradaya' === $kind ? __( 'Sampradaya profile', 'sampreshan-child' ) : ( 'peeth' === $kind ? __( 'Peeth profile', 'sampreshan-child' ) : __( 'Acharya profile', 'sampreshan-child' ) ) ); ?></p><?php endif; ?>
                     <p class="sp-dharma-card__peeth"><?php echo esc_html( $peeth_name ); ?></p>
-                    <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+                    <h2><?php sp_icon_e( sp_dharma_icon_name( get_the_ID() ), 'sp-icon--lg' ); ?><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
                     <p><?php echo esc_html( get_the_excerpt() ); ?></p>
                     <?php if ( $direction || $veda ) : ?><dl><div><dt><?php esc_html_e( 'Direction', 'sampreshan-child' ); ?></dt><dd><?php echo esc_html( $direction ); ?></dd></div><div><dt><?php esc_html_e( 'Veda', 'sampreshan-child' ); ?></dt><dd><?php echo esc_html( $veda ); ?></dd></div></dl><?php endif; ?>
                     <div class="sp-dharma-card__footer"><a href="<?php the_permalink(); ?>"><?php esc_html_e( 'Open profile', 'sampreshan-child' ); ?></a><?php sp_dharma_follow_button( $profile_id ); ?></div>
@@ -79,7 +79,7 @@ $profiles = new WP_Query( $args );
         </div>
         <?php echo paginate_links( array( 'total' => $profiles->max_num_pages, 'current' => max( 1, (int) get_query_var( 'paged' ) ) ) ); ?>
     <?php else : ?>
-        <div class="sp-dash-empty sp-dash-card"><h2><?php esc_html_e( 'No profiles found', 'sampreshan-child' ); ?></h2><p><?php esc_html_e( 'Try a different name or select all Peeths.', 'sampreshan-child' ); ?></p></div>
+        <div class="sp-dash-empty sp-dash-card"><?php sp_icon_e( 'empty-search', 'sp-icon--3xl' ); ?><h2><?php esc_html_e( 'No profiles found', 'sampreshan-child' ); ?></h2><p><?php esc_html_e( 'Try a different name or select all Peeths.', 'sampreshan-child' ); ?></p></div>
     <?php endif; ?>
 </main>
 <?php get_footer(); ?>

@@ -336,3 +336,32 @@ button:hover .sp-icon:not(.sp-icon--no-hover),
     .sp-icon { color: #000 !important; }
     .sp-icon svg { filter: none !important; }
 }
+
+/* ============================================================
+   PHASE 1 KIT — SampreShan's own 3D raster icons (WebP 64/128/256).
+   Size follows --sp-icon-size, so the breakpoint scale above makes
+   every icon fit desktop, tablet and mobile. Small icons (<20px) are
+   kept slightly larger so the detailed art stays legible.
+   ============================================================ */
+.sp-icon--kit {
+    width: max(var(--sp-icon-size, 1em), 20px);
+    height: max(var(--sp-icon-size, 1em), 20px);
+    vertical-align: middle;
+}
+.sp-icon--kit .sp-icon__img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: transparent;
+    -webkit-user-drag: none;
+    user-select: none;
+    filter: drop-shadow(0 2px 3px rgba(60, 20, 10, .18));
+    transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+a:hover > .sp-icon--kit .sp-icon__img,
+button:hover > .sp-icon--kit .sp-icon__img { transform: translateY(-1px) scale(1.06); }
+@media (prefers-reduced-motion: reduce) {
+    .sp-icon--kit .sp-icon__img { transition: none; }
+    a:hover > .sp-icon--kit .sp-icon__img,
+    button:hover > .sp-icon--kit .sp-icon__img { transform: none; }
+}

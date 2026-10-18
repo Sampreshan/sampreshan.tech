@@ -142,6 +142,7 @@ $start_url       = home_url( '/start-a-petition/' );
         </div>
     <?php else : ?>
         <div class="sp-dash-empty sp-dash-card">
+            <span class="sp-dash-empty__icon" aria-hidden="true"><?php sp_icon_e( 'empty-feed', 'sp-icon--3xl' ); ?></span>
             <h3 class="sp-dash-empty__title"><?php esc_html_e( 'Nothing here yet', 'sampreshan-child' ); ?></h3>
             <p class="sp-dash-empty__desc"><?php esc_html_e( 'Be the first to start a conversation.', 'sampreshan-child' ); ?></p>
             <a class="btn btn--primary" href="<?php echo esc_url( $start_url ); ?>"><?php esc_html_e( 'Start a Petition', 'sampreshan-child' ); ?></a>

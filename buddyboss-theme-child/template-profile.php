@@ -32,7 +32,7 @@ if ( $user_id <= 0 ) {
     ?>
     <main id="main" class="site-main sp-profile sp-profile--guest sp-fu-wash" role="main">
         <div class="sp-container sp-empty">
-            <?php sp_icon_auto( 'lock', 'sp-icon--3xl sp-icon--saffron', __( 'Locked', 'sampreshan-child' ) ); ?>
+            <?php sp_icon_e( 'empty-profile-photo', 'sp-icon--3xl', __( 'Sign in', 'sampreshan-child' ) ); ?>
             <h1 class="sp-empty__title"><?php esc_html_e( 'Sign in to view your profile', 'sampreshan-child' ); ?></h1>
             <p class="sp-empty__body"><?php esc_html_e( 'Your Sanatan profile, petitions, and signatures live behind the sign-in door.', 'sampreshan-child' ); ?></p>
             <a class="sp-fu-btn sp-fu-btn--primary" href="<?php echo esc_url( wp_login_url( get_permalink() ) ); ?>">

@@ -45,3 +45,7 @@ should only be used when explicitly intended.
 
 See [`DEPLOYMENT-RUNBOOK.md`](DEPLOYMENT-RUNBOOK.md) for the repeatable release
 and production-deployment checklist. Credentials remain outside the repository.
+
+## Icons and emoji (mandatory)
+
+Every page or feature, including blog posts, landing pages and campaigns, uses only SampreShan's own icon kit, and no emoji are allowed anywhere. See [docs/ICON-RULES.md](docs/ICON-RULES.md).

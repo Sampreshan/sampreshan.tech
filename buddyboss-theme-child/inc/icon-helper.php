@@ -18,6 +18,89 @@
  * @param string $label  Optional aria-label override.
  * @return string        Inline SVG markup, escaped-safe.
  */
+/**
+ * Legacy SVG names that now render a Phase 1 kit icon.
+ *
+ * Small UI glyphs (plus, close, check, lock, mail, send, dots, link, ...)
+ * intentionally stay on the SVG set: at 12-18px inside buttons they must
+ * inherit currentColor, which a detailed raster cannot do.
+ */
+function sp_icon_aliases() {
+    return array(
+        'home'       => 'nav-home',
+        'bell'       => 'nav-notifications',
+        'search'     => 'nav-search',
+        'settings'   => 'nav-settings',
+        'menu'       => 'nav-menu',
+        'logout'     => 'nav-logout',
+        'calendar'   => 'nav-calendar',
+        'profile'    => 'nav-profile',
+        'account'    => 'nav-profile',
+        'chat'       => 'nav-messages',
+        'feed'       => 'nav-community',
+        'network'    => 'com-group',
+        'group'      => 'com-group',
+        'petition'   => 'nav-petition',
+        'megaphone'  => 'nav-awareness',
+        'mandir'     => 'nav-peeth',
+        'ibadge'     => 'act-support',
+        'heart'      => 'act-like',
+        'bookmark'   => 'act-bookmark',
+        'share'      => 'act-share',
+        'comment'    => 'act-comment',
+        'pen'        => 'act-edit',
+        'upload'     => 'act-upload',
+        'download'   => 'act-download',
+        'flag'       => 'act-report',
+        'hand'       => 'act-donate',
+        'seva'       => 'badge-seva',
+        'verified'   => 'st-verified',
+        'warning'    => 'st-warning',
+        'info'       => 'st-info',
+        'trending'   => 'st-trending',
+        'star'       => 'badge-pratham',
+        'shankh'     => 'sym-shankh',
+        'om'         => 'sym-om',
+        'lotus'      => 'sym-lotus',
+        'diya'       => 'sym-diya',
+        'dharma'     => 'sym-chakra',
+        'gaumata'    => 'seva-goseva',
+        'pothi'      => 'nav-directory',
+        'vedagranth' => 'seva-education',
+        'tirtha'     => 'place-kashi',
+        'image'      => 'com-photo',
+        'video'      => 'com-video',
+    );
+}
+
+/**
+ * Responsive <img> markup for a Phase 1 kit icon, or '' when absent.
+ *
+ * Ships 64/128/256px WebP; `sizes` follows the --sp-icon-size scale so
+ * phones pull 64px (or 128px on 2x screens) and hero icons 256px.
+ */
+function sp_icon_kit_img( $name, $label = '', $class = '' ) {
+    $dir = get_stylesheet_directory() . '/assets/icons/kit/';
+    if ( ! file_exists( $dir . $name . '-64.webp' ) ) {
+        return '';
+    }
+    $uri = get_stylesheet_directory_uri() . '/assets/icons/kit/' . $name;
+    $alt = '' !== $label ? ' alt="' . esc_attr( $label ) . '"' : ' alt="" aria-hidden="true"';
+    // Rendered CSS width per size class (desktop scale; phones are smaller).
+    $px = 24;
+    if ( preg_match( '/sp-icon--(xxs|xs|sm|md|lg|xl|2xl|3xl)\b/', $class, $m ) ) {
+        $scale = array( 'xxs' => 20, 'xs' => 20, 'sm' => 20, 'md' => 24, 'lg' => 36, 'xl' => 56, '2xl' => 80, '3xl' => 120 );
+        $px    = $scale[ $m[1] ];
+    }
+    return sprintf(
+        '<img class="sp-icon__img" src="%1$s-64.webp" srcset="%1$s-64.webp 64w, %1$s-128.webp 128w, %1$s-256.webp 256w" sizes="%4$dpx" width="%4$d" height="%4$d" loading="lazy" decoding="async" draggable="false"%2$s data-icon="%3$s" />',
+        esc_url( $uri ),
+        $alt,
+        esc_attr( $name ),
+        $px
+    );
+}
+
 if ( ! function_exists( 'sp_icon' ) ) {
     function sp_icon( $name, $class = 'sp-icon sp-icon--md', $label = '' ) {
         // A page renders 20-50 icons; read each file once per request.
@@ -25,6 +108,14 @@ if ( ! function_exists( 'sp_icon' ) ) {
 
         $name  = sanitize_key( $name );
         $class = esc_attr( $class );
+
+        // Phase 1 kit (own artwork) wins over the legacy SVG set.
+        $aliases  = sp_icon_aliases();
+        $kit_name = isset( $aliases[ $name ] ) ? $aliases[ $name ] : $name;
+        $kit      = sp_icon_kit_img( $kit_name, $label, $class );
+        if ( '' !== $kit ) {
+            return '<span class="sp-icon sp-icon--kit ' . $class . '" data-icon-wrapper="' . esc_attr( $kit_name ) . '">' . $kit . '</span>';
+        }
         $path  = get_stylesheet_directory() . '/assets/icons/3d/' . $name . '.svg';
 
         if ( ! isset( $svg_cache[ $name ] ) ) {
@@ -309,4 +400,65 @@ if ( ! function_exists( 'sp_pigeon' ) ) {
         <?php
         echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
+}
+
+/**
+ * Kit icon that best represents a Dharma profile.
+ *
+ * Tilaks are mapped only where the mark clearly belongs to that
+ * tradition; Sri Vaishnava has two schools (Vadakalai / Tenkalai), so
+ * it falls back to Om rather than picking one.
+ *
+ * @param WP_Post|int $profile Profile post.
+ * @return string Kit icon name.
+ */
+function sp_dharma_icon_name( $profile ) {
+    $post = get_post( $profile );
+    if ( ! $post ) {
+        return 'sym-om';
+    }
+    $map = array(
+        'purvamnaya-govardhan-matha-puri'      => 'peeth-purva',
+        'paschimamnaya-dwarka-sharada-peetham' => 'peeth-paschim',
+        'uttaraminaya-jyotirmath-peeth'        => 'peeth-uttar',
+        'dakshinamnaya-sri-sharada-peetham'    => 'peeth-dakshin',
+        'kanchi-kamakoti-peetham'              => 'peeth-kanchi',
+        'smarta-dashanami-sampradaya'          => 'tilak-dashanami',
+        'madhva-sampradaya'                    => 'tilak-madhva',
+        'nimbarka-sampradaya'                  => 'tilak-nimbarka',
+        'pushtimarg-vallabha-sampradaya'       => 'tilak-pushtimarg',
+        'gaudiya-vaishnava-sampradaya'         => 'tilak-gaudiya',
+        'ramanandi-sampradaya'                 => 'tilak-ramanandi',
+        'warkari-sampradaya'                   => 'tilak-warkari',
+        'swaminarayan-sampradaya'              => 'tilak-swaminarayan',
+        'shaiva-siddhanta'                     => 'tilak-smarta-shaiva',
+        'kashmir-shaivism'                     => 'tilak-smarta-shaiva',
+        'pashupata-shaivism'                   => 'tilak-smarta-shaiva',
+        'lingayat-veerashaiva'                 => 'tilak-lingayat-veerashaiva',
+        'nath-sampradaya'                      => 'tilak-natha',
+        'shakta-sampradaya'                    => 'tilak-shakta',
+        'ganapatya-sampradaya'                 => 'tilak-ganapatya',
+        'kabir-panth'                          => 'tilak-kabirpanthi',
+        'udasi-sampradaya'                     => 'tilak-udasi',
+    );
+    if ( isset( $map[ $post->post_name ] ) ) {
+        return $map[ $post->post_name ];
+    }
+    if ( function_exists( 'sp_dharma_data' ) ) {
+        $data = sp_dharma_data( $post );
+        $role = $data && ! empty( $data['role'] ) ? strtolower( $data['role'] ) : '';
+        if ( false !== strpos( $role, 'successor' ) || false !== strpos( $role, 'junior' ) ) {
+            return 'role-successor';
+        }
+        if ( false !== strpos( $role, 'jagadguru' ) ) {
+            return 'role-jagadguru';
+        }
+        if ( false !== strpos( $role, 'shankaracharya' ) ) {
+            return 'role-shankaracharya';
+        }
+        if ( '' !== $role ) {
+            return 'role-senior';
+        }
+    }
+    return 'sym-om';
 }
