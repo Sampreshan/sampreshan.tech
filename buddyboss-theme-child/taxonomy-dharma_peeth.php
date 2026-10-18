@@ -38,7 +38,7 @@ $peeth_updates = $peeth_profile ? sp_dharma_updates_for_profiles( sp_dharma_same
         </div>
         <?php the_posts_pagination(); ?>
     <?php else : ?>
-        <div class="sp-dash-empty sp-dash-card"><h2><?php esc_html_e( 'No profiles are published yet', 'sampreshan-child' ); ?></h2></div>
+        <div class="sp-dash-empty sp-dash-card"><?php sp_icon_e( 'empty-search', 'sp-icon--3xl' ); ?><h2><?php esc_html_e( 'No profiles are published yet', 'sampreshan-child' ); ?></h2></div>
     <?php endif; ?>
     <?php if ( $peeth_updates && $peeth_updates->have_posts() ) : ?>
         <section class="sp-dharma-profile__updates" aria-labelledby="sp-peeth-updates-title">

@@ -41,3 +41,7 @@
 हर contributor से respectful, truthful और constructive communication की अपेक्षा है। Harassment, hate speech, discrimination, doxxing, malicious code, unauthorized access और community conflict को बढ़ावा देना स्वीकार्य नहीं है।
 
 Security vulnerability को public issue या pull request में disclose न करें। [SECURITY.md](SECURITY.md) में दिए private reporting process का उपयोग करें।
+
+## Icons and emoji (mandatory)
+
+Every page or feature, including blog posts, landing pages and campaigns, uses only SampreShan's own icon kit, and no emoji are allowed anywhere. See [docs/ICON-RULES.md](docs/ICON-RULES.md).
