@@ -160,7 +160,7 @@ require_once get_stylesheet_directory() . '/inc/iconscout/client.php';
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.23' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.24' );
 }
 
 /**
@@ -420,6 +420,7 @@ add_action( 'init', 'sampreshan_handle_community_story_submission', 20 );
  * Must be loaded before any template that uses the helpers.
  */
 require_once get_stylesheet_directory() . '/inc/icon-helper.php';
+require_once get_stylesheet_directory() . '/inc/no-emoji.php';
 
 /**
  * Load the Framer embedder (sp_framer_render(), sp_framer_shortcode).
