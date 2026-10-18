@@ -44,7 +44,7 @@ if ( empty( $peeths ) ) {
                     <h3><a href="<?php echo esc_url( get_permalink( $post ) ); ?>"><?php echo esc_html( get_the_title( $post ) ); ?></a></h3>
                     <?php if ( ! empty( $item['infobox']['Mahavakya'] ) ) : ?><p class="sp-dharma-card__maha"><?php echo esc_html( $item['infobox']['Mahavakya'] ); ?></p><?php endif; ?>
                     <ul class="sp-dharma-peeth-card__acharyas">
-                        <?php foreach ( sp_dharma_peeth_acharya_posts( $item ) as $acharya ) : ?>
+                        <?php foreach ( sp_dharma_listed_acharya_posts( $item ) as $acharya ) : ?>
                             <?php $thumb = sp_dharma_profile_image_url( $acharya->ID, 'thumbnail' ); ?>
                             <li><a href="<?php echo esc_url( get_permalink( $acharya ) ); ?>"><?php if ( $thumb ) : ?><img src="<?php echo esc_url( $thumb ); ?>" alt="" width="40" height="40" loading="lazy" /><?php endif; ?><span><?php echo esc_html( get_the_title( $acharya ) ); ?></span></a></li>
                         <?php endforeach; ?>
@@ -61,7 +61,7 @@ if ( empty( $peeths ) ) {
     <?php
     $acharyas = array();
     foreach ( $peeths as list( $post, $item ) ) {
-        foreach ( sp_dharma_peeth_acharya_posts( $item ) as $acharya ) {
+        foreach ( sp_dharma_listed_acharya_posts( $item ) as $acharya ) {
             $acharyas[] = array( $acharya, $post );
         }
     }
@@ -109,10 +109,9 @@ if ( empty( $peeths ) ) {
         </div>
         <div class="sp-dharma-acharya-row sp-dharma-sampradaya-row">
             <?php foreach ( $sampradayas as list( $post, $item ) ) : ?>
-                <?php $img = sp_dharma_profile_image_url( $post->ID, 'medium' ); ?>
                 <article class="sp-dharma-acharya-card sp-dharma-sampradaya-card">
-                    <a class="sp-dharma-acharya-card__media" href="<?php echo esc_url( get_permalink( $post ) ); ?>" tabindex="-1" aria-hidden="true">
-                        <?php if ( $img ) : ?><img src="<?php echo esc_url( $img ); ?>" alt="" width="160" height="160" loading="lazy" /><?php else : ?><span aria-hidden="true">ॐ</span><?php endif; ?>
+                    <a class="sp-dharma-acharya-card__media sp-dharma-acharya-card__media--tilak" href="<?php echo esc_url( get_permalink( $post ) ); ?>" tabindex="-1" aria-hidden="true">
+                        <?php echo sp_tilak_markup( $post->post_name, 84, $item['family'] ?? '' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
                     </a>
                     <p class="sp-dharma-sampradaya-card__family"><?php echo esc_html( sp_sampradaya_family_label( $item['family'] ) ); ?></p>
                     <h4><a href="<?php echo esc_url( get_permalink( $post ) ); ?>"><?php echo esc_html( get_the_title( $post ) ); ?></a></h4>

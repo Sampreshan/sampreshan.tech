@@ -28,6 +28,10 @@ if ( '' !== $kind_f ) {
 if ( '' !== $peeth ) {
     $args['tax_query'] = array( array( 'taxonomy' => 'dharma_peeth', 'field' => 'slug', 'terms' => $peeth ) );
 }
+// Acharyas who have declared a successor appear only via their Peeth and successor pages.
+if ( function_exists( 'sp_dharma_unlisted_ids' ) && ( $hidden = sp_dharma_unlisted_ids() ) ) {
+    $args['post__not_in'] = $hidden;
+}
 $profiles = new WP_Query( $args );
 ?>
 <main id="main" class="sp-page sp-dharma-directory" role="main">
@@ -67,7 +71,7 @@ $profiles = new WP_Query( $args );
                 $image_url  = sp_dharma_profile_image_url( $profile_id, 'medium_large' );
                 ?>
                 <article class="sp-dharma-profile-card sp-dharma-profile-card--<?php echo esc_attr( in_array( $kind, array( 'peeth', 'sampradaya' ), true ) ? $kind : 'acharya' ); ?>">
-                    <?php if ( $image_url ) : ?><a class="sp-dharma-card__image" href="<?php the_permalink(); ?>" tabindex="-1" aria-hidden="true"><img src="<?php echo esc_url( $image_url ); ?>" alt="" loading="lazy" /></a><?php endif; ?>
+                    <?php if ( 'sampradaya' === $kind ) : ?><a class="sp-dharma-card__image sp-dharma-card__image--tilak" href="<?php the_permalink(); ?>" tabindex="-1" aria-hidden="true"><?php echo sp_tilak_markup( get_post_field( 'post_name', $profile_id ), 110, ( sp_dharma_data_all()[ get_post_field( 'post_name', $profile_id ) ]['family'] ?? '' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></a><?php elseif ( $image_url ) : ?><a class="sp-dharma-card__image" href="<?php the_permalink(); ?>" tabindex="-1" aria-hidden="true"><img src="<?php echo esc_url( $image_url ); ?>" alt="" loading="lazy" /></a><?php endif; ?>
                     <?php if ( $kind ) : ?><p class="sp-dharma-card__kind"><?php echo esc_html( 'sampradaya' === $kind ? __( 'Sampradaya profile', 'sampreshan-child' ) : ( 'peeth' === $kind ? __( 'Peeth profile', 'sampreshan-child' ) : __( 'Acharya profile', 'sampreshan-child' ) ) ); ?></p><?php endif; ?>
                     <p class="sp-dharma-card__peeth"><?php echo esc_html( $peeth_name ); ?></p>
                     <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>

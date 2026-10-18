@@ -17,7 +17,6 @@ while ( have_posts() ) : the_post();
     $updates    = sp_dharma_updates_for_profiles( 'peeth' === $kind ? sp_dharma_same_peeth_ids( $profile_id ) : array( $profile_id ), 10 );
     $peeth_post = ( 'acharya' === $kind && ! empty( $data['peeth'] ) ) ? sp_dharma_profile_by_slug( $data['peeth'] ) : null;
     $peeth_data = $peeth_post ? sp_dharma_data( $peeth_post ) : null;
-    $sources    = $data && ! empty( $data['sources'] ) ? $data['sources'] : array();
     $follow_txt = sprintf( _n( '%s member follows this profile', '%s members follow this profile', sp_dharma_follow_count( $profile_id ), 'sampreshan-child' ), number_format_i18n( sp_dharma_follow_count( $profile_id ) ) );
 ?>
 <main id="main" class="sp-page sp-dharma-profile sp-dharma-profile--<?php echo esc_attr( $kind ); ?>" role="main">
@@ -41,7 +40,7 @@ while ( have_posts() ) : the_post();
 
         <div class="sp-wiki__body">
             <aside class="sp-wiki__infobox" aria-label="<?php esc_attr_e( 'Key facts', 'sampreshan-child' ); ?>">
-                <?php if ( $image_url ) : ?><img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" width="640" height="640" loading="eager" /><?php endif; ?>
+                <?php if ( 'sampradaya' === $kind ) : ?><div class="sp-wiki__tilak"><?php echo sp_tilak_markup( get_post_field( 'post_name', $profile_id ), 150, $data['family'] ?? '' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div><?php elseif ( $image_url ) : ?><img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" width="640" height="640" loading="eager" /><?php endif; ?>
                 <?php if ( $data ) : ?>
                     <table>
                         <?php foreach ( $data['infobox'] as $label => $value ) : ?>
@@ -63,7 +62,7 @@ while ( have_posts() ) : the_post();
                             <?php endforeach; ?>
                             <?php if ( $data && sp_dharma_peeth_acharya_posts( $data ) ) : ?><li><a href="#acharyas"><?php esc_html_e( 'Acharyas', 'sampreshan-child' ); ?></a></li><?php endif; ?>
                             <li><a href="#updates"><?php esc_html_e( 'Updates', 'sampreshan-child' ); ?></a></li>
-                            <?php if ( $sources ) : ?><li><a href="#references"><?php esc_html_e( 'References', 'sampreshan-child' ); ?></a></li><?php endif; ?>
+                            
                         </ol>
                     </nav>
                 <?php endif; ?>
@@ -85,7 +84,7 @@ while ( have_posts() ) : the_post();
                                     <li>
                                         <a href="<?php echo esc_url( get_permalink( $acharya ) ); ?>">
                                             <?php if ( $thumb ) : ?><img src="<?php echo esc_url( $thumb ); ?>" alt="" width="56" height="56" loading="lazy" /><?php endif; ?>
-                                            <span><strong><?php echo esc_html( get_the_title( $acharya ) ); ?></strong><?php if ( $a ) : ?><small><?php echo esc_html( $a['role'] ); ?></small><?php endif; ?></span>
+                                            <span><strong><?php echo esc_html( get_the_title( $acharya ) ); ?></strong><?php if ( $a ) : ?><small><?php echo esc_html( $a['role'] ); ?></small><?php endif; ?><em class="sp-wiki__people-more"><?php esc_html_e( 'Read more →', 'sampreshan-child' ); ?></em></span>
                                         </a>
                                     </li>
                                 <?php endforeach; ?>
@@ -122,6 +121,22 @@ while ( have_posts() ) : the_post();
                 <p class="sp-folio__followers" data-sp-follow-count><?php echo esc_html( $follow_txt ); ?></p>
             </div>
         </header>
+
+        <?php $guru = ( $data && ! empty( $data['guru'] ) ) ? sp_dharma_profile_by_slug( $data['guru'] ) : null; ?>
+        <?php if ( $guru ) : ?>
+            <?php $g = sp_dharma_data( $guru ); $g_img = sp_dharma_profile_image_url( $guru->ID, 'medium' ); ?>
+            <section class="sp-folio__card sp-folio__guru" aria-labelledby="sp-folio-guru">
+                <p class="sp-folio__guru-eyebrow" id="sp-folio-guru"><?php esc_html_e( 'Guru & presiding Jagadguru', 'sampreshan-child' ); ?></p>
+                <a class="sp-folio__guru-card" href="<?php echo esc_url( get_permalink( $guru ) ); ?>">
+                    <?php if ( $g_img ) : ?><img src="<?php echo esc_url( $g_img ); ?>" alt="" width="120" height="120" loading="lazy" /><?php endif; ?>
+                    <span class="sp-folio__guru-body">
+                        <strong><?php echo esc_html( get_the_title( $guru ) ); ?></strong>
+                        <?php if ( $g ) : ?><small><?php echo esc_html( $g['role'] ); ?></small><span><?php echo esc_html( $g['summary'] ); ?></span><?php endif; ?>
+                        <em><?php esc_html_e( 'Read full profile →', 'sampreshan-child' ); ?></em>
+                    </span>
+                </a>
+            </section>
+        <?php endif; ?>
 
         <?php if ( ! empty( $data['notice'] ) ) : ?>
             <p class="sp-folio__notice" role="note"><?php echo esc_html( $data['notice'] ); ?></p>
@@ -186,16 +201,6 @@ while ( have_posts() ) : the_post();
         <?php endif; ?>
     </section>
 
-    <?php if ( $sources ) : ?>
-        <section id="references" class="sp-dharma-refs" aria-labelledby="sp-dharma-refs-title">
-            <h2 id="sp-dharma-refs-title"><?php esc_html_e( 'References', 'sampreshan-child' ); ?></h2>
-            <ol>
-                <?php foreach ( $sources as $label => $url ) : ?>
-                    <li><a href="<?php echo esc_url( $url ); ?>" rel="noopener nofollow" target="_blank"><?php echo esc_html( $label ); ?></a></li>
-                <?php endforeach; ?>
-            </ol>
-            <p class="sp-dharma-muted"><?php echo esc_html( sprintf( __( 'Facts checked against official Peetham sources and reputable reporting. Last reviewed: %s. Traditional accounts are labelled as such. Spotted an error? Write to connect@sampreshan.tech.', 'sampreshan-child' ), sp_dharma_reviewed_on() ) ); ?></p>
-        </section>
-    <?php endif; ?>
+    <p class="sp-dharma-credit"><?php echo esc_html( sprintf( __( 'Compiled and maintained by the ShivBodh group of work. Last reviewed: %s. Traditional accounts are labelled as such. Spotted an error? Write to connect@sampreshan.tech.', 'sampreshan-child' ), sp_dharma_reviewed_on() ) ); ?></p>
 </main>
 <?php endwhile; get_footer(); ?>

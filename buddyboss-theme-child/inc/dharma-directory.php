@@ -440,6 +440,13 @@ function sp_dharma_follow_count( $profile_id ) {
     return max( 0, (int) get_post_meta( (int) $profile_id, '_sp_dharma_follow_count', true ) );
 }
 
+/**
+ * Shankh glyph shown on the Anusaran (follow) button in place of a text-only label.
+ */
+function sp_dharma_follow_shankh() {
+    return function_exists( 'sp_shankh_markup' ) ? sp_shankh_markup( array( 'size' => 30, 'tag' => 'span', 'class' => 'sp-dharma-follow__shankh' ) ) : '';
+}
+
 function sp_dharma_follow_button( $profile_id, $classes = '' ) {
     $profile_id = (int) $profile_id;
     if ( $profile_id <= 0 ) {
@@ -448,11 +455,12 @@ function sp_dharma_follow_button( $profile_id, $classes = '' ) {
 
     if ( ! is_user_logged_in() ) {
         printf(
-            '<a class="sp-dharma-follow %1$s" href="%2$s">%3$s</a>',
+            '<a class="sp-dharma-follow sp-dharma-follow--shankh %1$s" href="%2$s" title="%3$s">%4$s<span class="sp-dharma-follow__label">%3$s</span></a>',
             esc_attr( $classes ),
             // The theme hides wp-login.php links, so use the site's own login page.
             esc_url( add_query_arg( 'redirect_to', rawurlencode( get_permalink( $profile_id ) ), home_url( '/login/' ) ) ),
-            esc_html__( 'Anusaran', 'sampreshan-child' )
+            esc_html__( 'Anusaran', 'sampreshan-child' ),
+            sp_dharma_follow_shankh() // phpcs:ignore WordPress.Security.EscapeOutput
         );
         return;
     }
@@ -464,8 +472,9 @@ function sp_dharma_follow_button( $profile_id, $classes = '' ) {
         <input type="hidden" name="profile_id" value="<?php echo esc_attr( $profile_id ); ?>" />
         <input type="hidden" name="redirect_to" value="<?php echo esc_url( add_query_arg( 'anusaran', $following ? 'removed' : 'added', get_permalink( $profile_id ) ) ); ?>" />
         <?php wp_nonce_field( 'sp_toggle_dharma_follow_' . $profile_id ); ?>
-        <button class="sp-dharma-follow <?php echo esc_attr( $classes . ( $following ? ' is-following' : '' ) ); ?>" type="submit">
-            <?php echo esc_html( $following ? __( 'Anusaran mein hai', 'sampreshan-child' ) : __( 'Anusaran', 'sampreshan-child' ) ); ?>
+        <?php $label = $following ? __( 'Anusaran mein hai', 'sampreshan-child' ) : __( 'Anusaran', 'sampreshan-child' ); ?>
+        <button class="sp-dharma-follow sp-dharma-follow--shankh <?php echo esc_attr( $classes . ( $following ? ' is-following' : '' ) ); ?>" type="submit" title="<?php echo esc_attr( $label ); ?>">
+            <?php echo sp_dharma_follow_shankh(); // phpcs:ignore WordPress.Security.EscapeOutput ?><span class="sp-dharma-follow__label"><?php echo esc_html( $label ); ?></span>
         </button>
     </form>
     <?php
