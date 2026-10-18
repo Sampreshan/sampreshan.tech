@@ -10,7 +10,7 @@ $home_url      = home_url( '/' );
 $petitions_url = home_url( '/petitions/' );
 $start_url     = home_url( '/start-a-petition/' );
 // Never hardcode /feed/ — that slug serves the RSS feed. Resolve our Feed page.
-$feed_url      = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/feed-2/' );
+$feed_url      = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/community-center/' );
 $feed_page_id  = $feed_url ? url_to_postid( $feed_url ) : 0;
 $community_url = home_url( '/community/' );
 $is_logged_in  = is_user_logged_in();

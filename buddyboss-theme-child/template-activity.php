@@ -30,7 +30,7 @@ $start_url       = home_url( '/start-a-petition/' );
 <main id="main" class="sp-page sp-users sp-users--narrow" role="main">
     <header class="sp-users__hero sp-users__hero--center">
         <p class="sp-section__eyebrow"><?php esc_html_e( 'Fresh from the community', 'sampreshan-child' ); ?></p>
-        <h1 class="sp-users__title"><?php sp_icon_auto( 'feed', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Community Feed', 'sampreshan-child' ); ?></h1>
+        <h1 class="sp-users__title"><?php if ( function_exists( 'sp_i_eye' ) ) { sp_i_eye( array( 'size' => 56, 'class' => 'sp-users__title-eye' ) ); } ?> <?php esc_html_e( 'Sampreshan Community Center', 'sampreshan-child' ); ?></h1>
         <p class="sp-users__sub"><?php esc_html_e( 'The newest petitions and stories — sign, share, and join the conversation.', 'sampreshan-child' ); ?></p>
     </header>
 
@@ -134,7 +134,11 @@ $start_url       = home_url( '/start-a-petition/' );
                         </p>
                     <?php endif; ?>
                     <div class="sp-dash-row__actions">
-                        <a class="sp-dash-link" href="<?php echo esc_url( get_permalink() ); ?>"><?php echo $is_pet ? esc_html__( 'View & sign →', 'sampreshan-child' ) : esc_html__( 'Read →', 'sampreshan-child' ); ?></a>
+                        <?php if ( $is_pet ) : ?>
+                            <a class="sp-feed__support" href="<?php echo esc_url( get_permalink() ); ?>"><?php if ( function_exists( 'sp_i_eye_markup' ) ) { echo sp_i_eye_markup( array( 'size' => 26, 'tag' => 'span' ) ); } // phpcs:ignore WordPress.Security.EscapeOutput ?><span><?php esc_html_e( 'Support', 'sampreshan-child' ); ?></span></a>
+                        <?php else : ?>
+                            <a class="sp-dash-link" href="<?php echo esc_url( get_permalink() ); ?>"><?php esc_html_e( 'Read →', 'sampreshan-child' ); ?></a>
+                        <?php endif; ?>
                         <button class="sp-dash-link sp-share-btn" type="button" data-url="<?php echo esc_url( get_permalink() ); ?>" data-title="<?php echo esc_attr( get_the_title() ); ?>"><?php esc_html_e( 'Share', 'sampreshan-child' ); ?></button>
                     </div>
                 </article>

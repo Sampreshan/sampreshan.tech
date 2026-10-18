@@ -122,15 +122,15 @@ $guidelines_url = home_url( '/community-guidelines/' );
 $logout_url    = wp_logout_url( home_url( '/' ) );
 
 /* --- Truth Social tools: feed, people, notifications, messages --- */
-$feed_url      = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/feed-2/' );
+$feed_url      = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/community-center/' );
 $community_url = home_url( '/community/' );
 $bp_domain     = function_exists( 'bp_loggedin_user_domain' ) ? (string) bp_loggedin_user_domain() : '';
 $notif_url     = ( '' !== $bp_domain && function_exists( 'bp_is_active' ) && bp_is_active( 'notifications' ) ) ? trailingslashit( $bp_domain ) . 'notifications/' : '';
 $messages_url  = ( '' !== $bp_domain && function_exists( 'bp_is_active' ) && bp_is_active( 'messages' ) ) ? trailingslashit( $bp_domain ) . 'messages/' : '';
 
 /* --- BuddyBoss community tools hub (forums, groups, media, invites, moderation, search) --- */
-$groups_url  = function_exists( 'bp_get_groups_directory_permalink' ) ? (string) bp_get_groups_directory_permalink() : home_url( '/groups/' );
-$forums_url  = function_exists( 'bbp_get_forums_url' ) ? (string) bbp_get_forums_url( '/' ) : home_url( '/forums/' );
+$groups_url  = function_exists( 'bp_get_groups_directory_permalink' ) ? (string) bp_get_groups_directory_permalink() : '';
+$forums_url  = function_exists( 'bbp_get_forums_url' ) ? (string) bbp_get_forums_url( '/' ) : '';
 $media_url   = ( '' !== $bp_domain && function_exists( 'bp_is_active' ) && bp_is_active( 'media' ) ) ? trailingslashit( $bp_domain ) . 'media/' : '';
 $invites_on  = ( '' !== $bp_domain && function_exists( 'bp_is_active' ) && bp_is_active( 'invites' ) && function_exists( 'bp_get_invites_slug' ) );
 $invites_url = $invites_on ? trailingslashit( trailingslashit( $bp_domain ) . bp_get_invites_slug() ) . 'send-invites/' : '';
@@ -412,6 +412,7 @@ $dashboard_feed = new WP_Query( array(
                 <section class="sp-dash-card sp-dash-card--pad" aria-labelledby="sp-dash-community-h">
                     <h2 class="sp-dash-card__title" id="sp-dash-community-h"><?php sp_icon_auto( 'globe', 'sp-icon--sm sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Community tools', 'sampreshan-child' ); ?></h2>
                     <ul class="sp-dash-actions">
+                        <?php if ( '' !== $forums_url ) : ?>
                         <li>
                             <a class="sp-dash-action" href="<?php echo esc_url( $forums_url ); ?>">
                                 <span class="sp-dash-action__icon sp-dash-action__icon--blue" aria-hidden="true"><?php sp_icon_auto( 'comment', 'sp-icon--sm', '' ); ?></span>
@@ -419,6 +420,8 @@ $dashboard_feed = new WP_Query( array(
                                 <span aria-hidden="true">&rarr;</span>
                             </a>
                         </li>
+                        <?php endif; ?>
+                        <?php if ( '' !== $groups_url ) : ?>
                         <li>
                             <a class="sp-dash-action" href="<?php echo esc_url( $groups_url ); ?>">
                                 <span class="sp-dash-action__icon sp-dash-action__icon--saffron" aria-hidden="true"><?php sp_icon_auto( 'group', 'sp-icon--sm', '' ); ?></span>
@@ -427,6 +430,7 @@ $dashboard_feed = new WP_Query( array(
                                 <span aria-hidden="true">&rarr;</span>
                             </a>
                         </li>
+                        <?php endif; ?>
                         <?php if ( '' !== $media_url ) : ?>
                             <li>
                                 <a class="sp-dash-action" href="<?php echo esc_url( $media_url ); ?>">
