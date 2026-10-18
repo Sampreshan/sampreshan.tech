@@ -1,0 +1,50 @@
+/* Sampreshan I-Eye mark (inc/brand/i-eye.php) */
+.sp-i-eye {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    line-height: 0;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform .35s cubic-bezier(.2, .9, .3, 1.3);
+}
+.sp-i-eye:hover { transform: translateY(-3px) rotate(-2deg); }
+.sp-i-eye:active { transform: scale(.94); }
+.sp-i-eye:focus-visible { outline: 3px solid #FF9933; outline-offset: 6px; border-radius: 12px; }
+.sp-i-eye svg { overflow: visible; }
+
+.sp-i-eye__lid {
+    transition: transform .09s ease-in;
+}
+.sp-i-eye__lid--top { transform: translateY(-62px); }
+.sp-i-eye__lid--bot { transform: translateY(62px); }
+.sp-i-eye.is-blinking .sp-i-eye__lid--top,
+.sp-i-eye.is-blinking .sp-i-eye__lid--bot { transform: translateY(0); }
+
+.sp-i-eye__look { transition: transform .25s ease-out; }
+.sp-i-eye__pupil { transform-box: fill-box; transform-origin: center; transition: transform .3s ease; }
+.sp-i-eye:hover .sp-i-eye__pupil { transform: scale(1.18); }
+
+@media (prefers-reduced-motion: reduce) {
+    .sp-i-eye, .sp-i-eye__look, .sp-i-eye__pupil { transition: none; }
+    .sp-i-eye:hover { transform: none; }
+}
+
+/* I-Eye as an inline support glyph (tag => span) inside links/buttons. */
+span.sp-i-eye { cursor: inherit; vertical-align: middle; }
+.sp-users__title-eye { vertical-align: middle; margin-right: .35rem; }
+.sp-feed__support,
+.sp-fu-btn .sp-i-eye { vertical-align: middle; }
+.sp-feed__support {
+    display: inline-flex; align-items: center; gap: .45rem;
+    padding: .35rem .95rem .35rem .45rem; border-radius: 999px;
+    background: linear-gradient(135deg, #FF9933, #C85F0A); color: #fff !important;
+    font-weight: 750; font-size: .85rem; text-decoration: none !important;
+    box-shadow: 0 6px 16px rgba(200, 95, 10, .3); transition: transform .2s ease, box-shadow .2s ease;
+}
+.sp-feed__support:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(200, 95, 10, .4); }
+.sp-feed__support .sp-i-eye { background: #fff; border-radius: 999px; padding: 2px 6px; }
