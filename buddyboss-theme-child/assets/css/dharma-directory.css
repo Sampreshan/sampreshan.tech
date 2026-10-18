@@ -312,8 +312,10 @@ body.sp-future .sp-dharma-sampradaya-card__family { color: #c2410c; }
 /* Own icon kit inside Dharma headings and empty states */
 .sp-wiki__icon { display: block; margin-bottom: .5rem; }
 .sp-folio__role,
-.sp-dharma-peeth-card h3,
-.sp-dharma-profile-card h2 { display: flex; align-items: center; gap: .5rem; }
+.sp-dharma-peeth-card h3 { display: flex; align-items: center; gap: .5rem; }
+/* Archive cards are narrow: icon sits above the title so long names keep their width. */
+.sp-dharma-profile-card h2 > .sp-icon--kit { display: block; margin-bottom: .4rem; }
+.sp-dharma-profile-card h2 { overflow-wrap: break-word; hyphens: manual; }
 .sp-folio__role { justify-content: inherit; }
 @media (max-width: 860px) { .sp-folio__role { justify-content: center; } }
 .sp-dash-empty > .sp-icon--kit,
