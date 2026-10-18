@@ -64,7 +64,7 @@ $sp_feed_id  = $sp_feed_url ? url_to_postid( $sp_feed_url ) : 0;
                     <div class="sp-notif__panel" id="sp-notif-panel" role="region" aria-label="<?php esc_attr_e( 'Notifications', 'sampreshan-child' ); ?>" hidden>
                         <p class="sp-notif__head"><?php esc_html_e( 'Notifications', 'sampreshan-child' ); ?></p>
                         <ul class="sp-notif__list" data-sp-notif-list></ul>
-                        <p class="sp-notif__empty" data-sp-notif-empty hidden><?php esc_html_e( 'No notifications yet. Follow an Acharya or Peeth to get their updates here.', 'sampreshan-child' ); ?></p>
+                        <p class="sp-notif__empty" data-sp-notif-empty hidden><?php sp_icon_e( 'empty-notifications', 'sp-icon--2xl' ); ?><?php esc_html_e( 'No notifications yet. Follow an Acharya or Peeth to get their updates here.', 'sampreshan-child' ); ?></p>
                     </div>
                 </div>
 
