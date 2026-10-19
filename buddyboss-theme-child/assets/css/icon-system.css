@@ -375,3 +375,21 @@ button:hover > .sp-icon--kit .sp-icon__img { transform: translateY(-1px) scale(1
     vertical-align: -0.25em;
     object-fit: contain;
 }
+
+/* Icon Library page (/icons/) */
+.sp-iconlib__toc { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.5rem; }
+.sp-iconlib__toc a { padding: .35rem .8rem; border-radius: 999px; background: #fff7ed; color: #9a3412; font-size: .85rem; text-decoration: none; border: 1px solid #fed7aa; }
+.sp-iconlib__toc a span { opacity: .65; margin-left: .25rem; }
+.sp-iconlib__group { scroll-margin-top: 90px; }
+.sp-iconlib__group h2 code { font-size: .75rem; margin-left: .5rem; color: #9a3412; background: #fff7ed; padding: .1rem .4rem; border-radius: 4px; }
+.sp-iconlib__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: .75rem; }
+.sp-iconlib__item { position: relative; display: flex; flex-direction: column; align-items: center; gap: .5rem; padding: .9rem .4rem .7rem; border-radius: 12px; background: #fffdf8; border: 1px solid #f3e8d7; text-align: center; }
+.sp-iconlib__item .sp-icon__img { width: 56px; height: 56px; }
+.sp-iconlib__name { font-size: .72rem; word-break: break-word; color: #57534e; background: none; user-select: all; }
+.sp-iconlib__tag { position: absolute; top: 6px; right: 6px; font-size: .6rem; padding: .05rem .35rem; border-radius: 999px; background: #ea580c; color: #fff; }
+.sp-iconlib__code { overflow-x: auto; padding: .75rem; background: #1c1917; color: #fde68a; border-radius: 8px; font-size: .8rem; }
+@media (max-width: 479px) {
+    .sp-iconlib__grid { grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+    .sp-iconlib__item .sp-icon__img { width: 44px; height: 44px; }
+    .sp-iconlib__name { font-size: .62rem; }
+}

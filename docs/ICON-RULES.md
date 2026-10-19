@@ -43,7 +43,9 @@ any new feature.
 3. If an old SVG name should now show the new art, add the mapping to `sp_icon_aliases()` in
    `inc/icon-helper.php`.
 
-## Kit names (Phase 1)
+## Kit names (Phase 1 + Phase 2, 220 icons)
+
+Full visual list: https://sampreshan.tech/icons/ (template `template-icon-library.php`, reads `kit/manifest.json`).
 
 | Prefix | Use |
 |---|---|
@@ -59,4 +61,9 @@ any new feature.
 | `st-*` | Status: approved, pending, rejected, success, error, warning, info, new, trending, verified. |
 | `badge-*` | Member badges: pratham, niyamit, sanyojak, seva. |
 | `tilak-*` | Sampradaya tilaks (20). |
+| `dash-*` | Phase 2. Dashanami names: giri, puri, bharati, saraswati, tirtha, ashram, van, aranya, parvat, sagar. |
+| `devi-*` | Phase 2. Devi: annapurna, durga, kali, kamakhya, lakshmi, navaratri, parvati, saraswati, shakti-peeth, shringar, vaishno, yantra. |
+| `fest-*` | Phase 2. Festivals and tithis: amavasya, chhath, dev-deepawali, diwali, ekadashi, ganesh, guru-purnima, holi, janmashtami, kartik-snan, makar-sankranti, navaratri, purnima, ramnavami, shankara-jayanti, shivratri. |
+| `katha-*` | Phase 2. Katha and satsang: bhagwat, bhajan, devi-bhagwat, gita, kirtan, live, mic, ramkatha, satsang, schedule, shivpuran, vachak. |
+| Phase 2 additions to older prefixes | peeth: akhara, ashram, jyotirlinga, math, shakti, vaishnav. role: acharya, guru-parampara, mahamandaleshwar, mahant, pujari, sannyasi, vidwan, yogi. place: ayodhya, haridwar, mathura, prayag, rameshwaram, ujjain. sym: chhatra, dhwaja, nandi, swastik. evt: festival, kumbh. com: leaderboard, mentor. badge: guru-bhakt, shatak. seva: elder, youth. |
 | `empty-*`, `error-404`, `welcome` | Empty states and illustrations. |
