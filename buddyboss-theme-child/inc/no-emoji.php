@@ -31,6 +31,8 @@ function sp_emoji_icon_map() {
         '1F338' => 'sym-lotus',
         '1F33F' => 'seva-environment',
         '1F331' => 'seva-environment',
+        '1F6A9' => 'sym-dhwaja',
+        '1F402' => 'sym-nandi',
         '1F6D5' => 'nav-peeth',
         '1F3DB' => 'seva-temple-heritage',
         '1F5E3' => 'nav-awareness',

@@ -406,8 +406,9 @@ if ( ! function_exists( 'sp_pigeon' ) ) {
  * Kit icon that best represents a Dharma profile.
  *
  * Tilaks are mapped only where the mark clearly belongs to that
- * tradition; Sri Vaishnava has two schools (Vadakalai / Tenkalai), so
- * it falls back to Om rather than picking one.
+ * tradition. Sri Vaishnava has two tilak schools (Vadakalai / Tenkalai),
+ * and Ekasarana / Mahanubhava have no tilak in the kit, so these use the
+ * generic Vaishnava icon rather than a tilak that may be wrong.
  *
  * @param WP_Post|int $profile Profile post.
  * @return string Kit icon name.
@@ -424,6 +425,9 @@ function sp_dharma_icon_name( $profile ) {
         'dakshinamnaya-sri-sharada-peetham'    => 'peeth-dakshin',
         'kanchi-kamakoti-peetham'              => 'peeth-kanchi',
         'smarta-dashanami-sampradaya'          => 'tilak-dashanami',
+        'sri-vaishnava-sampradaya'             => 'peeth-vaishnav',
+        'ekasarana-dharma'                     => 'peeth-vaishnav',
+        'mahanubhava-sampradaya'               => 'peeth-vaishnav',
         'madhva-sampradaya'                    => 'tilak-madhva',
         'nimbarka-sampradaya'                  => 'tilak-nimbarka',
         'pushtimarg-vallabha-sampradaya'       => 'tilak-pushtimarg',
@@ -457,7 +461,7 @@ function sp_dharma_icon_name( $profile ) {
             return 'role-shankaracharya';
         }
         if ( '' !== $role ) {
-            return 'role-senior';
+            return 'role-acharya';
         }
     }
     return 'sym-om';
