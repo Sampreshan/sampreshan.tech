@@ -3,7 +3,7 @@
  * Reference data for Sampradaya profiles (kind = sampradaya).
  *
  * Same rules as dharma-data.php: well-documented facts only, traditional
- * accounts labelled as tradition, sources listed for every entry.
+ * accounts labelled as tradition, written in our own words.
  * Merged into sp_dharma_data_all(). Reviewed: October 2026.
  *
  * @package SampreShan_Child
@@ -41,10 +41,6 @@ function sp_sampradaya_data_all() {
                 'History'  => '<p>Tradition credits Adi Shankaracharya with establishing the Amnaya Peethas and grouping the ten names under them. The Peethas continue to be headed by Shankaracharyas.</p>',
                 'Practice' => '<p>Study of the Prasthanatrayi (Upanishads, Bhagavad Gita, Brahma Sutras) with Shankara\'s commentaries, Panchayatana worship and sannyasa within the Dashanami order.</p>',
             ),
-            'sources'  => array(
-                'Wikipedia — Smarta tradition' => $w( 'Smarta_tradition' ),
-                'Wikipedia — Dashanami Sampradaya' => $w( 'Dashanami_Sampradaya' ),
-            ),
         ),
 
         /* --------------------------------------------------- Vaishnava */
@@ -69,9 +65,6 @@ function sp_sampradaya_data_all() {
                 'History'  => '<p>The tradition traces its teachers through Nathamuni and Yamunacharya to Ramanujacharya, who wrote the Sri Bhashya on the Brahma Sutras. It later developed two schools, Vadakalai and Tenkalai.</p>',
                 'Practice' => '<p>Temple worship in the 108 Divya Desams, recitation of the Divya Prabandham, and surrender (prapatti) to Narayana.</p>',
             ),
-            'sources'  => array(
-                'Wikipedia — Sri Vaishnavism' => $w( 'Sri_Vaishnavism' ),
-            ),
         ),
 
         'madhva-sampradaya' => array(
@@ -92,10 +85,6 @@ function sp_sampradaya_data_all() {
                 'Overview' => '<p>Dvaita holds that God (Vishnu), individual souls and matter are eternally distinct, and that liberation comes through devotion and the grace of Vishnu.</p>',
                 'History'  => '<p>Madhvacharya founded the Krishna temple at Udupi and the eight mathas (Ashta Mathas) whose heads take turns, in the Paryaya system, to administer the temple.</p>',
                 'Practice' => '<p>Study of Madhva\'s commentaries, worship of Krishna, and the Haridasa devotional song tradition of Karnataka.</p>',
-            ),
-            'sources'  => array(
-                'Wikipedia — Dvaita Vedanta' => $w( 'Dvaita_Vedanta' ),
-                'Wikipedia — Madhvacharya' => $w( 'Madhvacharya' ),
             ),
         ),
 
@@ -118,9 +107,6 @@ function sp_sampradaya_data_all() {
                 'History'  => '<p>Nimbarka is regarded by followers as among the earliest Vaishnava acharyas; scholarly dates for him vary. The tradition has been strong in Braj and Rajasthan.</p>',
                 'Practice' => '<p>Worship of Radha and Krishna together, recitation of the Gopala mantra, and devotional poetry.</p>',
             ),
-            'sources'  => array(
-                'Wikipedia — Nimbarka Sampradaya' => $w( 'Nimbarka_Sampradaya' ),
-            ),
         ),
 
         'pushtimarg-vallabha-sampradaya' => array(
@@ -141,9 +127,6 @@ function sp_sampradaya_data_all() {
                 'Overview' => '<p>Pushti means nourishment by divine grace. Devotees serve Krishna in a household mode called seva, rather than through renunciation.</p>',
                 'History'  => '<p>After Vallabhacharya the tradition was led by his son Vitthalnath (Gusainji), whose descendants head the havelis. The Ashtachhap poets, including Surdas, composed its devotional songs.</p>',
                 'Practice' => '<p>Eight daily darshans with seasonal offerings, music (haveli sangeet) and festivals in the haveli temples.</p>',
-            ),
-            'sources'  => array(
-                'Wikipedia — Pushtimarg' => $w( 'Pushtimarg' ),
             ),
         ),
 
@@ -166,9 +149,6 @@ function sp_sampradaya_data_all() {
                 'History'  => '<p>The Six Goswamis of Vrindavan wrote its theology after Chaitanya. In the twentieth century the Gaudiya Math and the International Society for Krishna Consciousness spread it widely.</p>',
                 'Practice' => '<p>Chanting of the Hare Krishna maha-mantra, study of the Bhagavata Purana, and kirtan.</p>',
             ),
-            'sources'  => array(
-                'Wikipedia — Gaudiya Vaishnavism' => $w( 'Gaudiya_Vaishnavism' ),
-            ),
         ),
 
         'ramanandi-sampradaya' => array(
@@ -189,9 +169,6 @@ function sp_sampradaya_data_all() {
                 'Overview' => '<p>Ramanandis, also called Ramavats, regard Rama and Sita as the Supreme. The order includes renunciant sadhus (vairagis) and householder followers.</p>',
                 'History'  => '<p>Tradition holds that Ramananda opened bhakti to people of all castes; poets such as Kabir and Ravidas are counted among his disciples in tradition. The order has a strong presence at the Kumbh Mela.</p>',
                 'Practice' => '<p>Recitation of the Rama mantra, the Ramcharitmanas of Tulsidas, and temple and akhara life.</p>',
-            ),
-            'sources'  => array(
-                'Wikipedia — Ramanandi Sampradaya' => $w( 'Ramanandi_Sampradaya' ),
             ),
         ),
 
@@ -214,9 +191,6 @@ function sp_sampradaya_data_all() {
                 'History'  => '<p>The tradition took shape with Sant Dnyaneshwar in the 13th century and grew through the poet-saints Namdev, Eknath and Tukaram.</p>',
                 'Practice' => '<p>Singing abhangas in bhajan and kirtan, the Ashadhi and Kartiki Ekadashi pilgrimages, and wearing the tulsi-bead mala.</p>',
             ),
-            'sources'  => array(
-                'Wikipedia — Warkari' => $w( 'Warkari' ),
-            ),
         ),
 
         'swaminarayan-sampradaya' => array(
@@ -237,9 +211,6 @@ function sp_sampradaya_data_all() {
                 'Overview' => '<p>Followers worship Swaminarayan and observe a disciplined moral code set out in the Shikshapatri.</p>',
                 'History'  => '<p>Swaminarayan established the Ahmedabad and Vadtal dioceses. Later organisations, including BAPS, emerged from the tradition.</p>',
                 'Practice' => '<p>Daily puja, temple worship, observance of the Shikshapatri and community service.</p>',
-            ),
-            'sources'  => array(
-                'Wikipedia — Swaminarayan Sampradaya' => $w( 'Swaminarayan_Sampradaya' ),
             ),
         ),
 
@@ -262,9 +233,6 @@ function sp_sampradaya_data_all() {
                 'History'  => '<p>Sankardeva and his disciple Madhavdeva founded the Satra system, which shaped Assamese music, drama (Ankiya Naat) and dance (Sattriya).</p>',
                 'Practice' => '<p>Congregational listening to and singing of Krishna\'s names and deeds in the Namghar.</p>',
             ),
-            'sources'  => array(
-                'Wikipedia — Ekasarana Dharma' => $w( 'Ekasarana_Dharma' ),
-            ),
         ),
 
         'mahanubhava-sampradaya' => array(
@@ -283,9 +251,6 @@ function sp_sampradaya_data_all() {
             'sections' => array(
                 'Overview' => '<p>The Mahanubhava Pantha, also called Jai Krishni Pantha, worships Krishna and is known for early Marathi literature.</p>',
                 'History'  => '<p>Some sources name Chakrapani and Govinda Prabhu as founders with Chakradhara Swami as the first propagator. The Lilacharitra, a Marathi biography of Chakradhara, is a key early text.</p>',
-            ),
-            'sources'  => array(
-                'Wikipedia — Mahanubhava' => $w( 'Mahanubhava' ),
             ),
         ),
 
@@ -310,9 +275,6 @@ function sp_sampradaya_data_all() {
                 'History'  => '<p>The devotional hymns of the 63 Nayanars were collected in the Tirumurai. Meykandar\'s Shivajnanabodham (13th century) became the basis of its Tamil theology.</p>',
                 'Practice' => '<p>Agamic temple worship, recitation of the Tirumurai and guidance from the Adheenams (monasteries).</p>',
             ),
-            'sources'  => array(
-                'Wikipedia — Shaiva Siddhanta' => $w( 'Shaiva_Siddhanta' ),
-            ),
         ),
 
         'kashmir-shaivism' => array(
@@ -332,9 +294,6 @@ function sp_sampradaya_data_all() {
             'sections' => array(
                 'Overview' => '<p>Kashmir Shaivism teaches that the world is the free self-expression of Shiva as pure consciousness, and that liberation is recognition of one\'s identity with Shiva.</p>',
                 'History'  => '<p>Its classical period runs from Vasugupta (9th century) to Abhinavagupta and Kshemaraja (10th–11th centuries). Swami Lakshmanjoo was a well-known 20th-century teacher.</p>',
-            ),
-            'sources'  => array(
-                'Wikipedia — Kashmir Shaivism' => $w( 'Kashmir_Shaivism' ),
             ),
         ),
 
@@ -356,9 +315,6 @@ function sp_sampradaya_data_all() {
                 'Overview' => '<p>Followers wear an Ishtalinga on the body and value devotion, work (kayaka) and equality, as expressed in the Vachanas.</p>',
                 'History'  => '<p>Basavanna and the Sharanas gathered at the Anubhava Mantapa at Kalyana in the 12th century. The relationship between the terms Lingayat and Veerashaiva is debated; both are recorded here.</p>',
             ),
-            'sources'  => array(
-                'Wikipedia — Lingayatism' => $w( 'Lingayatism' ),
-            ),
         ),
 
         'nath-sampradaya' => array(
@@ -378,9 +334,6 @@ function sp_sampradaya_data_all() {
                 'Overview' => '<p>Nath yogis, also called Kanphata ("split-ear") yogis, worship Shiva as Adinath and follow the yogic discipline taught by Gorakhnath.</p>',
                 'History'  => '<p>The tradition spread across North India and Nepal between roughly the 11th and 13th centuries. Several Hatha Yoga texts are attributed to Nath teachers.</p>',
             ),
-            'sources'  => array(
-                'Wikipedia — Nath' => $w( 'Nath' ),
-            ),
         ),
 
         'pashupata-shaivism' => array(
@@ -399,9 +352,6 @@ function sp_sampradaya_data_all() {
             'sections' => array(
                 'Overview' => '<p>Pashupatas worshipped Shiva as Pashupati, the Lord of beings, and followed a demanding ascetic discipline.</p>',
                 'History'  => '<p>The tradition is attested from the early centuries CE and influenced later Shaiva schools. It is no longer widely practised as a separate order.</p>',
-            ),
-            'sources'  => array(
-                'Wikipedia — Pashupata Shaivism' => $w( 'Pashupata_Shaivism' ),
             ),
         ),
 
@@ -426,10 +376,6 @@ function sp_sampradaya_data_all() {
                 'Sri Vidya' => '<p>Sri Vidya worships Lalita Tripurasundari through the Sri Chakra (Sri Yantra) and the Panchadashi mantra. It is also practised within the Smarta tradition.</p>',
                 'Practice' => '<p>Navaratri, recitation of the Devi Mahatmya, and pilgrimage to the Shakti Peethas.</p>',
             ),
-            'sources'  => array(
-                'Wikipedia — Shaktism' => $w( 'Shaktism' ),
-                'Wikipedia — Shri Vidya' => $w( 'Shri_Vidya' ),
-            ),
         ),
 
         /* -------------------------------------------------------- Other */
@@ -451,9 +397,6 @@ function sp_sampradaya_data_all() {
                 'Overview' => '<p>Ganapatyas regard Ganesha as Brahman, the source of all.</p>',
                 'History'  => '<p>The saint Morya Gosavi of Chinchwad was an important figure in its Maharashtrian form.</p>',
             ),
-            'sources'  => array(
-                'Wikipedia — Ganapatya' => $w( 'Ganapatya' ),
-            ),
         ),
 
         'kabir-panth' => array(
@@ -472,9 +415,6 @@ function sp_sampradaya_data_all() {
             'sections' => array(
                 'Overview' => '<p>Kabir Panth emphasises devotion to a formless God and rejects ritualism and social divisions. Its followers are spread across India and abroad.</p>',
             ),
-            'sources'  => array(
-                'Wikipedia — Kabir Panth' => $w( 'Kabir_panth' ),
-            ),
         ),
 
         'udasi-sampradaya' => array(
@@ -491,9 +431,6 @@ function sp_sampradaya_data_all() {
             ),
             'sections' => array(
                 'Overview' => '<p>Udasis are renunciant sadhus who were historically among the first missionary traditions linked to Guru Nanak. They have akharas that take part in the Kumbh Mela.</p>',
-            ),
-            'sources'  => array(
-                'Wikipedia — Udasi' => $w( 'Udasi' ),
             ),
         ),
     );
