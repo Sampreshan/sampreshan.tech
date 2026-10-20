@@ -44,7 +44,7 @@ if ( empty( $peeths ) ) {
                     <h3><?php sp_icon_e( sp_dharma_icon_name( $post ), 'sp-icon--lg' ); ?><a href="<?php echo esc_url( get_permalink( $post ) ); ?>"><?php echo esc_html( get_the_title( $post ) ); ?></a></h3>
                     <?php if ( ! empty( $item['infobox']['Mahavakya'] ) ) : ?><p class="sp-dharma-card__maha"><?php echo esc_html( $item['infobox']['Mahavakya'] ); ?></p><?php endif; ?>
                     <ul class="sp-dharma-peeth-card__acharyas">
-                        <?php foreach ( sp_dharma_peeth_acharya_posts( $item ) as $acharya ) : ?>
+                        <?php foreach ( sp_dharma_listed_acharya_posts( $item ) as $acharya ) : ?>
                             <?php $thumb = sp_dharma_profile_image_url( $acharya->ID, 'thumbnail' ); ?>
                             <li><a href="<?php echo esc_url( get_permalink( $acharya ) ); ?>"><?php if ( $thumb ) : ?><img src="<?php echo esc_url( $thumb ); ?>" alt="" width="40" height="40" loading="lazy" /><?php endif; ?><span><?php echo esc_html( get_the_title( $acharya ) ); ?></span></a></li>
                         <?php endforeach; ?>
@@ -61,7 +61,7 @@ if ( empty( $peeths ) ) {
     <?php
     $acharyas = array();
     foreach ( $peeths as list( $post, $item ) ) {
-        foreach ( sp_dharma_peeth_acharya_posts( $item ) as $acharya ) {
+        foreach ( sp_dharma_listed_acharya_posts( $item ) as $acharya ) {
             $acharyas[] = array( $acharya, $post );
         }
     }
@@ -109,7 +109,6 @@ if ( empty( $peeths ) ) {
         </div>
         <div class="sp-dharma-acharya-row sp-dharma-sampradaya-row">
             <?php foreach ( $sampradayas as list( $post, $item ) ) : ?>
-                <?php $img = sp_dharma_profile_image_url( $post->ID, 'medium' ); ?>
                 <article class="sp-dharma-acharya-card sp-dharma-sampradaya-card">
                     <a class="sp-dharma-acharya-card__media" href="<?php echo esc_url( get_permalink( $post ) ); ?>" tabindex="-1" aria-hidden="true">
                         <?php if ( $img ) : ?><img src="<?php echo esc_url( $img ); ?>" alt="" width="160" height="160" loading="lazy" /><?php else : ?><?php sp_icon_e( sp_dharma_icon_name( $post ), 'sp-icon--xl' ); ?><?php endif; ?>

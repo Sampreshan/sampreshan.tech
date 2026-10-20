@@ -258,6 +258,8 @@ function sp_dharma_core_data() {
 
         'sri-bharati-tirtha-mahaswamiji' => array(
             'kind'      => 'acharya',
+            // Successor declared: shown only on the Peeth page and the successor's profile.
+            'listed'    => false,
             'order'     => 41,
             'peeth'     => 'dakshinamnaya-sri-sharada-peetham',
             'title'     => 'Jagadguru Sri Bharati Tirtha Mahaswamiji',
@@ -292,6 +294,7 @@ function sp_dharma_core_data() {
 
         'swami-vidhushekhara-bharati' => array(
             'kind'      => 'acharya',
+            'guru'      => 'sri-bharati-tirtha-mahaswamiji',
             'order'     => 42,
             'peeth'     => 'dakshinamnaya-sri-sharada-peetham',
             'title'     => 'Jagadguru Sri Vidhushekhara Bharati Sannidhanam',
@@ -324,6 +327,8 @@ function sp_dharma_core_data() {
 
         'sri-shankara-vijayendra-saraswati' => array(
             'kind'      => 'acharya',
+            // Successor declared: shown only on the Peeth page and the successor's profile.
+            'listed'    => false,
             'order'     => 51,
             'peeth'     => 'kanchi-kamakoti-peetham',
             'title'     => 'Jagadguru Sri Shankara Vijayendra Saraswati Swamigal',
@@ -357,6 +362,7 @@ function sp_dharma_core_data() {
 
         'sri-satya-chandrashekarendra-saraswathi-shankaracharya' => array(
             'kind'      => 'acharya',
+            'guru'      => 'sri-shankara-vijayendra-saraswati',
             'order'     => 52,
             'peeth'     => 'kanchi-kamakoti-peetham',
             'title'     => 'Sri Satya Chandrashekarendra Saraswati',
@@ -410,6 +416,37 @@ function sp_dharma_peeth_acharya_posts( $item ) {
         }
     }
     return $posts;
+}
+
+/**
+ * Whether a profile appears in general listings (home, directory). Acharyas who have
+ * declared a successor are shown only on their Peeth page and the successor's profile.
+ */
+function sp_dharma_is_listed( $slug ) {
+    $all = sp_dharma_data_all();
+    return ! isset( $all[ $slug ] ) || ! isset( $all[ $slug ]['listed'] ) || false !== $all[ $slug ]['listed'];
+}
+
+/**
+ * Peeth acharyas that appear in general listings.
+ */
+function sp_dharma_listed_acharya_posts( $item ) {
+    return array_values( array_filter( sp_dharma_peeth_acharya_posts( $item ), static function ( $post ) {
+        return sp_dharma_is_listed( $post->post_name );
+    } ) );
+}
+
+/**
+ * Post IDs of profiles kept out of general listings.
+ */
+function sp_dharma_unlisted_ids() {
+    $ids = array();
+    foreach ( sp_dharma_data_all() as $slug => $item ) {
+        if ( ! sp_dharma_is_listed( $slug ) && ( $post = sp_dharma_profile_by_slug( $slug ) ) ) {
+            $ids[] = $post->ID;
+        }
+    }
+    return $ids;
 }
 
 function sp_dharma_profile_by_slug( $slug ) {

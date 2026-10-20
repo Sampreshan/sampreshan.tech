@@ -8,7 +8,7 @@
 
 $petitions_url = home_url( '/start-a-petition/' );
 $dashboard_url = home_url( '/dashboard/' );
-$feed_url      = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/feed-2/' );
+$feed_url      = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/community-center/' );
 $members_url   = home_url( '/community/' );
 $is_logged_in  = is_user_logged_in();
 ?>

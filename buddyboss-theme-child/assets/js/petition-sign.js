@@ -192,7 +192,8 @@
                 btn.classList.toggle('is-signed', isSigned);
 
                 if (isSigned) {
-                    btn.innerHTML = ibadgeWrap() +
+                    var eye = btn.querySelector('.sp-i-eye');
+                    btn.innerHTML = (eye ? eye.outerHTML + ' ' : ibadgeWrap()) +
                         ((window.SampreshanPetition && window.SampreshanPetition.i18n && window.SampreshanPetition.i18n.signed) || 'Supported');
                     showToast('Thank you — your support is counted!', 'success');
                 } else {

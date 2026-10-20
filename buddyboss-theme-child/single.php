@@ -40,7 +40,7 @@ while ( have_posts() ) : the_post();
 
             <footer class="sp-story__footer">
                 <a class="sp-story__back" href="<?php echo esc_url( function_exists( 'sampreshan_dashboard_url' ) ? sampreshan_dashboard_url() : home_url( '/dashboard/' ) ); ?>">&larr; <?php esc_html_e( 'Back to dashboard', 'sampreshan-child' ); ?></a>
-                <a class="sp-story__back" href="<?php echo esc_url( function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/feed-2/' ) ); ?>"><?php esc_html_e( 'Community feed', 'sampreshan-child' ); ?> &rarr;</a>
+                <a class="sp-story__back" href="<?php echo esc_url( function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/community-center/' ) ); ?>"><?php esc_html_e( 'Community feed', 'sampreshan-child' ); ?> &rarr;</a>
             </footer>
         </article>
     </main>
