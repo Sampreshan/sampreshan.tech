@@ -160,7 +160,7 @@ require_once get_stylesheet_directory() . '/inc/iconscout/client.php';
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.29' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.30' );
 }
 
 /**
@@ -422,6 +422,7 @@ add_action( 'init', 'sampreshan_handle_community_story_submission', 20 );
 require_once get_stylesheet_directory() . '/inc/icon-helper.php';
 require_once get_stylesheet_directory() . '/inc/no-emoji.php';
 require_once get_stylesheet_directory() . '/inc/research-credit.php';
+require_once get_stylesheet_directory() . '/inc/khadau.php';
 
 /** Assets for the Gau Mata campaign petition (template-parts/campaign/gau-mata.php). */
 function sp_campaign_assets() {
