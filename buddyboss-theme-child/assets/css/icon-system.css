@@ -397,3 +397,25 @@ body .sp-iconlib .sp-iconlib__toc a,
 body.sp-future .sp-iconlib .sp-iconlib__toc a { color: #9a3412; background: #fff7ed; border-color: #fed7aa; }
 body .sp-iconlib .sp-iconlib__toc a:hover,
 body.sp-future .sp-iconlib .sp-iconlib__toc a:hover { background: #ea580c; color: #fff; }
+
+/* ShivBodh Research Group credit (inc/research-credit.php) */
+.sp-research-credit { display: flex; gap: 1rem; align-items: flex-start; max-width: 960px; margin: 2.5rem auto 1rem; padding: 1.1rem 1.25rem; border-radius: 14px; background: rgba(245, 158, 11, .07); border: 1px solid rgba(245, 158, 11, .25); color: #d6d3d1; font-size: .9rem; line-height: 1.6; }
+.sp-research-credit p { margin: 0; }
+.sp-research-credit__title { font-weight: 700; color: #f59e0b; margin-bottom: .25rem !important; }
+@media (max-width: 479px) { .sp-research-credit { flex-direction: column; gap: .5rem; margin-inline: 1rem; } }
+
+/* Adi Shankaracharya page (template-adi-shankaracharya.php) */
+.sp-adiguru__hero { text-align: center; }
+.sp-adiguru__portrait { width: 200px; height: 200px; object-fit: cover; border-radius: 50%; border: 3px solid #f59e0b; box-shadow: 0 0 40px rgba(245, 158, 11, .35); margin: 0 auto 1rem; display: block; }
+.sp-adiguru__mantra { color: #fbbf24; letter-spacing: .08em; margin: 0 0 .25rem; }
+.sp-adiguru .sp-page__section-title { display: flex; align-items: center; gap: .6rem; }
+.sp-adiguru__peeths { list-style: none; margin: 1.5rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.sp-adiguru__peeth { display: flex; flex-direction: column; align-items: center; text-align: center; gap: .35rem; padding: 1.1rem .75rem; height: 100%; border-radius: 14px; background: rgba(255, 255, 255, .03); border: 1px solid rgba(245, 158, 11, .25); color: #e7e5e4; text-decoration: none; transition: transform .2s, border-color .2s; }
+.sp-adiguru__peeth:hover { transform: translateY(-3px); border-color: #f59e0b; }
+.sp-adiguru__peeth strong { color: #fbbf24; font-size: 1.05rem; }
+.sp-adiguru__peeth span { font-size: .82rem; color: #a8a29e; }
+.sp-adiguru__dir { text-transform: uppercase; letter-spacing: .06em; font-size: .7rem !important; color: #f59e0b !important; }
+.sp-adiguru__note { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; margin-top: 1.25rem; color: #d6d3d1; }
+.sp-adiguru__note a { color: #fbbf24; }
+@media (max-width: 1023px) { .sp-adiguru__peeths { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 479px) { .sp-adiguru__portrait { width: 150px; height: 150px; } .sp-adiguru__peeths { gap: .6rem; } }

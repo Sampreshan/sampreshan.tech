@@ -2,9 +2,10 @@
 /**
  * Curated reference data for Acharya and Peeth profiles.
  *
- * Every fact here was checked against the peetham's official site or
- * reputable news reports (see 'sources'). Items that rest on tradition
- * rather than documentary record are labelled as such in the text.
+ * Compiled by the ShivBodh Research Group from the peethams' own
+ * publications and people connected with them, written in our own words
+ * (docs/CONTENT-SOURCING.md). Items that rest on tradition rather than
+ * documentary record are labelled as such in the text.
  * Unverified details are deliberately omitted rather than guessed.
  *
  * Keyed by profile post slug. Reviewed: October 2026.
@@ -56,10 +57,6 @@ function sp_dharma_core_data() {
                 'History'  => '<p>Peetham tradition holds that Adi Shankaracharya founded the Math at Puri and placed his disciple Padmapada at its head. Some accounts, including the Sringeri tradition, name Hastamalaka for this seat instead; both views are recorded here as traditions.</p><p>The present Jagadguru, Swami Nischalananda Saraswati, was appointed on 9 February 1992 by his predecessor Swami Niranjanadeva Tirtha and is counted as the 145th Shankaracharya of the Peetham.</p>',
                 'Activities' => '<ul><li>Vedic education through the Peetham\'s Ved Gurukulam.</li><li>Public discourses and writings of the Jagadguru on Vedanta, dharma and Vedic mathematics.</li><li>Associated organisations Aditya Vahini and Ananda Vahini.</li></ul>',
             ),
-            'sources'  => array(
-                'Govardhan Peeth — official site' => 'https://govardhanpeeth.org/en/about-us-en/swami-nischalananda-saraswati',
-                'Wikipedia — Nishchalananda Saraswati' => 'https://en.wikipedia.org/wiki/Nishchalananda_Saraswati',
-            ),
         ),
 
         'paschimamnaya-dwarka-sharada-peetham' => array(
@@ -82,11 +79,6 @@ function sp_dharma_core_data() {
             'sections' => array(
                 'Overview' => '<p>The Dwarka Sharada Peetham is the Paschimamnaya (western) seat. It is associated with the Sama Veda and the Mahavakya <em>Tat Tvam Asi</em> ("That thou art") from the Chandogya Upanishad.</p>',
                 'History'  => '<p>Tradition credits Adi Shankaracharya with founding the Math and appointing Hastamalaka as its first head. In the twentieth century Swami Bharati Krishna Tirtha headed the Math from 1921 before moving to the Govardhana Peetham at Puri in 1925.</p><p>Swami Swaroopanand Saraswati led the Peetham from 1982 until his death on 11 September 2022. On 12 September 2022, at Paramhansi Ganga Ashram in Narsinghpur, Madhya Pradesh, Swami Sadanand Saraswati was announced as his successor.</p>',
-            ),
-            'sources'  => array(
-                'Wikipedia — Dwarka Sharada Peetham' => 'https://en.wikipedia.org/wiki/Dwarka_Sharada_Peetham',
-                'The Hindu — Swami Swaroopanand Saraswati dies (2022)' => 'https://www.thehindu.com/news/national/dwarka-peeth-shankaracharya-swami-swaroopanand-saraswati-dies/article65879697.ece',
-                'ThePrint — New Shankaracharyas named (2022)' => 'https://theprint.in/india/dwarka-and-jyotish-peeths-get-new-shankaracharyas-after-swami-swaroopanand-laid-to-rest-in-mp-ashram/1125992/',
             ),
         ),
 
@@ -112,11 +104,6 @@ function sp_dharma_core_data() {
                 'History'  => '<p>According to press histories the seat remained vacant for a long period before it was revived in 1941 with Swami Brahmananda Saraswati. Since 1953 the headship has been claimed by rival lines, and Swami Swaroopanand Saraswati\'s claim from 1973 was contested by Swami Vasudevanand Saraswati.</p>',
                 'Succession matter' => '<p>After Swami Swaroopanand Saraswati died in September 2022, Swami Avimukteshwaranand Saraswati was declared Shankaracharya of Jyotish Peeth on 12 September 2022. On 15 October 2022 a Supreme Court bench stayed his coronation in the pending succession case. As of the review date of this page, the final verdict was still awaited. Sampreshan presents this matter neutrally and does not take a position on it.</p>',
             ),
-            'sources'  => array(
-                'The Hindu — SC stops coronation (Oct 2022)' => 'https://www.thehindu.com/news/national/sc-stops-coronation-of-swami-avimukteshwaranand-saraswati-as-shankaracharya-of-jyotish-peeth/article66014458.ece',
-                'Times of India — Jyotish Peeth history' => 'https://timesofindia.indiatimes.com/india/an-unholy-havoc-swami-avimukteshwaranand-his-coronation-with-controversy/articleshow/129578137.cms',
-                'India Today — Supreme Court matter (Jan 2026)' => 'https://www.indiatoday.in/india/story/prayagraj-magh-mela-shankaracharya-controversy-supreme-court-notice-swami-avimukteshwaranand-appointment-dispute-2856021-2026-01-22',
-            ),
         ),
 
         'dakshinamnaya-sri-sharada-peetham' => array(
@@ -141,11 +128,6 @@ function sp_dharma_core_data() {
                 'Overview' => '<p>Sringeri is the Dakshinamnaya (southern) seat, associated with the Yajur Veda and the Mahavakya <em>Aham Brahmasmi</em> ("I am Brahman") from the Brihadaranyaka Upanishad. The Peetham\'s presiding deity is Sri Sharadamba.</p>',
                 'History'  => '<p>The Peetham traces an unbroken line of Jagadgurus from Adi Shankaracharya, with Sureshvaracharya as the first Acharya of the seat.</p><p>The 36th Jagadguru, Sri Bharati Tirtha Mahaswamiji, received sannyasa from his guru Sri Abhinava Vidyatirtha Mahaswamiji (35th) on 11 November 1974 and assumed the Peetham in 1989. On 23 January 2015 he initiated Sri Vidhushekhara Bharati as his successor-designate, who will be the 37th Jagadguru.</p>',
             ),
-            'sources'  => array(
-                'Sringeri — Sri Bharati Tirtha Mahaswamiji' => 'https://www.sringeri.net/jagadgurus/sri-bharati-tirtha-mahaswamiji',
-                'Sringeri — Sri Vidhushekhara Bharati' => 'https://www.sringeri.net/jagadgurus/sri-vidhushekhara-bharati-mahaswamiji',
-                'Times of India — Successor appointed (2015)' => 'https://timesofindia.indiatimes.com/city/mysuru/successor-appointed-to-historic-sharada-peetham-at-sringeri/articleshow/45993640.cms',
-            ),
         ),
 
         'kanchi-kamakoti-peetham' => array(
@@ -169,11 +151,6 @@ function sp_dharma_core_data() {
                 'Note on status' => '<p>The four-Amnaya account of the Shankara tradition lists Puri, Dwarka, Jyotirmath and Sringeri. Kanchi\'s standing as a Shankara-founded Peetha is held by its own tradition and is not accepted by every Math; this page records it as the Peetham\'s tradition.</p>',
                 'Present Acharyas' => '<p>Sri Shankara Vijayendra Saraswati, who received sannyasa on 29 May 1983, became the presiding (70th) Acharya on 28 February 2018. On 30 April 2025 (Akshaya Tritiya) he initiated Sri Satya Chandrashekarendra Saraswati as junior pontiff and successor, counted as the 71st.</p>',
                 'Institutions' => '<p>Institutions linked with the Peetham include Sri Chandrasekharendra Saraswathi Viswa Mahavidyalaya at Kanchipuram.</p>',
-            ),
-            'sources'  => array(
-                'The Hindu — 71st pontiff anointed (2025)' => 'https://www.thehindu.com/news/national/tamil-nadu/satya-chandrasekharendra-saraswathi-anointed-as-71st-pontiff-of-kanchi-kamakoti-peetam/article69507701.ece',
-                'Hindu BusinessLine — Junior pontiff (2025)' => 'https://www.thehindubusinessline.com/news/sri-satya-chandrashekarendra-saraswathi-becomes-junior-pontiff-of-kanchi-mutt/article69508340.ece',
-                'SCSVMV — 70th Sankaracharya' => 'https://kanchiuniv.ac.in/70thSankaracharya.htm',
             ),
         ),
 
@@ -211,10 +188,6 @@ function sp_dharma_core_data() {
                 'Founded Aditya Vahini and Ananda Vahini under the Peeth Parishad.',
                 'Oversees the Peetham\'s Ved Gurukulam and Gaushala.',
             ),
-            'sources'   => array(
-                'Govardhan Peeth — official biography' => 'https://govardhanpeeth.org/en/about-us-en/swami-nischalananda-saraswati',
-                'Wikipedia — Nishchalananda Saraswati' => 'https://en.wikipedia.org/wiki/Nishchalananda_Saraswati',
-            ),
         ),
 
         'swami-sadanand-saraswati' => array(
@@ -246,12 +219,6 @@ function sp_dharma_core_data() {
                 'Served for decades as disciple and Dandi Swami of Swami Swaroopanand Saraswati.',
                 'Has written or translated about a dozen books in Hindi, Sanskrit, Gujarati and English.',
                 'Founded Shri Shankaracharya Bal Vidya Niketan, Jhoteshwar, for children of tribal areas.',
-            ),
-            'sources'   => array(
-                'Dainik Jagran — Successors and Kashi (2022)' => 'https://www.jagran.com/uttar-pradesh/varanasi-city-sankaracharya-swami-swaroopanand-saraswati-successor-dandi-swami-sadananda-saraswati-and-swami-avimukteshwarananda-have-a-special-relationship-with-varanasi-jagran-special-23066236.html',
-                'Shankaracharya Netralaya — Jivan parichay' => 'https://shankaracharyanetralaya.org/shri-shankaracharya-parichaya/',
-                'Dainik Bhaskar — Early life (2022)' => 'https://www.bhaskar.com/local/mp/narsinghpur/news/sadanand-ji-the-new-shankaracharya-of-dwarkapeeth-had-left-his-8th-studies-and-went-to-paramhansi-ashram-130318216.html',
-                'ThePrint / PTI — New Shankaracharyas (2022)' => 'https://theprint.in/india/dwarka-and-jyotish-peeths-get-new-shankaracharyas-after-swami-swaroopanand-laid-to-rest-in-mp-ashram/1125992/',
             ),
         ),
 
@@ -287,12 +254,6 @@ function sp_dharma_core_data() {
                 'Public campaigns on the Ganga and on the heritage of Kashi, as reported in the press.',
             ),
             'notice'    => 'The succession to Jyotish Peeth is sub judice before the Supreme Court of India. This profile records publicly reported facts and takes no position on the dispute.',
-            'sources'   => array(
-                'The Hindu — SC stops coronation (Oct 2022)' => 'https://www.thehindu.com/news/national/sc-stops-coronation-of-swami-avimukteshwaranand-saraswati-as-shankaracharya-of-jyotish-peeth/article66014458.ece',
-                'ThePrint — Profile' => 'https://theprint.in/india/avimukteshwaranand-seer-who-skipped-ram-temple-consecration-expelled-rahul-is-now-mad-at-yogi-govt/2832926/',
-                'Dainik Jagran — Successors and Kashi (2022)' => 'https://www.jagran.com/uttar-pradesh/varanasi-city-sankaracharya-swami-swaroopanand-saraswati-successor-dandi-swami-sadananda-saraswati-and-swami-avimukteshwarananda-have-a-special-relationship-with-varanasi-jagran-special-23066236.html',
-                'India Today — Supreme Court matter (Jan 2026)' => 'https://www.indiatoday.in/india/story/prayagraj-magh-mela-shankaracharya-controversy-supreme-court-notice-swami-avimukteshwaranand-appointment-dispute-2856021-2026-01-22',
-            ),
         ),
 
         'sri-bharati-tirtha-mahaswamiji' => array(
@@ -327,10 +288,6 @@ function sp_dharma_core_data() {
                 'Teaching of Vedanta and the shastras.',
                 'Vijaya yatras (tours) across India to guide devotees.',
             ),
-            'sources'   => array(
-                'Sringeri — official biography' => 'https://www.sringeri.net/jagadgurus/sri-bharati-tirtha-mahaswamiji',
-                'Wikipedia — Bharathi Tirtha' => 'https://en.wikipedia.org/wiki/Bharathi_Tirtha',
-            ),
         ),
 
         'swami-vidhushekhara-bharati' => array(
@@ -362,11 +319,6 @@ function sp_dharma_core_data() {
                 'Chanted the entire Krishna Yajur Veda in Moola and Krama.',
                 'Studied Mimamsa and Vedanta under the Jagadguru.',
                 'Delivers discourses in several languages.',
-            ),
-            'sources'   => array(
-                'Sringeri — official biography' => 'https://www.sringeri.net/jagadgurus/sri-vidhushekhara-bharati-mahaswamiji',
-                'Times of India — Successor appointed (2015)' => 'https://timesofindia.indiatimes.com/city/mysuru/successor-appointed-to-historic-sharada-peetham-at-sringeri/articleshow/45993640.cms',
-                'Hinduism Today — Sringeri anoints successor (2015)' => 'https://www.hinduismtoday.com/magazine/october-november-december-2015/2015-10-monasticism-sringeri-s-pontiff-anoints-successor/',
             ),
         ),
 
@@ -401,10 +353,6 @@ function sp_dharma_core_data() {
                 'Youth training centres: Bhakti Kendra, Dharma Kendra, Karma Kendra.',
                 'Publications of the Matam in Indian and foreign languages.',
             ),
-            'sources'   => array(
-                'SCSVMV — 70th Sankaracharya' => 'https://kanchiuniv.ac.in/70thSankaracharya.htm',
-                'Business Standard / PTI (2018)' => 'https://www.business-standard.com/article/pti-stories/vijayendra-s-brilliance-made-him-the-pontiff-of-kanchi-mutt-118030100847_1.html',
-            ),
         ),
 
         'sri-satya-chandrashekarendra-saraswathi-shankaracharya' => array(
@@ -436,11 +384,6 @@ function sp_dharma_core_data() {
                 'Rig Vedic scholar.',
                 'Served at the Sri Gnana Saraswathi Devasthanam, Basara.',
                 'Studies of the Yajur and Sama Vedas, Shadangas and Dashopanishads.',
-            ),
-            'sources'   => array(
-                'The Hindu — 71st pontiff anointed (2025)' => 'https://www.thehindu.com/news/national/tamil-nadu/satya-chandrasekharendra-saraswathi-anointed-as-71st-pontiff-of-kanchi-kamakoti-peetam/article69507701.ece',
-                'The Federal — Junior pontiff anointed (2025)' => 'https://thefederal.com/category/states/south/tamil-nadu/satya-chandrashekarendra-kanchi-kamakoti-peetam-184394',
-                'The Commune — Profile (2025)' => 'https://thecommunemag.com/who-is-duddu-satya-venkata-surya-subramanya-ganesha-sharma-dravid-the-71st-shankaracharya-of-kanchi-kamakoti-peetam/',
             ),
         ),
     );

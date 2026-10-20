@@ -23,6 +23,19 @@ while ( have_posts() ) : the_post();
     $author_avatar = get_avatar_url( $author_id, array( 'size' => 96 ) );
     $cover         = get_the_post_thumbnail_url( $pid, 'full' );
 
+    // Site-run campaigns are led by an Acharya profile, not the WP author.
+    $sp_campaign      = get_post_meta( $pid, 'sp_campaign', true );
+    $sp_camp_champion = null;
+    $sp_champion_slug = get_post_meta( $pid, 'sp_campaign_champion', true );
+    if ( $sp_champion_slug ) {
+        $sp_camp_champion = get_page_by_path( $sp_champion_slug, OBJECT, 'dharma_profile' );
+    }
+    if ( $sp_camp_champion ) {
+        $author_name   = get_the_title( $sp_camp_champion );
+        $author_url    = get_permalink( $sp_camp_champion );
+        $author_avatar = function_exists( 'sp_dharma_profile_image_url' ) ? sp_dharma_profile_image_url( $sp_camp_champion->ID, 'thumbnail' ) : $author_avatar;
+    }
+
     $goal     = (int) get_post_meta( $pid, 'sampreshan_goal', true ) ?: 25000;
     $status   = get_post_meta( $pid, 'sampreshan_status', true ) ?: 'active';
     $deadline = get_post_meta( $pid, 'sampreshan_deadline', true );
@@ -117,7 +130,7 @@ while ( have_posts() ) : the_post();
                         </div>
                     <?php endif; ?>
 
-                    <div class="sp-petition-single__actions">
+                    <div class="sp-petition-single__actions" id="sp-support">
                         <?php if ( $can_sign ) : ?>
                             <div class="sp-petition-single__sign-form">
                                 <textarea
@@ -202,6 +215,11 @@ while ( have_posts() ) : the_post();
             </div>
         </article>
 
+        <?php
+        if ( 'gau-mata-rashtramata' === $sp_campaign ) {
+            include get_stylesheet_directory() . '/template-parts/campaign/gau-mata.php';
+        }
+        ?>
         <div class="sp-petition-single__body">
             <section class="sp-petition-single__content card-3d" aria-label="Petition content">
                 <?php echo $content; ?>
