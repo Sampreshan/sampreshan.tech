@@ -419,3 +419,26 @@ body.sp-future .sp-iconlib .sp-iconlib__toc a:hover { background: #ea580c; color
 .sp-adiguru__note a { color: #fbbf24; }
 @media (max-width: 1023px) { .sp-adiguru__peeths { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 479px) { .sp-adiguru__portrait { width: 150px; height: 150px; } .sp-adiguru__peeths { gap: .6rem; } }
+
+/* ---------- Khadau (wooden paduka) trail for Anusaran ---------- */
+.sp-khadau { display: inline-flex; flex: none; vertical-align: middle; margin-right: .4em; line-height: 0; }
+.sp-khadau svg { width: 2.6em; height: 1.08em; overflow: visible; }
+.sp-khadau__sole { fill: #9a5b2c; stroke: #5b3416; stroke-width: .9; }
+.sp-khadau__grain { fill: none; stroke: #c98a52; stroke-width: .7; stroke-linecap: round; opacity: .85; }
+.sp-khadau__knob { fill: #4a2a12; stroke: #e0a96d; stroke-width: .5; }
+.sp-khadau__step { opacity: 0; animation: spk-step 2.8s ease-in-out infinite; }
+.sp-khadau__step--2 { animation-delay: .5s; }
+.sp-khadau__step--3 { animation-delay: 1s; }
+.sp-khadau__step--4 { animation-delay: 1.5s; }
+@keyframes spk-step {
+    0%   { opacity: 0; translate: -3px 0; }
+    10%  { opacity: 1; translate: 0 0; }
+    62%  { opacity: 1; }
+    85%, 100% { opacity: 0; }
+}
+.sp-khadau-label { vertical-align: middle; }
+.sp-dharma-follow { display: inline-flex; align-items: center; }
+@media (prefers-reduced-motion: reduce) {
+    .sp-khadau__step { animation: none; opacity: 1; }
+    .sp-khadau__step--1, .sp-khadau__step--2 { opacity: .4; }
+}

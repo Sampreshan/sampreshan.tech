@@ -252,7 +252,7 @@
 .sp-camp .spc-actions { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; align-items: center; }
 .sp-camp .spc-call { color: #fde68a; font-size: 1rem; text-decoration: none; border-bottom: 1px dashed #fde68a; }
 .sp-camp .spc-champion { display: flex; gap: 1rem; align-items: center; justify-content: center; flex-wrap: wrap; margin-top: 2rem; color: #e7e5e4; font-size: .95rem; }
-.sp-camp .spc-champion img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 2px solid #f59e0b; }
+.sp-camp .spc-champion img { width: 64px; height: 64px; object-fit: contain; object-position: bottom center; }
 .sp-camp .spc-champion a { color: #fbbf24; }
 @media (max-width: 479px) {
   .sp-camp .compass-node { width: 96px; }
