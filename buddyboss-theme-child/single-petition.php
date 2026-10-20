@@ -146,7 +146,7 @@ while ( have_posts() ) : the_post();
                                     data-petition-id="<?php echo esc_attr( $pid ); ?>"
                                     data-signed="<?php echo $user_signed ? '1' : '0'; ?>"
                                 >
-                                    <?php sp_icon_e( 'ibadge', 'sp-icon--sm', '' ); ?>
+                                    <?php sp_support_eye( 26 ); ?>
                                     <?php echo $user_signed ? esc_html__( 'Supported', 'sampreshan-child' ) : esc_html__( 'Support this issue', 'sampreshan-child' ); ?>
                                 </button>
                             </div>

@@ -93,7 +93,7 @@ if ( function_exists( 'sp_petitions_table' ) ) {
 
 $settings_url = home_url( '/settings/' );
 $start_url    = home_url( '/start-a-petition/' );
-$community_url = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/feed-2/' );
+$community_url = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/community-center/' );
 ?>
 <main id="main" class="site-main sp-fu-wash" role="main">
     <div class="sp-fu-profile">
@@ -209,7 +209,7 @@ $community_url = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/
                         <div class="sp-fu-post__engage">
                             <?php if ( is_user_logged_in() && current_user_can( 'sign_petitions' ) ) : ?>
                                 <button type="button" class="sp-fu-btn sp-fu-btn--primary sp-fu-btn--sm sp-sign-button<?php echo $signed ? ' is-signed' : ''; ?>" data-petition-id="<?php echo esc_attr( $pid ); ?>" data-signed="<?php echo $signed ? '1' : '0'; ?>">
-                                    <?php if ( $signed ) : ?><?php sp_icon_e( 'ibadge', 'sp-icon sp-icon--xs', '' ); ?> <?php echo esc_html__( 'Supported', 'sampreshan-child' ); ?><?php else : ?><?php sp_icon_e( 'ibadge', 'sp-icon sp-icon--xs', '' ); ?> <?php echo esc_html__( 'Support', 'sampreshan-child' ); ?><?php endif; ?>
+                                    <?php if ( $signed ) : ?><?php sp_support_eye( 20 ); ?> <?php echo esc_html__( 'Supported', 'sampreshan-child' ); ?><?php else : ?><?php sp_support_eye( 20 ); ?> <?php echo esc_html__( 'Support', 'sampreshan-child' ); ?><?php endif; ?>
                                 </button>
                             <?php endif; ?>
                             <a class="sp-fu-link" href="<?php the_permalink(); ?>"><?php esc_html_e( 'Read →', 'sampreshan-child' ); ?></a>

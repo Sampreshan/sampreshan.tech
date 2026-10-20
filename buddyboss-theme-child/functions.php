@@ -69,7 +69,7 @@ function sp_firebase_api_key() {
  *
  * Never hardcode home_url('/feed/'): the `feed` slug is reserved by
  * WordPress and always serves the RSS feed. Our Feed experience is the
- * published page using template-activity.php (slug `feed-2` on live).
+ * published page using template-activity.php (slug `community-center` on live, formerly `feed-2`).
  * Resolves it dynamically so renames never break navigation again.
  */
 /**
@@ -81,7 +81,7 @@ function sp_firebase_api_key() {
  * or re-templated page is picked up immediately.
  *
  * @param string $template      Template filename, e.g. 'template-activity.php'.
- * @param string $fallback_path Slug to fall back to, e.g. 'feed-2'.
+ * @param string $fallback_path Slug to fall back to, e.g. 'community-center'.
  * @return string Absolute URL (never empty).
  */
 function sp_page_url_by_template( $template, $fallback_path ) {
@@ -141,14 +141,14 @@ function sp_flush_page_url_cache( $post_id ) {
     if ( wp_is_post_revision( $post_id ) ) { return; }
     if ( 'page' !== get_post_type( $post_id ) ) { return; }
 
-    delete_transient( 'sp_url_template-activity.php|feed-2' );
+    delete_transient( 'sp_url_template-activity.php|community-center' );
     delete_transient( 'sp_url_template-dashboard.php|dashboard' );
 }
 add_action( 'save_post', 'sp_flush_page_url_cache', 20 );
 add_action( 'deleted_post', 'sp_flush_page_url_cache', 20 );
 
 function sp_feed_url() {
-    return sp_page_url_by_template( 'template-activity.php', 'feed-2' );
+    return sp_page_url_by_template( 'template-activity.php', 'community-center' );
 }
 
 /**
@@ -160,7 +160,7 @@ require_once get_stylesheet_directory() . '/inc/iconscout/client.php';
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.31' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.32' );
 }
 
 /**
@@ -453,6 +453,11 @@ require_once get_stylesheet_directory() . '/inc/framer-embed.php';
 require_once get_stylesheet_directory() . '/inc/petitions/loader.php';
 require_once get_stylesheet_directory() . '/inc/profile/fields.php';
 require_once get_stylesheet_directory() . '/inc/profile/avatar.php';
+require_once get_stylesheet_directory() . '/inc/brand/i-eye.php';
+require_once get_stylesheet_directory() . '/inc/brand/shankh.php';
+require_once get_stylesheet_directory() . '/inc/brand/pigeon.php';
+require_once get_stylesheet_directory() . '/inc/brand/tilak.php';
+require_once get_stylesheet_directory() . '/inc/dharma-news.php';
 require_once get_stylesheet_directory() . '/inc/auth/loader.php';
 require_once get_stylesheet_directory() . '/inc/notifications/center.php';
 require_once get_stylesheet_directory() . '/inc/seo/schema.php';
@@ -501,6 +506,13 @@ add_action( 'wp_head', 'sampreshan_child_js_detector', 0 );
  * in the critical rendering path.
  */
 function sampreshan_critical_dark_css() {
+    if ( is_page_template( 'template-login.php' ) ) {
+        echo '<style id="sampreshan-critical">'
+           . 'html,body.sp-login-body{background-color:#FFF8F0;color:#1A1A1A}'
+           . 'html,body.sp-login-body,#content,.entry-content{background-color:#FFF8F0!important;color:#1A1A1A!important}'
+           . '</style>' . "\n";
+        return;
+    }
     echo '<style id="sampreshan-critical">'
        . ':root{--bb-body-background-color:#08090c;--bb-body-text-color:#ffffff}'
        . 'html,body{background-color:#08090c;color:#ffffff}'
@@ -997,7 +1009,7 @@ add_action( 'wp_enqueue_scripts', 'sampreshan_child_enqueue_styles', 20 );
  * Futuristic skin: flag every frontend page so future.css applies.
  */
 function sampreshan_child_future_body_class( $classes ) {
-    if ( ! is_admin() ) {
+    if ( ! is_admin() && ! is_page_template( 'template-login.php' ) ) {
         $classes[] = 'sp-future';
     }
     return $classes;
@@ -1233,6 +1245,15 @@ function sampreshan_child_override_login_visual() {
     // Allow other code (e.g. Digits bridge) to opt out.
     $should_redirect = apply_filters( 'sampreshan_should_redirect_login', true );
     if ( ! $should_redirect ) { return; }
+
+    // Core-only actions (logout, password reset, etc.) must reach wp-login.php.
+    $action = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : '';
+    if ( in_array( $action, array( 'logout', 'rp', 'resetpass', 'postpass', 'confirmaction', 'confirm_admin_email' ), true ) ) { return; }
+
+    // Admin sign-in (/wp-admin → wp-login.php?redirect_to=…/wp-admin/) or an
+    // explicit ?sp_native=1 keeps the native WordPress form.
+    $requested = isset( $_GET['redirect_to'] ) ? (string) wp_unslash( $_GET['redirect_to'] ) : '';
+    if ( false !== strpos( $requested, '/wp-admin' ) || ! empty( $_GET['sp_native'] ) ) { return; }
 
     $login_page = get_posts( array(
         'post_type'      => 'page',
@@ -1847,8 +1868,19 @@ function sp_retired_page_redirects() {
         return;
     }
     $map  = array(
-        'contact-2' => '/contact/',
-        'dharmasevaka' => '/dharma-acharya/',
+        'contact-2'      => '/contact/',
+        'dharmasevaka'   => '/dharma-acharya/',
+        // BuddyBoss Platform pages (plugin removed 2026-10-16).
+        'members'        => '/community/',
+        'groups'         => '/community/',
+        'forums'         => '/community/',
+        'photos'         => '/community/',
+        'videos'         => '/community/',
+        'documents'      => '/community/',
+        'activity-feeds' => '/community-center/',
+        'feed-2'         => '/community-center/',
+        'activate'       => '/login/',
+        'clerk-preview'  => '/login/',
     );
     $path = trim( (string) wp_parse_url( isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '', PHP_URL_PATH ), '/' );
     if ( isset( $map[ $path ] ) ) {
