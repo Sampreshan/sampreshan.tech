@@ -442,3 +442,7 @@ body.sp-future .sp-iconlib .sp-iconlib__toc a:hover { background: #ea580c; color
     .sp-khadau__step { animation: none; opacity: 1; }
     .sp-khadau__step--1, .sp-khadau__step--2 { opacity: .4; }
 }
+/* On the saffron follow button use pale sandalwood so the trail reads. */
+.sp-dharma-follow:not(.is-following) .sp-khadau__sole { fill: #fde4c3; stroke: #7c2d12; }
+.sp-dharma-follow:not(.is-following) .sp-khadau__grain { stroke: #c2410c; }
+.sp-dharma-follow:not(.is-following) .sp-khadau__knob { fill: #7c2d12; stroke: #fde4c3; }
