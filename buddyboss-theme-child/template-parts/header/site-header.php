@@ -12,7 +12,7 @@ $logo_url     = function_exists( 'sp_logo_url' ) ? sp_logo_url() : content_url( 
 $current_user = wp_get_current_user();
 $is_logged_in = is_user_logged_in();
 // Community Feed page (never hardcode /feed/ — that slug serves RSS).
-$sp_feed_url = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/feed-2/' );
+$sp_feed_url = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/community-center/' );
 $sp_feed_id  = $sp_feed_url ? url_to_postid( $sp_feed_url ) : 0;
 ?>
 <noscript><style>body{opacity:1!important}.reveal{opacity:1!important;transform:none!important}</style></noscript>

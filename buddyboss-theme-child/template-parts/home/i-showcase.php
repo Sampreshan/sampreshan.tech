@@ -7,7 +7,7 @@
  */
 
 $start_url = home_url( '/start-a-petition/' );
-$feed_url  = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/feed-2/' );
+$feed_url  = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/community-center/' );
 ?>
 <section class="d3-section" aria-labelledby="sp-ishow-h" style="overflow:hidden;">
     <div class="d3-section__light" aria-hidden="true"></div>

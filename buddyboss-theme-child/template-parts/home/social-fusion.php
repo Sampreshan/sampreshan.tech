@@ -8,7 +8,7 @@
 
 $start_url     = home_url( '/start-a-petition/' );
 $petitions_url = home_url( '/petitions/' );
-$feed_url      = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/feed-2/' );
+$feed_url      = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/community-center/' );
 
 // Trending: most signatures.
 $trending = new WP_Query( array(
