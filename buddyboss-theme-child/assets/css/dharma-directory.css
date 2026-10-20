@@ -320,3 +320,13 @@ body.sp-future .sp-dharma-sampradaya-card__family { color: #c2410c; }
 @media (max-width: 860px) { .sp-folio__role { justify-content: center; } }
 .sp-dash-empty > .sp-icon--kit,
 .sp-dash-empty__icon .sp-icon--kit { display: block; margin: 0 auto .75rem; }
+
+/* Acharya portraits are background-free cut-outs: no circle, ring or tile behind them. */
+.sp-dharma-acharya-card__media { width: 132px; height: 132px; border-radius: 0; overflow: visible; background: none; box-shadow: none; place-items: end center; }
+.sp-dharma-acharya-card__media img { object-fit: contain; object-position: bottom center; }
+.sp-dharma-sampradaya-card .sp-dharma-acharya-card__media { place-items: center; }
+.sp-dharma-peeth-card__acharyas img,
+.sp-wiki__people img { border-radius: 0; background: none; object-fit: contain; object-position: bottom center; }
+.sp-folio__portrait img { border-radius: 0; background: none; box-shadow: none; filter: drop-shadow(0 18px 24px rgba(0, 0, 0, .35)); }
+.sp-dharma-profile__image--portrait,
+.sp-dharma-profile-card--acharya .sp-dharma-card__image { background: none; }
