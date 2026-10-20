@@ -160,7 +160,7 @@ require_once get_stylesheet_directory() . '/inc/iconscout/client.php';
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.28' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.29' );
 }
 
 /**
@@ -421,6 +421,22 @@ add_action( 'init', 'sampreshan_handle_community_story_submission', 20 );
  */
 require_once get_stylesheet_directory() . '/inc/icon-helper.php';
 require_once get_stylesheet_directory() . '/inc/no-emoji.php';
+require_once get_stylesheet_directory() . '/inc/research-credit.php';
+
+/** Assets for the Gau Mata campaign petition (template-parts/campaign/gau-mata.php). */
+function sp_campaign_assets() {
+    if ( ! is_singular( 'petition' ) || 'gau-mata-rashtramata' !== get_post_meta( get_queried_object_id(), 'sp_campaign', true ) ) {
+        return;
+    }
+    $dir = get_stylesheet_directory_uri();
+    wp_enqueue_style( 'sp-campaign-gau-mata', $dir . '/assets/css/campaign-gau-mata.css', array(), SAMPRESHAN_CHILD_VERSION );
+    wp_enqueue_script( 'sp-campaign-gau-mata', $dir . '/assets/js/campaign-gau-mata.js', array(), SAMPRESHAN_CHILD_VERSION, true );
+    $kit = $dir . '/assets/icons/kit/';
+    wp_localize_script( 'sp-campaign-gau-mata', 'spCampaign', array(
+        'flowers' => array( $kit . 'sym-lotus-64.webp', $kit . 'sym-tulsi-64.webp', $kit . 'sym-bel-patra-64.webp', $kit . 'sym-diya-64.webp' ),
+    ) );
+}
+add_action( 'wp_enqueue_scripts', 'sp_campaign_assets', 30 );
 
 /**
  * Load the Framer embedder (sp_framer_render(), sp_framer_shortcode).
@@ -1831,6 +1847,7 @@ function sp_retired_page_redirects() {
     }
     $map  = array(
         'contact-2' => '/contact/',
+        'dharmasevaka' => '/dharma-acharya/',
     );
     $path = trim( (string) wp_parse_url( isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '', PHP_URL_PATH ), '/' );
     if ( isset( $map[ $path ] ) ) {

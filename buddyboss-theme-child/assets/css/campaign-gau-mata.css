@@ -1,0 +1,269 @@
+/* Gau Mata Rashtramata campaign. Ported from the ShivBodh Trust homepage
+ * section (content-archive/shivbodhtrust/home-sections/03-...), scoped to .sp-camp. */
+.sp-camp .universe-bg {
+  background: #0b0f19; padding: 60px 0; position: relative; overflow: hidden; }
+.sp-camp .unity-title-focus {
+  color: #ffffff !important; }
+.sp-camp .unity-statement-focus {
+  color: #dddddd !important; }
+.sp-camp .stars {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><circle cx="10" cy="10" r="1.5" fill="white" opacity="0.8"/><circle cx="150" cy="80" r="1" fill="white" opacity="0.5"/><circle cx="80" cy="180" r="2" fill="white" opacity="0.6"/><circle cx="190" cy="150" r="1.2" fill="white" opacity="0.7"/></svg>') repeat; z-index: 1; animation: spc-moveBackground 150s linear infinite; pointer-events: none; }
+.sp-camp .twinkling {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><circle cx="50" cy="250" r="2" fill="yellow" opacity="0.9"/><circle cx="250" cy="50" r="1.5" fill="cyan" opacity="0.6"/><circle cx="150" cy="150" r="2.5" fill="white" opacity="0.8"/></svg>') repeat; z-index: 2; animation: spc-moveBackground 100s linear infinite, spc-twinkle 4s ease-in-out infinite alternate; pointer-events: none; }
+@keyframes spc-moveBackground {
+  from {
+  background-position: 0 0; }
+  to {
+  background-position: 1000px 500px; }
+}
+@keyframes spc-twinkle {
+  0% {
+  opacity: 0.3; }
+  50% {
+  opacity: 0.8; }
+  100% {
+  opacity: 0.3; }
+}
+.sp-camp .spc-unused {
+  visibility: hidden; min-width: 280px; max-width: 90%; width: 580px; background-color: rgba(179, 60, 0, 0.95); color: #ffffff; text-align: center; border-radius: 12px; padding: 22px 30px; position: fixed; z-index: 99999; left: 50%; top: 15%; transform: translate(-50%, -20px); box-shadow: 0 15px 40px rgba(0,0,0,0.6); border: 2px solid #ffcc66; font-family: 'Alegreya', serif; font-size: 1.18em; line-height: 1.6; opacity: 0; transition: opacity 0.4s ease, transform 0.4s ease; backdrop-filter: blur(8px); }
+@media (max-width: 768px) {
+.sp-camp .spc-unused {
+  padding: 16px 20px; font-size: 1em; top: 10%; }
+}
+.sp-camp .spc-unused.show-toast {
+  visibility: visible; opacity: 1; transform: translate(-50%, 0); }
+.sp-camp .compass-node {
+  cursor: pointer; }
+.sp-camp .flower-container {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 20; overflow: hidden; }
+.sp-camp .magic-flower {
+  position: absolute; font-size: clamp(20px, 5vw, 32px); opacity: 0; pointer-events: none; filter: drop-shadow(0 4px 5px rgba(0,0,0,0.4)); will-change: transform, opacity, top, left; }
+@keyframes spc-flyToCenterTop {
+  0% {
+  top: -10%; left: var(--start-pos); transform: scale(0.5) rotate(0deg); opacity: 0; }
+  20% {
+  opacity: 1; transform: scale(1.2) rotate(90deg); }
+  100% {
+  top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.2) rotate(360deg); opacity: 0; }
+}
+@keyframes spc-flyToCenterBottom {
+  0% {
+  top: 110%; left: var(--start-pos); transform: scale(0.5) rotate(0deg); opacity: 0; }
+  20% {
+  opacity: 1; transform: scale(1.2) rotate(-90deg); }
+  100% {
+  top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.2) rotate(-360deg); opacity: 0; }
+}
+@keyframes spc-flyToCenterLeft {
+  0% {
+  top: var(--start-pos); left: -10%; transform: scale(0.5) rotate(0deg); opacity: 0; }
+  20% {
+  opacity: 1; transform: scale(1.2) rotate(90deg); }
+  100% {
+  top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.2) rotate(360deg); opacity: 0; }
+}
+@keyframes spc-flyToCenterRight {
+  0% {
+  top: var(--start-pos); left: 110%; transform: scale(0.5) rotate(0deg); opacity: 0; }
+  20% {
+  opacity: 1; transform: scale(1.2) rotate(-90deg); }
+  100% {
+  top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.2) rotate(-360deg); opacity: 0; }
+}
+.sp-camp .unity-container {
+  max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 10; }
+.sp-camp .unity-header-focus {
+  text-align: center; margin-bottom: 40px; }
+.sp-camp .support-badge {
+  display: inline-block; background: rgba(255, 215, 0, 0.2); color: #ffd700; padding: 8px 20px; border-radius: 40px; font-size: 1rem; border: 1px solid #ffd700; margin-bottom: 15px; }
+.sp-camp .support-badge i {
+  margin-right: 8px; }
+.sp-camp .unity-title-focus {
+  font-size: clamp(1.8rem, 5vw, 2.8rem); margin: 10px 0 15px; font-weight: 700; }
+.sp-camp .unity-statement-focus {
+  font-size: clamp(1rem, 3vw, 1.2rem); max-width: 900px; margin: 0 auto; line-height: 1.7; padding: 0 15px; color: #f0f0f0 !important; font-weight: 400; }
+.sp-camp .highlight-text {
+  color: #ffaa33; font-weight: 600; text-shadow: 0 0 8px rgba(255, 170, 51, 0.3); }
+.sp-camp .compass-layout {
+  position: relative; min-height: 700px; display: flex; justify-content: center; align-items: center; }
+@media (max-width: 768px) {
+.sp-camp .compass-layout {
+  min-height: 600px; }
+}
+.sp-camp .compass-lasers {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
+.sp-camp .unity-orbit-line {
+  fill: none; stroke: rgba(255, 215, 0, 0.3); stroke-width: 0.5; stroke-dasharray: 4 4; }
+.sp-camp .unity-connector {
+  stroke: rgba(255, 200, 100, 0.4); stroke-width: 1; }
+.sp-camp .wave-laser {
+  stroke: #ffaa33; stroke-width: 1.2; stroke-dasharray: 6 6; animation: spc-flowWave 3s linear infinite; }
+@keyframes spc-flowWave {
+  0% {
+  stroke-dashoffset: 0; }
+  100% {
+  stroke-dashoffset: 12; }
+}
+.sp-camp .compass-node {
+  position: absolute; z-index: 15; text-align: center; width: 150px; transform: translate(-50%, -50%); }
+.sp-camp .node-top {
+  top: 15%; left: 50%; }
+.sp-camp .node-left {
+  top: 50%; left: 20%; }
+.sp-camp .node-right {
+  top: 50%; left: 80%; }
+.sp-camp .node-bottom {
+  top: 85%; left: 50%; }
+.sp-camp .node-center {
+  top: 50%; left: 50%; width: 280px; transform: translate(-50%, -50%); }
+@media (max-width: 768px) {
+.sp-camp .node-left {
+  left: 15%; }
+.sp-camp .node-right {
+  left: 85%; }
+.sp-camp .node-center {
+  width: 220px; }
+}
+.sp-camp .framed-image-box {
+  width: 120px; height: 120px; margin: 0 auto 10px; border-radius: 50%; overflow: hidden; border: 3px solid; display: flex; align-items: center; justify-content: center; background: #1a1f2e; }
+@media (max-width: 768px) {
+.sp-camp .framed-image-box {
+  width: 100px; height: 100px; }
+}
+.sp-camp .gold-frame {
+  border-color: #ffd700; }
+.sp-camp .saffron-frame {
+  border-color: #ff9933; }
+.sp-camp .red-frame {
+  border-color: #e63946; }
+.sp-camp .yellow-frame {
+  border-color: #f4d03f; }
+.sp-camp .framed-img,
+.sp-camp .out-of-frame-img {
+  width: 100%; height: 100%; object-fit: cover; animation: spc-breathEffect 4s ease-in-out infinite; transform-origin: center; will-change: transform; }
+@keyframes spc-breathEffect {
+  0% {
+  transform: scale(1); }
+  50% {
+  transform: scale(1.08); }
+  100% {
+  transform: scale(1); }
+}
+.sp-camp .node-title {
+  font-size: clamp(0.8rem, 2.5vw, 1rem); margin: 5px 0 0; font-weight: 600; }
+.sp-camp .gold-text {
+  color: #ffd700; }
+.sp-camp .saffron-text {
+  color: #ff9933; }
+.sp-camp .red-text {
+  color: #e63946; }
+.sp-camp .yellow-text {
+  color: #f4d03f; }
+.sp-camp .rotating-dial-container {
+  position: relative; width: 200px; height: 200px; margin: 0 auto; }
+@media (max-width: 768px) {
+.sp-camp .rotating-dial-container {
+  width: 160px; height: 160px; }
+}
+.sp-camp .rotating-text-svg {
+  width: 100%; height: 100%; animation: spc-rotateDial 20s linear infinite; }
+@keyframes spc-rotateDial {
+  0% {
+  transform: rotate(0deg); }
+  100% {
+  transform: rotate(360deg); }
+}
+.sp-camp .dial-text {
+  font-size: 8px; letter-spacing: 1px; }
+@media (max-width: 768px) {
+.sp-camp .dial-text {
+  font-size: 6px; }
+}
+.sp-camp .sanskrit-dial {
+  fill: #ffaa33; }
+.sp-camp .english-dial {
+  fill: #ffffff; }
+.sp-camp .absorb-ring {
+  position: absolute; border-radius: 50%; border: 1px solid rgba(255, 215, 0, 0.3); top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.sp-camp .ring-1 {
+  width: 160px; height: 160px; }
+.sp-camp .ring-2 {
+  width: 120px; height: 120px; border-color: rgba(255, 170, 51, 0.5); }
+.sp-camp .ring-3 {
+  width: 80px; height: 80px; border-color: #ffaa33; }
+@media (max-width: 768px) {
+.sp-camp .ring-1 {
+  width: 130px; height: 130px; }
+.sp-camp .ring-2 {
+  width: 100px; height: 100px; }
+.sp-camp .ring-3 {
+  width: 70px; height: 70px; }
+}
+.sp-camp .out-of-frame-box {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 280px; height: 280px; z-index: 25; border: none; box-shadow: none; overflow: visible; }
+.sp-camp .out-of-frame-img {
+  width: 115%; height: 115%; object-fit: cover; position: absolute; top: -7.5%; left: -7.5%; border-radius: 50%; animation: spc-breathEffect 4s ease-in-out infinite; transform-origin: center; z-index: 26; }
+.sp-camp .out-of-frame-box::after {
+  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; border: 4px solid #ffd700; box-shadow: 0 0 30px rgba(255, 215, 0, 0.7); clip-path: inset(50% 0 0 0); pointer-events: none; z-index: 27; }
+@media (max-width: 768px) {
+.sp-camp .out-of-frame-box {
+  width: 200px; height: 200px; }
+}
+.sp-camp .support-tag {
+  position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); color: #ffd700; padding: 4px 15px; border-radius: 20px; font-size: 0.9rem; white-space: nowrap; border: 1px solid #ffd700; z-index: 28; }
+@media (max-width: 768px) {
+.sp-camp .support-tag {
+  font-size: 0.7rem; padding: 3px 10px; bottom: -25px; }
+}
+.sp-camp .campaign-section {
+  margin-top: 60px; text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.3); border-radius: 20px; backdrop-filter: blur(5px); border: 1px solid rgba(255, 215, 0, 0.3); }
+.sp-camp .campaign-title {
+  font-size: clamp(1.4rem, 4vw, 2rem); color: #ffd700; margin-bottom: 15px; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+.sp-camp .campaign-message {
+  font-size: clamp(1rem, 2.5vw, 1.2rem); color: #ffffff; line-height: 1.8; margin-bottom: 25px; }
+.sp-camp .campaign-message p {
+  margin: 10px 0; }
+.sp-camp .campaign-message i {
+  color: #ffaa33; margin: 0 5px; }
+.sp-camp .glow-button {
+  display: inline-block; padding: 15px 40px; font-size: 1.3rem; font-weight: bold; color: #ffd700; background: rgba(255, 255, 255, 0.1); border: 2px solid #ffd700; border-radius: 50px; text-decoration: none; letter-spacing: 1px; backdrop-filter: blur(10px); box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); transition: all 0.3s ease; animation: spc-glowPulse 2s infinite; }
+.sp-camp .glow-button:hover {
+  background: rgba(255, 215, 0, 0.2); box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); transform: scale(1.05); color: #ffffff; }
+@keyframes spc-glowPulse {
+  0% {
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+  50% {
+  box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); }
+  100% {
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+}
+@media (max-width: 768px) {
+.sp-camp .glow-button {
+  padding: 12px 30px; font-size: 1.1rem; }
+}
+
+/* SampreShan additions */
+.sp-camp { margin: 0 0 2rem; border-radius: 20px; overflow: hidden; }
+.sp-camp .magic-flower img { width: clamp(22px, 5vw, 34px); height: auto; display: block; }
+.sp-camp .compass-node { cursor: default; }
+.sp-camp .node-caption { display: block; font-size: .7rem; color: #d6d3d1; margin-top: 2px; }
+.sp-camp .campaign-title .sp-icon--kit { vertical-align: middle; }
+.sp-camp .campaign-message .sp-icon--kit { vertical-align: -4px; margin: 0 .25rem; }
+.sp-camp .spc-actions { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; align-items: center; }
+.sp-camp .spc-call { color: #fde68a; font-size: 1rem; text-decoration: none; border-bottom: 1px dashed #fde68a; }
+.sp-camp .spc-champion { display: flex; gap: 1rem; align-items: center; justify-content: center; flex-wrap: wrap; margin-top: 2rem; color: #e7e5e4; font-size: .95rem; }
+.sp-camp .spc-champion img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 2px solid #f59e0b; }
+.sp-camp .spc-champion a { color: #fbbf24; }
+@media (max-width: 479px) {
+  .sp-camp .compass-node { width: 96px; }
+  .sp-camp .node-center { width: 180px; }
+  .sp-camp .framed-image-box { width: 72px; height: 72px; }
+  .sp-camp .out-of-frame-box { width: 150px; height: 150px; }
+  .sp-camp .rotating-dial-container { width: 130px; height: 130px; }
+  .sp-camp .compass-layout { min-height: 480px; }
+  .sp-camp .node-caption { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sp-camp *, .sp-camp *::after { animation: none !important; }
+  .sp-camp .flower-container { display: none; }
+}

@@ -49,3 +49,12 @@ and production-deployment checklist. Credentials remain outside the repository.
 ## Icons and emoji (mandatory)
 
 Every page or feature, including blog posts, landing pages and campaigns, uses only SampreShan's own icon kit, and no emoji are allowed anywhere. See [docs/ICON-RULES.md](docs/ICON-RULES.md).
+
+## Content sourcing (ShivBodh Research Group)
+
+Every page, post, landing page and campaign follows `docs/CONTENT-SOURCING.md`:
+content is compiled by the ShivBodh Research Group (about 85% from the
+original institutions, their publications and people connected with them;
+about 15% with AI help), written in our own words, never copied, with no
+third-party source lists on the page. Show the credit with
+`sp_research_credit()`.

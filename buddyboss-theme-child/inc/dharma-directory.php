@@ -678,6 +678,8 @@ function sp_dharma_legacy_redirects() {
         'swami-sadanand-saraswati'    => 'swami-sadanand-saraswati',
         'swami-avimukta'              => 'swami-avimukta',
         'swami-nishchalananda-saraswati' => 'swami-nishchalananda-saraswati',
+        'kanchi-peetha'               => 'kanchi-kamakoti-peetham',
+        'sri-satya-chandrashekarendra-saraswathi-shankaracharya' => 'sri-satya-chandrashekarendra-saraswathi-shankaracharya',
     );
     if ( isset( $profile_map[ $slug ] ) ) {
         $profile = get_page_by_path( $profile_map[ $slug ], OBJECT, sp_dharma_profile_post_type() );
