@@ -103,7 +103,7 @@ if ( empty( $peeths ) ) {
         <div class="sp-fu-sechead sp-dharma-acharya-row__head">
             <div>
                 <p class="sp-fu-eyebrow"><?php esc_html_e( 'Sampradayas', 'sampreshan-child' ); ?></p>
-                <h3 class="sp-fu-sectitle"><?php esc_html_e( 'Sampradayas of Bharat', 'sampreshan-child' ); ?></h3>
+                <h3 class="sp-fu-sectitle"><?php sp_icon_e( 'peeth-amnaya', 'sp-icon--lg' ); ?> <?php esc_html_e( 'Sampradayas of Bharat', 'sampreshan-child' ); ?></h3>
             </div>
             <a class="sp-fu-link" href="<?php echo esc_url( add_query_arg( 'kind', 'sampradaya', sp_dharma_directory_url() ) ); ?>"><?php esc_html_e( 'All sampradayas', 'sampreshan-child' ); ?> &rarr;</a>
         </div>
@@ -112,7 +112,7 @@ if ( empty( $peeths ) ) {
                 <?php $img = sp_dharma_profile_image_url( $post->ID, 'medium' ); ?>
                 <article class="sp-dharma-acharya-card sp-dharma-sampradaya-card">
                     <a class="sp-dharma-acharya-card__media" href="<?php echo esc_url( get_permalink( $post ) ); ?>" tabindex="-1" aria-hidden="true">
-                        <?php if ( $img ) : ?><img src="<?php echo esc_url( $img ); ?>" alt="" width="160" height="160" loading="lazy" /><?php else : ?><span aria-hidden="true">ॐ</span><?php endif; ?>
+                        <?php if ( $img ) : ?><img src="<?php echo esc_url( $img ); ?>" alt="" width="160" height="160" loading="lazy" /><?php else : ?><?php sp_icon_e( sp_dharma_icon_name( $post ), 'sp-icon--xl' ); ?><?php endif; ?>
                     </a>
                     <p class="sp-dharma-sampradaya-card__family"><?php echo esc_html( sp_sampradaya_family_label( $item['family'] ) ); ?></p>
                     <h4><a href="<?php echo esc_url( get_permalink( $post ) ); ?>"><?php echo esc_html( get_the_title( $post ) ); ?></a></h4>

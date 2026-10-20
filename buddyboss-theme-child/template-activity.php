@@ -81,7 +81,7 @@ $start_url       = home_url( '/start-a-petition/' );
                             <strong><?php echo esc_html( $source ? $source->post_title : __( 'Dharma update', 'sampreshan-child' ) ); ?></strong>
                             <small><?php esc_html_e( 'shared an update', 'sampreshan-child' ); ?> &middot; <?php echo esc_html( human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) ); ?> <?php esc_html_e( 'ago', 'sampreshan-child' ); ?></small>
                         </div>
-                        <span class="sp-dash-pill sp-dash-pill--active"><?php esc_html_e( 'Anusaran', 'sampreshan-child' ); ?></span>
+                        <span class="sp-dash-pill sp-dash-pill--active"><?php echo sp_khadau_label( __( 'Anusaran', 'sampreshan-child' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in helper. ?></span>
                     </div>
                     <h2 class="sp-feed__title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
                     <p class="sp-feed__excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt() ?: wp_strip_all_tags( get_the_content() ), 28 ) ); ?></p>

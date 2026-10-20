@@ -130,7 +130,7 @@ $sp_profile_url = static function ( $slug ) {
 
         <?php if ( ! empty( $sp_camp_champion ) ) : ?>
             <div class="spc-champion">
-                <?php $sp_img = function_exists( 'sp_dharma_profile_image_url' ) ? sp_dharma_profile_image_url( $sp_camp_champion->ID, 'thumbnail' ) : ''; ?>
+                <?php $sp_img = function_exists( 'sp_dharma_profile_image_url' ) ? sp_dharma_profile_image_url( $sp_camp_champion->ID, 'medium' ) : ''; ?>
                 <?php if ( $sp_img ) : ?><img src="<?php echo esc_url( $sp_img ); ?>" alt="" loading="lazy"><?php endif; ?>
                 <span>
                     अभियान के प्रणेता:

@@ -85,7 +85,8 @@
         }).then(function (res) {
             btn.disabled = false;
             if (!res || !res.success) { form.submit(); return; }
-            btn.textContent = res.data.label;
+            var lbl = btn.querySelector('.sp-khadau-label');
+            (lbl || btn).textContent = res.data.label;
             btn.classList.toggle('is-following', res.data.following);
             var count = document.querySelector('[data-sp-follow-count]');
             if (count && res.data.countText) { count.textContent = res.data.countText; }

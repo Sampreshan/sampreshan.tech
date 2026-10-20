@@ -452,7 +452,7 @@ function sp_dharma_follow_button( $profile_id, $classes = '' ) {
             esc_attr( $classes ),
             // The theme hides wp-login.php links, so use the site's own login page.
             esc_url( add_query_arg( 'redirect_to', rawurlencode( get_permalink( $profile_id ) ), home_url( '/login/' ) ) ),
-            esc_html__( 'Anusaran', 'sampreshan-child' )
+            sp_khadau_label( __( 'Anusaran', 'sampreshan-child' ) ) // Escaped inside.
         );
         return;
     }
@@ -465,7 +465,7 @@ function sp_dharma_follow_button( $profile_id, $classes = '' ) {
         <input type="hidden" name="redirect_to" value="<?php echo esc_url( add_query_arg( 'anusaran', $following ? 'removed' : 'added', get_permalink( $profile_id ) ) ); ?>" />
         <?php wp_nonce_field( 'sp_toggle_dharma_follow_' . $profile_id ); ?>
         <button class="sp-dharma-follow <?php echo esc_attr( $classes . ( $following ? ' is-following' : '' ) ); ?>" type="submit">
-            <?php echo esc_html( $following ? __( 'Anusaran mein hai', 'sampreshan-child' ) : __( 'Anusaran', 'sampreshan-child' ) ); ?>
+            <?php echo sp_khadau_label( $following ? __( 'Anusaran mein hai', 'sampreshan-child' ) : __( 'Anusaran', 'sampreshan-child' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in helper. ?>
         </button>
     </form>
     <?php
@@ -723,7 +723,7 @@ function sp_dharma_dashboard_section() {
     <section class="sp-dharma-dashboard sp-dash-card sp-dash-card--pad" aria-labelledby="sp-dharma-dashboard-title">
         <div class="sp-dharma-section-head">
             <div>
-                <p class="sp-dash-eyebrow"><?php esc_html_e( 'Anusaran', 'sampreshan-child' ); ?></p>
+                <p class="sp-dash-eyebrow"><?php echo sp_khadau_label( __( 'Anusaran', 'sampreshan-child' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in helper. ?></p>
                 <h2 id="sp-dharma-dashboard-title" class="sp-dash-card__title"><?php esc_html_e( 'Your Dharma updates', 'sampreshan-child' ); ?></h2>
             </div>
             <a class="sp-text-link" href="<?php echo esc_url( sp_dharma_directory_url() ); ?>"><?php esc_html_e( 'Discover Acharyas & Peeths', 'sampreshan-child' ); ?> &rarr;</a>
