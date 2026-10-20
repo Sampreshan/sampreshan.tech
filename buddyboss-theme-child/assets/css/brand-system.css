@@ -371,3 +371,37 @@ iframe {
         color: #000 !important;
     }
 }
+
+/* ==========================================================================
+   Header visibility on the dark theme (BuddyBoss header).
+   The customizer leaves the site title and menu links dark-on-dark.
+   ========================================================================== */
+#masthead .site-title a,
+.bb-mobile-header .site-title a,
+.bb-mobile-panel-header .logo-wrap a {
+    color: #f59e0b !important;
+    font-weight: 700;
+    letter-spacing: -.01em;
+}
+#masthead #primary-menu > li > a,
+#masthead .primary-menu > li > a,
+#masthead .main-navigation .menu > li > a {
+    color: #e7e5e4 !important;
+}
+#masthead #primary-menu > li > a:hover,
+#masthead #primary-menu > li.current-menu-item > a,
+#masthead .main-navigation .menu > li.current-menu-item > a {
+    color: #f59e0b !important;
+}
+#masthead .header-aside i,
+#masthead .bb-toggle-panel i,
+#masthead .more-button i,
+.bb-mobile-header i,
+.bb-mobile-header .bb-left-panel-mobile i {
+    color: #e7e5e4 !important;
+    opacity: 1 !important;
+}
+#masthead .signin-button {
+    color: #e7e5e4 !important;
+    border-color: rgba(255, 255, 255, .25) !important;
+}
