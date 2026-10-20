@@ -455,7 +455,7 @@ function sp_dharma_follow_button( $profile_id, $classes = '' ) {
 
     if ( ! is_user_logged_in() ) {
         printf(
-            '<a class="sp-dharma-follow sp-dharma-follow--shankh %1$s" href="%2$s" title="%3$s">%4$s<span class="sp-dharma-follow__label">%3$s</span></a>',
+            '<a class="sp-dharma-follow %1$s" href="%2$s">%3$s</a>',
             esc_attr( $classes ),
             // The theme hides wp-login.php links, so use the site's own login page.
             esc_url( add_query_arg( 'redirect_to', rawurlencode( get_permalink( $profile_id ) ), home_url( '/login/' ) ) ),
