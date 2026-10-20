@@ -1,0 +1,195 @@
+/*
+ * Responsive layout: one width + gutter system for every page.
+ * Loaded last so it wins over the per-template containers.
+ *   desktop  : content up to 1400px (wide screens), header aligned with it
+ *   tablet   : full width with 24px gutters
+ *   mobile   : full width with 14px gutters, single padding layer
+ */
+:root {
+    --sp-wrap: 1400px;
+    --sp-gutter: clamp(14px, 3.2vw, 40px);
+    --sp-card-pad: clamp(16px, 2.6vw, 40px);
+}
+
+/* Header row follows the same width as page content. */
+.site-header .container,
+.site-header-container {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: var(--sp-wrap) !important;
+    width: 100%;
+    padding-left: var(--sp-gutter) !important;
+    padding-right: var(--sp-gutter) !important;
+}
+
+#masthead.site-header { padding-left: 0 !important; padding-right: 0 !important; }
+
+/* Collapse the stacked BuddyBoss wrappers into one gutter. */
+#content.site-content,
+#content.site-content>.container,
+.site-content-grid {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: 100% !important;
+}
+
+/* Every page's main column: full width up to the shared cap. */
+html body #main.site-main,
+html body main.sp-page,
+.sp-page.sp-users,
+.sp-dharma-directory,
+.sp-dharma-profile,
+.sp-petition-single {
+    width: 100% !important;
+    max-width: var(--sp-wrap) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: var(--sp-gutter) !important;
+    padding-right: var(--sp-gutter) !important;
+    box-sizing: border-box;
+}
+
+/* Inner grids that capped themselves narrower than the page. */
+.sp-member-grid,
+.sp-users__count,
+.sp-users__hero,
+.d3-section__inner,
+.d3-hero__grid-inner {
+    max-width: 100% !important;
+}
+
+.sp-users__hero {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Search / filter bars span the content width. */
+.sp-users__filters,
+.sp-dharma-filters {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box;
+}
+
+/* Cards and heroes: padding scales with the screen instead of fixed 40-56px. */
+.sp-page__hero,
+.sp-page__card,
+.sp-users__hero,
+.sp-dharma-hero,
+.sp-folio__hero,
+.sp-folio__card,
+.d3-hero,
+.d3-section {
+    padding-left: var(--sp-card-pad) !important;
+    padding-right: var(--sp-card-pad) !important;
+}
+
+/* Readable lines: long text keeps a comfortable measure on big screens,
+   and uses the full card width on tablet and mobile. */
+.sp-page__hero-sub,
+.sp-users__sub,
+.sp-dharma-home__intro,
+.d3-hero__sub {
+    max-width: min(100%, 72ch) !important;
+}
+
+.sp-page__card p,
+.sp-page__card li,
+.sp-folio__card p,
+.sp-wiki p,
+.entry-content p {
+    max-width: 90ch;
+}
+
+/* Never let media, tables or embeds push the page sideways. */
+img,
+video,
+iframe,
+svg {
+    max-width: 100%;
+}
+
+img,
+video {
+    height: auto;
+}
+
+.entry-content table,
+.sp-page__card table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+}
+
+pre,
+code {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+li,
+a {
+    overflow-wrap: break-word;
+}
+
+html,
+body {
+    overflow-x: clip;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+
+    .sp-page__card p,
+    .sp-page__card li,
+    .sp-folio__card p,
+    .sp-wiki p,
+    .entry-content p {
+        max-width: none;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+
+    .sp-page__card,
+    .sp-folio__card,
+    .sp-dharma-hero,
+    .sp-users__hero,
+    .sp-page__hero {
+        border-radius: 16px;
+    }
+
+    .sp-feature-card,
+    .sp-member-card,
+    .sp-dharma-profile-card {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+
+    .sp-timeline,
+    .sp-folio__timeline {
+        padding-left: 18px !important;
+    }
+
+    /* Filter rows stack to full width. */
+    .sp-dharma-filter input,
+    .sp-dharma-filter select,
+    .sp-dharma-filter button {
+        width: 100%;
+    }
+}
+/* Sign-in / sign-up keep their focused narrow card. */
+body.sp-login-body #main.site-main,
+body.sp-login-body main.sp-page {
+    max-width: 560px !important;
+}

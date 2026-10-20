@@ -160,7 +160,7 @@ require_once get_stylesheet_directory() . '/inc/iconscout/client.php';
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.32' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.33' );
 }
 
 /**
@@ -1004,6 +1004,12 @@ function sampreshan_child_enqueue_styles() {
     }
 }
 add_action( 'wp_enqueue_scripts', 'sampreshan_child_enqueue_styles', 20 );
+
+/** Shared width/gutter system; loads after every template stylesheet. */
+function sp_responsive_layout_css() {
+    wp_enqueue_style( 'sp-responsive-layout', get_stylesheet_directory_uri() . '/assets/css/responsive-layout.css', array(), SAMPRESHAN_CHILD_VERSION );
+}
+add_action( 'wp_enqueue_scripts', 'sp_responsive_layout_css', 1000 );
 
 /**
  * Futuristic skin: flag every frontend page so future.css applies.
