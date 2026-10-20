@@ -17,7 +17,6 @@ while ( have_posts() ) : the_post();
     $updates    = sp_dharma_updates_for_profiles( 'peeth' === $kind ? sp_dharma_same_peeth_ids( $profile_id ) : array( $profile_id ), 10 );
     $peeth_post = ( 'acharya' === $kind && ! empty( $data['peeth'] ) ) ? sp_dharma_profile_by_slug( $data['peeth'] ) : null;
     $peeth_data = $peeth_post ? sp_dharma_data( $peeth_post ) : null;
-    $sources    = $data && ! empty( $data['sources'] ) ? $data['sources'] : array();
     $follow_txt = sprintf( _n( '%s member follows this profile', '%s members follow this profile', sp_dharma_follow_count( $profile_id ), 'sampreshan-child' ), number_format_i18n( sp_dharma_follow_count( $profile_id ) ) );
 ?>
 <main id="main" class="sp-page sp-dharma-profile sp-dharma-profile--<?php echo esc_attr( $kind ); ?>" role="main">
@@ -64,7 +63,6 @@ while ( have_posts() ) : the_post();
                             <?php endforeach; ?>
                             <?php if ( $data && sp_dharma_peeth_acharya_posts( $data ) ) : ?><li><a href="#acharyas"><?php esc_html_e( 'Acharyas', 'sampreshan-child' ); ?></a></li><?php endif; ?>
                             <li><a href="#updates"><?php esc_html_e( 'Updates', 'sampreshan-child' ); ?></a></li>
-                            <?php if ( $sources ) : ?><li><a href="#references"><?php esc_html_e( 'References', 'sampreshan-child' ); ?></a></li><?php endif; ?>
                         </ol>
                     </nav>
                 <?php endif; ?>
@@ -187,16 +185,6 @@ while ( have_posts() ) : the_post();
         <?php endif; ?>
     </section>
 
-    <?php if ( $sources ) : ?>
-        <section id="references" class="sp-dharma-refs" aria-labelledby="sp-dharma-refs-title">
-            <h2 id="sp-dharma-refs-title"><?php esc_html_e( 'References', 'sampreshan-child' ); ?></h2>
-            <ol>
-                <?php foreach ( $sources as $label => $url ) : ?>
-                    <li><a href="<?php echo esc_url( $url ); ?>" rel="noopener nofollow" target="_blank"><?php echo esc_html( $label ); ?></a></li>
-                <?php endforeach; ?>
-            </ol>
-            <p class="sp-dharma-muted"><?php echo esc_html( sprintf( __( 'Facts checked against official Peetham sources and reputable reporting. Last reviewed: %s. Traditional accounts are labelled as such. Spotted an error? Write to connect@sampreshan.tech.', 'sampreshan-child' ), sp_dharma_reviewed_on() ) ); ?></p>
-        </section>
-    <?php endif; ?>
+    <?php sp_research_credit(); ?>
 </main>
 <?php endwhile; get_footer(); ?>
