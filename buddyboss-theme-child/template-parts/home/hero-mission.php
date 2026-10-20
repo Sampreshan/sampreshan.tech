@@ -10,7 +10,7 @@
 $site_name  = get_bloginfo( 'name' );
 $start_url  = home_url( '/start-a-petition/' );
 $about_url  = home_url( '/about/' );
-$feed_url   = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/feed-2/' );
+$feed_url   = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/community-center/' );
 $logo_url   = function_exists( 'sp_logo_url' ) ? sp_logo_url() : content_url( 'uploads/2026/06/sampreshan-logo-svg.svg' );
 $is_logged_in = is_user_logged_in();
 ?>
@@ -62,7 +62,7 @@ $is_logged_in = is_user_logged_in();
                 <img class="d3-hero__mandala" src="<?php echo esc_url( sp_art_url( 'mandala.svg' ) ); ?>" alt="" width="400" height="400" loading="lazy" decoding="async" />
             <?php endif; ?>
             <div class="d3-hero__object">
-                <div class="d3-hero__shankh"><?php sp_icon_auto( 'shankh', 'sp-icon', '' ); ?></div>
+                <div class="d3-hero__shankh"><picture><source media="(prefers-reduced-motion: reduce)" srcset="<?php echo esc_url( sp_art_url( 'sampreshan-shankh-poster.webp' ) ); ?>" /><img class="d3-hero__shankh-anim" src="<?php echo esc_url( sp_art_url( 'sampreshan-shankh.webp' ) ); ?>" alt="" width="400" height="400" loading="eager" decoding="async" /></picture></div>
                 <div class="d3-hero__card">
                     <img class="d3-hero__logo" src="<?php echo esc_url( $logo_url ); ?>" alt="" width="120" height="120" fetchpriority="high" />
                     <p class="d3-hero__logo-name"><?php echo esc_html( $site_name ); ?></p>
