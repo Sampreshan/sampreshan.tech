@@ -1,0 +1,112 @@
+<?php
+/**
+ * Template Name: Peetham Detail
+ * Description: Template for individual Peetham pages (Sringeri, Dwarka, Puri, Jyotirmath, Kanchi)
+ *
+ * @package ShivBodh_Child
+ */
+
+get_header();
+
+// Determine which peetham this is based on slug
+$slug = get_post_field( 'post_name', get_queried_object_id() );
+$peethams = shivbodh_get_peethams();
+$current_peetham = null;
+
+foreach ( $peethams as $peetham ) {
+    if ( strpos( $slug, strtolower( substr( $peetham['url'], 1, -1 ) ) ) !== false ) {
+        $current_peetham = $peetham;
+        break;
+    }
+}
+
+// Fallback peetham data
+if ( ! $current_peetham ) {
+    $current_peetham = array(
+        'name'          => get_the_title(),
+        'direction'     => '',
+        'veda'          => '',
+        'mahavakya'     => '',
+        'image'         => '',
+        'acharya'       => '',
+        'acharya_name'  => '',
+    );
+}
+?>
+
+<section class="sb-page-header" style="background:linear-gradient(135deg, var(--sb-maroon-dark) 0%, var(--sb-dark) 100%);">
+    <div class="sb-container">
+        <div class="sb-page-header-content">
+            <div class="sb-breadcrumb">
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'shivbodh-child' ); ?></a>
+                <span>/</span>
+                <a href="<?php echo esc_url( home_url( '/adi-shankaracharya/' ) ); ?>"><?php esc_html_e( 'Shankaracharya Ji', 'shivbodh-child' ); ?></a>
+                <span>/</span>
+                <span><?php the_title(); ?></span>
+            </div>
+
+            <?php if ( $current_peetham['direction'] ) : ?>
+            <div style="display:inline-flex;align-items:center;gap:var(--sb-space-sm);padding:0.5rem 1rem;background:rgba(255,107,0,0.2);border-radius:var(--sb-radius-full);color:var(--sb-saffron-light);font-size:var(--sb-text-sm);margin-bottom:var(--sb-space-md);">
+                <span>&#127983;</span>
+                <?php echo esc_html( $current_peetham['direction'] ); ?>
+            </div>
+            <?php endif; ?>
+
+            <h1><?php the_title(); ?></h1>
+
+            <?php if ( $current_peetham['mahavakya'] ) : ?>
+            <p style="font-family:var(--sb-font-heading);font-size:var(--sb-text-2xl);color:var(--sb-gold-light);margin-top:var(--sb-space-md);">
+                <?php echo esc_html( $current_peetham['mahavakya'] ); ?>
+            </p>
+            <?php endif; ?>
+
+            <?php if ( $current_peetham['veda'] ) : ?>
+            <p style="font-size:var(--sb-text-base);color:var(--sb-gray-400);margin-top:var(--sb-space-sm);">
+                <?php echo esc_html( $current_peetham['veda'] ); ?>
+            </p>
+            <?php endif; ?>
+        </div>
+    </div>
+</section>
+
+<!-- Peetham Quick Info -->
+<?php if ( $current_peetham['acharya_name'] ) : ?>
+<section class="sb-section-sm" style="background:var(--sb-cream);">
+    <div class="sb-container">
+        <div style="display:flex;align-items:center;justify-content:center;gap:var(--sb-space-2xl);flex-wrap:wrap;">
+            <div style="text-align:center;">
+                <div style="font-size:var(--sb-text-xs);color:var(--sb-gray-400);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:var(--sb-space-xs);"><?php esc_html_e( 'Current Acharya', 'shivbodh-child' ); ?></div>
+                <a href="<?php echo esc_url( home_url( $current_peetham['acharya'] ) ); ?>" style="font-size:var(--sb-text-xl);font-weight:600;color:var(--sb-saffron);text-decoration:none;">
+                    <?php echo esc_html( $current_peetham['acharya_name'] ); ?>
+                </a>
+            </div>
+            <div style="width:1px;height:40px;background:var(--sb-gray-300);"></div>
+            <div style="text-align:center;">
+                <div style="font-size:var(--sb-text-xs);color:var(--sb-gray-400);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:var(--sb-space-xs);"><?php esc_html_e( 'Veda', 'shivbodh-child' ); ?></div>
+                <div style="font-size:var(--sb-text-xl);font-weight:600;color:var(--sb-dark);"><?php echo esc_html( $current_peetham['veda'] ); ?></div>
+            </div>
+            <div style="width:1px;height:40px;background:var(--sb-gray-300);"></div>
+            <div style="text-align:center;">
+                <div style="font-size:var(--sb-text-xs);color:var(--sb-gray-400);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:var(--sb-space-xs);"><?php esc_html_e( 'Direction', 'shivbodh-child' ); ?></div>
+                <div style="font-size:var(--sb-text-xl);font-weight:600;color:var(--sb-dark);"><?php echo esc_html( $current_peetham['direction'] ); ?></div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
+
+<!-- Main Content -->
+<section class="sb-section">
+    <div class="sb-container sb-container-narrow">
+        <div class="sb-article-content">
+            <?php
+            while ( have_posts() ) :
+                the_post();
+                the_content();
+            endwhile;
+            ?>
+        </div>
+    </div>
+</section>
+
+<?php get_footer(); ?>
