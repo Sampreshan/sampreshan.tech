@@ -241,3 +241,32 @@ body.sp-login-body .sp-login__art {
     max-width: 100% !important;
     width: 100% !important;
 }
+
+/* Blog archives: header aligned with the card grid, readable controls. */
+.bb-blog-dir-header {
+    padding-left: var(--sp-gutter) !important;
+    padding-right: var(--sp-gutter) !important;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    gap: .75rem;
+}
+
+.bb-blog-filter__select {
+    background-color: #12151e !important;
+    color: #f5f5f4 !important;
+    border: 1px solid rgba(255, 255, 255, .18) !important;
+}
+
+.bb-blog-filter__select option {
+    background-color: #12151e;
+    color: #f5f5f4;
+}
+
+/* Excerpts sit on the card, not on a page-coloured box. */
+.post-grid .entry-content {
+    background: transparent !important;
+}
+
+.post-grid .bb-comments-wrap {
+    white-space: nowrap;
+}
