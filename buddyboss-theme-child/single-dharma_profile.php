@@ -33,6 +33,14 @@ while ( have_posts() ) : the_post();
             <p class="sp-wiki__kicker"><?php echo esc_html( 'sampradaya' === $kind ? sprintf( __( 'Sampradaya · %s', 'sampreshan-child' ), sp_sampradaya_family_label( $data['family'] ?? '' ) ) : __( 'Peeth', 'sampreshan-child' ) ); ?></p>
             <h1><?php the_title(); ?></h1>
             <?php if ( ! empty( $data['name_hi'] ) ) : ?><p class="sp-wiki__alt" lang="hi"><?php echo esc_html( $data['name_hi'] ); ?></p><?php endif; ?>
+            <?php $sp_pp_head = sp_parampara_for( get_post_field( 'post_name', $profile_id ) ); ?>
+            <?php if ( $sp_pp_head ) : ?>
+                <dl class="sp-wiki__founding">
+                    <div><dt><?php echo esc_html( $sp_pp_head['founder']['label'] ?? __( 'Founded by', 'sampreshan-child' ) ); ?></dt><dd><?php echo esc_html( $sp_pp_head['founder']['name'] ); ?></dd></div>
+                    <?php if ( ! empty( $sp_pp_head['founder']['when'] ) ) : ?><div><dt><?php esc_html_e( 'Founded', 'sampreshan-child' ); ?></dt><dd><?php echo esc_html( $sp_pp_head['founder']['when'] ); ?></dd></div><?php endif; ?>
+                    <div><dt><?php esc_html_e( 'Parampara', 'sampreshan-child' ); ?></dt><dd><a href="#parampara"><?php echo esc_html( $sp_pp_head['count'] ); ?></a></dd></div>
+                </dl>
+            <?php endif; ?>
             <div class="sp-wiki__actions">
                 <?php sp_dharma_follow_button( $profile_id ); ?>
                 <span class="sp-dharma-muted" data-sp-follow-count><?php echo esc_html( $follow_txt ); ?></span>
