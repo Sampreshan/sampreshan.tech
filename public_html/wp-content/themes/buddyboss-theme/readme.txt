@@ -2,7 +2,7 @@
 Contributors: BuddyBoss
 Requires at least: 4.9.1
 Tested up to: 6.8.1
-Version: 2.21.0
+Version: 2.22.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -18,6 +18,19 @@ BuddyBoss Theme is a community theme for the BuddyBoss Platform.
 4. Upload the file 'buddyboss-theme-child.zip'
 
 == Changelog ==
+
+= 2.22.2 =
+* Enhancement: Social Login - Added frontend Two-Factor Authentication management under Account - Security, allowing members to securely set up and manage 2FA and use it seamlessly with BuddyBoss Social Login
+
+= 2.22.1 =
+* Bug: Activity - Fixed an issue where the activity post editing time limit could become invalid, causing the settings page to show the wrong value and editing to stop working correctly
+* Bug: Gamipress - Fixed an issue where links inside the earnings table were not clickable.
+
+= 2.22.0 =
+* Bug: Core - Fixed an issue where clicking "View details" on the BuddyBoss products not showing update details
+* Bug: Core - Fixed inconsistencies where member hover cards were not appearing correctly in some areas like groups, forums, and activity feeds
+* Bug: LearnDash - Fixed an issue where lesson content was visible alongside the progression warning when course video progression was enabled
+* Bug: Styling - Fixed an issue where long usernames wrapped incorrectly on mobile view, isolating a single character on the next line
 
 = 2.21.0 =
 * New Feature! - Added support for the Member Blogging add-on, including a blog creation and blog directory layout, blog post bookmarking, and category subscriptions

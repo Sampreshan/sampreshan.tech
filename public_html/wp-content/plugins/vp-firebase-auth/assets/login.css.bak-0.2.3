@@ -1,0 +1,406 @@
+/* Shared card. Theme tokens sit on [data-vp-theme]. */
+
+.vp-auth {
+    --vp-auth-bg: #fffdf8;
+    --vp-auth-ink: #2b1d14;
+    --vp-auth-muted: #6b5a4c;
+    --vp-auth-border: #eadfcd;
+    --vp-auth-soft: #f3eadb;
+    --vp-auth-primary: #c2410c;
+    --vp-auth-primary-ink: #fff;
+    --vp-auth-primary-hover: #9a3412;
+    --vp-auth-accent: #ff7a1a;
+    --vp-auth-shadow: 0 10px 30px rgba(63, 58, 55, .12);
+    --vp-auth-radius: 14px;
+    --vp-auth-focus: #c2410c;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: min(440px, 100%);
+    margin: 0 auto;
+    padding: clamp(1.25rem, 4vw, 1.75rem) clamp(1rem, 3.5vw, 1.5rem);
+    border: 1px solid var(--vp-auth-border);
+    border-radius: var(--vp-auth-radius);
+    background: var(--vp-auth-bg);
+    color: var(--vp-auth-ink);
+    box-shadow: var(--vp-auth-shadow);
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.vp-auth *,
+.vp-auth *::before,
+.vp-auth *::after {
+    box-sizing: border-box;
+}
+
+/* Varanasi Pooja — ivory, saffron, indigo */
+.vp-auth[data-vp-theme="pooja"] {
+    --vp-auth-bg: #fffbf4;
+    --vp-auth-ink: #1b1340;
+    --vp-auth-muted: #554b65;
+    --vp-auth-border: #dfcdb0;
+    --vp-auth-soft: #fff7e8;
+    --vp-auth-primary: #ff7a1a;
+    --vp-auth-primary-ink: #1b1340;
+    --vp-auth-primary-hover: #f06808;
+    --vp-auth-accent: #c2410c;
+    --vp-auth-shadow: 0 12px 34px rgba(27, 19, 64, .12);
+    --vp-auth-radius: 16px;
+    --vp-auth-focus: #1b1340;
+}
+
+/* Varanasi Ganga Aarti — cream card, maroon + gold */
+.vp-auth[data-vp-theme="aarti"] {
+    --vp-auth-bg: #fff8ef;
+    --vp-auth-ink: #2b2b2b;
+    --vp-auth-muted: #5a4a3a;
+    --vp-auth-border: #d4a437;
+    --vp-auth-soft: #f8edd2;
+    --vp-auth-primary: #8b0000;
+    --vp-auth-primary-ink: #fff8ef;
+    --vp-auth-primary-hover: #6d0000;
+    --vp-auth-accent: #d4a437;
+    --vp-auth-shadow: 0 16px 40px rgba(12, 27, 26, .22);
+    --vp-auth-radius: 12px;
+    --vp-auth-focus: #8b0000;
+}
+
+/* Sampreshan — saffron + cream, larger radius */
+.vp-auth[data-vp-theme="sampreshan"] {
+    --vp-auth-bg: #fff;
+    --vp-auth-ink: #1a1a1a;
+    --vp-auth-muted: #5a5a5a;
+    --vp-auth-border: #fed7aa;
+    --vp-auth-soft: #fff8f0;
+    --vp-auth-primary: #ff9933;
+    --vp-auth-primary-ink: #1a1a1a;
+    --vp-auth-primary-hover: #ed7a1a;
+    --vp-auth-accent: #9a4f0b;
+    --vp-auth-shadow: 0 16px 40px rgba(30, 58, 138, .14);
+    --vp-auth-radius: 20px;
+    --vp-auth-focus: #ed7a1a;
+}
+
+.vp-auth__loading,
+.vp-auth__status {
+    margin: 16px 0 0;
+    padding: 12px 14px;
+    border: 1px solid var(--vp-auth-border);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--vp-auth-muted);
+    text-align: center;
+}
+
+.vp-auth__status[hidden] {
+    display: none;
+}
+
+.vp-auth__status.is-error {
+    border-color: #f0b4a6;
+    background: #fff4f1;
+    color: #7f1d1d;
+}
+
+.vp-auth__title {
+    margin: 0 0 4px;
+    font-size: clamp(1.25rem, 4.4vw, 1.45rem);
+    line-height: 1.25;
+    color: var(--vp-auth-ink);
+    text-align: center;
+    font-weight: 700;
+}
+
+.vp-auth[data-vp-theme="pooja"] .vp-auth__title,
+.vp-auth[data-vp-theme="aarti"] .vp-auth__title {
+    font-weight: 600;
+}
+
+.vp-auth[data-vp-theme="aarti"] .vp-auth__title {
+    color: #8b0000;
+}
+
+.vp-auth[data-vp-theme="pooja"] .vp-auth__title {
+    color: #1b1340;
+}
+
+.vp-auth__sub {
+    margin: 0 0 18px;
+    color: var(--vp-auth-muted);
+    font-size: 14px;
+    text-align: center;
+}
+
+.vp-auth__intro {
+    max-width: 440px;
+    margin: 0 auto 12px;
+    color: var(--vp-auth-muted);
+    text-align: center;
+}
+
+.vp-auth__btn {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    margin: 0 0 10px;
+    padding: 12px 16px;
+    border: 1px solid var(--vp-auth-border);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--vp-auth-ink);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s, border-color .15s, transform .15s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.vp-auth__btn:hover {
+    background: var(--vp-auth-soft);
+}
+
+.vp-auth__btn:focus-visible {
+    outline: 2px solid var(--vp-auth-focus);
+    outline-offset: 2px;
+}
+
+.vp-auth__primary {
+    border-color: var(--vp-auth-primary);
+    background: var(--vp-auth-primary);
+    color: var(--vp-auth-primary-ink);
+}
+
+.vp-auth__primary:hover {
+    background: var(--vp-auth-primary-hover);
+    border-color: var(--vp-auth-primary-hover);
+}
+
+.vp-auth__secondary {
+    border-color: var(--vp-auth-primary);
+    color: var(--vp-auth-primary);
+    background: #fff;
+}
+
+.vp-auth__social.is-facebook {
+    border-color: #1877f2;
+    background: #1877f2;
+    color: #fff;
+}
+
+.vp-auth__social.is-facebook:hover {
+    background: #1466d1;
+}
+
+.vp-auth__social.is-google {
+    background: #fff;
+}
+
+.vp-auth__divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 14px 0;
+    color: var(--vp-auth-muted);
+    font-size: 13px;
+}
+
+.vp-auth__divider:before,
+.vp-auth__divider:after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--vp-auth-border);
+}
+
+.vp-auth__tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 14px;
+    padding: 4px;
+    border-radius: 10px;
+    background: var(--vp-auth-soft);
+}
+
+.vp-auth__tab {
+    flex: 1;
+    min-height: 44px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--vp-auth-muted);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.vp-auth__tab[aria-selected="true"] {
+    background: #fff;
+    color: var(--vp-auth-accent);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .12);
+}
+
+.vp-auth input {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    margin: 0 0 10px;
+    padding: 12px;
+    border: 1px solid var(--vp-auth-border);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--vp-auth-ink);
+    font: inherit;
+    font-size: 16px;
+}
+
+.vp-auth input:focus {
+    outline: 2px solid var(--vp-auth-focus);
+    outline-offset: 1px;
+}
+
+.vp-auth__phone {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.vp-auth__cc {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 12px;
+    border: 1px solid var(--vp-auth-border);
+    border-radius: 10px;
+    background: var(--vp-auth-soft);
+    font-weight: 600;
+    flex: 0 0 auto;
+}
+
+.vp-auth__phone input {
+    margin: 0 0 10px;
+    flex: 1;
+    min-width: 0;
+}
+
+.vp-auth__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.vp-auth__link {
+    padding: 8px 0;
+    border: 0;
+    background: none;
+    color: var(--vp-auth-accent);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.vp-auth__switch {
+    margin: 8px 0 0;
+    text-align: center;
+    font-size: 14px;
+    color: var(--vp-auth-muted);
+}
+
+.vp-auth__pane[hidden],
+.vp-auth__step[hidden] {
+    display: none;
+}
+
+.vp-auth.is-busy {
+    opacity: .7;
+    pointer-events: none;
+}
+
+.vp-auth__recaptcha {
+    min-height: 0;
+}
+
+/* Tablet */
+@media (min-width: 640px) {
+    .vp-auth {
+        padding: 28px 24px;
+    }
+
+    .vp-auth__title {
+        font-size: 22px;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    .vp-auth {
+        max-width: 440px;
+    }
+}
+
+/* Narrow phones */
+@media (max-width: 380px) {
+    .vp-auth {
+        padding: 1rem .85rem;
+        border-radius: 12px;
+    }
+
+    .vp-auth__row {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .vp-auth__tabs {
+        flex-direction: column;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .vp-auth__btn {
+        transition: none;
+    }
+}
+
+/* Beat host-theme !important surface rules (Sampreshan brand-system
+   forces white text on .entry-content). Keep the card readable. */
+.vp-auth,
+.vp-auth[data-vp-theme] {
+    background: var(--vp-auth-bg) !important;
+    color: var(--vp-auth-ink) !important;
+}
+
+.vp-auth .vp-auth__title,
+.vp-auth .vp-auth__sub,
+.vp-auth .vp-auth__intro,
+.vp-auth .vp-auth__loading,
+.vp-auth .vp-auth__status,
+.vp-auth .vp-auth__switch,
+.vp-auth label,
+.vp-auth p,
+.vp-auth h1,
+.vp-auth h2,
+.vp-auth span,
+.vp-auth a {
+    color: inherit;
+}
+
+.vp-auth .vp-auth__title {
+    color: var(--vp-auth-ink) !important;
+}
+
+.vp-auth .vp-auth__sub,
+.vp-auth .vp-auth__intro,
+.vp-auth .vp-auth__loading,
+.vp-auth .vp-auth__switch {
+    color: var(--vp-auth-muted) !important;
+}
+
+.vp-auth input,
+.vp-auth button,
+.vp-auth .vp-auth__btn,
+.vp-auth .vp-auth__field input {
+    color: var(--vp-auth-ink) !important;
+    background-color: #fff !important;
+}

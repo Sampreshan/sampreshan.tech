@@ -351,7 +351,24 @@ if ( empty( $course ) ) {
 							}
 
 							// Ensure content is shown when video progression is required.
-							if ( ! empty( $sub_context ) && 'video_progression' === $sub_context ) {
+							//
+							// Video progression only governs an already-accessible lesson: it
+							// gates the "mark complete" action (and any sub-steps) behind watching
+							// the lesson video. It must never reveal a lesson that is still locked
+							// behind an incomplete previous step under Linear Progression, otherwise
+							// the lesson content renders alongside the "please complete the previous
+							// lesson" notice.
+							//
+							// The progression notice above is shown when the earliest incomplete
+							// step is a DIFFERENT step ( $previous_item_id !== $post->ID ). Gate the
+							// content-reveal on the inverse of that same signal so content and the
+							// notice stay mutually exclusive, exactly as LearnDash core does: only
+							// force the content open when this lesson is itself the current step to
+							// complete.
+							if (
+								! empty( $sub_context ) && 'video_progression' === $sub_context
+								&& learndash_user_progress_get_previous_incomplete_step( $user_id, $course_id, $post->ID ) === $post->ID
+							) {
 								$show_content = true;
 							}
 

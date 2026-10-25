@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WPCode Pro
  * Plugin URI: https://www.wpcode.com/
- * Version: 2.3.9
+ * Version: 2.4.0
  * Requires at least: 5.0
  * Requires PHP: 7.0
  * Tested up to: 7.1
@@ -312,6 +312,13 @@ class WPCode_Premium {
 	public $revisions;
 
 	/**
+	 * Load the revisions retention class.
+	 *
+	 * @var WPCode_Revisions_Retention
+	 */
+	public $revisions_retention;
+
+	/**
 	 * The license level for this instance.
 	 *
 	 * @var WPCode_License
@@ -513,6 +520,7 @@ class WPCode_Premium {
 		$this->logger               = new WPCode_File_Logger();
 		$this->snippet_block_editor = new WPCode_Snippet_Block_Editor();
 		$this->revisions            = new WPCode_Revisions();
+		$this->revisions_retention  = new WPCode_Revisions_Retention();
 
 		if ( is_admin() || ( defined( 'DOING_CRON' ) && DOING_CRON ) ) {
 			$this->file_cache        = new WPCode_File_Cache();

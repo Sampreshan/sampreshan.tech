@@ -7,7 +7,9 @@ add_filter('pre_http_request', function($pre, $parsed_args, $url) {
 		$products = [
 			['slug' => 'buddyboss-platform-pro', 'status' => 'enabled'],
 			['slug' => 'buddyboss-sharing', 'status' => 'enabled'],
-			['slug' => 'buddyboss-theme', 'status' => 'enabled']
+			['slug' => 'buddyboss-theme', 'status' => 'enabled'],
+			['slug' => 'buddyboss-learndash', 'status' => 'enabled'],
+			['slug' => 'buddyboss-addons', 'status' => 'enabled']
 		];
 		return [
 			'response' => ['code' => 200],

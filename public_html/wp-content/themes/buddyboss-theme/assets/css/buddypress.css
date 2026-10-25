@@ -18845,7 +18845,7 @@ body #buddypress .member-header-actions > .generic-button > *.block-member:befor
 #buddypress div#item-header-cover-image .user-nicename a,
 #buddypress div#item-header-cover-image .user-nicename {
   margin: 0 15px 0 0;
-  word-break: break-all;
+  overflow-wrap: break-word;
 }
 
 .single-headers .followers-wrap,

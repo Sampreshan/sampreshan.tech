@@ -55,6 +55,8 @@ if ( ! class_exists( '\BuddyBossTheme\BBThemeUpdate' ) ) {
 		 * Get theme data for buddyboss theme for popup.
 		 *
 		 * @since 1.8.7
+		 * @since 2.22.2 Read the update container through
+		 *                    buddyboss_theme_update_response() instead of indexing it.
 		 *
 		 * @param array $theme object.
 		 *
@@ -83,8 +85,21 @@ if ( ! class_exists( '\BuddyBossTheme\BBThemeUpdate' ) ) {
 
 			$html = '';
 
-			if ( isset( $themes_update->response[ $stylesheet ] ) ) {
-				$update      = $themes_update->response[ $stylesheet ];
+			/*
+			 * Normalize the container rather than indexing it, for the reason
+			 * given in buddyboss_theme_update_response(). inc/init.php gates
+			 * this fork on the stylesheet's Version header and looks the update
+			 * up by the stylesheet's slug, so it is reached on a 1.x parent
+			 * theme with a pending update rather than on a child theme, whose
+			 * slug has no update entry. The entry is checked as well as the
+			 * container, because everything below indexes it with [].
+			 */
+			$response = function_exists( 'buddyboss_theme_update_response' )
+				? buddyboss_theme_update_response( $themes_update )
+				: array();
+
+			if ( isset( $response[ $stylesheet ] ) && is_array( $response[ $stylesheet ] ) ) {
+				$update      = $response[ $stylesheet ];
 				$theme_name  = $theme->display( 'Name' );
 				$details_url = add_query_arg(
 					array(

@@ -2186,8 +2186,6 @@ button.gamipress-rank-unlock-with-points-button {
 
 table.gamipress-earnings-table {
   border-collapse: separate;
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
 }
 table.gamipress-earnings-table th,
 table.gamipress-earnings-table td {
@@ -2276,6 +2274,12 @@ table.gamipress-earnings-table tbody td.gamipress-earnings-col-points {
 .gamipress-earnings-pagination {
   font-size: 13px;
   text-align: right;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 .gamipress-earnings-pagination span,
 .gamipress-earnings-pagination a {

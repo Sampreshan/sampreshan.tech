@@ -2109,7 +2109,8 @@ if ( ! function_exists( 'bb_theme_elementor_bp_nouveau_activity_privacy' ) ) {
 			return;
 		}
 
-		if ( bp_activity_user_can_edit() && ! bp_is_group() ) {
+		// Privacy-only edit, like bp_nouveau_activity_privacy(): not subject to the edit toggle or window.
+		if ( bp_activity_user_can_edit( false, true ) && ! bp_is_group() ) {
 
 			if ( bp_is_active( 'groups' ) && buddypress()->groups->id === bp_get_activity_object_name() ) {
 				return;

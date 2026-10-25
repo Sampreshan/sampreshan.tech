@@ -185,8 +185,14 @@ class WPCode_Revisions {
 			)
 		);
 
-		$cache_key = 'wpcode_revisions_for_snippet_' . $snippet_id;
-		wp_cache_delete( $cache_key, 'wpcode' );
+		wpcode()->revisions_retention->flush_revision_cache( $snippet_id );
+
+		/**
+		 * Fires after a revision row has been inserted.
+		 *
+		 * @param int $snippet_id The snippet the revision belongs to. 0 for Header & Footer.
+		 */
+		do_action( 'wpcode_after_create_revision', $snippet_id );
 	}
 
 	/**
@@ -199,8 +205,8 @@ class WPCode_Revisions {
 	public function get_snippet_revisions( $snippet_id ) {
 		global $wpdb;
 
-		$cache_key = 'wpcode_revisions_for_snippet_' . $snippet_id;
-		$results   = wp_cache_get( 'wpcode_revisions_for_snippet_' . $snippet_id, 'wpcode' );
+		$cache_key = WPCode_Revisions_Retention::get_cache_key( $snippet_id );
+		$results   = wp_cache_get( $cache_key, 'wpcode' );
 
 		if ( false === $results ) {
 			$results = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery

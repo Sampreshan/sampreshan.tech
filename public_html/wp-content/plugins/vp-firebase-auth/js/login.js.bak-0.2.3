@@ -1,0 +1,277 @@
+import { initializeApp } from 'firebase/app';
+import {
+  getAuth, signOut, signInWithPopup, signInWithCredential,
+  GoogleAuthProvider, FacebookAuthProvider,
+  RecaptchaVerifier, signInWithPhoneNumber,
+  signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification,
+  sendPasswordResetEmail, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink,
+} from 'firebase/auth';
+
+const cfg = window.VPAuth || {};
+const mounts = document.querySelectorAll('[data-vp-auth]');
+if (mounts.length && cfg.firebase) {
+  const app = initializeApp(cfg.firebase);
+  const auth = getAuth(app);
+  auth.languageCode = 'en';
+  mounts.forEach(mount);
+
+  function mount(root) {
+    const redirect = root.dataset.redirect || cfg.account || '/';
+    const isSignup = (root.dataset.mode || cfg.mode || 'signin') === 'signup';
+    let busy = false;
+    let confirmation = null;
+    let recaptcha = null;
+
+    const el = (tag, attrs = {}, ...kids) => {
+      const n = document.createElement(tag);
+      Object.entries(attrs).forEach(([k, v]) => {
+        if (k === 'class') n.className = v;
+        else if (k.startsWith('on')) n.addEventListener(k.slice(2), v);
+        else if (v === false || v == null) { /* skip */ }
+        else n.setAttribute(k, v === true ? '' : v);
+      });
+      kids.forEach((c) => n.append(c));
+      return n;
+    };
+
+    const status = el('p', { class: 'vp-auth__status', role: 'status', hidden: '' });
+    const say = (text, isError) => {
+      status.textContent = text || '';
+      status.hidden = !text;
+      status.classList.toggle('is-error', !!isError);
+    };
+
+    const friendly = (e) => {
+      const map = {
+        'auth/invalid-phone-number': 'Enter a valid 10-digit mobile number.',
+        'auth/invalid-verification-code': 'That code is not correct. Enter only the 6 digits from the latest SMS.',
+        'auth/code-expired': 'That code expired. Please request a new one.',
+        'auth/too-many-requests': 'Too many attempts. Please wait a few minutes and try again.',
+        'auth/invalid-credential': 'Email or password is not correct.',
+        'auth/wrong-password': 'Email or password is not correct.',
+        'auth/user-not-found': 'Email or password is not correct.',
+        'auth/email-already-in-use': 'This email already has an account. Use Sign in, or reset your password.',
+        'auth/weak-password': 'Password must be at least 6 characters.',
+        'auth/invalid-email': 'Enter a valid email address.',
+        'auth/popup-closed-by-user': 'Sign-in was cancelled.',
+        'auth/cancelled-popup-request': 'Sign-in was cancelled.',
+        'auth/popup-blocked': 'Your browser blocked the sign-in window. Please allow pop-ups and try again.',
+        'auth/account-exists-with-different-credential': 'This email is already registered with another sign-in method. Use that one.',
+        'auth/network-request-failed': 'Network problem. Check your connection and try again.',
+        'auth/quota-exceeded': 'SMS limit reached. Please try email or Google instead.',
+        'auth/missing-initial-state': 'Facebook sign-in was interrupted. Please try again and keep this tab open.',
+        'auth/web-storage-unsupported': 'This browser is blocking sign-in storage. Allow cookies for this site and try again.',
+      };
+      const msg = (e && e.message) || '';
+      if (/missing initial state/i.test(msg)) return map['auth/missing-initial-state'];
+      return map[e && e.code] || 'Something went wrong. Please try again.';
+    };
+
+    async function run(fn) {
+      if (busy) return;
+      busy = true;
+      root.classList.add('is-busy');
+      say('');
+      try { await fn(); } catch (e) { say(friendly(e), true); } finally { busy = false; root.classList.remove('is-busy'); }
+    }
+
+    async function bridge(user) {
+      say('Signing you in…');
+      const token = await user.getIdToken(true);
+      const res = await fetch(cfg.session, {
+        method: 'POST', credentials: 'same-origin',
+        headers: { Authorization: 'Bearer ' + token, 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ redirect, idToken: token }),
+      });
+      const data = await res.json().catch(() => ({}));
+      await signOut(auth).catch(() => { });
+      if (!res.ok || !data.ok) {
+        const err = new Error(data.message || 'We could not sign you in. Please try again or contact our team.');
+        err.plain = true;
+        throw err;
+      }
+      window.location.assign(data.redirect || redirect);
+    }
+    const finish = async (cred) => {
+      try { await bridge(cred.user); } catch (e) { say(e.plain ? e.message : friendly(e), true); busy = false; root.classList.remove('is-busy'); throw null; }
+    };
+    const guard = (fn) => () => run(async () => { try { await fn(); } catch (e) { if (e === null) return; throw e; } });
+
+    function waitForFb(timeout = 8000) {
+      if (window.FB && window.FB.login) return Promise.resolve(window.FB);
+      return new Promise((resolve, reject) => {
+        const t0 = Date.now();
+        const tick = () => {
+          if (window.FB && window.FB.login) return resolve(window.FB);
+          if (Date.now() - t0 > timeout) return reject({ code: 'auth/network-request-failed' });
+          setTimeout(tick, 50);
+        };
+        tick();
+      });
+    }
+    function fbLogin() {
+      return new Promise((resolve, reject) => {
+        waitForFb().then((FB) => {
+          FB.login((res) => {
+            if (res && res.authResponse && res.authResponse.accessToken) resolve(res.authResponse.accessToken);
+            else reject({ code: 'auth/popup-closed-by-user' });
+          }, { scope: 'email,public_profile' });
+        }).catch(reject);
+      });
+    }
+    async function facebookSignIn() {
+      const token = await fbLogin();
+      return signInWithCredential(auth, FacebookAuthProvider.credential(token));
+    }
+    const googleBtn = el('button', {
+      type: 'button', class: 'vp-auth__btn vp-auth__social is-google',
+      onclick: guard(async () => finish(await signInWithPopup(auth, new GoogleAuthProvider()))),
+    }, (isSignup ? 'Sign up with ' : 'Continue with ') + 'Google');
+    const facebookBtn = el('button', {
+      type: 'button', class: 'vp-auth__btn vp-auth__social is-facebook',
+      onclick: guard(async () => finish(await facebookSignIn())),
+    }, (isSignup ? 'Sign up with ' : 'Continue with ') + 'Facebook');
+
+    const digitsOnly = (s) => {
+      const map = { '०': '0', '१': '1', '२': '2', '३': '3', '४': '4', '५': '5', '६': '6', '७': '7', '८': '8', '९': '9' };
+      return String(s || '').replace(/[०-९]/g, (ch) => map[ch] || ch).replace(/\D/g, '');
+    };
+    const extractOtp = (s) => {
+      const mapped = String(s || '').replace(/[०-९]/g, (ch) => ({ '०': '0', '१': '1', '२': '2', '३': '3', '४': '4', '५': '5', '६': '6', '७': '7', '८': '8', '९': '9' }[ch] || ch));
+      const groups = mapped.match(/\d{6}/g) || [];
+      const notPhone = groups.filter((g) => !/^91/.test(g));
+      if (notPhone.length) return notPhone[notPhone.length - 1];
+      if (groups.length) return groups[groups.length - 1];
+      const all = digitsOnly(mapped);
+      return all.length > 6 ? all.slice(-6) : all;
+    };
+    const phone = el('input', { type: 'tel', inputmode: 'numeric', autocomplete: 'tel-national', maxlength: '10', placeholder: '10-digit mobile number', 'aria-label': 'Mobile number' });
+    const otp = el('input', { type: 'text', inputmode: 'numeric', autocomplete: 'one-time-code', maxlength: '32', placeholder: '6-digit code', 'aria-label': 'OTP code' });
+    const sendBtn = el('button', { type: 'button', class: 'vp-auth__btn vp-auth__primary', onclick: guard(sendOtp) }, 'Send OTP');
+    const verifyBtn = el('button', { type: 'button', class: 'vp-auth__btn vp-auth__primary', onclick: guard(verifyOtp) }, 'Verify & continue');
+    const recaptchaBox = el('div', { class: 'vp-auth__recaptcha' });
+    const otpStep = el('div', { class: 'vp-auth__step', hidden: '' }, otp, verifyBtn,
+      el('button', { type: 'button', class: 'vp-auth__link', onclick: () => { otpStep.hidden = true; phoneStep.hidden = false; confirmation = null; say(''); } }, 'Change number'));
+    const phoneStep = el('div', { class: 'vp-auth__step' },
+      el('div', { class: 'vp-auth__phone' }, el('span', { class: 'vp-auth__cc' }, '+91'), phone), sendBtn);
+
+    async function sendOtp() {
+      const digits = digitsOnly(phone.value);
+      if (!/^[6-9]\d{9}$/.test(digits)) throw { code: 'auth/invalid-phone-number' };
+      phone.value = digits;
+      if (!recaptcha) recaptcha = new RecaptchaVerifier(auth, recaptchaBox, { size: 'invisible' });
+      try {
+        confirmation = await signInWithPhoneNumber(auth, '+91' + digits, recaptcha);
+      } catch (e) { try { recaptcha.clear(); } catch (_) { } recaptcha = null; recaptchaBox.innerHTML = ''; throw e; }
+      phoneStep.hidden = true; otpStep.hidden = false; otp.value = ''; otp.focus();
+      say('OTP sent to +91 ' + digits + '. Enter the 6-digit code.');
+    }
+    async function verifyOtp() {
+      if (!confirmation) throw { code: 'auth/code-expired' };
+      const code = extractOtp(otp.value);
+      otp.value = code;
+      if (code.length !== 6) throw { code: 'auth/invalid-verification-code' };
+      await finish(await confirmation.confirm(code));
+    }
+    otp.addEventListener('input', () => {
+      const code = extractOtp(otp.value);
+      if (otp.value !== code) otp.value = code;
+      if (code.length === 6 && !busy) verifyBtn.click();
+    });
+    otp.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); verifyBtn.click(); }
+    });
+    const phonePane = el('div', { class: 'vp-auth__pane', 'data-pane': 'phone', hidden: isSignup ? '' : false }, phoneStep, otpStep, recaptchaBox);
+
+    const email = el('input', { type: 'email', autocomplete: 'email', placeholder: 'Email address', 'aria-label': 'Email' });
+    const pass = el('input', { type: 'password', autocomplete: isSignup ? 'new-password' : 'current-password', placeholder: isSignup ? 'Create a password (min 6 characters)' : 'Password', 'aria-label': 'Password' });
+    const needEmail = () => { const v = email.value.trim(); if (!v) throw { code: 'auth/invalid-email' }; return v; };
+
+    const signInBtn = el('button', {
+      type: 'button', class: 'vp-auth__btn ' + (isSignup ? 'vp-auth__secondary' : 'vp-auth__primary'), onclick: guard(async () => {
+        const cred = await signInWithEmailAndPassword(auth, needEmail(), pass.value);
+        if (!cred.user.emailVerified) {
+          await sendEmailVerification(cred.user).catch(() => { });
+          await signOut(auth);
+          say('Please verify your email first. We just sent you a verification link — open it, then sign in again.', true);
+          throw null;
+        }
+        await finish(cred);
+      })
+    }, 'Sign in');
+
+    const createBtn = el('button', {
+      type: 'button', class: 'vp-auth__btn ' + (isSignup ? 'vp-auth__primary' : 'vp-auth__secondary'), onclick: guard(async () => {
+        const cred = await createUserWithEmailAndPassword(auth, needEmail(), pass.value);
+        await sendEmailVerification(cred.user);
+        await signOut(auth);
+        say('Account created. We sent a verification link to ' + email.value.trim() + ' — open it, then sign in.');
+        throw null;
+      })
+    }, 'Create account');
+
+    const emailKids = isSignup
+      ? [email, pass, createBtn, signInBtn]
+      : [email, pass, signInBtn, createBtn];
+    emailKids.push(el('div', { class: 'vp-auth__row' },
+      el('button', {
+        type: 'button', class: 'vp-auth__link', onclick: guard(async () => {
+          await sendPasswordResetEmail(auth, needEmail());
+          say('Password reset link sent to ' + email.value.trim() + '.');
+        })
+      }, 'Forgot password?'),
+      el('button', {
+        type: 'button', class: 'vp-auth__link', onclick: guard(async () => {
+          const addr = needEmail();
+          const url = new URL(window.location.href); url.searchParams.set('redirect_to', redirect);
+          await sendSignInLinkToEmail(auth, addr, { url: url.toString(), handleCodeInApp: true });
+          localStorage.setItem('vpAuthEmail', addr);
+          say('Sign-in link sent to ' + addr + '. Open it on this device.');
+        })
+      }, 'Email me a sign-in link')));
+
+    const emailPane = el('div', { class: 'vp-auth__pane', 'data-pane': 'email', hidden: isSignup ? false : '' }, ...emailKids);
+
+    const selectTab = (name) => {
+      phonePane.hidden = name !== 'phone';
+      emailPane.hidden = name !== 'email';
+      tPhone.setAttribute('aria-selected', String(name === 'phone'));
+      tEmail.setAttribute('aria-selected', String(name === 'email'));
+      say('');
+    };
+    const tPhone = el('button', { type: 'button', role: 'tab', class: 'vp-auth__tab', 'aria-selected': isSignup ? 'false' : 'true', onclick: () => selectTab('phone') }, 'Mobile OTP');
+    const tEmail = el('button', { type: 'button', role: 'tab', class: 'vp-auth__tab', 'aria-selected': isSignup ? 'true' : 'false', onclick: () => selectTab('email') }, 'Email');
+
+    const brand = cfg.brand || 'Varanasi Pooja';
+    const title = isSignup ? ('Create your ' + brand + ' account') : ('Sign in to ' + brand);
+    const subText = isSignup
+      ? 'Use Google, Facebook, email, or your mobile number.'
+      : 'New here? An account is created for you automatically.';
+
+    const otherHref = isSignup ? (cfg.signIn || '/') : (cfg.signUp || cfg.signIn || '/');
+    const switcher = el('p', { class: 'vp-auth__switch' });
+    const switchLink = el('a', { class: 'vp-auth__link', href: otherHref });
+    switchLink.textContent = isSignup ? 'Sign in' : 'Create an account';
+    switcher.append(isSignup ? 'Already have an account? ' : 'Need an account? ', switchLink);
+
+    root.replaceChildren(
+      el('h2', { class: 'vp-auth__title' }, title),
+      el('p', { class: 'vp-auth__sub' }, subText),
+      googleBtn,
+      facebookBtn,
+      el('div', { class: 'vp-auth__divider' }, el('span', {}, 'or')),
+      el('div', { class: 'vp-auth__tabs', role: 'tablist' }, tPhone, tEmail),
+      phonePane, emailPane, status, switcher,
+    );
+
+    if (isSignInWithEmailLink(auth, window.location.href)) {
+      run(async () => {
+        let addr = localStorage.getItem('vpAuthEmail') || '';
+        if (!addr) addr = (window.prompt('Please confirm your email address') || '').trim();
+        if (!addr) throw { code: 'auth/invalid-email' };
+        try { await finish(await signInWithEmailLink(auth, addr, window.location.href)); } catch (e) { if (e !== null) throw e; }
+        localStorage.removeItem('vpAuthEmail');
+      });
+    }
+  }
+}

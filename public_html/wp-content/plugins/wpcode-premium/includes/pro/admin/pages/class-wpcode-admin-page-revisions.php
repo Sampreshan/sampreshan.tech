@@ -23,12 +23,6 @@ class WPCode_Admin_Page_Revisions extends WPCode_Admin_Page {
 	 */
 	public $revision_id;
 	/**
-	 * Should the compare view be the default?
-	 *
-	 * @var bool
-	 */
-	public $compare = false;
-	/**
 	 * The page slug.
 	 *
 	 * @var string
@@ -78,6 +72,16 @@ class WPCode_Admin_Page_Revisions extends WPCode_Admin_Page {
 	protected $is_page_scripts = false;
 
 	/**
+	 * Renders the sidebar, detail panel and modal for this item.
+	 *
+	 * Named differently from the parent's $view (a views/tabs string), whose
+	 * public visibility a private property here cannot narrow.
+	 *
+	 * @var WPCode_Revisions_View
+	 */
+	private $revisions_view;
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct() {
@@ -115,8 +119,7 @@ class WPCode_Admin_Page_Revisions extends WPCode_Admin_Page {
 	public function capture_id_or_redirect() {
 		$id = ! empty( $_GET['revision'] ) ? absint( $_GET['revision'] ) : 0;// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-		$parent_id     = wpcode()->revisions->get_revision_parent_id( $id );
-		$this->compare = isset( $_GET['compare'] );// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$parent_id = wpcode()->revisions->get_revision_parent_id( $id );
 		if ( 0 === $parent_id ) {
 			$this->handle_header_footer_revision( $id );
 
@@ -166,6 +169,18 @@ class WPCode_Admin_Page_Revisions extends WPCode_Admin_Page {
 	 * @return void
 	 */
 	public function handle_header_footer_revision( $revision_id ) {
+		if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'unfiltered_html' ) ) {
+			wp_safe_redirect(
+				add_query_arg(
+					array(
+						'page' => 'wpcode',
+					),
+					$this->admin_url( 'admin.php' )
+				)
+			);
+			exit;
+		}
+
 		$this->is_global   = true;
 		$this->revision_id = $revision_id;
 		$this->snippet_id  = 0;
@@ -247,54 +262,53 @@ class WPCode_Admin_Page_Revisions extends WPCode_Admin_Page {
 			wp_die( esc_html__( 'Sorry, you are not allowed to do that.', 'wpcode-premium' ), '', array( 'response' => 403 ) );
 		}
 
+		// Bind the restored code type to the user's tier, the same rule the editor's save path applies.
+		$code_type           = isset( $revision['code_type'] ) ? $revision['code_type'] : '';
+		$required_capability = WPCode_Access::capability_for_code_type( $code_type );
+		$can_edit_type       = empty( $required_capability ) ? current_user_can( 'wpcode_edit_snippets' ) : current_user_can( $required_capability );
+
+		if ( ! $can_edit_type ) {
+			wp_die( esc_html__( 'Sorry, you are not allowed to do that.', 'wpcode-premium' ), '', array( 'response' => 403 ) );
+		}
+
 		$revision['code'] = wp_slash( $revision['code'] );
 
 		$snippet = wpcode_get_snippet( $revision );
-		$snippet->save();
 
-		wp_safe_redirect(
-			add_query_arg(
-				array(
-					'page'       => 'wpcode-snippet-manager',
-					'snippet_id' => $snippet->get_id(),
-				),
-				$this->admin_url( 'admin.php' )
-			)
-		);
+		if ( ! $snippet->save() ) {
+			wp_safe_redirect( $this->get_redirect_url( $revision_to_restore, 'restore_error', 1 ) );
+			exit;
+		}
+
+		wp_safe_redirect( $this->get_restored_redirect_url( $revision_to_restore ) );
 		exit;
 	}
 
 	/**
 	 * Handle the restore of a revision of the Header & Footer.
 	 *
-	 * @param $revision_to_restore
-	 * @param $revision
+	 * The undo revision is created while the body option is updated, so all three options are
+	 * updated in a fixed order with the live value as the fallback for a key the revision lacks.
+	 *
+	 * @param int   $revision_to_restore The revision id.
+	 * @param array $revision            The revision data.
 	 *
 	 * @return void
 	 */
 	public function handle_header_footer_restore( $revision_to_restore, $revision ) {
-		$allowed_keys = array(
+		$keys = array(
 			'ihaf_insert_header',
 			'ihaf_insert_footer',
 			'ihaf_insert_body',
 		);
 
-		foreach ( $revision as $key => $value ) {
-			if ( ! in_array( $key, $allowed_keys, true ) ) {
-				continue;
-			}
+		foreach ( $keys as $key ) {
+			$value = array_key_exists( $key, $revision ) ? $revision[ $key ] : get_option( $key, '' );
 
 			update_option( $key, $value );
 		}
 
-		wp_safe_redirect(
-			add_query_arg(
-				array(
-					'page' => 'wpcode-headers-footers',
-				),
-				$this->admin_url( 'admin.php' )
-			)
-		);
+		wp_safe_redirect( $this->get_restored_redirect_url( $revision_to_restore ) );
 		exit;
 	}
 
@@ -327,15 +341,45 @@ class WPCode_Admin_Page_Revisions extends WPCode_Admin_Page {
 
 		wpcode()->revisions->create_revision( $post_id, $updated_data );
 
-		wp_safe_redirect(
-			add_query_arg(
-				array(
-					'wpcode-show' => 'header',
-				),
-				get_edit_post_link( $post_id, 'edit' )
-			)
-		);
+		wp_safe_redirect( $this->get_restored_redirect_url( $revision_to_restore ) );
 		exit;
+	}
+
+	/**
+	 * Where a successful restore lands: this item's revisions page with the new current revision
+	 * selected.
+	 *
+	 * The restore has just written a revision, and with the revision limit on, the trim in the same
+	 * request can remove the restored revision itself. A URL that selects the restored revision
+	 * then names a row that no longer exists, and the page sends the user to the snippet list.
+	 *
+	 * @param int $revision_id The revision that was restored.
+	 *
+	 * @return string
+	 */
+	private function get_restored_redirect_url( $revision_id ) {
+		// A fresh view, because the restore changed the rows and the live data.
+		$view     = new WPCode_Revisions_View( $this->get_type(), $this->snippet_id );
+		$selected = $view->get_current_revision();
+
+		if ( ! $selected ) {
+			$selected = $view->get_newest();
+		}
+
+		return $this->get_redirect_url( $selected ? absint( $selected->revision_id ) : $revision_id, 'restored', $revision_id );
+	}
+
+	/**
+	 * Where a restore lands: back on this page with the revision selected and one status flag.
+	 *
+	 * @param int    $revision_id The revision that was restored, or refused.
+	 * @param string $flag_key    The status argument the page reads on arrival.
+	 * @param int    $flag_value  Its value.
+	 *
+	 * @return string
+	 */
+	private function get_redirect_url( $revision_id, $flag_key, $flag_value ) {
+		return add_query_arg( array( $flag_key => absint( $flag_value ) ), $this->get_view()->get_view_url( $revision_id ) );
 	}
 
 	/**
@@ -378,7 +422,7 @@ class WPCode_Admin_Page_Revisions extends WPCode_Admin_Page {
 				<?php
 				printf(
 				// Translators: The placeholder gets replaced with the title of the snippet.
-					esc_html__( 'Compare Revisions of "%s"', 'wpcode-premium' ),
+					esc_html__( 'Code Revisions for "%s"', 'wpcode-premium' ),
 					esc_html( $this->compare_title )
 				);
 				?>
@@ -396,246 +440,78 @@ class WPCode_Admin_Page_Revisions extends WPCode_Admin_Page {
 	}
 
 	/**
-	 * Page content.
+	 * Page content: the sidebar list and the detail panel for the selected revision.
 	 *
 	 * @return void
 	 */
 	public function output_content() {
-		$revisions        = array_reverse( wpcode()->revisions->get_snippet_revisions( $this->snippet_id ) );
-		$current_revision = 0;
-		$revision_ids     = array();
-		foreach ( $revisions as $key => $revision ) {
-			if ( absint( $revision->revision_id ) === $this->revision_id ) {
-				$current_revision = $key;
-			}
-			$revision_ids[] = $revision->revision_id;
+		$view     = $this->get_view();
+		$revision = $view->get_revision( $this->revision_id );
+
+		if ( ! $revision ) {
+			$revision = $view->get_newest();
 		}
-		$total = count( $revisions ) - 1;
+		if ( ! $revision ) {
+			echo '<p>' . esc_html__( 'There are no revisions yet.', 'wpcode-premium' ) . '</p>';
+
+			return;
+		}
+
+		$restored_id   = $this->get_restored_id();
+		$restore_error = $this->get_restore_error();
 		?>
-		<div class="wpcode-compare-checkbox-holder">
-			<label>
-				<input type="checkbox" id="wpcode-compare-two"/>
-				<?php esc_html_e( 'Compare any two revisions', 'wpcode-premium' ); ?>
-			</label>
-		</div>
-		<div class="wpcode-revisions-timeline">
-			<div class="wpcode-revisions-timeline-left">
-				<button class="wpcode-button wpcode-button-secondary" id="wpcode-revision-slider-prev"><?php esc_html_e( 'Previous', 'wpcode-premium' ); ?></button>
-			</div>
-			<div class="wpcode-revisions-timeline-center">
-				<div
-						class="wpcode-revisions-timeline-slider"
-						data-value="<?php echo absint( $current_revision ); ?>"
-						data-total="<?php echo absint( $total ); ?>"
-						data-revisions='<?php echo wp_json_encode( $revision_ids ); ?>'
-						data-snippet_id="<?php echo absint( $this->snippet_id ); ?>"
-						data-compare="<?php echo esc_attr( $this->compare ); ?>"
-				></div>
-			</div>
-			<div class="wpcode-revisions-timeline-right">
-				<button class="wpcode-button wpcode-button-secondary" id="wpcode-revision-slider-next"><?php esc_html_e( 'Next', 'wpcode-premium' ); ?></button>
+		<div class="wpcode-revisions-layout">
+			<?php echo $view->render_sidebar( absint( $revision->revision_id ), $restored_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in the view. ?>
+			<div class="wpcode-revisions-detail" id="wpcode-revisions-detail" data-restored="<?php echo absint( $restored_id ); ?>" aria-live="polite">
+				<?php echo $view->render_detail( $revision, $restored_id, $restore_error ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in the view. ?>
 			</div>
 		</div>
-		<div class="wpcode-revisions-diff-display">
-			<?php
-			$default_data  = $this->get_default_data();
-			$previous_data = $default_data;
-			foreach ( $revisions as $key => $revision ) {
-				$revision_data = json_decode( $revision->revision_data, true );
-				?>
-				<div class="wpcode-revision-display" data-slider-id="<?php echo absint( $key ); ?>">
-					<?php
-					self::get_revision_compare_header( $revision, count( $revisions ) - 1 === $key );
-					self::get_revision_compare_content( $previous_data, $revision_data, $this->get_type() );
-					?>
-				</div>
-				<?php
-				$previous_data = wp_parse_args( $revision_data, $default_data );
-			}
-			?>
-			<div id="wpcode-revision-compare-any-display">
-
-			</div>
-		</div>
-		<script>
-			jQuery( function ( $ ) {
-				const allrevisions = $( '.wpcode-revision-display' );
-				const timeline_slider = $( '.wpcode-revisions-timeline-slider' );
-				const timeline_center = $( '.wpcode-revisions-timeline-center' );
-				const total = timeline_slider.data( 'total' );
-				const value = timeline_slider.data( 'value' );
-				const snippet_id = timeline_slider.data( 'snippet_id' );
-				const revisions = timeline_slider.data( 'revisions' );
-				const default_compare = timeline_slider.data( 'compare' );
-				const available_width = timeline_center.width();
-				const prev_button = $( '#wpcode-revision-slider-prev' );
-				const next_button = $( '#wpcode-revision-slider-next' );
-				const any_display = $( '#wpcode-revision-compare-any-display' );
-				const diff_display = $( '.wpcode-revisions-diff-display' );
-				const content = $( '.wpcode-content' );
-				const compare_toggle = $( '#wpcode-compare-two' );
-
-				let is_compare = 1 === default_compare;
-				if ( total * 55 < available_width ) {
-					timeline_slider.width( total * 55 );
-				} else {
-					timeline_slider.width( '100%' );
-				}
-
-				function init_slider( add_steps ) {
-					const slider = timeline_slider.slider( {
-						value: value,
-						min: 0,
-						max: total,
-						step: 1,
-						change: function ( event, ui ) {
-							allrevisions.hide();
-							$( '[data-slider-id="' + ui.value + '"]' ).show();
-							if ( ui.value === 0 ) {
-								prev_button.prop( 'disabled', true );
-							} else {
-								prev_button.prop( 'disabled', false );
-							}
-							if ( ui.value === total ) {
-								next_button.prop( 'disabled', true );
-							} else {
-								next_button.prop( 'disabled', false );
-							}
-						},
-						slide: function ( event, ui ) {
-							if ( is_compare && ui.values && ui.values[0] === ui.values[1] ) {
-								return false;
-							}
-						},
-						classes: {
-							'ui-slider': '',
-							'ui-slider-handle': 'wpcode-slider-handle'
-						}
-					} );
-
-					$( '[data-slider-id="' + value + '"]' ).show();
-
-					if ( add_steps ) {
-						slider.each( function () {
-							const opt = $( this ).data().uiSlider.options;
-							const vals = opt.max - opt.min;
-							for ( let i = 0; i <= vals; i ++ ) {
-								const el = $( '<span class="wpcode-revisions-slider-step-indicator"></span>' ).css( 'left', i / vals * 100 + '%' );
-								$( '.wpcode-revisions-timeline-slider' ).append( el );
-							}
-						} );
-					}
-				}
-
-				init_slider( true );
-				if ( is_compare ) {
-					compare_toggle.prop( 'checked', true );
-					enable_compare();
-				}
-
-				if ( total === value ) {
-					next_button.prop( 'disabled', true );
-				}
-
-				prev_button.on( 'click', function ( e ) {
-					e.preventDefault();
-					timeline_slider.slider( 'value', timeline_slider.slider( 'value' ) - 1 );
-				} );
-
-				next_button.on( 'click', function ( e ) {
-					e.preventDefault();
-					timeline_slider.slider( 'value', timeline_slider.slider( 'value' ) + 1 );
-				} );
-
-
-				compare_toggle.on( 'change', function () {
-					if ( $( this ).prop( 'checked' ) ) {
-						enable_compare();
-					} else {
-						disable_compare();
-					}
-				} );
-
-				function enable_compare() {
-					let current_value = timeline_slider.slider( 'value' );
-					let second_value;
-					if ( current_value === 0 ) {
-						second_value = current_value + 1;
-					} else {
-						second_value = current_value;
-						current_value = second_value - 1;
-					}
-					if ( is_compare ) {
-						current_value = value;
-						second_value = revisions.length - 1;
-					}
-
-					timeline_slider.slider( 'destroy' );
-					timeline_slider.slider( {
-						values: [current_value, second_value],
-						min: 0,
-						max: total,
-						step: 1,
-						change: function ( event, ui ) {
-							load_ajax_revisions( ui.values );
-						},
-						slide: function ( event, ui ) {
-							if ( ui.values && ui.values[0] === ui.values[1] ) {
-								return false;
-							}
-						},
-						classes: {
-							'ui-slider': '',
-							'ui-slider-handle': 'wpcode-slider-handle'
-						}
-					} );
-
-					load_ajax_revisions( [current_value, second_value] );
-
-					is_compare = true;
-					any_display.empty();
-					any_display.show();
-					content.addClass( 'wpcode-compare-mode' );
-				}
-
-				function disable_compare() {
-					is_compare = false;
-					timeline_slider.slider( 'destroy' );
-					init_slider( false );
-					any_display.hide();
-					content.removeClass( 'wpcode-compare-mode' );
-				}
-
-				function load_ajax_revisions( values ) {
-					diff_display.addClass( 'wpcode-show-loading' );
-					const id1 = revisions[values[0]];
-					const id2 = revisions[values[1]];
-					if ( id1 && id2 ) {
-						$.post(
-							ajaxurl,
-							{
-								action: 'wpcode_load_revisions_compare',
-								_wpnonce: wpcode.nonce,
-								ids: [
-									id1,
-									id2,
-								],
-								snippet_id
-							}
-						).then( function ( response ) {
-							diff_display.removeClass( 'wpcode-show-loading' );
-							if ( response.success ) {
-								allrevisions.hide();
-								any_display.html( response.data.markup );
-							}
-						} );
-					}
-				}
-			} );
-		</script>
 		<?php
+	}
 
-		wp_enqueue_script( 'jquery-ui-slider' );
+	/**
+	 * The view for the item whose revisions are shown.
+	 *
+	 * @return WPCode_Revisions_View
+	 */
+	public function get_view() {
+		if ( ! isset( $this->revisions_view ) ) {
+			$this->revisions_view = new WPCode_Revisions_View( $this->get_type(), $this->snippet_id );
+		}
+
+		return $this->revisions_view;
+	}
+
+	/**
+	 * The just-restored revision from the URL.
+	 *
+	 * Not checked against the item's revisions: the revision limit can remove the restored revision
+	 * in the restore request, and the restored notice must still show. The view only compares it
+	 * with the item's own rows.
+	 *
+	 * @return int
+	 */
+	private function get_restored_id() {
+		return isset( $_GET['restored'] ) ? absint( $_GET['restored'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Display flag only.
+	}
+
+	/**
+	 * Whether the last restore attempt was refused.
+	 *
+	 * @return bool
+	 */
+	private function get_restore_error() {
+		return isset( $_GET['restore_error'] ) && 1 === absint( $_GET['restore_error'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Display flag only.
+	}
+
+	/**
+	 * Footer: the shared overlays plus the restore confirmation modal.
+	 *
+	 * @return void
+	 */
+	public function output_footer() {
+		parent::output_footer();
+		echo $this->get_view()->render_modal(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in the view.
 	}
 
 	/**
@@ -644,111 +520,6 @@ class WPCode_Admin_Page_Revisions extends WPCode_Admin_Page {
 	 * @return void
 	 */
 	public function maybe_output_message() {
-	}
-
-	/**
-	 * Based on wp_text_diff but also outputs something if both values are similar.
-	 *
-	 * @param string       $left_string "old" (left) version of string.
-	 * @param string       $right_string "new" (right) version of string.
-	 * @param string|array $args {
-	 *     Associative array of options to pass to WP_Text_Diff_Renderer_Table().
-	 *
-	 * @type string        $title Titles the diff in a manner compatible
-	 *                                   with the output. Default empty.
-	 * @type string        $title_left Change the HTML to the left of the title.
-	 *                                   Default empty.
-	 * @type string        $title_right Change the HTML to the right of the title.
-	 *                                   Default empty.
-	 * @type bool          $show_split_view True for split view (two columns), false for
-	 *                                   un-split view (single column). Default true.
-	 * }
-	 *
-	 * @return string
-	 * @see wp_text_diff
-	 */
-	public static function text_diff( $left_string, $right_string, $args = null ) {
-		$defaults = array(
-			'title'           => '',
-			'title_left'      => '',
-			'title_right'     => '',
-			'show_split_view' => true,
-			'show_no_diff'    => false,
-		);
-		$args     = wp_parse_args( $args, $defaults );
-
-		if ( ! class_exists( 'WP_Text_Diff_Renderer_Table', false ) ) {
-			require ABSPATH . WPINC . '/wp-diff.php';
-		}
-
-		$left_string  = normalize_whitespace( $left_string );
-		$right_string = normalize_whitespace( $right_string );
-
-		$left_lines  = explode( "\n", $left_string );
-		$right_lines = explode( "\n", $right_string );
-		$text_diff   = new Text_Diff( $left_lines, $right_lines );
-		$renderer    = new WP_Text_Diff_Renderer_Table();
-		$diff        = $renderer->render( $text_diff );
-
-		if ( ! $diff ) {
-			if ( ! $args['show_no_diff'] ) {
-				return '';
-			}
-			$diff = '';
-			// If there are no differences return a simple table with the same value instead of empty like in the core function.
-			foreach ( $left_lines as $key => $left_line ) {
-				$diff .= "<tr><td>{$left_line}</td><td>{$right_lines[$key]}</td></tr>";
-			}
-		}
-
-		$is_split_view       = ! empty( $args['show_split_view'] );
-		$is_split_view_class = $is_split_view ? ' is-split-view' : '';
-
-		$r = "<table class='diff$is_split_view_class'>\n";
-
-		if ( $args['title'] ) {
-			$r .= sprintf( "<caption class='diff-title'>%s</caption>\n", esc_html( $args['title'] ) );
-		}
-
-		if ( $args['title_left'] || $args['title_right'] ) {
-			$r .= '<thead>';
-		}
-
-		if ( $args['title_left'] || $args['title_right'] ) {
-			$th_or_td_left  = empty( $args['title_left'] ) ? 'td' : 'th';
-			$th_or_td_right = empty( $args['title_right'] ) ? 'td' : 'th';
-
-			$r .= "<tr class='diff-sub-title'>\n";
-			$r .= "\t<$th_or_td_left>$args[title_left]</$th_or_td_left>\n";
-			if ( $is_split_view ) {
-				$r .= "\t<$th_or_td_right>$args[title_right]</$th_or_td_right>\n";
-			}
-			$r .= "</tr>\n";
-		}
-
-		if ( $args['title_left'] || $args['title_right'] ) {
-			$r .= "</thead>\n";
-		}
-
-		$r .= "<tbody>\n$diff\n</tbody>\n";
-		$r .= '</table>';
-
-		return $r;
-	}
-
-	/**
-	 * Convert the Auto-insert int value to a human-readable value.
-	 *
-	 * @param int $value The auto-insert value.
-	 *
-	 * @return string
-	 */
-	public static function auto_insert_to_text( $value ) {
-		if ( 1 === $value ) {
-			return __( 'Auto Insert Enabled', 'wpcode-premium' );
-		}
-
-		return __( 'Shortcode only', 'wpcode-premium' );
 	}
 
 	/**
@@ -762,17 +533,6 @@ class WPCode_Admin_Page_Revisions extends WPCode_Admin_Page {
 		$code_types = wpcode()->execute->get_options();
 
 		return isset( $code_types[ $type ] ) ? $code_types[ $type ] : '';
-	}
-
-	/**
-	 * Convert the use_rules boolean value to a human-readable label.
-	 *
-	 * @param bool $bool The boolean value to convert.
-	 *
-	 * @return string
-	 */
-	public static function use_rules_to_text( $bool ) {
-		return $bool ? __( 'Rules Enabled', 'wpcode-premium' ) : __( 'Rules Disabled', 'wpcode-premium' );
 	}
 
 	/**
@@ -874,362 +634,6 @@ class WPCode_Admin_Page_Revisions extends WPCode_Admin_Page {
 	}
 
 	/**
-	 * Get the header of a revision comparison with the revision details.
-	 *
-	 * @param stdClass $revision The revision object.
-	 * @param bool     $disabled_restore_button Whether to disable the restore button for this revision.
-	 * @param string   $prefix_label The label to display before the author avatar.
-	 *
-	 * @return void
-	 */
-	public static function get_revision_compare_header( $revision, $disabled_restore_button = false, $prefix_label = '' ) {
-		$datef         = _x( 'F j, Y @ H:i:s', 'revision date format', 'wpcode-premium' );
-		$modified_time = strtotime( $revision->created );
-		$updated       = sprintf(
-		// Translators: time since the revision has been updated.
-			__( 'Updated %s ago', 'wpcode-premium' ),
-			human_time_diff( $modified_time )
-		);
-		if ( time() - $modified_time > 15 * DAY_IN_SECONDS ) {
-			$updated = sprintf(
-			// Translators: date when revision was updated.
-				__( 'Updated on %s', 'wpcode-premium' ),
-				date_i18n( $datef, strtotime( $revision->created ) )
-			);
-		}
-		$restore_revision_url = wp_nonce_url(
-			add_query_arg(
-				array(
-					'restore'  => $revision->revision_id,
-					'revision' => $revision->revision_id
-				),
-				admin_url( 'admin.php?page=wpcode-revisions' )
-			),
-			'wpcode-restore-revision'
-		);
-		?>
-		<div class="wpcode-revision-display-header">
-			<?php if ( ! empty( $prefix_label ) ) { ?>
-				<span class="wpcode-revision-header-prefix-label"><?php echo esc_html( $prefix_label ); ?></span>
-			<?php } ?>
-			<?php echo get_avatar( $revision->author_id, 30 ); ?>
-			<span class="wpcode-revision-header-author">
-						<?php
-						printf(
-						// Translators: Placeholder gets replaced by the name of the author.
-							esc_html__( 'Revision by %s', 'wpcode-premium' ),
-							'<span class="wpcode-revision-list-author">' . esc_html( get_the_author_meta( 'display_name', $revision->author_id ) ) . '</span>'
-						);
-						?>
-						</span>
-			<span class="wpcode-revision-list-date">
-							<?php echo esc_html( $updated ); ?>
-						</span>
-			<div class="wpcode-revision-display-header-right">
-				<?php if ( $disabled_restore_button ) { ?>
-					<button class="wpcode-button wpcode-button-small wpcode-button-disabled" type="button" disabled>
-						<?php esc_html_e( 'Restore this revision', 'wpcode-premium' ); ?>
-					</button>
-				<?php } else { ?>
-					<a href="<?php echo esc_url( $restore_revision_url ); ?>" class="wpcode-button wpcode-button-small">
-						<?php esc_html_e( 'Restore this revision', 'wpcode-premium' ); ?>
-					</a>
-				<?php } ?>
-			</div>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Get the markup for comparing the revision data visually from 2 revision data arrays.
-	 *
-	 * @param array  $previous_data The old version.
-	 * @param array  $revision_data The new version.
-	 * @param string $type The type of revision we are comparing.
-	 *
-	 * @return void
-	 */
-	public static function get_revision_compare_content( $previous_data, $revision_data, $type = 'snippet' ) {
-		?>
-		<div class="wpcode-revision-display-content">
-			<?php
-			if ( 'snippet' === $type ) {
-				self::get_snippet_revision_compare_content( $previous_data, $revision_data );
-			} elseif ( 'header_footer' === $type ) {
-				self::get_header_footer_revision_compare_content( $previous_data, $revision_data );
-			} elseif ( 'page_scripts' === $type ) {
-				self::get_page_scripts_revision_compare_content( $previous_data, $revision_data );
-			}
-			?>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Get the markup for comparing the revision data for a snippet.
-	 *
-	 * @param array $previous_data The old version.
-	 * @param array $revision_data The new version.
-	 *
-	 * @return void
-	 */
-	public static function get_snippet_revision_compare_content( $previous_data, $revision_data ) {
-		?>
-		<div class="wpcode-revision-display-title">
-			<h3><?php esc_html_e( 'Title', 'wpcode-premium' ); ?></h3>
-			<?php
-			echo self::text_diff( $previous_data['title'], $revision_data['title'], array( 'show_no_diff' => true ) );
-			?>
-		</div>
-		<?php
-		if ( $previous_data['code_type'] !== $revision_data['code_type'] ) {
-			?>
-			<div class="wpcode-revision-display-code-type">
-				<h3><?php esc_html_e( 'Code Type', 'wpcode-premium' ); ?></h3>
-				<?php
-				echo self::text_diff( self::code_type_to_label( $previous_data['code_type'] ), self::code_type_to_label( $revision_data['code_type'] ) );
-				?>
-			</div>
-			<?php
-		}
-		if ( $previous_data['code'] !== $revision_data['code'] ) {
-			?>
-			<div class="wpcode-revision-display-code">
-				<h3><?php esc_html_e( 'Code', 'wpcode-premium' ); ?></h3>
-				<?php echo self::text_diff( $previous_data['code'], $revision_data['code'] ); ?>
-			</div>
-			<?php
-		}
-		if ( $previous_data['auto_insert'] !== $revision_data['auto_insert'] ) {
-			?>
-			<div class="wpcode-revision-display-location">
-				<h3><?php esc_html_e( 'Auto Insert', 'wpcode-premium' ); ?></h3>
-				<?php
-				echo self::text_diff( self::auto_insert_to_text( $previous_data['auto_insert'] ), self::auto_insert_to_text( $revision_data['auto_insert'] ) );
-				?>
-			</div>
-			<?php
-		}
-		if ( isset( $revision_data['shortcode_attributes'] ) && $previous_data['shortcode_attributes'] !== $revision_data['shortcode_attributes'] ) {
-			?>
-			<div class="wpcode-revision-display-location">
-				<h3><?php esc_html_e( 'Shortcode Attributes', 'wpcode-premium' ); ?></h3>
-				<?php
-				echo self::text_diff( self::shortcode_attributes_to_text( $previous_data['shortcode_attributes'] ), self::shortcode_attributes_to_text( $revision_data['shortcode_attributes'] ) );
-				?>
-			</div>
-			<?php
-		}
-		if ( $previous_data['location'] !== $revision_data['location'] ) {
-			?>
-			<div class="wpcode-revision-display-location">
-				<h3><?php esc_html_e( 'Location', 'wpcode-premium' ); ?></h3>
-				<?php
-				echo self::text_diff( wpcode_find_location_label( $previous_data['location'] ), wpcode_find_location_label( $revision_data['location'] ) );
-				?>
-			</div>
-			<?php
-		}
-		if ( $previous_data['insert_number'] !== $revision_data['insert_number'] ) {
-			?>
-			<div class="wpcode-revision-display-number">
-				<h3><?php esc_html_e( 'Insert Number', 'wpcode-premium' ); ?></h3>
-				<?php
-				echo self::text_diff( $previous_data['insert_number'], $revision_data['insert_number'] );
-				?>
-			</div>
-			<?php
-		}
-		if ( $previous_data['custom_shortcode'] !== $revision_data['custom_shortcode'] ) {
-			?>
-			<div class="wpcode-revision-display-location">
-				<h3><?php esc_html_e( 'Custom Shortcode', 'wpcode-premium' ); ?></h3>
-				<?php
-				echo self::text_diff( $previous_data['custom_shortcode'], $revision_data['custom_shortcode'] );
-				?>
-			</div>
-			<?php
-		}
-		if ( isset( $revision_data['device_type'] ) && $previous_data['device_type'] !== $revision_data['device_type'] ) {
-			?>
-			<div class="wpcode-revision-display-location">
-				<h3><?php esc_html_e( 'Device Type', 'wpcode-premium' ); ?></h3>
-				<?php
-				echo self::text_diff( $previous_data['device_type'], $revision_data['device_type'] );
-				?>
-			</div>
-			<?php
-		}
-		if ( isset( $revision_data['schedule'] ) && $previous_data['schedule'] !== $revision_data['schedule'] ) {
-			?>
-			<div class="wpcode-revision-display-location">
-				<h3><?php esc_html_e( 'Schedule', 'wpcode-premium' ); ?></h3>
-				<?php
-				echo self::text_diff( self::schedule_to_text( $previous_data['schedule'] ), self::schedule_to_text( $revision_data['schedule'] ) );
-				?>
-			</div>
-			<?php
-		}
-		if ( $previous_data['tags'] !== $revision_data['tags'] ) {
-			?>
-			<div class="wpcode-revision-display-tags">
-				<h3><?php esc_html_e( 'Tags', 'wpcode-premium' ); ?></h3>
-				<?php
-				echo self::text_diff( implode( "\n", $previous_data['tags'] ), implode( "\n", $revision_data['tags'] ) );
-				?>
-			</div>
-			<?php
-		}
-		if ( $previous_data['priority'] !== $revision_data['priority'] ) {
-			?>
-			<div class="wpcode-revision-display-priority">
-				<h3><?php esc_html_e( 'Priority', 'wpcode-premium' ); ?></h3>
-				<?php
-				echo self::text_diff( $previous_data['priority'], $revision_data['priority'] );
-				?>
-			</div>
-			<?php
-		}
-		if ( $previous_data['note'] !== $revision_data['note'] ) {
-			?>
-			<div class="wpcode-revision-display-note">
-				<h3><?php esc_html_e( 'Note', 'wpcode-premium' ); ?></h3>
-				<?php
-				echo self::text_diff( $previous_data['note'], $revision_data['note'] );
-				?>
-			</div>
-			<?php
-		}
-		if ( $previous_data['use_rules'] !== $revision_data['use_rules'] || $previous_data['rules'] !== $revision_data['rules'] ) {
-			?>
-			<div class="wpcode-revision-display-conditional-logic">
-				<h3><?php esc_html_e( 'Smart Conditional Logic', 'wpcode-premium' ); ?></h3>
-				<?php
-				echo self::text_diff( self::use_rules_to_text( $previous_data['use_rules'] ), self::use_rules_to_text( $revision_data['use_rules'] ) );
-				echo self::text_diff( self::conditional_logic_to_text( $previous_data['rules'] ), self::conditional_logic_to_text( $revision_data['rules'] ) );
-				?>
-			</div>
-			<?php
-		}
-		if ( $previous_data['location_extra'] !== $revision_data['location_extra'] ) {
-			?>
-			<div class="wpcode-revision-display-location-extra">
-				<h3><?php esc_html_e( 'Location-specific setting', 'wpcode-premium' ); ?></h3>
-				<?php
-				echo self::text_diff( self::location_extra_to_text( $previous_data ), self::location_extra_to_text( $revision_data ) );
-				?>
-			</div>
-			<?php
-		}
-		?>
-		<?php
-	}
-
-	/**
-	 * Get the markup for comparing the revision data for Header & Footer data.
-	 *
-	 * @param array $previous_data The old version.
-	 * @param array $revision_data The new version.
-	 *
-	 * @return void
-	 */
-	public static function get_header_footer_revision_compare_content( $previous_data, $revision_data ) {
-		$labels = array(
-			'ihaf_insert_header' => __( 'Header', 'wpcode-premium' ),
-			'ihaf_insert_footer' => __( 'Footer', 'wpcode-premium' ),
-			'ihaf_insert_body'   => __( 'Body', 'wpcode-premium' ),
-		);
-
-		foreach ( $previous_data as $key => $value ) {
-			?>
-			<div class="wpcode-revision-display-code-type">
-				<h3><?php echo esc_html( $labels[ $key ] ) ?></h3>
-				<?php
-				echo self::text_diff( $previous_data[ $key ], $revision_data[ $key ] );
-				?>
-			</div>
-			<?php
-		}
-	}
-
-	/**
-	 * Get the markup for comparing the revision data for page scripts.
-	 *
-	 * @param array $previous_data The old version.
-	 * @param array $revision_data The new version.
-	 *
-	 * @return void
-	 */
-	public static function get_page_scripts_revision_compare_content( $previous_data, $revision_data ) {
-		$labels = array(
-			'_wpcode_header_scripts' => __( 'Header Scripts', 'wpcode-premium' ),
-			'_wpcode_footer_scripts' => __( 'Footer Scripts', 'wpcode-premium' ),
-			'_wpcode_body_scripts'   => __( 'Body Scripts', 'wpcode-premium' ),
-			'_wpcode_page_snippets'  => __( 'Custom Code Snippets', 'wpcode-premium' ),
-		);
-
-		$titles = array(
-			'disable_global' => __( 'Disable Global Scripts', 'wpcode-premium' ),
-			'any'            => __( 'Any Device Type', 'wpcode-premium' ),
-			'desktop'        => __( 'Desktop Only', 'wpcode-premium' ),
-			'mobile'         => __( 'Mobile Only', 'wpcode-premium' ),
-		);
-
-		foreach ( $revision_data as $key => $value ) {
-			if ( $value === $previous_data[ $key ] ) {
-				continue;
-			}
-			?>
-			<div class="wpcode-revision-display-code-type">
-				<h3><?php echo esc_html( $labels[ $key ] ); ?></h3>
-				<?php
-				if ( '_wpcode_page_snippets' === $key ) {
-					echo self::text_diff(
-						self::page_scripts_snippets_to_text( $previous_data[ $key ] ),
-						self::page_scripts_snippets_to_text( $revision_data[ $key ] ),
-						array(
-							'title_left' => esc_html__( 'Loaded Snippets', 'wpcode-premium' ),
-						)
-					);
-				} else {
-					if ( is_array( $value ) ) {
-						foreach ( $value as $k => $v ) {
-							$current_data      = isset( $revision_data[ $key ][ $k ] ) ? $revision_data[ $key ][ $k ] : '';
-							$current_prev_data = isset( $previous_data[ $key ][ $k ] ) ? $previous_data[ $key ][ $k ] : '';
-							echo self::text_diff(
-								self::maybe_page_scripts_to_text( $current_prev_data ),
-								self::maybe_page_scripts_to_text( $current_data ),
-								array(
-									'title_left'   => isset( $titles[ $k ] ) ? $titles[ $k ] : '',
-									'title_right'  => isset( $titles[ $k ] ) ? $titles[ $k ] : '',
-									'show_no_diff' => true,
-								)
-							);
-						}
-					}
-				}
-				?>
-			</div>
-			<?php
-		}
-	}
-
-	/**
-	 * Convert the page scripts snippets to text for display.
-	 *
-	 * @param mixed $data The data to convert.
-	 *
-	 * @return string
-	 */
-	public static function maybe_page_scripts_to_text( $data ) {
-		if ( is_bool( $data ) ) {
-			return $data ? esc_html__( 'Enabled', 'wpcode-premium' ) : esc_html__( 'Disabled', 'wpcode-premium' );
-		}
-
-		return $data;
-	}
-
-	/**
 	 * Convert the page scripts snippets to text for display.
 	 *
 	 * @param array $data The data to convert.
@@ -1240,25 +644,31 @@ class WPCode_Admin_Page_Revisions extends WPCode_Admin_Page {
 		if ( ! is_array( $data ) ) {
 			return '';
 		}
-		$text = '';
+
+		$lines = array();
 		foreach ( $data as $snippet_data ) {
+			if ( ! is_array( $snippet_data ) || ! isset( $snippet_data['snippet_id'], $snippet_data['location'] ) ) {
+				continue;
+			}
+
 			$snippet = wpcode_get_snippet( $snippet_data['snippet_id'] );
 
-			$text = sprintf(
-			// Translators: %s: Label of the auto-insert location selected for the snippet.
+			$line  = sprintf(
+			// Translators: %s: Title of the snippet.
 				esc_html__( 'Snippet: %s', 'wpcode-premium' ),
 				$snippet->get_title()
 			);
-
-			$text .= "\n";
-			$text .= sprintf(
+			$line .= "\n";
+			$line .= sprintf(
 			// Translators: %s: Label of the auto-insert location selected for the snippet.
 				esc_html__( 'Location: %s', 'wpcode-premium' ),
 				wpcode_find_location_label( $snippet_data['location'] )
 			);
+
+			$lines[] = $line;
 		}
 
-		return $text;
+		return implode( "\n\n", $lines );
 	}
 
 	/**
@@ -1297,74 +707,6 @@ class WPCode_Admin_Page_Revisions extends WPCode_Admin_Page {
 		}
 
 		return $text;
-	}
-
-	public static function shortcode_attributes_to_text( $attributes ) {
-		if ( ! is_array( $attributes ) ) {
-			return '';
-		}
-
-		return implode( PHP_EOL, $attributes );
-	}
-
-	/**
-	 * Get the default data for revision compare based on the type of revision we are displaying.
-	 *
-	 * @return array|string[]
-	 */
-	public function get_default_data() {
-		$data = array(
-			'title'                => '',
-			'code'                 => '',
-			'location'             => '',
-			'auto_insert'          => '',
-			'insert_number'        => '',
-			'tags'                 => array(),
-			'priority'             => '',
-			'note'                 => '',
-			'code_type'            => '',
-			'use_rules'            => '',
-			'rules'                => '',
-			'custom_shortcode'     => '',
-			'device_type'          => '',
-			'schedule'             => '',
-			'location_extra'       => '',
-			'shortcode_attributes' => array(),
-		);
-
-		if ( $this->is_global ) {
-			$data = array(
-				'ihaf_insert_header' => '',
-				'ihaf_insert_footer' => '',
-				'ihaf_insert_body'   => '',
-			);
-		}
-
-		if ( $this->is_page_scripts ) {
-			$data = array(
-				'_wpcode_header_scripts' => array(
-					'disable_global' => false,
-					'any'            => '',
-					'desktop'        => '',
-					'mobile'         => '',
-				),
-				'_wpcode_footer_scripts' => array(
-					'disable_global' => false,
-					'any'            => '',
-					'desktop'        => '',
-					'mobile'         => '',
-				),
-				'_wpcode_body_scripts'   => array(
-					'disable_global' => false,
-					'any'            => '',
-					'desktop'        => '',
-					'mobile'         => '',
-				),
-				'_wpcode_page_snippets'  => array(),
-			);
-		}
-
-		return $data;
 	}
 
 	/**

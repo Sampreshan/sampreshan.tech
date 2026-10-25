@@ -4,18 +4,35 @@ declare(strict_types=1);
 
 namespace BuddyBossTheme\Admin\Mothership;
 
-use BuddyBossTheme\GroundLevel\Mothership\Manager\LicenseManager;
-use BuddyBossTheme\GroundLevel\Mothership\Service as MothershipService;
+use BuddyBossTheme\GroundLevel\Container\Container;
 use BuddyBossTheme\GroundLevel\Mothership\Credentials;
 use BuddyBossTheme\GroundLevel\Mothership\Api\Response;
 use BuddyBossTheme\GroundLevel\Mothership\Api\Request\LicenseActivations;
+use BuddyBossTheme\GroundLevel\Mothership\Api\Request\Licenses;
 use BuddyBossTheme\GroundLevel\Mothership\AbstractPluginConnection;
+use BuddyBossTheme\GroundLevel\Mothership\Transients\ActivationTransient;
 
 /**
- * BuddyBoss License Manager extends the base LicenseManager
- * to add dynamic plugin ID functionality.
+ * BuddyBoss Theme License Manager.
+ *
+ * Standalone license controller layered over the GroundLevel 9.1.2 services. The vendor
+ * LicenseManager became an instance-based service resolved from the container, so this class
+ * no longer extends it — it resolves the vendor API objects (Credentials, LicenseActivations,
+ * Licenses) from the BuddyBoss Theme container and adds dynamic plugin ID handling plus rate
+ * limiting with exponential backoff.
  */
-class BB_Theme_License_Manager extends LicenseManager {
+class BB_Theme_License_Manager {
+
+	/**
+	 * Get the BuddyBoss Theme Mothership container.
+	 *
+	 * @since 2.22.2
+	 *
+	 * @return Container
+	 */
+	private static function container(): Container {
+		return BB_Theme_Mothership_Loader::instance()->get_container();
+	}
 
 	/**
 	 * Flag to control when the HTTP filter is active.
@@ -52,6 +69,25 @@ class BB_Theme_License_Manager extends LicenseManager {
 	}
 
 	/**
+	 * Write a diagnostic message to the PHP error log, gated behind WP_DEBUG.
+	 *
+	 * License operations are admin-triggered and surface their own user-facing
+	 * notices, so these log lines are diagnostic only. Gating them behind WP_DEBUG
+	 * keeps debug.log clean in production where every activation would otherwise
+	 * write multiple info-level entries.
+	 *
+	 * @since 2.22.2
+	 *
+	 * @param string $message The message to log.
+	 * @return void
+	 */
+	private static function log( string $message ): void {
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			error_log( $message ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+		}
+	}
+
+	/**
 	 * Get the API base URL for license operations.
 	 * Environment-aware with multiple fallback options.
 	 *
@@ -59,7 +95,11 @@ class BB_Theme_License_Manager extends LicenseManager {
 	 *
 	 * @return string The API base URL.
 	 */
-	private static function get_api_base_url( string $plugin_id = '' ): string {
+	/**
+	 * Public so {@see BB_Theme_Mothership_Loader::register_services()} can seed
+	 * GroundLevel's `mothership.api_base_url` parameter with the same value.
+	 */
+	public static function get_api_base_url( string $plugin_id = '' ): string {
 		// Priority 1: Product-specific constant (e.g., BUDDYBOSS_THEME_MOTHERSHIP_API_BASE_URL).
 		if ( ! empty( $plugin_id ) ) {
 			$constant_name = strtoupper( str_replace( '-', '_', $plugin_id ) . '_MOTHERSHIP_API_BASE_URL' );
@@ -159,7 +199,7 @@ class BB_Theme_License_Manager extends LicenseManager {
 
 			if ( $cloudflare_detected ) {
 				// Cloudflare rate limit detected - store extended block (60 minutes).
-				error_log( 'BuddyBoss Theme: Cloudflare rate limit detected - blocking for 60 minutes' );
+				self::log( 'BuddyBoss Theme: Cloudflare rate limit detected - blocking for 60 minutes' );
 
 				$reset_time      = time() + 3600; // 60 minutes.
 				$rate_limit_data = array(
@@ -224,7 +264,7 @@ class BB_Theme_License_Manager extends LicenseManager {
 					$reset_info = sprintf( ' - Reset in %d seconds', $retry_after );
 				}
 
-				error_log(
+				self::log(
 					sprintf(
 						'BuddyBoss Theme: Rate limit exceeded (remaining: %s)%s',
 						null !== $remaining ? $remaining : 'N/A',
@@ -248,7 +288,7 @@ class BB_Theme_License_Manager extends LicenseManager {
 				// For 429 errors without reset time, use default 1 hour window.
 				$final_reset_time = time() + HOUR_IN_SECONDS;
 				$source           = 'default_429_window';
-				error_log( 'BuddyBoss Theme: 429 error without reset time - using 1 hour default' );
+				self::log( 'BuddyBoss Theme: 429 error without reset time - using 1 hour default' );
 			}
 
 			// Build rate limit data.
@@ -279,23 +319,18 @@ class BB_Theme_License_Manager extends LicenseManager {
 
 	/**
 	 * The controller for handling the license activation/deactivation post requests.
-	 * Overrides the parent controller to add dynamic plugin ID support.
+	 *
+	 * The dynamic plugin ID embedded in a `KEY:PLUGIN_ID` license string is parsed inside
+	 * {@see self::activateLicense()} — AFTER its nonce + capability check — so this controller
+	 * performs no state change before authorization. `admin_init` also runs for anonymous
+	 * admin-ajax.php / admin-post.php requests, so parsing here would let a forged request
+	 * switch the stored plugin ID and disconnect the license.
 	 *
 	 * @return void
 	 */
 	public static function controller(): void {
 		// phpcs:disable WordPress.Security.NonceVerification.Missing -- Nonce is verified in activateLicense() and deactivateLicense() methods
 		if ( isset( $_POST['buddyboss_platform_license_button'] ) ) {
-			$plugin_connector = self::getContainer()->get( AbstractPluginConnection::class ); // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
-
-			// Setup dynamic plugin ID if present in license key.
-			if ( isset( $_POST['license_key'] ) ) {
-				$license_key          = sanitize_text_field( wp_unslash( $_POST['license_key'] ) );
-				$_POST['license_key'] = self::setup_dynamic_plugin_id( $license_key, $plugin_connector );
-			}
-
-			$plugin_id = $plugin_connector->pluginId; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-
 			if ( 'activate' === $_POST['buddyboss_platform_license_button'] ) {
 				try {
 					$license_key       = isset( $_POST['license_key'] ) ? sanitize_text_field( wp_unslash( $_POST['license_key'] ) ) : '';
@@ -344,7 +379,7 @@ class BB_Theme_License_Manager extends LicenseManager {
 		self::validate_activation_permissions();
 		self::validate_activation_inputs( $license_key, $domain );
 
-		$plugin_connector = self::getContainer()->get( AbstractPluginConnection::class ); // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
+		$plugin_connector = self::container()->get( AbstractPluginConnection::class ); // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
 		$license_key      = self::setup_dynamic_plugin_id( $license_key, $plugin_connector );
 
 		$validation_error = self::validate_product_before_activation( $license_key, $plugin_connector->pluginId ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
@@ -368,13 +403,95 @@ class BB_Theme_License_Manager extends LicenseManager {
 	}
 
 	/**
+	 * Deactivate a license.
+	 *
+	 * Calls the GroundLevel {@see LicenseActivations::deactivate()} instance API resolved
+	 * from the container, then clears the stored license key, activation status, and add-on
+	 * caches. Replaces the deactivation flow previously inherited from the vendor
+	 * LicenseManager (removed when this class stopped extending it).
+	 *
+	 * @since 2.22.2
+	 *
+	 * @param string $license_key The license key.
+	 * @param string $domain      The domain to deactivate.
+	 *
+	 * @throws \Exception If the deactivation fails.
+	 * @return void
+	 */
+	public static function deactivateLicense( string $license_key, string $domain ): void { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
+		if ( ! current_user_can( BB_Theme_Connector::license_capability() ) ) {
+			throw new \Exception( esc_html__( 'You do not have permission to deactivate a license', 'buddyboss-theme' ) );
+		}
+
+		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'mothership_deactivate_license' ) ) {
+			throw new \Exception( esc_html__( 'Invalid nonce', 'buddyboss-theme' ) );
+		}
+
+		$plugin_connector = self::container()->get( AbstractPluginConnection::class );
+		$credentials      = self::container()->get( Credentials::class );
+
+		// Fall back to stored credentials if the form did not pass them.
+		if ( empty( $license_key ) ) {
+			$license_key = $credentials->getLicenseKey();
+		}
+		if ( empty( $domain ) ) {
+			$domain = $credentials->getDomain();
+		}
+
+		self::enable_header_capture();
+
+		try {
+			$response = self::container()->get( LicenseActivations::class )->deactivate( $license_key, $domain );
+		} catch ( \Exception $e ) {
+			self::disable_header_capture();
+			self::log( sprintf( 'BuddyBoss Theme: License deactivation API exception: %s', $e->getMessage() ) );
+			throw new \Exception( esc_html__( 'License deactivation failed. Please try again.', 'buddyboss-theme' ) );
+		}
+
+		self::disable_header_capture();
+
+		// A 404 means the activation no longer exists server-side — treat as already deactivated.
+		if ( $response instanceof Response && $response->isError() && ! $response->isNotFound() ) {
+			throw new \Exception(
+				sprintf(
+					/* translators: %s is the error message from API */
+					esc_html__( 'License deactivation failed: %s', 'buddyboss-theme' ),
+					esc_html( $response->getErrorMessage() )
+				)
+			);
+		}
+
+		// Clear local license state. Capture the activated plugin ID first so we can purge its
+		// cached add-ons list before clearDynamicPluginId() resets the ID to the default.
+		$plugin_id = $plugin_connector->getCurrentPluginId();
+		$plugin_connector->updateLicenseActivationStatus( false );
+		$credentials->setLicenseKey( '' );
+
+		// Purge the cached add-ons list for the deactivated product (regular + site transient).
+		delete_transient( $plugin_id . '-mosh-addons' );
+		delete_site_transient( $plugin_id . '-mosh-addons' );
+
+		$plugin_connector->clearDynamicPluginId();
+
+		// Drop the activation identifier so the next activation resolves a fresh one, and
+		// discard the vendor's cached activation so its overwrite guard has nothing stale
+		// to compare against.
+		if ( method_exists( $plugin_connector, 'clearActivationDomain' ) ) {
+			$plugin_connector->clearActivationDomain();
+		}
+		self::clear_activation_transient();
+
+		self::log( 'BuddyBoss Theme: License deactivated' );
+	}
+
+	/**
 	 * Validate user permissions for license activation.
 	 *
 	 * @throws \Exception If validation fails.
 	 * @return void
 	 */
 	private static function validate_activation_permissions(): void {
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( BB_Theme_Connector::license_capability() ) ) {
 			throw new \Exception( esc_html__( 'You do not have permission to activate a license', 'buddyboss-theme' ) );
 		}
 
@@ -422,7 +539,7 @@ class BB_Theme_License_Manager extends LicenseManager {
 		self::enable_header_capture();
 
 		try {
-			error_log(
+			self::log(
 				sprintf(
 					'BuddyBoss Theme: Attempting license activation - Product: %s, Domain: %s',
 					$product,
@@ -430,10 +547,10 @@ class BB_Theme_License_Manager extends LicenseManager {
 				)
 			);
 
-			return LicenseActivations::activate( $product, $license_key, $domain );
+			return self::container()->get( LicenseActivations::class )->activate( $product, $license_key, $domain );
 		} catch ( \Exception $e ) {
 			self::disable_header_capture();
-			error_log( sprintf( 'BuddyBoss Theme: License activation API exception: %s', $e->getMessage() ) );
+			self::log( sprintf( 'BuddyBoss Theme: License activation API exception: %s', $e->getMessage() ) );
 			throw new \Exception(
 				esc_html__( 'License activation failed. Please check your license key and try again. If the problem persists, contact support.', 'buddyboss-theme' )
 			);
@@ -452,13 +569,13 @@ class BB_Theme_License_Manager extends LicenseManager {
 	private static function handle_activation_error( Response $response, $plugin_connector ): void {
 		self::disable_header_capture();
 
-		$error_code    = $response->__get( 'errorCode' );
-		$error_message = $response->__get( 'error' );
-		$errors        = $response->__get( 'errors' );
+		$error_code    = $response->statusCode; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		$error_message = $response->getErrorMessage();
+		$errors        = $response->getErrors();
 
 		self::track_failed_activation();
 
-		error_log(
+		self::log(
 			sprintf(
 				'BuddyBoss Theme: License activation failed - Code: %d, Message: %s, Product: %s',
 				$error_code,
@@ -496,7 +613,7 @@ class BB_Theme_License_Manager extends LicenseManager {
 	private static function handle_activation_error_422( $errors, $plugin_connector ): void {
 		if ( is_array( $errors ) && isset( $errors['product'] ) ) {
 			$plugin_connector->clearDynamicPluginId();
-			error_log( 'BuddyBoss Theme: Cleared orphaned plugin ID (422)' );
+			self::log( 'BuddyBoss Theme: Cleared orphaned plugin ID (422)' );
 
 			throw new \Exception(
 				esc_html__( 'License activation failed: The stored product ID did not match your license. Please try activating again with your license key.', 'buddyboss-theme' )
@@ -517,15 +634,15 @@ class BB_Theme_License_Manager extends LicenseManager {
 			$reset_time   = $rate_limit_data['reset'];
 			$backoff_time = max( 0, $reset_time - time() );
 			$wait_minutes = ceil( $backoff_time / 60 );
-			error_log( 'BuddyBoss Theme: Using API reset time' );
+			self::log( 'BuddyBoss Theme: Using API reset time' );
 		} else {
 			$backoff_time = self::get_backoff_wait_time();
 			$reset_time   = time() + $backoff_time;
 			$wait_minutes = ceil( $backoff_time / 60 );
-			error_log( 'BuddyBoss Theme: Using calculated backoff time' );
+			self::log( 'BuddyBoss Theme: Using calculated backoff time' );
 		}
 
-		error_log(
+		self::log(
 			sprintf(
 				'BuddyBoss Theme: Wait %d minutes (reset: %s)',
 				$wait_minutes,
@@ -563,16 +680,31 @@ class BB_Theme_License_Manager extends LicenseManager {
 	 */
 	private static function process_successful_activation( string $license_key, $plugin_connector, string $domain ): void {
 		try {
-			Credentials::storeLicenseKey( $license_key );
+			self::container()->get( Credentials::class )->setLicenseKey( $license_key );
+
+			// Pin the identifier this activation was created with, before the status flips —
+			// resolveDomain() must keep returning it for the life of the activation.
+			if ( method_exists( $plugin_connector, 'storeActivationDomain' ) ) {
+				$plugin_connector->storeActivationDomain( $domain );
+			}
+
 			$plugin_connector->updateLicenseActivationStatus( true );
 
+			// The cached activation still holds the previous key; leaving it would make
+			// GroundLevel's onLicenseKeyOverwritten() guard deactivate this new license.
+			self::clear_activation_transient();
+
+			// GroundLevel 9.1.2 stores a persistent "license revoked" notice on revocation and
+			// nothing removes it once the license works again.
+			self::clear_license_notices();
+
 			$plugin_id = $plugin_connector->pluginId; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-			delete_transient( $plugin_id . '-mosh-products' );
-			delete_transient( $plugin_id . '-mosh-addons-update-check' );
+			delete_transient( $plugin_id . '-mosh-addons' );
+			delete_site_transient( $plugin_id . '-mosh-addons' );
 
 			self::reset_failed_attempts();
 
-			error_log(
+			self::log(
 				sprintf(
 					'BuddyBoss Theme: License activated successfully - Product: %s, Domain: %s',
 					$plugin_id,
@@ -581,8 +713,58 @@ class BB_Theme_License_Manager extends LicenseManager {
 			);
 		} catch ( \Exception $e ) {
 			self::disable_header_capture();
-			error_log( sprintf( 'BuddyBoss Theme: Error storing license credentials: %s', $e->getMessage() ) );
+			self::log( sprintf( 'BuddyBoss Theme: Error storing license credentials: %s', $e->getMessage() ) );
 			throw new \Exception( esc_html__( 'License activation succeeded but failed to save. Please try again.', 'buddyboss-theme' ) );
+		}
+	}
+
+	/**
+	 * Removes GroundLevel's license notices after a successful activation.
+	 *
+	 * @since BuddyBoss Theme 2.22.2
+	 */
+	private static function clear_license_notices(): void {
+		try {
+			// The container singleton is prefixed with the plugin ID at boot, but activation can
+			// switch the ID mid-request (KEY:PLUGIN_ID), so clear the current ID's store too.
+			$stores = array( self::container()->get( \BuddyBossTheme\GroundLevel\Support\AdminNotices::class ) );
+
+			$plugin_id = (string) self::container()->get( AbstractPluginConnection::class )->pluginId; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			if ( '' !== $plugin_id ) {
+				$stores[] = new \BuddyBossTheme\GroundLevel\Support\AdminNotices( $plugin_id );
+			}
+
+			foreach ( $stores as $notices ) {
+				$notices->remove( 'license_revoked' );
+				$notices->remove( 'license_key_overwritten' );
+			}
+		} catch ( \Throwable $e ) {
+			self::log( sprintf( 'BuddyBoss Theme: could not clear license notices: %s', $e->getMessage() ) );
+		}
+	}
+
+	/**
+	 * Discards GroundLevel's cached activation transient.
+	 *
+	 * GroundLevel 9.1.2 added {@see \BuddyBossTheme\GroundLevel\Mothership\Manager\LicenseManager::onLicenseKeyOverwritten()},
+	 * hooked on `admin_init` at priority 10. It compares the live credential against the
+	 * `{pluginId}_activation` transient and, on a mismatch, deactivates the license, clears
+	 * the add-ons cache and flashes "Your license key was overwritten by an environment
+	 * variable or constant."
+	 *
+	 * Only the vendor's twice-daily cron writes that transient, so after the theme changes
+	 * the key itself the transient still holds the OLD key and the guard fires against a
+	 * perfectly valid license. Deleting it is enough — onLicenseKeyOverwritten() returns
+	 * early on an empty cached key, and the cron re-syncs it correctly later.
+	 *
+	 * @since 2.22.2
+	 */
+	private static function clear_activation_transient(): void {
+		try {
+			// Registered as a FACTORY, so this resolves a fresh instance.
+			self::container()->get( ActivationTransient::class )->delete();
+		} catch ( \Throwable $e ) {
+			self::log( sprintf( 'BuddyBoss Theme: could not clear activation transient: %s', $e->getMessage() ) );
 		}
 	}
 
@@ -601,10 +783,27 @@ class BB_Theme_License_Manager extends LicenseManager {
 			return true;
 		}
 
+		// Skip when this site has no activation yet — the usual case for the very request
+		// that is about to create one. The pre-check authenticates with the licence key plus
+		// the activation domain, a pair the server only recognises once an activation
+		// exists, so before the first activation it answers 401 every time, the failure is
+		// non-blocking and the response is discarded: a guaranteed wasted round-trip that
+		// also spends the rate-limit quota this method otherwise preserves. Mirrors
+		// buddyboss-platform.
+		try {
+			$connection = self::container()->get( AbstractPluginConnection::class );
+
+			if ( ! $connection->getLicenseActivationStatus() ) {
+				return true;
+			}
+		} catch ( \Throwable $e ) {
+			return true;
+		}
+
 		// Skip validation if we have any recent failed attempts (likely rate limited).
 		$failed_attempts = self::get_rate_limit_transient( 'failed_attempts' );
 		if ( $failed_attempts && (int) $failed_attempts > 0 ) {
-			error_log(
+			self::log(
 				sprintf(
 					'BuddyBoss Theme: Skipping pre-activation validation - %d recent failed attempts',
 					$failed_attempts
@@ -621,7 +820,7 @@ class BB_Theme_License_Manager extends LicenseManager {
 
 			if ( $reset_time > 0 && $current_time < $reset_time ) {
 				$wait_minutes = ceil( max( 0, $reset_time - $current_time ) / 60 );
-				error_log(
+				self::log(
 					sprintf(
 						'BuddyBoss Theme: Skipping pre-validation - rate limited until %s (%d minutes)',
 						gmdate( 'Y-m-d H:i:s', $reset_time ),
@@ -633,7 +832,7 @@ class BB_Theme_License_Manager extends LicenseManager {
 
 			$remaining = isset( $rate_limit_data['remaining'] ) ? (int) $rate_limit_data['remaining'] : null;
 			if ( null !== $remaining && $remaining <= 1 ) {
-				error_log(
+				self::log(
 					sprintf(
 						'BuddyBoss Theme: Skipping pre-validation - only %d requests remaining',
 						$remaining
@@ -644,13 +843,13 @@ class BB_Theme_License_Manager extends LicenseManager {
 		}
 
 		try {
-			$response = \BuddyBossTheme\GroundLevel\Mothership\Api\Request\Licenses::get( $license_key );
+			$response = self::container()->get( Licenses::class )->get( $license_key );
 
 			if ( $response instanceof Response && $response->isError() ) {
-				$error_code = $response->__get( 'errorCode' );
+				$error_code = $response->statusCode; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
 				if ( 429 === $error_code ) {
-					error_log( 'BuddyBoss Theme: Validation encountered rate limit - blocking activation' );
+					self::log( 'BuddyBoss Theme: Validation encountered rate limit - blocking activation' );
 
 					self::track_failed_activation();
 
@@ -659,16 +858,16 @@ class BB_Theme_License_Manager extends LicenseManager {
 					if ( $rate_limit_data && isset( $rate_limit_data['reset'] ) && $rate_limit_data['reset'] > 0 ) {
 						$reset_time   = $rate_limit_data['reset'];
 						$backoff_time = max( 0, $reset_time - time() );
-						error_log( 'BuddyBoss Theme: Using API reset time' );
+						self::log( 'BuddyBoss Theme: Using API reset time' );
 					} else {
 						$backoff_time = self::get_backoff_wait_time();
 						$reset_time   = time() + $backoff_time;
-						error_log( 'BuddyBoss Theme: Using calculated backoff time' );
+						self::log( 'BuddyBoss Theme: Using calculated backoff time' );
 					}
 
 					$wait_minutes = (int) ceil( $backoff_time / 60 );
 
-					error_log(
+					self::log(
 						sprintf(
 							'BuddyBoss Theme: Rate limit detected during validation - wait time: %d seconds (%d minutes)',
 							$backoff_time,
@@ -677,7 +876,7 @@ class BB_Theme_License_Manager extends LicenseManager {
 					);
 
 					if ( ! $rate_limit_data || ! isset( $rate_limit_data['reset'] ) ) {
-						set_transient(
+						self::set_rate_limit_transient(
 							'rate_limit',
 							array(
 								'remaining' => 0,
@@ -698,10 +897,10 @@ class BB_Theme_License_Manager extends LicenseManager {
 					);
 				}
 
-				error_log(
+				self::log(
 					sprintf(
 						'BuddyBoss Theme: Pre-activation validation failed (non-blocking): %s',
-						$response->__get( 'error' )
+						$response->getErrorMessage()
 					)
 				);
 				return true;
@@ -713,7 +912,7 @@ class BB_Theme_License_Manager extends LicenseManager {
 				if ( isset( $license_data['product'] ) ) {
 					$actual_product = $license_data['product'];
 
-					error_log(
+					self::log(
 						sprintf(
 							'BuddyBoss Theme: License product validation - Expected: %s, Actual: %s',
 							$product_id,
@@ -722,9 +921,9 @@ class BB_Theme_License_Manager extends LicenseManager {
 					);
 
 					if ( $actual_product !== $product_id ) {
-						error_log( 'BuddyBoss Theme: Product mismatch detected - clearing orphaned plugin ID' );
+						self::log( 'BuddyBoss Theme: Product mismatch detected - clearing orphaned plugin ID' );
 
-						$plugin_connector = self::getContainer()->get( AbstractPluginConnection::class ); // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
+						$plugin_connector = self::container()->get( AbstractPluginConnection::class ); // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
 						$plugin_connector->clearDynamicPluginId();
 
 						return new \WP_Error(
@@ -742,7 +941,7 @@ class BB_Theme_License_Manager extends LicenseManager {
 				}
 			}
 		} catch ( \Exception $e ) {
-			error_log(
+			self::log(
 				sprintf(
 					'BuddyBoss Theme: Pre-activation validation exception (non-blocking): %s',
 					$e->getMessage()
@@ -761,9 +960,10 @@ class BB_Theme_License_Manager extends LicenseManager {
 	 * @return void
 	 */
 	public static function clearLicenseDetailsCache(): void {
-		$plugin_id = self::getContainer()->get( AbstractPluginConnection::class )->pluginId; // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
+		$plugin_id = self::container()->get( AbstractPluginConnection::class )->pluginId; // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
 		$cache_key = $plugin_id . '_theme_license_details';
 		delete_transient( $cache_key );
+		delete_site_transient( $cache_key );
 	}
 
 	/**
@@ -781,7 +981,8 @@ class BB_Theme_License_Manager extends LicenseManager {
 
 		// Check if license key contains plugin ID in format KEY:PLUGIN_ID
 		if ( count( $key_parts ) === 2 && preg_match( '/^bb-/', $key_parts[1] ) ) {
-			$plugin_id = $key_parts[1];
+			// Sanitize: the plugin ID becomes part of option names and transient keys.
+			$plugin_id = sanitize_key( $key_parts[1] );
 
 			// Set the dynamic plugin ID
 			$plugin_connector->setDynamicPluginId( $plugin_id );
@@ -794,6 +995,27 @@ class BB_Theme_License_Manager extends LicenseManager {
 	}
 
 	/**
+	 * Generates the license form HTML, choosing activation vs. disconnect by status.
+	 *
+	 * The license admin view (views/admin.php) calls this single entry point: it renders the
+	 * disconnect form when a license is active, otherwise the activation form. Replaces the
+	 * wrapper previously inherited from the vendor LicenseManager.
+	 *
+	 * @since 2.22.2
+	 *
+	 * @return string The license form HTML.
+	 */
+	public function generateLicenseActivationForm(): string { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
+		$plugin_connector = self::container()->get( AbstractPluginConnection::class );
+
+		if ( $plugin_connector->getLicenseActivationStatus() ) {
+			return $this->generateDisconnectForm();
+		}
+
+		return $this->generateActivationForm();
+	}
+
+	/**
 	 * Generates the HTML for the activation form.
 	 * Overrides parent to use BuddyBoss specific button naming.
 	 *
@@ -801,7 +1023,7 @@ class BB_Theme_License_Manager extends LicenseManager {
 	 */
 	public function generateActivationForm(): string {
 		ob_start();
-		$plugin_id = self::getContainer()->get( AbstractPluginConnection::class )->pluginId; // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
+		$plugin_id = self::container()->get( AbstractPluginConnection::class )->pluginId; // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
 		?>
 		<h2><?php esc_html_e( 'License Activation', 'buddyboss-theme' ); ?></h2>
 		<form method="post" action="" name="<?php echo esc_attr( $plugin_id ); ?>_activate_license_form">
@@ -812,8 +1034,8 @@ class BB_Theme_License_Manager extends LicenseManager {
 							<label for="license_key"><?php esc_html_e( 'License Key', 'buddyboss-theme' ); ?></label>
 						</th>
 						<td>
-							<input type="text" name="license_key" id="license_key" placeholder="<?php esc_attr_e( 'Enter your license key', 'buddyboss-theme' ); ?>" value="<?php echo esc_attr( Credentials::getLicenseKey() ); ?>" >
-							<input type="hidden" name="activation_domain" id="activation_domain" value="<?php echo esc_attr( Credentials::getActivationDomain() ); ?>" >
+							<input type="text" name="license_key" id="license_key" placeholder="<?php esc_attr_e( 'Enter your license key', 'buddyboss-theme' ); ?>" value="<?php echo esc_attr( self::container()->get( Credentials::class )->getLicenseKey() ); ?>" >
+							<input type="hidden" name="activation_domain" id="activation_domain" value="<?php echo esc_attr( self::container()->get( Credentials::class )->getDomain() ); ?>" >
 						</td>
 					</tr>
 					<tr>
@@ -836,11 +1058,65 @@ class BB_Theme_License_Manager extends LicenseManager {
 	 *
 	 * @return string The HTML for the disconnect form.
 	 */
+	/**
+	 * Whether the activated licence's plan actually includes the BuddyBoss Theme.
+	 *
+	 * Activation validity and product entitlement are two different questions, and until
+	 * now the theme only asked the first: any key that activates successfully — a
+	 * platform-free licence included — left the theme reporting itself as licensed, even
+	 * though the plan does not carry `buddyboss-theme` as a product.
+	 *
+	 * Reads the add-ons list GroundLevel caches under `{pluginId}-mosh-addons` and looks for
+	 * the theme with `status === 'enabled'`. `upgrade-addon` entries are upsell placeholders
+	 * advertising what the plan does NOT include, so they never count as entitlement.
+	 *
+	 * Cache-only by design: this can run on an admin screen render, and a cold-cache fetch
+	 * would be a blocking remote call. That also makes the result three-valued, and the
+	 * distinction matters — an empty cache means "unknown" (never warmed, or the API is
+	 * down), not "not in plan". Callers must fail SAFE on null: treating an outage as
+	 * "unlicensed" would lock out paying customers, which is a far worse failure than
+	 * briefly over-granting.
+	 *
+	 * @since 2.22.2
+	 *
+	 * @return boolean|null True when in plan, false when definitively not, null when unknown.
+	 */
+	public static function bb_theme_is_in_plan(): ?bool {
+		try {
+			$plugin_id = self::container()->get( AbstractPluginConnection::class )->pluginId; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		} catch ( \Throwable $e ) {
+			return null;
+		}
+
+		$addons = get_transient( $plugin_id . '-mosh-addons' );
+
+		if ( empty( $addons ) || ! is_iterable( $addons ) ) {
+			return null;
+		}
+
+		foreach ( $addons as $product ) {
+			if ( ! is_object( $product ) || 'upgrade-addon' === ( $product->type ?? '' ) ) {
+				continue;
+			}
+
+			if (
+				! empty( $product->slug ) &&
+				false !== strpos( (string) $product->slug, 'buddyboss-theme' ) &&
+				! empty( $product->status ) &&
+				'enabled' === $product->status
+			) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public function generateDisconnectForm(): string {
 		ob_start();
-		$plugin_id = self::getContainer()->get( AbstractPluginConnection::class )->pluginId; // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
+		$plugin_id = self::container()->get( AbstractPluginConnection::class )->pluginId; // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
 
-		$license_key  = Credentials::getLicenseKey();
+		$license_key  = self::container()->get( Credentials::class )->getLicenseKey();
 		$license_info = $this->bb_theme_get_license_details( $license_key );
 		?>
 		<h2><?php esc_html_e( 'License Management', 'buddyboss-theme' ); ?></h2>
@@ -850,8 +1126,23 @@ class BB_Theme_License_Manager extends LicenseManager {
 			$activation_text = sprintf(
 				__( '%1$s of %2$s sites have been activated with this license key', 'buddyboss-theme' ),
 				$license_info['total_prod_used'],
-				999 <= (int) $license_info['total_prod_allowed'] ? 'unlimited' : $license_info['total_prod_allowed']
+				999 <= (int) $license_info['total_prod_allowed'] ? __( 'unlimited', 'buddyboss-theme' ) : $license_info['total_prod_allowed']
 			);
+			?>
+			<?php
+			// An activated licence whose plan does not carry the theme is reported plainly
+			// rather than silently treated as full entitlement. null means "unknown" (cold
+			// cache or API outage) and is deliberately not surfaced as a problem.
+			$bb_theme_in_plan = self::bb_theme_is_in_plan();
+			if ( false === $bb_theme_in_plan ) {
+				?>
+				<div class="notice notice-warning inline">
+					<p>
+						<?php esc_html_e( 'This license is active, but its plan does not include the BuddyBoss Theme. Theme updates and support are not covered by it.', 'buddyboss-theme' ); ?>
+					</p>
+				</div>
+				<?php
+			}
 			?>
 			<div class="activated-licence">
 				<p class=""><?php esc_html_e( 'License Key: ', 'buddyboss-theme' ); ?><?php echo esc_html( $license_info['license_key'] ); ?></p>
@@ -866,8 +1157,8 @@ class BB_Theme_License_Manager extends LicenseManager {
 				<table class="form-table">
 					<tr>
 						<td colspan="2" scope="row">
-							<input type="hidden" name="license_key" id="license_key" placeholder="<?php esc_attr_e( 'Enter your license key', 'buddyboss-theme' ); ?>" value="<?php echo esc_attr( Credentials::getLicenseKey() ); ?>" readonly />
-							<input type="hidden" name="activation_domain" id="activation_domain" value="<?php echo esc_attr( Credentials::getActivationDomain() ); ?>" />
+							<input type="hidden" name="license_key" id="license_key" placeholder="<?php esc_attr_e( 'Enter your license key', 'buddyboss-theme' ); ?>" value="<?php echo esc_attr( self::container()->get( Credentials::class )->getLicenseKey() ); ?>" readonly />
+							<input type="hidden" name="activation_domain" id="activation_domain" value="<?php echo esc_attr( self::container()->get( Credentials::class )->getDomain() ); ?>" />
 							<?php wp_nonce_field( 'mothership_deactivate_license', '_wpnonce' ); ?>
 							<input type="hidden" name="buddyboss_platform_license_button" value="deactivate">
 							<input type="submit" value="<?php esc_html_e( 'Deactivate License', 'buddyboss-theme' ); ?>" class="button button-secondary <?php echo esc_attr( $plugin_id ); ?>-button-deactivate" >
@@ -900,7 +1191,7 @@ class BB_Theme_License_Manager extends LicenseManager {
 
 		// Check for invalid reset time (0 or very old timestamp).
 		if ( $reset_time <= 0 || $reset_time < ( $current_time - YEAR_IN_SECONDS ) ) {
-			error_log(
+			self::log(
 				sprintf(
 					'BuddyBoss Theme: Invalid rate limit data detected (reset: %d) - clearing corrupted data',
 					$reset_time
@@ -910,7 +1201,7 @@ class BB_Theme_License_Manager extends LicenseManager {
 			return true;
 		}
 
-		error_log(
+		self::log(
 			sprintf(
 				'BuddyBoss Theme: Checking rate limit - Source: %s, Remaining: %d, Reset at: %s (Unix: %d), Current: %s (Unix: %d)',
 				$source,
@@ -926,7 +1217,7 @@ class BB_Theme_License_Manager extends LicenseManager {
 		if ( $current_time >= $reset_time ) {
 			self::delete_rate_limit_transient( 'rate_limit' );
 			self::delete_rate_limit_transient( 'failed_attempts' );
-			error_log(
+			self::log(
 				sprintf(
 					'BuddyBoss Theme: Rate limit window EXPIRED - Reset time %s has passed',
 					gmdate( 'Y-m-d H:i:s', $reset_time )
@@ -940,7 +1231,7 @@ class BB_Theme_License_Manager extends LicenseManager {
 			$wait_time    = max( 0, $reset_time - $current_time );
 			$wait_minutes = max( 1, ceil( $wait_time / 60 ) );
 
-			error_log(
+			self::log(
 				sprintf(
 					'BuddyBoss Theme: Rate limit exceeded - Wait %d minutes (reset: %s)',
 					$wait_minutes,
@@ -967,17 +1258,8 @@ class BB_Theme_License_Manager extends LicenseManager {
 	 * @return bool True if network activated, false otherwise.
 	 */
 	private static function is_network_activated(): bool {
-		if ( ! is_multisite() ) {
-			return false;
-		}
-
-		if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
-			require_once ABSPATH . '/wp-admin/includes/plugin.php';
-		}
-
-		// Check if theme is network enabled (themes don't have network activation like plugins).
-		// For themes, check if it's the active theme on the network.
-		$current_theme = wp_get_theme();
+		// Themes have no network-activation concept like plugins, so treat any multisite
+		// install as network-scoped — license/rate-limit data is stored per-network.
 		return is_multisite();
 	}
 
@@ -1013,7 +1295,7 @@ class BB_Theme_License_Manager extends LicenseManager {
 		$serialized        = maybe_serialize( $value );
 		$serialized_string = is_string( $serialized ) ? $serialized : (string) $serialized;
 		if ( strlen( $serialized_string ) > 2048 ) {
-			error_log( 'BuddyBoss Theme: Rate limit data exceeds maximum size (2KB)' );
+			self::log( 'BuddyBoss Theme: Rate limit data exceeds maximum size (2KB)' );
 			return false;
 		}
 
@@ -1097,12 +1379,12 @@ class BB_Theme_License_Manager extends LicenseManager {
 		}
 
 		// Check user capabilities.
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( BB_Theme_Connector::license_capability() ) ) {
 			wp_send_json_error( __( 'You do not have permission to perform this action', 'buddyboss-theme' ) );
 		}
 
 		try {
-			$plugin_connector = self::getContainer()->get( AbstractPluginConnection::class ); // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
+			$plugin_connector = self::container()->get( AbstractPluginConnection::class ); // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
 
 			// Get current plugin ID before clearing.
 			$current_plugin_id = $plugin_connector->getCurrentPluginId();
@@ -1118,6 +1400,12 @@ class BB_Theme_License_Manager extends LicenseManager {
 
 			// Clear license activation status.
 			$plugin_connector->updateLicenseActivationStatus( false );
+
+			// Drop the pinned activation identifier too, so the next activation resolves a
+			// fresh one (matches buddyboss-platform's reset).
+			if ( method_exists( $plugin_connector, 'clearActivationDomain' ) ) {
+				$plugin_connector->clearActivationDomain();
+			}
 
 			// Clear migration flag.
 			delete_option( 'bb_mothership_licenses_migrated' );
@@ -1142,15 +1430,14 @@ class BB_Theme_License_Manager extends LicenseManager {
 			// Clear all license-related data for all possible plugin IDs.
 			foreach ( $all_plugin_ids as $plugin_id ) {
 				// Clear license keys and activation status.
-				delete_option( $plugin_id . '_license_key' );
-				delete_option( $plugin_id . '_license_activation_status' );
+				BB_Theme_Connector::delete_license_option( $plugin_id . '_license_key' );
+				BB_Theme_Connector::delete_license_option( $plugin_id . '_license_activation_status' );
 
-				// Clear transients (both regular and site-wide for multisite).
-				delete_transient( $plugin_id . '-mosh-products' );
-				delete_transient( $plugin_id . '-mosh-addons-update-check' );
+				// Clear transients (both regular and site-wide for multisite). The add-ons
+				// response is cached under `-mosh-addons` in GroundLevel 9.1.2.
+				delete_transient( $plugin_id . '-mosh-addons' );
 				delete_transient( $plugin_id . '_theme_license_details' );
-				delete_site_transient( $plugin_id . '-mosh-products' );
-				delete_site_transient( $plugin_id . '-mosh-addons-update-check' );
+				delete_site_transient( $plugin_id . '-mosh-addons' );
 				delete_site_transient( $plugin_id . '_theme_license_details' );
 			}
 
@@ -1159,7 +1446,7 @@ class BB_Theme_License_Manager extends LicenseManager {
 			self::delete_rate_limit_transient( 'failed_attempts' );
 
 			// Log the reset action.
-			error_log( 'BuddyBoss Theme: License settings reset by user - all mothership data cleared' );
+			self::log( 'BuddyBoss Theme: License settings reset by user - all mothership data cleared' );
 
 			wp_send_json_success(
 				array(
@@ -1167,7 +1454,7 @@ class BB_Theme_License_Manager extends LicenseManager {
 				)
 			);
 		} catch ( \Exception $e ) {
-			error_log( sprintf( 'BuddyBoss Theme: Error resetting license: %s', $e->getMessage() ) );
+			self::log( sprintf( 'BuddyBoss Theme: Error resetting license: %s', $e->getMessage() ) );
 			// Don't expose internal errors to users via AJAX response.
 			wp_send_json_error(
 				__( 'Failed to reset license settings. Please try again or contact support if the problem persists.', 'buddyboss-theme' )
@@ -1184,14 +1471,14 @@ class BB_Theme_License_Manager extends LicenseManager {
 	 * @return array|WP_Error    Array of license + activation data, or WP_Error on failure.
 	 */
 	protected function bb_theme_get_license_details( $license_key, $force_refresh = false ) {
-		$plugin_id = self::getContainer()->get( AbstractPluginConnection::class )->pluginId; // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
+		$plugin_id = self::container()->get( AbstractPluginConnection::class )->pluginId; // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
 
 		// Create cache key based on plugin ID only (not license key for security).
 		$cache_key = $plugin_id . '_theme_license_details';
 
 		// Check cache first unless force refresh is requested.
 		if ( ! $force_refresh ) {
-			$cached_data = get_transient( $cache_key );
+			$cached_data = BB_Theme_Connector::get_license_transient( $cache_key );
 			if ( false !== $cached_data && ! is_wp_error( $cached_data ) ) {
 				return $cached_data;
 			}
@@ -1199,14 +1486,16 @@ class BB_Theme_License_Manager extends LicenseManager {
 
 		$root_api_url = self::get_api_base_url( $plugin_id );
 
-		$api_url     = $root_api_url . 'licenses/' . $license_key;
-		$domain      = wp_parse_url( home_url(), PHP_URL_HOST );
-		$credentials = base64_encode( $domain . ':' . $license_key );
+		$api_url = $root_api_url . 'licenses/' . $license_key;
+		// Must match the domain the license was activated with (host, or host/path for
+		// subdirectory installs) or the license server rejects the Basic-auth credentials.
+		$domain      = self::container()->get( Credentials::class )->getDomain();
+		$credentials = base64_encode( rawurlencode( $domain ) . ':' . $license_key );
 		$args        = array(
 			'headers' => array(
 				'Authorization' => "Basic $credentials",
-				'Content-Type'  => 'application / json',
-				'Accept'        => 'application / json',
+				'Content-Type'  => 'application/json',
+				'Accept'        => 'application/json',
 			),
 		);
 
@@ -1258,7 +1547,7 @@ class BB_Theme_License_Manager extends LicenseManager {
 		);
 
 		// License details don't change frequently, so 12 hours is reasonable.
-		set_transient( $cache_key, $license_data, 12 * HOUR_IN_SECONDS );
+		BB_Theme_Connector::set_license_transient( $cache_key, $license_data, 12 * HOUR_IN_SECONDS );
 
 		return $license_data;
 	}

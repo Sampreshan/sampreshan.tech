@@ -30,8 +30,8 @@ function buddyboss_theme_init_mothership() {
 		require_once __DIR__ . '/class-bb-theme-mothership-loader.php';
 	}
 
-	// Initialize the mothership functionality.
-	new BuddyBossTheme\Admin\Mothership\BB_Theme_Mothership_Loader();
+	// Initialize the mothership functionality (singleton prevents duplicate hooks).
+	BuddyBossTheme\Admin\Mothership\BB_Theme_Mothership_Loader::instance();
 }
 
 // Initialize immediately since we're already in admin context when this file is included.
