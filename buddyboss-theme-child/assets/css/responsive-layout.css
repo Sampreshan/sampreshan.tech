@@ -1,12 +1,12 @@
 /*
  * Responsive layout: one width + gutter system for every page.
  * Loaded last so it wins over the per-template containers.
- *   desktop  : content up to 1400px (wide screens), header aligned with it
+ *   desktop  : full width with 40px gutters, header aligned with it
  *   tablet   : full width with 24px gutters
  *   mobile   : full width with 14px gutters, single padding layer
  */
 :root {
-    --sp-wrap: 1400px;
+    --sp-wrap: 100%;
     --sp-gutter: clamp(14px, 3.2vw, 40px);
     --sp-card-pad: clamp(16px, 2.6vw, 40px);
 }
@@ -188,8 +188,55 @@ body {
         width: 100%;
     }
 }
-/* Sign-in / sign-up keep their focused narrow card. */
+/* Pages without the feed sidebars: drop the old 3-column shell grid
+   (280px | content | 320px) that squeezed archives, 404 and plain pages. */
+html body #main.site-main:not(:has(> .site-main__sidebar-left, > .site-main__sidebar-right)) {
+    display: block !important;
+}
+
+/* Every section spans the page width on all screens. */
+#main.site-main > *,
+#main.site-main article,
+.sp-page__body,
+.sp-section,
+.sp-wiki,
+.sp-wiki__section,
+.sp-story,
+.sp-feed,
+.sp-container,
+.sp-research-credit,
+.post-grid,
+.error-404,
+.page-header,
+.entry-content,
+.entry-content-wrap {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+}
+
+.sp-research-credit {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* Post archives: responsive card grid instead of one 280px column. */
+.post-grid.bb-standard {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap: 1.5rem;
+}
+
+.post-grid.bb-standard > article {
+    width: auto !important;
+    margin: 0 !important;
+}
+
+/* Sign-in pages: backdrop spans the screen, the form stays readable. */
 body.sp-login-body #main.site-main,
-body.sp-login-body main.sp-page {
-    max-width: 560px !important;
+body.sp-login-body main.sp-page,
+body.sp-login-body .sp-login__card,
+body.sp-login-body .sp-login__art {
+    max-width: 100% !important;
+    width: 100% !important;
 }
