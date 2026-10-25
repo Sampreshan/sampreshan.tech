@@ -2,7 +2,7 @@
 /**
  * Home: Flag Cinema — Premium 3D Waving Sanatan Dhwaja
  * JS sine-wave animation, glass transparency, neon saffron glow.
- * "वसुधैव कुटुम्बकम्" in handwriting style flowing with the flag wave.
+ * "Vasudhaiva Kutumbakam" in handwriting style flowing with the flag wave.
  * Pure JS + SVG, no external deps.
  *
  * @package SampreShan_Child
@@ -59,17 +59,17 @@
                 <!-- Glass highlight overlay -->
                 <path id="flagGlassPath" d="" fill="url(#flagGlass)"/>
 
-                <!-- "वसुधैव कुटुम्बकम्" handwriting — moves with flag wave -->
+                <!-- "Vasudhaiva Kutumbakam" handwriting — moves with flag wave -->
                 <text id="flagText1" text-anchor="middle" dominant-baseline="central"
                       font-size="26" font-family="'Kalam','Caveat','Noto Sans Devanagari',cursive"
                       font-style="italic" font-weight="700"
                       fill="rgba(255,248,236,0.92)" style="paint-order:stroke; letter-spacing:0.04em;"
-                      stroke="rgba(139,58,0,0.35)" stroke-width="0.8">वसुधैव</text>
+                      stroke="rgba(139,58,0,0.35)" stroke-width="0.8">Vasudhaiva</text>
                 <text id="flagText2" text-anchor="middle" dominant-baseline="central"
                       font-size="26" font-family="'Kalam','Caveat','Noto Sans Devanagari',cursive"
                       font-style="italic" font-weight="700"
                       fill="rgba(255,248,236,0.92)" style="paint-order:stroke; letter-spacing:0.04em;"
-                      stroke="rgba(139,58,0,0.35)" stroke-width="0.8">कुटुम्बकम्</text>
+                      stroke="rgba(139,58,0,0.35)" stroke-width="0.8">Kutumbakam</text>
             </svg>
         </div>
 
@@ -79,7 +79,7 @@
 
     <!-- Word cycle -->
     <div class="sp-flagcinema-3d__words" aria-hidden="true">
-        <span class="w-hi">संप्रेषण</span>
+        <span class="w-hi">ONE WORLD, ONE FAMILY</span>
         <span class="w-en">SAMPRESHAN</span>
     </div>
 
@@ -149,7 +149,7 @@
             back.setAttribute('d', dBack);
             glass.setAttribute('d', dFront);
 
-            // Move "वसुधैव" with flag center (top half)
+            // Move "Vasudhaiva" with flag center (top half)
             var midX1 = startX + (endX - startX) * 0.48;
             var midYOff1 = waveY(midX1, time + 0.15, 8, 1.8);
             text1.setAttribute('x', midX1);
@@ -158,7 +158,7 @@
             var dx1 = waveY(midX1 + 2, time + 0.15, 8, 1.8) - midYOff1;
             text1.setAttribute('transform', 'rotate(' + (dx1 * 1.2) + ',' + midX1 + ',' + (topY + 35 + midYOff1) + ')');
 
-            // Move "कुटुम्बकम्" with flag lower half
+            // Move "Kutumbakam" with flag lower half
             var midX2 = startX + (endX - startX) * 0.48;
             var midYOff2 = waveY(midX2, time + 0.45, 10, 1.8);
             text2.setAttribute('x', midX2);

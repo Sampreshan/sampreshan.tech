@@ -41,6 +41,8 @@ jobs:
 
       - name: No emoji (own icon kit only, docs/ICON-RULES.md)
         run: python3 tools/check-no-emoji.py buddyboss-theme-child
+      - name: English-only display text
+        run: python3 tools/check-english-only.py buddyboss-theme-child
 
       - name: Build theme archive
         run: |
