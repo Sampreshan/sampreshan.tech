@@ -275,6 +275,20 @@ function sp_seo_public_description( $description ) {
         return $content ?: 'Support a meaningful community cause on SampreShan.';
     }
 
+    if ( is_tax( 'dharma_peeth' ) || is_category() ) {
+        $term = get_queried_object();
+        $text = $term ? trim( wp_strip_all_tags( term_description( $term ) ) ) : '';
+        if ( '' !== $text ) {
+            return wp_trim_words( $text, 28, '...' );
+        }
+        if ( $term && is_tax( 'dharma_peeth' ) ) {
+            return $term->name . ': history, tradition, Acharya and latest updates on SampreShan.';
+        }
+        if ( $term ) {
+            return $term->name . ' stories and updates from the SampreShan community.';
+        }
+    }
+
     if ( is_page() && ( '' === trim( (string) $description ) || false !== stripos( (string) $description, 'skip to main content' ) ) ) {
         return get_the_title() . ' on SampreShan: Sanatana community, dialogue and positive participation.';
     }
