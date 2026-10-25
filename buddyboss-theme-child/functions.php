@@ -171,10 +171,38 @@ if ( ! function_exists( 'bb_get_excerpt' ) ) {
 }
 
 /**
+ * Child-theme templates do not render Elementor content, so Elementor never
+ * prints elementorFrontendConfig, yet its frontend scripts still load and throw
+ * "elementorFrontendConfig is not defined". Drop them (and anything that
+ * depends on them) when the config is missing.
+ */
+function sp_drop_unconfigured_elementor_scripts() {
+    $scripts = wp_scripts();
+    if ( ! wp_script_is( 'elementor-frontend', 'enqueued' ) ) {
+        return;
+    }
+    $before = $scripts->get_data( 'elementor-frontend', 'before' );
+    if ( ! empty( $before ) && false !== strpos( implode( '', (array) $before ), 'elementorFrontendConfig' ) ) {
+        return;
+    }
+    $drop = array( 'elementor-frontend', 'elementor-frontend-modules', 'elementor-webpack-runtime' );
+    foreach ( $scripts->queue as $handle ) {
+        $deps = isset( $scripts->registered[ $handle ] ) ? (array) $scripts->registered[ $handle ]->deps : array();
+        if ( array_intersect( $deps, $drop ) || 'buddyboss-theme-elementor-js' === $handle || 0 === strpos( $handle, 'elementor-pro' ) ) {
+            wp_dequeue_script( $handle );
+        }
+    }
+    foreach ( $drop as $handle ) {
+        wp_dequeue_script( $handle );
+    }
+}
+add_action( 'wp_footer', 'sp_drop_unconfigured_elementor_scripts', 19 );
+
+/**
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.36' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.37' );
 }
 
 /**
