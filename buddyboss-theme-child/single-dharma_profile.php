@@ -54,10 +54,13 @@ while ( have_posts() ) : the_post();
             <div class="sp-wiki__main">
                 <p class="sp-wiki__lead"><?php echo esc_html( $data ? $data['summary'] : get_the_excerpt() ); ?></p>
 
+                <?php $sp_has_pp = (bool) sp_parampara_for( get_post_field( 'post_name', $profile_id ) ); ?>
+
                 <?php if ( count( $sections ) > 1 ) : ?>
                     <nav class="sp-wiki__toc" aria-labelledby="sp-wiki-toc-title">
                         <p id="sp-wiki-toc-title"><?php esc_html_e( 'Contents', 'sampreshan-child' ); ?></p>
                         <ol>
+                            <?php if ( $sp_has_pp ) : ?><li><a href="#parampara"><?php esc_html_e( 'Guru Parampara', 'sampreshan-child' ); ?></a></li><?php endif; ?>
                             <?php foreach ( array_keys( $sections ) as $heading ) : ?>
                                 <li><a href="#<?php echo esc_attr( sanitize_title( $heading ) ); ?>"><?php echo esc_html( $heading ); ?></a></li>
                             <?php endforeach; ?>
@@ -96,6 +99,7 @@ while ( have_posts() ) : the_post();
                 <?php endif; ?>
             </div>
         </div>
+        <?php sp_parampara_render( get_post_field( 'post_name', $profile_id ) ); ?>
     </article>
 
 <?php else : ?>
@@ -121,6 +125,8 @@ while ( have_posts() ) : the_post();
                 <p class="sp-folio__followers" data-sp-follow-count><?php echo esc_html( $follow_txt ); ?></p>
             </div>
         </header>
+
+        <?php sp_parampara_position_render( get_post_field( 'post_name', $profile_id ), $peeth_post ); ?>
 
         <?php $guru = ( $data && ! empty( $data['guru'] ) ) ? sp_dharma_profile_by_slug( $data['guru'] ) : null; ?>
         <?php if ( $guru ) : ?>
