@@ -233,6 +233,7 @@ html body #main.site-main:not(:has(> .site-main__sidebar-left, > .site-main__sid
 }
 
 /* Sign-in pages: backdrop spans the screen, the form stays readable. */
+body.sp-login-body .sp-login,
 body.sp-login-body #main.site-main,
 body.sp-login-body main.sp-page,
 body.sp-login-body .sp-login__card,
