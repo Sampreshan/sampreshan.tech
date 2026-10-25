@@ -356,11 +356,30 @@ function sp_parampara_for( $slug ) {
         return $all[ $slug ];
     }
     $data = function_exists( 'sp_dharma_data_all' ) ? ( sp_dharma_data_all()[ $slug ] ?? null ) : null;
-    if ( ! $data || 'sampradaya' !== ( $data['kind'] ?? '' ) || empty( $data['infobox']['Founder'] ) ) {
+    if ( ! $data || 'sampradaya' !== ( $data['kind'] ?? '' ) ) {
+        return null;
+    }
+    // Root of the tree: the founder, or the figure the tradition is built around.
+    $roots = array(
+        'Founder'           => __( 'Founder', 'sampreshan-child' ),
+        'Principal Acharya' => __( 'Principal Acharya', 'sampreshan-child' ),
+        'Inspiration'       => __( 'Inspiration', 'sampreshan-child' ),
+        'Key teachers'      => __( 'Founding teachers', 'sampreshan-child' ),
+        'Key figures'       => __( 'Founding figures', 'sampreshan-child' ),
+        'Saints'            => __( 'Saints of the tradition', 'sampreshan-child' ),
+    );
+    $root = null;
+    foreach ( $roots as $key => $label ) {
+        if ( ! empty( $data['infobox'][ $key ] ) ) {
+            $root = array( 'name' => $data['infobox'][ $key ], 'label' => $label );
+            break;
+        }
+    }
+    if ( ! $root ) {
         return null;
     }
     return array(
-        'founder' => array( 'name' => $data['infobox']['Founder'], 'when' => '', 'note' => '' ),
+        'founder' => array( 'name' => $root['name'], 'label' => $root['label'], 'when' => '', 'note' => '' ),
         'basis'   => 'documented',
         'count'   => 'The line of Acharyas is being compiled',
         'nodes'   => array(
