@@ -157,10 +157,24 @@ function sp_feed_url() {
 require_once get_stylesheet_directory() . '/inc/iconscout/client.php';
 
 /**
+ * Multibyte-safe replacement for the parent theme's pluggable excerpt trimmer.
+ * The parent uses substr(), which cuts Devanagari characters in half.
+ */
+if ( ! function_exists( 'bb_get_excerpt' ) ) {
+    function bb_get_excerpt( $text, $lenght ) {
+        $content = mb_substr( $text, 0, (int) $lenght );
+        if ( mb_strlen( $content ) < mb_strlen( $text ) ) {
+            $content .= '&hellip;';
+        }
+        return $content;
+    }
+}
+
+/**
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.33' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.34' );
 }
 
 /**

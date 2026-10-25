@@ -173,6 +173,11 @@ $sp_pigeon    = get_stylesheet_directory_uri() . '/assets/brand/pigeon-logo';
                 ? bp_core_get_user_domain( get_current_user_id() )
                 : home_url( '/profile/' );
             $sp_mode  = ( 'register' === $action ) ? 'signup' : 'signin';
+            // The auth widget draws its own visible heading; this gives the page its one H1.
+            printf(
+                '<h1 class="screen-reader-text">%s</h1>',
+                esc_html( 'signup' === $sp_mode ? __( 'Create your SampreShan account', 'sampreshan-child' ) : __( 'Sign in to SampreShan', 'sampreshan-child' ) )
+            );
             echo do_shortcode( '[vp_login mode="' . esc_attr( $sp_mode ) . '" redirect="' . esc_url( $sp_after ) . '"]' );
             ?>
 
