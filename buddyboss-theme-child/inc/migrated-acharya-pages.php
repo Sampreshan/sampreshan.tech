@@ -90,7 +90,10 @@ function sp_migrated_page_description( $description ) {
         return $description;
     }
 
-    $excerpt = wp_trim_words( wp_strip_all_tags( get_post_field( 'post_content', get_queried_object_id() ) ), 28, '...' );
+    $excerpt = trim( (string) get_post_field( 'post_excerpt', get_queried_object_id() ) );
+    if ( '' === $excerpt ) {
+        $excerpt = wp_trim_words( wp_strip_all_tags( get_post_field( 'post_content', get_queried_object_id() ) ), 28, '...' );
+    }
     return $excerpt ? $excerpt : $description;
 }
 add_filter( 'rank_math/frontend/description', 'sp_migrated_page_description', 20 );
