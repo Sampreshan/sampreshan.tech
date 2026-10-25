@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-27 14:13:04+00:00\n"
+"POT-Creation-Date: 2026-10-06 10:53:55+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -255,7 +255,7 @@ msgstr ""
 
 #: bbpress/content-single-topic-lead.php:230
 #: bbpress/content-single-topic-lead.php:283 inc/plugins/bbpress-helper.php:226
-#: template-parts/header-profile-menu.php:171
+#: template-parts/header-profile-menu.php:184
 msgid "Posts"
 msgstr ""
 
@@ -587,8 +587,8 @@ msgstr ""
 msgid "%s's Favorites"
 msgstr ""
 
-#: bbpress/user-details.php:62 template-parts/entry-meta.php:43
-#: template-parts/entry-meta.php:72 template-parts/header-profile-menu.php:182
+#: bbpress/user-details.php:62 template-parts/entry-meta.php:50
+#: template-parts/entry-meta.php:79 template-parts/header-profile-menu.php:195
 msgid "Likes"
 msgstr ""
 
@@ -596,7 +596,7 @@ msgstr ""
 msgid "%s's Subscriptions"
 msgstr ""
 
-#: bbpress/user-details.php:69 template-parts/header-profile-menu.php:441
+#: bbpress/user-details.php:69 template-parts/header-profile-menu.php:454
 msgid "Subscriptions"
 msgstr ""
 
@@ -704,7 +704,7 @@ msgid "Remove Invite"
 msgstr ""
 
 #: buddypress/groups/single/invite-anyone.php:88
-#: template-parts/header-profile-menu.php:551
+#: template-parts/header-profile-menu.php:564
 msgid "Send Invites"
 msgstr ""
 
@@ -744,7 +744,7 @@ msgid "Sorry, no %s were found."
 msgstr ""
 
 #: buddypress/members/single/groups/invites.php:10
-#: template-parts/header-profile-menu.php:129
+#: template-parts/header-profile-menu.php:142
 msgid "Group Invites"
 msgstr ""
 
@@ -779,7 +779,7 @@ msgid ""
 msgstr ""
 
 #: buddypress/members/single/invites/sent-invites.php:87
-#: template-parts/header-profile-menu.php:554
+#: template-parts/header-profile-menu.php:567
 msgid "Sent Invites"
 msgstr ""
 
@@ -862,7 +862,7 @@ msgstr ""
 #: inc/plugins/beaver-builder/header-bar/header-bar.php:116
 #: inc/plugins/elementor/widgets/header-bar/bb-header-bar.php:323
 #: template-parts/content-buddypress.php:31
-#: template-parts/header-profile-menu.php:242
+#: template-parts/header-profile-menu.php:255
 #: template-parts/notification-dropdown.php:7
 #: template-parts/notification-dropdown.php:8
 #: template-parts/notification-dropdown.php:17
@@ -963,7 +963,7 @@ msgstr ""
 msgid "Edited By Me"
 msgstr ""
 
-#: docs/tabs-nouveau.php:14 template-parts/header-profile-menu.php:396
+#: docs/tabs-nouveau.php:14 template-parts/header-profile-menu.php:409
 msgid "My Groups"
 msgstr ""
 
@@ -1087,7 +1087,7 @@ msgstr ""
 msgid "All plugins installed and activated successfully. %s"
 msgstr ""
 
-#: inc/admin/admin-init.php:205 inc/admin/admin-init.php:208
+#: inc/admin/admin-init.php:222 inc/admin/admin-init.php:225
 #: inc/custom-fonts/classes/class-buddyboss-custom-fonts-render.php:98
 #: inc/plugins/beaver-builder/header-bar/header-bar.php:18
 #: inc/plugins/buddyboss-menu-icons/vendor/kucrut/icon-picker/includes/types/buddyboss.php:44
@@ -1095,19 +1095,19 @@ msgstr ""
 msgid "BuddyBoss"
 msgstr ""
 
-#: inc/admin/admin-init.php:409
+#: inc/admin/admin-init.php:426
 msgid ""
 "Please click \"Reset All\" at the top, before doing an import in order for "
 "your changes to take effect."
 msgstr ""
 
-#: inc/admin/admin-init.php:437
+#: inc/admin/admin-init.php:454
 msgid ""
 "Warning: Access Restricted. Please enable BuddyBoss Theme License key <a "
 "href=\"%s\">HERE</a> and try again."
 msgstr ""
 
-#: inc/admin/admin-init.php:570 inc/admin/admin-init.php:646
+#: inc/admin/admin-init.php:587 inc/admin/admin-init.php:663
 #: inc/plugins/elementor/widgets/bb-dashboard-grid.php:663
 #: inc/plugins/elementor/widgets/bb-dashboard-intro.php:204
 #: inc/plugins/elementor/widgets/bb-forums-activity.php:267
@@ -1120,67 +1120,67 @@ msgstr ""
 msgid "Padding"
 msgstr ""
 
-#: inc/admin/admin-init.php:581
+#: inc/admin/admin-init.php:598
 msgid "Padding:"
 msgstr ""
 
-#: inc/admin/admin-init.php:691
+#: inc/admin/admin-init.php:708
 msgid ""
 "BuddyBoss Theme requires LearnDash 3.0 or above.  <a href=\"%s\">Update "
 "LearnDash</a>"
 msgstr ""
 
-#: inc/admin/admin-init.php:700
+#: inc/admin/admin-init.php:717
 msgid ""
 "BuddyBoss Theme requires the <strong>LearnDash 3.0</strong>  template, "
 "however you are using the <strong>Legacy</strong> template. <a "
 "href=\"%s\">Repair</a>"
 msgstr ""
 
-#: inc/admin/admin-init.php:726
+#: inc/admin/admin-init.php:743
 msgid "Default Fonts"
 msgstr ""
 
-#: inc/admin/admin-init.php:729 inc/admin/admin-init.php:737
+#: inc/admin/admin-init.php:746 inc/admin/admin-init.php:754
 #: inc/custom-fonts/classes/class-buddyboss-custom-fonts-admin.php:138
 msgid "Normal 400"
 msgstr ""
 
-#: inc/admin/admin-init.php:730 inc/admin/admin-init.php:738
+#: inc/admin/admin-init.php:747 inc/admin/admin-init.php:755
 #: inc/custom-fonts/classes/class-buddyboss-custom-fonts-admin.php:141
 msgid "Medium 500"
 msgstr ""
 
-#: inc/admin/admin-init.php:731
+#: inc/admin/admin-init.php:748
 #: inc/custom-fonts/classes/class-buddyboss-custom-fonts-admin.php:147
 msgid "Bold 700"
 msgstr ""
 
-#: inc/admin/admin-init.php:736
+#: inc/admin/admin-init.php:753
 #: inc/custom-fonts/classes/class-buddyboss-custom-fonts-admin.php:135
 msgid "Light 300"
 msgstr ""
 
-#: inc/admin/admin-init.php:739
+#: inc/admin/admin-init.php:756
 #: inc/custom-fonts/classes/class-buddyboss-custom-fonts-admin.php:144
 msgid "Semi Bold 600"
 msgstr ""
 
-#: inc/admin/admin-init.php:740
+#: inc/admin/admin-init.php:757
 msgid "Light 300 Italic"
 msgstr ""
 
-#: inc/admin/admin-init.php:741
+#: inc/admin/admin-init.php:758
 msgid "Normal 400 Italic"
 msgstr ""
 
-#: inc/admin/admin-init.php:764
+#: inc/admin/admin-init.php:781
 msgid ""
 "Please update BuddyBoss Platform to v1.4.0 to maintain compatibility with "
 "BuddyBoss Theme. Some icons in your theme will look wrong until you update."
 msgstr ""
 
-#: inc/admin/admin-init.php:777
+#: inc/admin/admin-init.php:794
 msgid "This panel is set to be Read-Only. Saving is disabled."
 msgstr ""
 
@@ -1524,67 +1524,81 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:306
+#: inc/admin/mothership/class-bb-theme-license-manager.php:341
 msgid "License activated successfully"
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:321
+#: inc/admin/mothership/class-bb-theme-license-manager.php:356
 msgid "License deactivated successfully"
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:378
-msgid "You do not have permission to activate a license"
+#: inc/admin/mothership/class-bb-theme-license-manager.php:423
+msgid "You do not have permission to deactivate a license"
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:382
-#: inc/admin/mothership/class-bb-theme-license-manager.php:1096
+#: inc/admin/mothership/class-bb-theme-license-manager.php:427
+#: inc/admin/mothership/class-bb-theme-license-manager.php:499
+#: inc/admin/mothership/class-bb-theme-license-manager.php:1378
 msgid "Invalid nonce"
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:397
+#: inc/admin/mothership/class-bb-theme-license-manager.php:448
+msgid "License deactivation failed. Please try again."
+msgstr ""
+
+#: inc/admin/mothership/class-bb-theme-license-manager.php:458
+#. translators: %s is the error message from API
+msgid "License deactivation failed: %s"
+msgstr ""
+
+#: inc/admin/mothership/class-bb-theme-license-manager.php:495
+msgid "You do not have permission to activate a license"
+msgstr ""
+
+#: inc/admin/mothership/class-bb-theme-license-manager.php:514
 msgid "License key is required"
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:401
+#: inc/admin/mothership/class-bb-theme-license-manager.php:518
 msgid "Activation domain is required"
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:438
+#: inc/admin/mothership/class-bb-theme-license-manager.php:555
 msgid ""
 "License activation failed. Please check your license key and try again. If "
 "the problem persists, contact support."
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:481
+#: inc/admin/mothership/class-bb-theme-license-manager.php:598
 #. translators: %s is the error message from API
 msgid "License activation failed: %s"
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:502
+#: inc/admin/mothership/class-bb-theme-license-manager.php:619
 msgid ""
 "License activation failed: The stored product ID did not match your "
 "license. Please try activating again with your license key."
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:548
+#: inc/admin/mothership/class-bb-theme-license-manager.php:665
 #. translators: %d is the number of minutes to wait
 msgid ""
 "License activation failed: Too many activation requests. Please wait "
 "approximately %d minute(s) before trying again."
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:585
+#: inc/admin/mothership/class-bb-theme-license-manager.php:717
 msgid "License activation succeeded but failed to save. Please try again."
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:695
+#: inc/admin/mothership/class-bb-theme-license-manager.php:894
 #. translators: %d is the number of minutes to wait
 msgid ""
 "Too many activation requests. Please wait approximately %d minute(s) before "
 "trying again."
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:734
+#: inc/admin/mothership/class-bb-theme-license-manager.php:933
 #. translators: 1: Expected product, 2: Actual product from license
 msgid ""
 "Product validation failed: Your license is for \"%2$s\" but the system was "
@@ -1592,193 +1606,184 @@ msgid ""
 "activating again."
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:806
-#: inc/admin/mothership/class-bb-theme-license-page.php:48
+#: inc/admin/mothership/class-bb-theme-license-manager.php:1028
+#: inc/admin/mothership/class-bb-theme-license-page.php:49
 msgid "License Activation"
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:812
+#: inc/admin/mothership/class-bb-theme-license-manager.php:1034
 msgid "License Key"
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:815
-#: inc/admin/mothership/class-bb-theme-license-manager.php:869
+#: inc/admin/mothership/class-bb-theme-license-manager.php:1037
+#: inc/admin/mothership/class-bb-theme-license-manager.php:1160
 msgid "Enter your license key"
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:823
+#: inc/admin/mothership/class-bb-theme-license-manager.php:1045
 msgid "Activate License"
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:846
+#: inc/admin/mothership/class-bb-theme-license-manager.php:1122
 msgid "License Management"
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:851
+#: inc/admin/mothership/class-bb-theme-license-manager.php:1127
 msgid "%1$s of %2$s sites have been activated with this license key"
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:857
+#: inc/admin/mothership/class-bb-theme-license-manager.php:1129
+msgid "unlimited"
+msgstr ""
+
+#: inc/admin/mothership/class-bb-theme-license-manager.php:1141
+msgid ""
+"This license is active, but its plan does not include the BuddyBoss Theme. "
+"Theme updates and support are not covered by it."
+msgstr ""
+
+#: inc/admin/mothership/class-bb-theme-license-manager.php:1148
 msgid "License Key: "
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:858
+#: inc/admin/mothership/class-bb-theme-license-manager.php:1149
 msgid "Status: "
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:859
+#: inc/admin/mothership/class-bb-theme-license-manager.php:1150
 msgid "Product: "
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:860
+#: inc/admin/mothership/class-bb-theme-license-manager.php:1151
 msgid "Activations: "
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:873
+#: inc/admin/mothership/class-bb-theme-license-manager.php:1164
 msgid "Deactivate License"
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:955
+#: inc/admin/mothership/class-bb-theme-license-manager.php:1246
 #. translators: %d is the number of minutes to wait
 msgid ""
 "Rate limit exceeded. Please wait approximately %d minute(s) before trying "
 "again."
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:1101
+#: inc/admin/mothership/class-bb-theme-license-manager.php:1383
 msgid "You do not have permission to perform this action"
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:1166
+#: inc/admin/mothership/class-bb-theme-license-manager.php:1453
 msgid ""
 "License settings have been reset successfully. You can now activate your "
 "license with the correct license key."
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-manager.php:1173
+#: inc/admin/mothership/class-bb-theme-license-manager.php:1460
 msgid ""
 "Failed to reset license settings. Please try again or contact support if "
 "the problem persists."
 msgstr ""
 
-#: inc/admin/mothership/class-bb-theme-license-page.php:33
+#: inc/admin/mothership/class-bb-theme-license-page.php:28
 msgid "BuddyBoss Theme Activation"
 msgstr ""
 
 #: inc/admin/mothership/views/admin.php:12
-msgid "Auto Connect (Recommended)"
-msgstr ""
-
-#: inc/admin/mothership/views/admin.php:14
-msgid ""
-"Click the \"Connect to BuddyBoss\" button to log into your BuddyBoss "
-"account. Then click \"Allow\" to have your license automatically filled in "
-"to activate your products."
-msgstr ""
-
-#: inc/admin/mothership/views/admin.php:18
-msgid "Connect to BuddyBoss"
-msgstr ""
-
-#: inc/admin/mothership/views/admin.php:20
-msgid "Connecting"
-msgstr ""
-
-#: inc/admin/mothership/views/admin.php:26
 msgid "Manual Connect"
 msgstr ""
 
-#: inc/admin/mothership/views/admin.php:29
+#: inc/admin/mothership/views/admin.php:15
 msgid "Log into %s"
 msgstr ""
 
-#: inc/admin/mothership/views/admin.php:32
+#: inc/admin/mothership/views/admin.php:18
 msgid "Go to your %s"
 msgstr ""
 
-#: inc/admin/mothership/views/admin.php:35
+#: inc/admin/mothership/views/admin.php:21
 msgid "Go to the \"Subscriptions\" tab"
 msgstr ""
 
-#: inc/admin/mothership/views/admin.php:38
+#: inc/admin/mothership/views/admin.php:24
 msgid "Find your product's license key"
 msgstr ""
 
-#: inc/admin/mothership/views/admin.php:41
+#: inc/admin/mothership/views/admin.php:27
 msgid "Enter your license key below"
 msgstr ""
 
-#: inc/admin/mothership/views/admin.php:44
+#: inc/admin/mothership/views/admin.php:30
 msgid "Enter your BuddyBoss account email"
 msgstr ""
 
-#: inc/admin/mothership/views/admin.php:47
+#: inc/admin/mothership/views/admin.php:33
 msgid "Click \"Update License\""
 msgstr ""
 
-#: inc/admin/mothership/views/admin.php:55
+#: inc/admin/mothership/views/admin.php:41
 msgid "Benefits of a License"
 msgstr ""
 
-#: inc/admin/mothership/views/admin.php:58
+#: inc/admin/mothership/views/admin.php:44
 msgid "Stay Up to Date"
 msgstr ""
 
-#: inc/admin/mothership/views/admin.php:59
+#: inc/admin/mothership/views/admin.php:45
 msgid "Get the latest features right away"
 msgstr ""
 
-#: inc/admin/mothership/views/admin.php:62
+#: inc/admin/mothership/views/admin.php:48
 msgid "Admin Notifications"
 msgstr ""
 
-#: inc/admin/mothership/views/admin.php:63
+#: inc/admin/mothership/views/admin.php:49
 msgid "Get updates in WordPress"
 msgstr ""
 
-#: inc/admin/mothership/views/admin.php:66
+#: inc/admin/mothership/views/admin.php:52
 msgid "Professional Support"
 msgstr ""
 
-#: inc/admin/mothership/views/admin.php:67
+#: inc/admin/mothership/views/admin.php:53
 msgid "Get help with any questions"
 msgstr ""
 
-#: inc/admin/mothership/views/admin.php:87
+#: inc/admin/mothership/views/admin.php:73
 msgid "Troubleshooting"
 msgstr ""
 
-#: inc/admin/mothership/views/admin.php:88
+#: inc/admin/mothership/views/admin.php:74
 msgid ""
 "If you're experiencing activation issues, you can reset all license "
 "settings and try again."
 msgstr ""
 
-#: inc/admin/mothership/views/admin.php:89
+#: inc/admin/mothership/views/admin.php:75
 msgid "Warning:"
 msgstr ""
 
-#: inc/admin/mothership/views/admin.php:89
+#: inc/admin/mothership/views/admin.php:75
 msgid ""
 "This will clear all license data including activation status. You will need "
 "to re-activate your license after resetting."
 msgstr ""
 
-#: inc/admin/mothership/views/admin.php:91
+#: inc/admin/mothership/views/admin.php:77
 msgid "Reset License Settings"
 msgstr ""
 
-#: inc/admin/mothership/views/admin.php:103
+#: inc/admin/mothership/views/admin.php:89
 msgid ""
 "Are you sure you want to reset all license settings? This will clear your "
 "license activation and you will need to re-activate."
 msgstr ""
 
-#: inc/admin/mothership/views/admin.php:138
+#: inc/admin/mothership/views/admin.php:124
 msgid "An error occurred"
 msgstr ""
 
-#: inc/admin/mothership/views/admin.php:148
+#: inc/admin/mothership/views/admin.php:134
 msgid "Network error. Please try again."
 msgstr ""
 
@@ -2522,9 +2527,9 @@ msgstr ""
 #: inc/admin/options-init.php:1288 inc/admin/options-init.php:1337
 #: inc/plugins/beaver-builder/header-bar/header-bar.php:106
 #: inc/plugins/elementor/widgets/header-bar/bb-header-bar.php:302
-#: template-parts/header-profile-menu.php:287
-#: template-parts/header-profile-menu.php:288
 #: template-parts/header-profile-menu.php:300
+#: template-parts/header-profile-menu.php:301
+#: template-parts/header-profile-menu.php:313
 #: template-parts/messages-dropdown.php:7
 #: template-parts/messages-dropdown.php:8
 #: template-parts/messages-dropdown.php:17
@@ -3190,7 +3195,7 @@ msgstr ""
 #: inc/admin/options-init.php:2226
 #: inc/plugins/elementor/widgets/bb-forums.php:40
 #: inc/plugins/elementor/widgets/bb-forums.php:197
-#: template-parts/header-profile-menu.php:424
+#: template-parts/header-profile-menu.php:437
 msgid "Forums"
 msgstr ""
 
@@ -5051,7 +5056,7 @@ msgid "Award"
 msgstr ""
 
 #: inc/plugins/buddyboss-menu-icons/vendor/kucrut/icon-picker/includes/types/buddyboss_legacy.php:303
-#: inc/theme/functions.php:451
+#: inc/theme/functions.php:454
 msgid "Badge"
 msgstr ""
 
@@ -5458,8 +5463,8 @@ msgid "Connection: Request"
 msgstr ""
 
 #: inc/plugins/buddyboss-menu-icons/vendor/kucrut/icon-picker/includes/types/buddyboss_legacy.php:723
-#: template-parts/header-profile-menu.php:193
-#: template-parts/header-profile-menu.php:337
+#: template-parts/header-profile-menu.php:206
+#: template-parts/header-profile-menu.php:350
 msgid "Connections"
 msgstr ""
 
@@ -5976,8 +5981,8 @@ msgstr ""
 #: inc/plugins/buddyboss-menu-icons/vendor/kucrut/icon-picker/includes/types/dashicons.php:1024
 #: inc/plugins/elementor/widgets/groups/bb-groups.php:48
 #: inc/plugins/elementor/widgets/groups/bb-groups.php:210
-#: template-parts/header-profile-menu.php:198
-#: template-parts/header-profile-menu.php:370
+#: template-parts/header-profile-menu.php:211
+#: template-parts/header-profile-menu.php:383
 msgid "Groups"
 msgstr ""
 
@@ -6194,9 +6199,9 @@ msgid "Log In"
 msgstr ""
 
 #: inc/plugins/buddyboss-menu-icons/vendor/kucrut/icon-picker/includes/types/buddyboss_legacy.php:1518
-#: inc/theme/functions.php:1677 inc/theme/template-functions.php:1555
+#: inc/theme/functions.php:1680 inc/theme/template-functions.php:1555
 #: paid-memberships-pro/pages/account.php:252
-#: template-parts/header-profile-menu.php:569
+#: template-parts/header-profile-menu.php:582
 msgid "Log Out"
 msgstr ""
 
@@ -6345,7 +6350,7 @@ msgid "Music"
 msgstr ""
 
 #: inc/plugins/buddyboss-menu-icons/vendor/kucrut/icon-picker/includes/types/buddyboss_legacy.php:1678
-#: template-parts/header-profile-menu.php:350
+#: template-parts/header-profile-menu.php:363
 msgid "My Connections"
 msgstr ""
 
@@ -12796,7 +12801,7 @@ msgid "Typography Sign Up"
 msgstr ""
 
 #: inc/plugins/elementor/widgets/header-bar/templates/bb-header-bar-nav.php:32
-#: inc/theme/functions.php:444 template-parts/site-navigation.php:47
+#: inc/theme/functions.php:447 template-parts/site-navigation.php:47
 msgid "More options"
 msgstr ""
 
@@ -13078,41 +13083,41 @@ msgstr ""
 msgid "State / County"
 msgstr ""
 
-#: inc/theme/bb-theme-update.php:103
+#: inc/theme/bb-theme-update.php:118
 #. translators: 1: Theme name, 2: Theme details URL
 msgid "There is a new version of %1$s available. %2$s"
 msgstr ""
 
-#: inc/theme/bb-theme-update.php:112 inc/theme/bb-theme-update.php:133
-#: inc/theme/bb-theme-update.php:159
+#: inc/theme/bb-theme-update.php:127 inc/theme/bb-theme-update.php:148
+#: inc/theme/bb-theme-update.php:174
 #. translators: 1: Theme name, 2: Version number.
 msgid "View %1$s version %2$s details"
 msgstr ""
 
-#: inc/theme/bb-theme-update.php:116 inc/theme/bb-theme-update.php:137
-#: inc/theme/bb-theme-update.php:163
+#: inc/theme/bb-theme-update.php:131 inc/theme/bb-theme-update.php:152
+#: inc/theme/bb-theme-update.php:178
 #. translators: 1: Version number.
 msgid "View version %1$s details"
 msgstr ""
 
-#: inc/theme/bb-theme-update.php:124
+#: inc/theme/bb-theme-update.php:139
 #. translators: 1: Theme name, 2: Theme details URL, 3: Additional link
 #. attributes
 msgid "There is a new version of %1$s available. %2$s. %3$s"
 msgstr ""
 
-#: inc/theme/bb-theme-update.php:144
+#: inc/theme/bb-theme-update.php:159
 #. translators: 1: Automatic Update Text.
 msgid "Automatic update is unavailable for this theme."
 msgstr ""
 
-#: inc/theme/bb-theme-update.php:150
+#: inc/theme/bb-theme-update.php:165
 #. translators: 1: Theme name, 2: Theme details URL, 3: Additional link
 #. attributes
 msgid "There is a new version of %1$s available. %2$s or %3$s."
 msgstr ""
 
-#: inc/theme/bb-theme-update.php:177
+#: inc/theme/bb-theme-update.php:192
 msgid "update now"
 msgstr ""
 
@@ -13163,55 +13168,55 @@ msgstr ""
 msgid "Mobile Menu - Logged out"
 msgstr ""
 
-#: inc/theme/functions.php:404
+#: inc/theme/functions.php:407
 msgid "Previous Event"
 msgstr ""
 
-#: inc/theme/functions.php:405
+#: inc/theme/functions.php:408
 msgid "Next Event"
 msgstr ""
 
-#: inc/theme/functions.php:441
+#: inc/theme/functions.php:444
 msgid "Share on Facebook"
 msgstr ""
 
-#: inc/theme/functions.php:442
+#: inc/theme/functions.php:445
 msgid "Post on X"
 msgstr ""
 
-#: inc/theme/functions.php:443
+#: inc/theme/functions.php:446
 msgid "Menu Items"
 msgstr ""
 
-#: inc/theme/functions.php:446
+#: inc/theme/functions.php:449
 msgid "Your comment has been posted."
 msgstr ""
 
-#: inc/theme/functions.php:447
+#: inc/theme/functions.php:450
 msgid "Please Wait..."
 msgstr ""
 
-#: inc/theme/functions.php:448
+#: inc/theme/functions.php:451
 msgid "Choose a file"
 msgstr ""
 
-#: inc/theme/functions.php:449
+#: inc/theme/functions.php:452
 msgid "Please enter a valid email address."
 msgstr ""
 
-#: inc/theme/functions.php:501
+#: inc/theme/functions.php:504
 msgid "Choose or Upload an Image"
 msgstr ""
 
-#: inc/theme/functions.php:502
+#: inc/theme/functions.php:505
 msgid "Use this image"
 msgstr ""
 
-#: inc/theme/functions.php:1534
+#: inc/theme/functions.php:1537
 msgid "Search..."
 msgstr ""
 
-#: inc/theme/functions.php:1587
+#: inc/theme/functions.php:1590
 msgid "Stick to Bottom"
 msgstr ""
 
@@ -13463,22 +13468,36 @@ msgstr ""
 msgid "Load More"
 msgstr ""
 
-#: inc/theme/template-functions.php:2244
+#: inc/theme/template-functions.php:2245
 msgid "Edit Post Privacy"
 msgstr ""
 
-#: inc/theme/template-functions.php:2435 inc/theme/template-functions.php:2436
+#: inc/theme/template-functions.php:2436 inc/theme/template-functions.php:2437
 msgid "Subscribe to topics"
 msgstr ""
 
-#: inc/theme/template-functions.php:2452
+#: inc/theme/template-functions.php:2453
 #: template-parts/bookmarks-shortcode.php:63 template-parts/content.php:294
-#: template-parts/entry-meta.php:101
+#: template-parts/entry-meta.php:108
 msgid "Remove bookmark"
 msgstr ""
 
-#: inc/theme/template-functions.php:2452 inc/theme/template-functions.php:2454
+#: inc/theme/template-functions.php:2453 inc/theme/template-functions.php:2455
 msgid "Bookmark this post"
+msgstr ""
+
+#: inc/theme/update.php:990 inc/theme/update.php:1070 inc/theme/update.php:1414
+msgid "(opens in a new tab)"
+msgstr ""
+
+#: inc/theme/update.php:1411
+msgid ""
+"Release notes for BuddyBoss plugins are published on buddyboss.com. "
+"Activate BuddyBoss Platform to read them here."
+msgstr ""
+
+#: inc/theme/update.php:1413
+msgid "View the release notes on buddyboss.com"
 msgstr ""
 
 #: inc/theme/widgets.php:21
@@ -14657,7 +14676,7 @@ msgid "Oldest"
 msgstr ""
 
 #: template-parts/bookmarks-shortcode.php:62 template-parts/content.php:293
-#: template-parts/entry-meta.php:100
+#: template-parts/entry-meta.php:107
 msgid "Bookmark this story to read later"
 msgstr ""
 
@@ -14759,13 +14778,13 @@ msgstr ""
 msgid "Liking shows how much you appreciated %1$s’s story."
 msgstr ""
 
-#: template-parts/content.php:274 template-parts/entry-meta.php:44
-#: template-parts/entry-meta.php:73
+#: template-parts/content.php:274 template-parts/entry-meta.php:51
+#: template-parts/entry-meta.php:80
 msgid "Like this entry"
 msgstr ""
 
-#: template-parts/content.php:275 template-parts/entry-meta.php:45
-#: template-parts/entry-meta.php:74
+#: template-parts/content.php:275 template-parts/entry-meta.php:52
+#: template-parts/entry-meta.php:81
 msgid "Remove like"
 msgstr ""
 
@@ -14801,155 +14820,159 @@ msgstr ""
 msgid "Login Information"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:75
+#: template-parts/header-profile-menu.php:74
+msgid "Security"
+msgstr ""
+
+#: template-parts/header-profile-menu.php:88
 msgid "Email Preferences"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:97
+#: template-parts/header-profile-menu.php:110
 msgid "Social Accounts"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:107
+#: template-parts/header-profile-menu.php:120
 msgid "Privacy"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:114
+#: template-parts/header-profile-menu.php:127
 msgid "Blocked Members"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:135
+#: template-parts/header-profile-menu.php:148
 msgid "Export Data"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:141
+#: template-parts/header-profile-menu.php:154
 msgid "Delete Account"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:162
+#: template-parts/header-profile-menu.php:175
 msgid "Timeline"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:171
+#: template-parts/header-profile-menu.php:184
 msgid "Personal"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:184
+#: template-parts/header-profile-menu.php:197
 msgid "Reactions"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:203
+#: template-parts/header-profile-menu.php:216
 msgid "Mentions"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:208
+#: template-parts/header-profile-menu.php:221
 msgid "Following"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:233
+#: template-parts/header-profile-menu.php:246
 #. translators: %s: Unread notification count for the current user
 msgid "Notifications %s"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:238
+#: template-parts/header-profile-menu.php:251
 #. translators: %s: Unread notification count for the current user
 msgid "Unread %s"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:243
+#: template-parts/header-profile-menu.php:256
 msgid "Unread"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:258
+#: template-parts/header-profile-menu.php:271
 msgid "Read"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:278
-#: template-parts/header-profile-menu.php:283
+#: template-parts/header-profile-menu.php:291
+#: template-parts/header-profile-menu.php:296
 #. translators: %s: Unread message count for the current user
 msgid "Messages %s"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:303
+#: template-parts/header-profile-menu.php:316
 msgid "New Message"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:307
+#: template-parts/header-profile-menu.php:320
 msgid "Site Notices"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:328
+#: template-parts/header-profile-menu.php:341
 #. translators: %s: Pending friend request count for the current user
 msgid "Connections %s"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:333
+#: template-parts/header-profile-menu.php:346
 #. translators: %s: Pending friend request count for the current user
 msgid "Pending Requests %s"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:338
+#: template-parts/header-profile-menu.php:351
 msgid "No Pending Requests"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:371
+#: template-parts/header-profile-menu.php:384
 msgid "No Pending Invites"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:376
+#: template-parts/header-profile-menu.php:389
 #. translators: %s: Group invitation count for the current user
 msgid "Groups %s"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:382
+#: template-parts/header-profile-menu.php:395
 #. translators: %s: Group invitation count for the current user
 msgid "Pending Invites %s"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:403
+#: template-parts/header-profile-menu.php:416
 msgid "Create Group"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:429
+#: template-parts/header-profile-menu.php:442
 msgid "My Discussions"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:432
+#: template-parts/header-profile-menu.php:445
 msgid "My Replies"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:436
+#: template-parts/header-profile-menu.php:449
 msgid "My Favorites"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:461
+#: template-parts/header-profile-menu.php:474
 msgid "Photos"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:466
+#: template-parts/header-profile-menu.php:479
 msgid "My Photos"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:470
+#: template-parts/header-profile-menu.php:483
 msgid "My Albums"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:490
+#: template-parts/header-profile-menu.php:503
 msgid "Documents"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:495
+#: template-parts/header-profile-menu.php:508
 msgid "My Documents"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:518
+#: template-parts/header-profile-menu.php:531
 msgid "Videos"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:523
+#: template-parts/header-profile-menu.php:536
 msgid "My Videos"
 msgstr ""
 
-#: template-parts/header-profile-menu.php:546
+#: template-parts/header-profile-menu.php:559
 msgid "Email Invites"
 msgstr ""
 
@@ -14989,58 +15012,58 @@ msgstr ""
 msgid "Deleted Group"
 msgstr ""
 
-#: template-parts/unread-messages.php:367
+#: template-parts/unread-messages.php:380
 msgid "Deleted User"
 msgstr ""
 
-#: template-parts/unread-messages.php:372
-#: template-parts/unread-messages.php:488
+#: template-parts/unread-messages.php:385
+#: template-parts/unread-messages.php:501
 msgid "Suspended Member"
 msgstr ""
 
-#: template-parts/unread-messages.php:374
-#: template-parts/unread-messages.php:490
+#: template-parts/unread-messages.php:387
+#: template-parts/unread-messages.php:503
 msgid "Blocked Member"
 msgstr ""
 
-#: template-parts/unread-messages.php:387
+#: template-parts/unread-messages.php:400
 msgid "others"
 msgstr ""
 
-#: template-parts/unread-messages.php:418
+#: template-parts/unread-messages.php:431
 msgid "Sent a photo"
 msgstr ""
 
-#: template-parts/unread-messages.php:421
+#: template-parts/unread-messages.php:434
 msgid "Sent some photos"
 msgstr ""
 
-#: template-parts/unread-messages.php:434
+#: template-parts/unread-messages.php:447
 msgid "Sent a video"
 msgstr ""
 
-#: template-parts/unread-messages.php:437
+#: template-parts/unread-messages.php:450
 msgid "Sent some videos"
 msgstr ""
 
-#: template-parts/unread-messages.php:450
+#: template-parts/unread-messages.php:463
 msgid "Sent a document"
 msgstr ""
 
-#: template-parts/unread-messages.php:453
+#: template-parts/unread-messages.php:466
 msgid "Sent some documents"
 msgstr ""
 
-#: template-parts/unread-messages.php:463
+#: template-parts/unread-messages.php:476
 msgid "Sent a gif"
 msgstr ""
 
-#: template-parts/unread-messages.php:480
-#: template-parts/unread-messages.php:482
+#: template-parts/unread-messages.php:493
+#: template-parts/unread-messages.php:495
 msgid "You"
 msgstr ""
 
-#: template-parts/unread-messages.php:517
+#: template-parts/unread-messages.php:530
 msgid "You have no messages right now."
 msgstr ""
 
@@ -18838,7 +18861,7 @@ msgctxt "placeholders: comment date, comment time"
 msgid "%1$s at %2$s"
 msgstr ""
 
-#: inc/theme/bb-theme-update.php:174
+#: inc/theme/bb-theme-update.php:189
 #. translators: %s: Update now.
 msgctxt "theme"
 msgid "Update %s now"
@@ -19071,7 +19094,7 @@ msgctxt "lesson order within section"
 msgid "%1$d of %2$d"
 msgstr ""
 
-#: template-parts/entry-meta.php:52 template-parts/entry-meta.php:82
+#: template-parts/entry-meta.php:59 template-parts/entry-meta.php:89
 msgctxt "comments title"
 msgid "1 <span class=\"bb-comment-text\">Comment</span>"
 msgid_plural "%1$s <span class=\"bb-comment-text\">Comments</span>"

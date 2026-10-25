@@ -13,6 +13,13 @@ class WPCode_Admin_Page_Snippet_Manager_Pro extends WPCode_Admin_Page_Snippet_Ma
 	use WPCode_My_Library_Markup;
 
 	/**
+	 * Whether the form holds a revision loaded from the revisions page.
+	 *
+	 * @var bool
+	 */
+	protected $revision_loaded = false;
+
+	/**
 	 * Page-specific hooks.
 	 */
 	public function page_hooks() {
@@ -26,6 +33,81 @@ class WPCode_Admin_Page_Snippet_Manager_Pro extends WPCode_Admin_Page_Snippet_Ma
 		add_filter( 'admin_body_class', array( $this, 'body_class_ai_generate' ) );
 		add_filter( 'wpcode_admin_js_data', array( $this, 'maybe_add_my_cloud_data' ) );
 		add_action( 'wpcode_header_buttons', array( $this, 'maybe_add_cloud_sync_button' ) );
+		$this->maybe_load_revision();
+	}
+
+	/**
+	 * Pre-fill the editor with a revision's values without saving anything.
+	 * Reached from the restore modal's "Load into the editor first" choice.
+	 *
+	 * @return void
+	 */
+	protected function maybe_load_revision() {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Verified below with wp_verify_nonce.
+		if ( ! isset( $_GET['load_revision'], $_GET['_wpnonce'] ) || ! isset( $this->snippet ) || ! $this->can_edit || ! current_user_can( 'edit_post', $this->snippet_id ) ) {
+			return;
+		}
+
+		$revision_id = absint( $_GET['load_revision'] );
+
+		if ( ! wp_verify_nonce( sanitize_key( $_GET['_wpnonce'] ), 'wpcode-load-revision-' . $revision_id ) ) {
+			return;
+		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+
+		if ( wpcode()->revisions->get_revision_parent_id( $revision_id ) !== absint( $this->snippet_id ) ) {
+			return;
+		}
+
+		$data = wpcode()->revisions->get_revision_data( $revision_id );
+
+		if ( empty( $data ) ) {
+			return;
+		}
+
+		// Bind the loaded code type to the user's tier, the same rule the editor's save path applies.
+		$required_capability = WPCode_Access::capability_for_code_type( isset( $data['code_type'] ) ? $data['code_type'] : '' );
+		$can_edit_type       = empty( $required_capability ) ? current_user_can( 'wpcode_edit_snippets' ) : current_user_can( $required_capability );
+
+		if ( ! $can_edit_type ) {
+			return;
+		}
+
+		// Keep the live post, id and status; only the editable fields come from the revision.
+		unset( $data['id'], $data['modified'], $data['compiled_code'] );
+		$this->snippet->load_from_array( $data );
+		$this->revision_loaded = true;
+
+		add_action( 'wpcode_admin_notices', array( $this, 'revision_loaded_notice' ) );
+	}
+
+	/**
+	 * The location the editor selects.
+	 *
+	 * A loaded revision with no location keeps none, so Update saves what Restore now saves. The
+	 * parent falls back to Site Wide Header for an empty location, which would save that location.
+	 *
+	 * @return string
+	 */
+	public function get_current_snippet_location() {
+		if ( $this->revision_loaded && '' === (string) $this->snippet->get_location() ) {
+			return '';
+		}
+
+		return parent::get_current_snippet_location();
+	}
+
+	/**
+	 * Tell the user the form holds a revision that is not saved yet.
+	 *
+	 * @return void
+	 */
+	public function revision_loaded_notice() {
+		?>
+		<div class="notice notice-info">
+			<p><?php esc_html_e( 'Revision loaded into the editor. Nothing is saved until you click Update.', 'wpcode-premium' ); ?></p>
+		</div>
+		<?php
 	}
 
 	/**

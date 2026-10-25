@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPCode Pro 2.3.9\n"
+"Project-Id-Version: WPCode Pro 2.4.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpcode-premium\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-27T07:42:39+00:00\n"
+"POT-Creation-Date: 2026-10-08T09:37:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: wpcode-premium\n"
@@ -35,76 +35,80 @@ msgstr ""
 msgid "WPCode"
 msgstr ""
 
-#: includes/pro/admin/admin-ajax-handlers.php:213
+#: includes/pro/admin/admin-ajax-handlers.php:214
 #: includes/pro/class-wpcode-snippet-block.php:189
 msgid "Inactive"
 msgstr ""
 
 #. Translators: The name of the global auto-insert location for a snippet loaded in the edit-post metabox.
-#: includes/pro/admin/admin-ajax-handlers.php:228
+#: includes/pro/admin/admin-ajax-handlers.php:229
 #, php-format
 msgid "Global location: %s"
 msgstr ""
 
-#: includes/pro/admin/admin-ajax-handlers.php:234
+#: includes/pro/admin/admin-ajax-handlers.php:235
 msgid "Auto-insert disabled"
 msgstr ""
 
-#: includes/pro/admin/admin-ajax-handlers.php:241
+#: includes/pro/admin/admin-ajax-handlers.php:242
 msgid "Page location:"
 msgstr ""
 
-#: includes/pro/admin/admin-ajax-handlers.php:256
+#: includes/pro/admin/admin-ajax-handlers.php:257
 msgid "Insert number:"
 msgstr ""
 
-#: includes/pro/admin/admin-ajax-handlers.php:330
-msgid "From:"
-msgstr ""
-
 #: includes/pro/admin/admin-ajax-handlers.php:331
-msgid "To:"
-msgstr ""
-
-#: includes/pro/admin/admin-ajax-handlers.php:362
-#: includes/pro/admin/admin-ajax-handlers.php:623
+#: includes/pro/admin/admin-ajax-handlers.php:592
 msgid "Please enter a license key."
 msgstr ""
 
-#: includes/pro/admin/admin-ajax-handlers.php:402
+#: includes/pro/admin/admin-ajax-handlers.php:371
 msgid "You do not have permission to install addons."
 msgstr ""
 
-#: includes/pro/admin/admin-ajax-handlers.php:412
+#: includes/pro/admin/admin-ajax-handlers.php:381
 msgid "No addon slug provided."
 msgstr ""
 
-#: includes/pro/admin/admin-ajax-handlers.php:424
+#: includes/pro/admin/admin-ajax-handlers.php:393
 msgid "Could not install addon."
 msgstr ""
 
-#: includes/pro/admin/admin-ajax-handlers.php:431
+#: includes/pro/admin/admin-ajax-handlers.php:400
 msgid "Addon installed successfully."
 msgstr ""
 
-#: includes/pro/admin/admin-ajax-handlers.php:635
+#: includes/pro/admin/admin-ajax-handlers.php:604
 msgid "License key refreshed successfully!"
 msgstr ""
 
-#: includes/pro/admin/admin-ajax-handlers.php:640
+#: includes/pro/admin/admin-ajax-handlers.php:609
 msgid "Your license key has expired. Please renew your license."
 msgstr ""
 
-#: includes/pro/admin/admin-ajax-handlers.php:642
+#: includes/pro/admin/admin-ajax-handlers.php:611
 msgid "Your license key has been disabled."
 msgstr ""
 
-#: includes/pro/admin/admin-ajax-handlers.php:644
+#: includes/pro/admin/admin-ajax-handlers.php:613
 msgid "Your license key is invalid."
 msgstr ""
 
-#: includes/pro/admin/admin-ajax-handlers.php:646
+#: includes/pro/admin/admin-ajax-handlers.php:615
 msgid "There was an error refreshing your license. Please try again later."
+msgstr ""
+
+#: includes/pro/admin/admin-ajax-handlers.php:635
+msgid "Security check failed."
+msgstr ""
+
+#: includes/pro/admin/admin-ajax-handlers.php:640
+msgid "You do not have permission to remove revisions."
+msgstr ""
+
+#: includes/pro/admin/admin-ajax-handlers.php:644
+msgid "Revision removal is not available."
 msgstr ""
 
 #: includes/pro/admin/admin-scripts.php:91
@@ -121,17 +125,17 @@ msgstr ""
 msgid "The following addons cannot be used, because they require %1$s%2$s %3$s%4$s to work:"
 msgstr ""
 
-#: includes/pro/admin/class-wpcode-admin-page-loader-pro.php:94
-#: includes/pro/admin/class-wpcode-admin-page-loader-pro.php:125
+#: includes/pro/admin/class-wpcode-admin-page-loader-pro.php:96
+#: includes/pro/admin/class-wpcode-admin-page-loader-pro.php:127
 msgid "Go to WPCode.com Support page"
 msgstr ""
 
-#: includes/pro/admin/class-wpcode-admin-page-loader-pro.php:95
-#: includes/pro/admin/class-wpcode-admin-page-loader-pro.php:126
+#: includes/pro/admin/class-wpcode-admin-page-loader-pro.php:97
+#: includes/pro/admin/class-wpcode-admin-page-loader-pro.php:128
 msgid "Support"
 msgstr ""
 
-#: includes/pro/admin/class-wpcode-admin-page-loader-pro.php:114
+#: includes/pro/admin/class-wpcode-admin-page-loader-pro.php:116
 msgid "Settings"
 msgstr ""
 
@@ -203,7 +207,7 @@ msgid "Your license key for WPCode is invalid. The key no longer exists or the u
 msgstr ""
 
 #: includes/pro/admin/class-wpcode-metabox-snippets-pro.php:56
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1138
+#: includes/pro/admin/class-wpcode-revisions-view.php:428
 #: includes/pro/class-wpcode-admin-bar-info-pro.php:226
 #: includes/pro/class-wpcode-testing-mode.php:769
 #: includes/pro/class-wpcode-testing-mode.php:791
@@ -211,7 +215,7 @@ msgid "Header"
 msgstr ""
 
 #: includes/pro/admin/class-wpcode-metabox-snippets-pro.php:70
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1139
+#: includes/pro/admin/class-wpcode-revisions-view.php:429
 #: includes/pro/class-wpcode-admin-bar-info-pro.php:228
 #: includes/pro/class-wpcode-testing-mode.php:770
 #: includes/pro/class-wpcode-testing-mode.php:792
@@ -219,7 +223,7 @@ msgid "Footer"
 msgstr ""
 
 #: includes/pro/admin/class-wpcode-metabox-snippets-pro.php:85
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1140
+#: includes/pro/admin/class-wpcode-revisions-view.php:430
 #: includes/pro/class-wpcode-admin-bar-info-pro.php:227
 #: includes/pro/class-wpcode-testing-mode.php:771
 #: includes/pro/class-wpcode-testing-mode.php:793
@@ -286,6 +290,396 @@ msgstr ""
 
 #: includes/pro/admin/class-wpcode-metabox-snippets-pro.php:358
 msgid "As you make changes to your page scripts and save, you will get a list of previous versions with all the changes made in each revision. You can compare revisions to the current version or see changes as they have been saved by going through each revision. Any of the revisions can then be restored as needed without interfering with your post/page."
+msgstr ""
+
+#. translators: 1: the current change number (wrapped in a span), 2: the total number of changes.
+#: includes/pro/admin/class-wpcode-revisions-code-diff.php:381
+#, php-format
+msgid "Change %1$s of %2$s"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-code-diff.php:390
+#: includes/pro/admin/class-wpcode-revisions-code-diff.php:392
+msgid "Show All Lines"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-code-diff.php:391
+msgid "Hide Unchanged Lines"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-code-diff.php:399
+msgid "Previous"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-code-diff.php:401
+msgid "Next"
+msgstr ""
+
+#. translators: %d: number of unchanged lines hidden behind the fold.
+#: includes/pro/admin/class-wpcode-revisions-code-diff.php:457
+#, php-format
+msgid "%d unchanged line"
+msgid_plural "%d unchanged lines"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:337
+msgid "Title"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:338
+msgid "Code Type"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:339
+msgid "Code"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:340
+msgid "Insert Method"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:341
+msgid "Auto-insert Location"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:342
+msgid "Location-specific setting"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:343
+msgid "Insert Number"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:344
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:253
+msgid "Custom Shortcode"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:345
+msgid "Shortcode Attributes"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:346
+msgid "Priority"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:347
+#: includes/pro/conditional-logic/class-wpcode-conditional-device.php:74
+msgid "Device Type"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:348
+#: includes/pro/conditional-logic/class-wpcode-conditional-schedule.php:37
+msgid "Schedule"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:349
+msgid "Conditional Logic"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:350
+msgid "Tags"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:351
+msgid "Note"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:461
+msgid "Header Scripts"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:462
+msgid "Footer Scripts"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:463
+msgid "Body Scripts"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:466
+msgid "Any Device Type"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:467
+msgid "Desktop Only"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:468
+msgid "Mobile Only"
+msgstr ""
+
+#. translators: %s: the scripts area, for example Header Scripts.
+#: includes/pro/admin/class-wpcode-revisions-view.php:480
+#, php-format
+msgid "%s: Disable Global Scripts"
+msgstr ""
+
+#. translators: 1: scripts area label, 2: device type label.
+#: includes/pro/admin/class-wpcode-revisions-view.php:488
+#, php-format
+msgctxt "page scripts revision row label"
+msgid "%1$s (%2$s)"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:498
+msgid "Custom Code Snippets"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:625
+#: includes/pro/admin/class-wpcode-revisions-view.php:637
+msgid "Empty"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:635
+#: includes/pro/admin/class-wpcode-revisions-view.php:686
+#: includes/pro/admin/class-wpcode-revisions-view.php:691
+msgid "None"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:636
+#: includes/pro/admin/class-wpcode-revisions-view.php:739
+msgid "Off"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:638
+#: includes/pro/admin/class-wpcode-revisions-view.php:724
+msgid "Not scheduled"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:650
+msgid "Auto Insert"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:650
+msgid "Shortcode"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:703
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:376
+msgid "Any device type"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:704
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:377
+msgid "Desktop only"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:705
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:378
+msgid "Mobile only"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:744
+msgid "On"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:755
+msgid "Enabled"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:755
+msgid "Disabled"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:779
+msgid "Just now"
+msgstr ""
+
+#. translators: %s: the time of day.
+#: includes/pro/admin/class-wpcode-revisions-view.php:787
+#, php-format
+msgid "Today, %s"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:791
+msgctxt "revision list date in the current year"
+msgid "M j"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:791
+msgctxt "revision list date in another year"
+msgid "M j, Y"
+msgstr ""
+
+#. translators: 1: the date, 2: the time of day.
+#: includes/pro/admin/class-wpcode-revisions-view.php:794
+#, php-format
+msgctxt "revision list date and time"
+msgid "%1$s, %2$s"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:805
+msgctxt "revision date"
+msgid "M j, Y"
+msgstr ""
+
+#. translators: 1: the date, 2: the time of day.
+#: includes/pro/admin/class-wpcode-revisions-view.php:828
+#, php-format
+msgctxt "revision date and time"
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:843
+#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:88
+msgid "Revisions"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:860
+msgid "Current"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:862
+msgid "Restored"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:865
+msgid "Same as current"
+msgstr ""
+
+#. translators: %d: number of fields restoring the revision would change.
+#: includes/pro/admin/class-wpcode-revisions-view.php:868
+#, php-format
+msgid "%d change"
+msgid_plural "%d changes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:910
+msgid "Current version"
+msgstr ""
+
+#. translators: %s: the revision's date and time.
+#: includes/pro/admin/class-wpcode-revisions-view.php:913
+#, php-format
+msgid "Revision from %s"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:927
+msgid "The revision could not be restored. Check that you are allowed to edit this snippet and try again."
+msgstr ""
+
+#. translators: %s: the revision's date and time.
+#: includes/pro/admin/class-wpcode-revisions-view.php:938
+#, php-format
+msgid "Revision from %s restored and saved as the new current revision."
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:940
+msgid "Revision restored and saved as the new current revision."
+msgstr ""
+
+#. translators: %s: the revision's date.
+#: includes/pro/admin/class-wpcode-revisions-view.php:969
+#, php-format
+msgid "Restore Revision from %s?"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:971
+msgid "Restore This Revision"
+msgstr ""
+
+#. translators: 1: comma separated list of field names, 2: the last field name.
+#: includes/pro/admin/class-wpcode-revisions-view.php:993
+#, php-format
+msgctxt "list of changed fields"
+msgid "%1$s and %2$s"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:1009
+msgid "This revision is the same as the current version of your Header & Footer code. Restoring it would change nothing."
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:1012
+msgid "This revision is the same as the current version of the page scripts. Restoring it would change nothing."
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:1015
+msgid "This revision is the same as the current version of the snippet. Restoring it would change nothing."
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:1019
+msgid "This is the current version of your Header & Footer code. Select another revision to see what restoring it would change."
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:1022
+msgid "This is the current version of the page scripts. Select another revision to see what restoring it would change."
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:1025
+msgid "This is the current version of the snippet. Select another revision to see what restoring it would change."
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:1036
+msgid "Field"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:1036
+msgid "Current → After restore"
+msgstr ""
+
+#. translators: %s: the list of changed fields, shown in bold.
+#: includes/pro/admin/class-wpcode-revisions-view.php:1066
+#, php-format
+msgid "This changes %s in your live Header & Footer code."
+msgstr ""
+
+#. translators: %s: the list of changed fields, shown in bold.
+#: includes/pro/admin/class-wpcode-revisions-view.php:1069
+#, php-format
+msgid "This changes %s in this page's live scripts."
+msgstr ""
+
+#. translators: %s: the list of changed fields, shown in bold.
+#: includes/pro/admin/class-wpcode-revisions-view.php:1072
+#, php-format
+msgid "This changes %s on the live snippet."
+msgstr ""
+
+#. translators: %s: the number of revisions kept for each item.
+#: includes/pro/admin/class-wpcode-revisions-view.php:1082
+#, php-format
+msgid "Your current version stays in the revisions list, so you can restore it later, until your limit of %s revisions removes it."
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:1086
+msgid "Your current version stays in the revisions list, so you can restore it later."
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:1092
+msgid "Restore now"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:1092
+msgid "Replace the current snippet immediately. It stays active if it is active now."
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:1093
+msgid "Load into the editor first"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:1093
+msgid "Open this revision in the editor without saving. Nothing changes until you click Update."
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:1099
+msgid "Close"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:1104
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:597
+#: includes/pro/class-wpcode-testing-mode.php:524
+msgid "Cancel"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:1105
+msgid "Restore Revision"
+msgstr ""
+
+#: includes/pro/admin/class-wpcode-revisions-view.php:1106
+msgid "Open in Editor"
 msgstr ""
 
 #. Translators: %s is the filename.
@@ -391,7 +785,7 @@ msgid "Connect to the WPCode Library"
 msgstr ""
 
 #: includes/pro/admin/pages/class-wpcode-admin-page-pixel-pro.php:16
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:147
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:152
 msgid "Install Addon Now"
 msgstr ""
 
@@ -400,7 +794,7 @@ msgid "The Conversion Pixels Addon is not installed"
 msgstr ""
 
 #: includes/pro/admin/pages/class-wpcode-admin-page-pixel-pro.php:19
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:149
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:154
 #: includes/pro/conditional-logic/class-wpcode-conditional-location.php:80
 msgid "Activate Addon"
 msgstr ""
@@ -418,621 +812,554 @@ msgid "Conversion Pixels Addon is not available on your plan"
 msgstr ""
 
 #: includes/pro/admin/pages/class-wpcode-admin-page-pixel-pro.php:47
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:343
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:148
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:496
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:230
 #: includes/pro/conditional-logic/class-wpcode-conditional-location.php:73
 msgid "Upgrade Now"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:84
-msgid "Revisions"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:218
+#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:233
 msgid "The link you followed has expired."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:224
+#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:239
 msgid "Invalid revision id."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:230
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:239
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:247
+#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:245
+#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:254
+#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:262
+#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:271
 msgid "Sorry, you are not allowed to do that."
 msgstr ""
 
 #. Translators: The placeholder gets replaced with the title of the snippet.
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:381
+#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:425
 #, php-format
-msgid "Compare Revisions of \"%s\""
+msgid "Code Revisions for \"%s\""
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:391
+#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:435
 msgid "Go back to editor"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:418
-msgid "Compare any two revisions"
+#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:455
+msgid "There are no revisions yet."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:423
-msgid "Previous"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:436
-msgid "Next"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:748
-msgid "Auto Insert Enabled"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:751
-msgid "Shortcode only"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:775
-msgid "Rules Enabled"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:775
-msgid "Rules Disabled"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:789
+#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:549
 msgid "Start"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:789
+#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:549
 msgid "End"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:809
+#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:569
 msgid "Show"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:809
+#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:569
 msgid "Hide"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:810
+#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:570
 msgid "this code snippet if"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:821
+#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:581
 msgid "AND"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:825
+#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:585
 msgid "OR"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:886
-msgctxt "revision date format"
-msgid "F j, Y @ H:i:s"
-msgstr ""
-
-#. Translators: time since the revision has been updated.
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:890
-#: includes/pro/admin/pages/trait-wpcode-revisions-display.php:60
-#: includes/pro/admin/pages/trait-wpcode-revisions-display.php:85
-#, php-format
-msgid "Updated %s ago"
-msgstr ""
-
-#. Translators: date when revision was updated.
-#. Translators: the date at which a cloud snippet has been updated.
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:896
-#: includes/pro/admin/pages/trait-wpcode-my-library-markup.php:160
-#: includes/pro/admin/pages/trait-wpcode-revisions-display.php:91
-#, php-format
-msgid "Updated on %s"
-msgstr ""
-
-#. Translators: Placeholder gets replaced by the name of the author.
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:920
-#, php-format
-msgid "Revision by %s"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:931
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:935
-msgid "Restore this revision"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:979
-msgid "Title"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:988
-msgid "Code Type"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:998
-msgid "Code"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1006
-msgid "Auto Insert"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1016
-msgid "Shortcode Attributes"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1026
-#: includes/pro/conditional-logic/class-wpcode-conditional-location.php:100
-msgid "Location"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1036
-msgid "Insert Number"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1046
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:171
-msgid "Custom Shortcode"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1056
-#: includes/pro/conditional-logic/class-wpcode-conditional-device.php:74
-msgid "Device Type"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1066
-#: includes/pro/conditional-logic/class-wpcode-conditional-schedule.php:37
-msgid "Schedule"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1076
-msgid "Tags"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1086
-msgid "Priority"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1096
-msgid "Note"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1106
-msgid "Smart Conditional Logic"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1117
-msgid "Location-specific setting"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1165
-msgid "Header Scripts"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1166
-msgid "Footer Scripts"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1167
-msgid "Body Scripts"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1168
-msgid "Custom Code Snippets"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1172
-msgid "Disable Global Scripts"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1173
-msgid "Any Device Type"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1174
-msgid "Desktop Only"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1175
-msgid "Mobile Only"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1191
-msgid "Loaded Snippets"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1226
-msgid "Enabled"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1226
-msgid "Disabled"
-msgstr ""
-
-#. Translators: %s: Label of the auto-insert location selected for the snippet.
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1249
+#. Translators: %s: Title of the snippet.
+#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:658
 #, php-format
 msgid "Snippet: %s"
 msgstr ""
 
 #. Translators: %s: Label of the auto-insert location selected for the snippet.
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1256
+#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:664
 #, php-format
 msgid "Location: %s"
 msgstr ""
 
 #. Translators: %s: CSS selector
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1286
+#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:696
 #, php-format
 msgid "CSS selector: %s"
 msgstr ""
 
 #. Translators: %s: CSS selector
-#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:1293
+#: includes/pro/admin/pages/class-wpcode-admin-page-revisions.php:703
 #, php-format
 msgid "Element Index: %s"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:71
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:74
 msgid "Network Settings"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:106
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:115
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:109
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:118
 msgid "License Key"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:130
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:135
 msgid "Save Changes"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:155
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:160
 msgid "Install the WPCode Multisite Addon to manage snippets across the whole network."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:160
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:165
 msgid "The WPCode Multisite addon is available on the Elite plan."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:162
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:167
 msgid "Please activate your license key below to get started."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:169
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:174
 msgid "Multisite Addon"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:202
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:207
 msgid "Verify Key"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:203
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:208
 msgid "Deactivate Key"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:204
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:209
 msgid "Force Deactivate Key"
 msgstr ""
 
 #. translators: %s: the license type
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:209
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:214
 #, php-format
 msgid "Your license key level is %s."
 msgstr ""
 
 #. translators: %1$s: opening link tag, %2$s: closing link tag
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:218
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:223
 #, php-format
 msgid "You can find your license key in your %1$sWPCode account%2$s."
 msgstr ""
 
 #. translators: %1$s: opening link tag, %2$s: closing link tag
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:229
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:234
 #, php-format
 msgid "If your license has been upgraded or is incorrect, then please %1$sforce a refresh%2$s."
 msgstr ""
 
 #. translators: %1$s and %2$s are <u> tags.
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:334
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:487
 #, php-format
 msgid "Improve the way you and your team manage your snippets with the WPCode Access Control settings. Enable other users on your site to manage different types of snippets or configure Conversion Pixels settings and update configuration files. This feature is available on the %1$sWPCode Pro%2$s plan or higher."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:340
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:493
 msgid "Access Control is not available on your plan"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:348
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:501
 msgid "Save time and improve website management with your team"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:349
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:502
 msgid "Delegate snippet management to other users with full control"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:350
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:503
 msgid "Enable other users to set up ads & 3rd party services"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:351
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:504
 msgid "Choose if PHP snippets should be enabled on the site"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:364
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:517
 msgid "We encountered an error activating your license key"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:378
+#. translators: %s: the saved limit.
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:550
+#, php-format
+msgid "This applies your saved limit of %s to revisions that already exist. It will permanently delete:"
+msgstr ""
+
+#. translators: %1$s: revisions over the limit, %2$s: number of items.
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:557
+#, php-format
+msgid "%1$s revision across %2$s that is over the limit"
+msgid_plural "%1$s revisions across %2$s that are over the limit"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of items.
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:562
+#, php-format
+msgid "%s item"
+msgid_plural "%s items"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: revisions belonging to deleted items.
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:571
+#, php-format
+msgid "%s revision belonging to a snippet or page that was already deleted"
+msgid_plural "%s revisions belonging to snippets and pages that were already deleted"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: the saved limit.
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:579
+#, php-format
+msgid "Included are your snippets, any page carrying page scripts, and your Header & Footer code. The most recent %s revisions of each are kept."
+msgstr ""
+
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:582
+msgid "There is no undo and no revision export."
+msgstr ""
+
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:590
+msgid "Delete older revisions?"
+msgstr ""
+
+#. translators: %s: total revisions that will be deleted.
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:594
+#, php-format
+msgid "Delete %s revision"
+msgid_plural "Delete %s revisions"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %1$s: revisions removed so far, %2$s: total to remove.
+#. translators: %1$s: revisions removed so far, %2$s: total revisions to remove.
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:599
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:788
+#, php-format
+msgid "Removing revisions, %1$s of %2$s done."
+msgstr ""
+
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:600
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:818
+msgid "Nothing is over your limit."
+msgstr ""
+
+#. translators: %1$s: revisions removed before it stopped, %2$s: total it set out to remove.
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:602
+#, php-format
+msgid "Stopped after removing %1$s of %2$s revisions."
+msgstr ""
+
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:603
+msgid "Try again"
+msgstr ""
+
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:615
 msgid "Email Notifications"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:380
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:617
 msgid "Receive email notifications when snippets throw errors or are automatically deactivated."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:447
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:712
+msgid "Remove Revisions"
+msgstr ""
+
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:716
+msgid "Keep only the most recent revisions of each snippet, page and your Header & Footer code."
+msgstr ""
+
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:723
+msgid "Revisions to Keep"
+msgstr ""
+
+#. translators: %s: the lowest limit allowed.
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:736
+#, php-format
+msgid "Older revisions are removed the next time a change to an item is saved. The minimum is %s. This is permanent and cannot be undone."
+msgstr ""
+
+#. translators: %s: number of revisions that can be removed.
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:805
+#, php-format
+msgid "%s revision can be removed."
+msgid_plural "%s revisions can be removed."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:812
+msgid "Delete older revisions"
+msgstr ""
+
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:825
+msgid "Existing Revisions"
+msgstr ""
+
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:873
 msgid "When enabled, all active PHP, HTML, and Universal snippets will be loaded from files instead of the database. Files are stored in "
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:464
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:890
 msgid "Note: In multisite networks, each site has its own file directory to prevent cross-site conflicts."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:468
+#: includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php:894
 msgid "Load PHP Snippets as Files"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:47
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:106
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:108
+msgid "Revision loaded into the editor. Nothing is saved until you click Update."
+msgstr ""
+
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:129
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:188
 msgid "Save to Library"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:69
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:151
 msgid "Publish Changes"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:104
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:186
 msgid "Are you sure you want to save the snippet?"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:105
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:187
 msgid "Any changes you made to the snippet in another site or on the cloud will be overwritten."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:107
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:189
 msgid "Connect with WPCode Cloud Library to Save Snippets"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:108
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:190
 msgid "Before we can save your snippets, you must connect with WPCode Library, so we can securely save snippets in your account."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:109
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:191
 msgid "Connect with WPCode Library"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:110
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:192
 msgid "You have unsaved changes"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:111
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:193
 msgid "Please make sure all your changes are saved before saving the snippet in the library."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:112
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:194
 msgid "Save Changes Now"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:113
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:195
 #: includes/pro/class-wpcode-testing-mode.php:530
 msgid "OK"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:114
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:196
 msgid "Edit in Library"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:117
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:199
 msgid "Save snippet?"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:118
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:200
 msgid "In order to load the block editor we need to first save your snippet, do you want to save your snippet now?"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:119
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:201
 msgid "Yes"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:120
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:202
 msgid "No"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:121
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:203
 msgid "Blocks content will be deleted"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:122
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:204
 msgid "Please note that changing the code type will erase your blocks content when you save the snippet with the new code type. Switch back to Blocks Snippet if you want to keep the blocks content."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:123
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:205
 msgid "Please add your license key in the WPCode settings panel to unlock all Pro features"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:125
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:207
 msgid "Add license key"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:127
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:209
 msgid "Writing code..."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:128
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:210
 msgid "Setting auto-insert location to"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:129
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:211
 msgid "Configuring conditional logic for"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:130
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:212
 msgid "Done!"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:131
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:213
 msgid "Describe the changes that you want to make to your snippet..."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:134
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:216
 msgid "Please add your license key in order to use the AI integration for WPCode. Please note that the AI generation is only available on Pro and higher plans."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:142
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:224
 #: includes/pro/admin/pages/trait-wpcode-revisions-display.php:28
 msgid "Add License Key"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:144
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:226
 msgid "AI Snippet Generation is a Pro Feature"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:145
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:227
 msgid "AI Snippet Generation is not available on your plan, please upgrade to Pro or higher in order to get access to the WPCode AI Generation integration."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:165
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:247
 msgid "Shortcode name"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:176
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:258
 msgid "Use this field to define a custom shortcode name instead of the id-based one."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:294
-msgid "Any device type"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:295
-msgid "Desktop only"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:296
-msgid "Mobile only"
-msgstr ""
-
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:315
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:397
 msgid "Schedule snippet"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:342
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:424
 msgid "PHP snippets are loaded from files via the global setting. "
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:349
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:431
 msgid "File path (server-side files cannot be viewed directly)"
 msgstr ""
 
 #. translators: %s: Link to settings page
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:363
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:445
 #, php-format
 msgid "To load PHP snippets from files, enable the global setting in %s."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:364
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:446
 msgid "WPCode Settings"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:370
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:404
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:452
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:486
 msgid "Load as file"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:393
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:395
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:475
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:477
 msgid "View file"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:397
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:479
 msgid "The physical file for the snippet is only generated when the snippet is active."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:428
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:510
 msgid "Compress Output"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:457
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:539
 msgid "Edit with Block Editor"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:458
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:540
 msgid "Click the button above to load the block editor in which you can create and edit blocks for your snippet."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:460
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:542
 msgid "The block editor is not supported on your site. Please upgrade to WordPress 5.0 or higher to use this feature."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:468
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:550
 msgid "Please wait..."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:506
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:588
 msgid "Describe what your snippet should do here..."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:510
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:592
 msgid "Generate"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:511
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:593
 msgid "Generating..."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:512
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:594
 msgid "Generated"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:519
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:601
 msgid "The WPCode AI snippet generator can make mistakes, please always check the generated code and the configuration before activating a generated snippet."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:572
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:654
 msgctxt "Used to highlight a new feature"
 msgid "New"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:583
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:665
 msgid "Connect to Library"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:647
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:729
 #: includes/pro/admin/snippets-table.php:65
 msgid "Update Available"
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:703
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:785
 msgid "Snippet successfully updated from library."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:707
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:789
 msgid "Snippet successfully updated from cloud library."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:714
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:796
 msgid "Failed to update snippet from cloud library."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:715
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:797
 msgid "Failed to update snippet from library."
 msgstr ""
 
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:757
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:839
 msgid "File Modified Warning"
 msgstr ""
 
 #. Translators: %1$s is the file path.
-#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:763
+#: includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php:845
 #, php-format
 msgid "The snippet file has been modified or deleted. Saving this snippet will overwrite the file changes or recreate it at %1$s."
 msgstr ""
@@ -1073,6 +1400,14 @@ msgstr ""
 msgid "%1$s at %2$s"
 msgstr ""
 
+#. Translators: the date at which a cloud snippet has been updated.
+#. Translators: date when revision was updated.
+#: includes/pro/admin/pages/trait-wpcode-my-library-markup.php:160
+#: includes/pro/admin/pages/trait-wpcode-revisions-display.php:91
+#, php-format
+msgid "Updated on %s"
+msgstr ""
+
 #: includes/pro/admin/pages/trait-wpcode-my-library-markup.php:166
 msgid "Are you sure you want to delete this snippet?"
 msgstr ""
@@ -1103,6 +1438,13 @@ msgstr ""
 
 #: includes/pro/admin/pages/trait-wpcode-revisions-display.php:54
 msgid "Not saved"
+msgstr ""
+
+#. Translators: time since the revision has been updated.
+#: includes/pro/admin/pages/trait-wpcode-revisions-display.php:60
+#: includes/pro/admin/pages/trait-wpcode-revisions-display.php:85
+#, php-format
+msgid "Updated %s ago"
 msgstr ""
 
 #: includes/pro/admin/pages/trait-wpcode-revisions-display.php:101
@@ -1609,6 +1951,40 @@ msgstr ""
 msgid "The request to the Library site to delete the snippet has not been sucessful, please try again in a few minutes as this might be a temporary error."
 msgstr ""
 
+#. translators: %1$s and %2$s are the opening and closing tags of a link to the settings tab.
+#: includes/pro/class-wpcode-revisions-retention.php:338
+#, php-format
+msgid "WPCode can now limit how many revisions each snippet, page and your Header & Footer code keeps. This is off by default and nothing is removed until you turn it on in %1$sSettings > General%2$s."
+msgstr ""
+
+#. translators: %s: number of revisions that will be deleted.
+#: includes/pro/class-wpcode-revisions-retention.php:490
+#, php-format
+msgid "Saving changes to the page scripts will delete %s revision."
+msgid_plural "Saving changes to the page scripts will delete %s revisions."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %1$s: revisions the page scripts have, %2$s: the configured limit, %3$s: revisions that will be deleted.
+#: includes/pro/class-wpcode-revisions-retention.php:494
+#, php-format
+msgid "The page scripts have %1$s revisions and your limit is %2$s. Saving a change to them adds one more revision, so the %3$s oldest are removed. A save that does not change the page scripts removes nothing. This cannot be undone."
+msgstr ""
+
+#. translators: %s: number of revisions that will be deleted.
+#: includes/pro/class-wpcode-revisions-retention.php:498
+#, php-format
+msgid "Saving changes will delete %s revision."
+msgid_plural "Saving changes will delete %s revisions."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %1$s: revisions this item has, %2$s: the configured limit, %3$s: revisions that will be deleted.
+#: includes/pro/class-wpcode-revisions-retention.php:502
+#, php-format
+msgid "This item has %1$s revisions and your limit is %2$s. Saving a change adds one more revision, so the %3$s oldest are removed. A save without changes removes nothing. This cannot be undone."
+msgstr ""
+
 #: includes/pro/class-wpcode-smart-tags-pro.php:719
 msgid "Smart Tags are a Premium feature"
 msgstr ""
@@ -1703,10 +2079,6 @@ msgstr ""
 
 #: includes/pro/class-wpcode-testing-mode.php:523
 msgid "Save & Publish Changes"
-msgstr ""
-
-#: includes/pro/class-wpcode-testing-mode.php:524
-msgid "Cancel"
 msgstr ""
 
 #: includes/pro/class-wpcode-testing-mode.php:525
@@ -1935,6 +2307,10 @@ msgstr ""
 
 #: includes/pro/conditional-logic/class-wpcode-conditional-location.php:78
 msgid "The WPCode Location addon that is included in your plan is required in order to use this feature."
+msgstr ""
+
+#: includes/pro/conditional-logic/class-wpcode-conditional-location.php:100
+msgid "Location"
 msgstr ""
 
 #: includes/pro/conditional-logic/class-wpcode-conditional-location.php:100

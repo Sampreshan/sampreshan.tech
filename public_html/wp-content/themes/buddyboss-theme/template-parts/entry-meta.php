@@ -13,16 +13,23 @@ if ( function_exists( 'bp_core_get_user_domain' ) && $platform_author_link ) {
 
 $author_link = esc_url( $author_link );
 
+// The hover card describes a BuddyPress member, so it is offered only when the
+// byline actually links to a member profile. With blog_platform_author_link off the
+// link is a WP author archive, and a member card would not match it — hence the same
+// two conditions that choose $author_link above gate the attribute here.
+$bb_use_profile_link = function_exists( 'bp_core_get_user_domain' ) && $platform_author_link;
+$bb_hp_attr          = ( $bb_use_profile_link && function_exists( 'bb_get_hover_card_profile_attr' ) ) ? bb_get_hover_card_profile_attr( get_the_author_meta( 'ID' ) ) : '';
+
 ?>
 <div class="entry-meta">
 	<div class="bb-user-avatar-wrap">
 		<div class="avatar-wrap">
-			<a href="<?php echo $author_link; ?>">
+			<a href="<?php echo $author_link; ?>"<?php echo $bb_hp_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped via esc_attr() in bb_get_hover_card_profile_attr(). ?>>
 				<?php echo get_avatar( get_the_author_meta( 'ID' ), 80, '', $author_name ); ?>
 			</a>
 		</div>
 		<div class="meta-wrap">
-			<a class="post-author" href="<?php echo $author_link; ?>">
+			<a class="post-author" href="<?php echo $author_link; ?>"<?php echo $bb_hp_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped via esc_attr() in bb_get_hover_card_profile_attr(). ?>>
 				<?php the_author(); ?>
 			</a>
 			<span class="post-date" ><a href="<?php echo esc_url( get_permalink() ); ?>"><?php echo get_the_date(); ?></a></span>

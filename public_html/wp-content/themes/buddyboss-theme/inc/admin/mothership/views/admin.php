@@ -9,22 +9,8 @@ namespace BuddyBossTheme\Admin\Mothership;
 	<div class="buddyboss-mothership-block-container">
 		<div class="buddyboss-mothership-block">
 			<div class="inside">
-				<h2><?php esc_html_e( 'Auto Connect (Recommended)', 'buddyboss-theme' ); ?></h2>
-				<p>
-					<?php printf( esc_html__( 'Click the "Connect to BuddyBoss" button to log into your BuddyBoss account. Then click "Allow" to have your license automatically filled in to activate your products.', 'buddyboss-theme' ) ); ?>
-				</p>
-				<br/>
-				<button id="btn_bb_connect" class="button button-primary">
-					<?php esc_html_e( 'Connect to BuddyBoss', 'buddyboss-theme' ); ?>
-				</button>
-				<span class="connecting" style="display:none;"><?php esc_html_e( 'Connecting', 'buddyboss-theme' ); ?></span>
-			</div>
-		</div>
-
-		<div class="buddyboss-mothership-block">
-			<div class="inside">
 				<h2><?php esc_html_e( 'Manual Connect', 'buddyboss-theme' ); ?></h2>
-				<p>
+				<ol>
 					<li>
 						<?php printf( __( 'Log into %s', 'buddyboss-theme' ), '<a href="https://my.buddyboss.com/wp-admin">BuddyBoss.com</a>' ); ?>
 					</li>
@@ -46,7 +32,7 @@ namespace BuddyBossTheme\Admin\Mothership;
 					<li>
 						<?php esc_html_e( 'Click "Update License"', 'buddyboss-theme' ); ?>
 					</li>
-				</p>
+				</ol>
 			</div>
 		</div>
 

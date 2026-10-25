@@ -34,7 +34,24 @@ if ( ! function_exists( 'buddyboss_theme_get_theme_sudharo' ) ) {
 				class_exists( '\BuddyBossTheme\Admin\Mothership\BB_Theme_Connector' )
 		) {
 			$theme_connector = new \BuddyBossTheme\Admin\Mothership\BB_Theme_Connector();
-			$license_exists  = $theme_connector->getLicenseActivationStatus();
+			$license_exists  = (bool) $theme_connector->getLicenseActivationStatus();
+
+			// An activated licence is not the same as an entitled one: a platform-free key
+			// activates perfectly well while its plan carries no `buddyboss-theme` product.
+			// The branch above already makes this distinction via the Platform's
+			// checkProductBySlug(); without the Platform installed the theme has to make it
+			// itself, or any valid key unlocks Theme Options.
+			//
+			// bb_theme_is_in_plan() returns null when the add-ons cache is cold or the API is
+			// unreachable. Only a definitive false revokes access — treating an outage as
+			// "unlicensed" would lock out paying customers.
+			if (
+				$license_exists &&
+				class_exists( '\BuddyBossTheme\Admin\Mothership\BB_Theme_License_Manager' ) &&
+				false === \BuddyBossTheme\Admin\Mothership\BB_Theme_License_Manager::bb_theme_is_in_plan()
+			) {
+				$license_exists = false;
+			}
 		}
 
 		$cache = ( ! $license_exists );

@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 add_action( 'wp_ajax_wpcode_load_snippets', 'wpcode_ajax_snippets_list' );
 add_action( 'wp_ajax_wpcode_load_selected_snippet', 'wpcode_ajax_selected_snippet' );
-add_action( 'wp_ajax_wpcode_load_revisions_compare', 'wpcode_load_revisions_compare' );
+add_action( 'wp_ajax_wpcode_load_revision_detail', 'wpcode_load_revision_detail' );
 add_action( 'wp_ajax_wpcode_verify_license', 'wpcode_verify_license' );
 add_action( 'wp_ajax_wpcode_deactivate_license', 'wpcode_deactivate_license' );
 
@@ -22,6 +22,7 @@ add_action( 'wp_ajax_wpcode_search_posts', 'wpcode_ajax_search_posts' );
 add_action( 'wp_ajax_wpcode_search_users', 'wpcode_ajax_search_users' );
 
 add_action( 'wp_ajax_wpcode_refresh_library_cache', 'wpcode_refresh_library_cache' );
+add_action( 'wp_ajax_wpcode_revisions_cleanup_step', 'wpcode_revisions_cleanup_step' );
 
 // Override the sync snippet function to handle cloud snippets with higher priority.
 add_action( 'wp_ajax_wpcode_sync_snippet', 'wpcode_sync_snippet_pro', 5 );
@@ -265,77 +266,45 @@ function wpcode_get_snippet_item_selected( $snippet, $location, $insert_number )
 }
 
 /**
- * Load revisions compare markup for 2 revisions by their ID.
+ * Load the detail panel for one revision compared with the live item.
  *
  * @return void
  */
-function wpcode_load_revisions_compare() {
+function wpcode_load_revision_detail() {
 	check_ajax_referer( 'wpcode_admin' );
 
-	if ( ! current_user_can( 'wpcode_edit_snippets' ) ) { //phpcs:ignore
+	if ( ! current_user_can( 'wpcode_edit_snippets' ) ) {
 		wp_send_json_error();
 	}
 
-	if ( ! isset( $_POST['ids'] ) || ! isset( $_POST['snippet_id'] ) ) {
+	$revision_id = isset( $_POST['revision'] ) ? absint( $_POST['revision'] ) : 0;
+	$view        = $revision_id ? WPCode_Revisions_View::for_revision( $revision_id ) : null;
+
+	if ( ! $view ) {
 		wp_send_json_error();
 	}
 
-	$ids        = array_map( 'absint', wp_unslash( $_POST['ids'] ) );
-	$snippet_id = absint( $_POST['snippet_id'] );
-
-	if ( 0 === $snippet_id ) {
+	// Same rules as viewing the page: Header & Footer needs a site-level capability, the rest edit_post.
+	if ( WPCode_Revisions_View::TYPE_HEADER_FOOTER === $view->get_type() ) {
 		if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'unfiltered_html' ) ) {
 			wp_send_json_error();
 		}
-	} elseif ( ! current_user_can( 'edit_post', $snippet_id ) ) {
+	} elseif ( ! current_user_can( 'edit_post', $view->get_parent_id() ) ) {
 		wp_send_json_error();
 	}
 
-	$all_revisions = array_reverse( wpcode()->revisions->get_snippet_revisions( $snippet_id ) );
-	$disabled_2    = false;
+	$revision = $view->get_revision( $revision_id );
 
-	foreach ( $all_revisions as $key => $revision ) {
-		if ( absint( $revision->revision_id ) === $ids[0] ) {
-			$revision_1 = $revision;
-		}
-		if ( absint( $revision->revision_id ) === $ids[1] ) {
-			if ( count( $all_revisions ) - 1 === $key ) {
-				$disabled_2 = true;
-			}
-			$revision_2 = $revision;
-		}
-	}
-
-	if ( empty( $revision_1 ) || empty( $revision_2 ) ) {
+	if ( ! $revision ) {
 		wp_send_json_error();
-
-		return;
 	}
 
-	$type = 'header_footer';
-	if ( 0 !== $snippet_id ) {
-		$post_type = get_post_type( $snippet_id );
-		if ( 'wpcode' === $post_type ) {
-			$type = 'snippet';
-		} else {
-			$type = 'page_scripts';
-		}
-	}
-
-	$revision_1_data = json_decode( $revision_1->revision_data, true );
-	$revision_2_data = json_decode( $revision_2->revision_data, true );
-
-	ob_start();
-
-	WPCode_Admin_Page_Revisions::get_revision_compare_header( $revision_1, false, __( 'From:', 'wpcode-premium' ) );
-	WPCode_Admin_Page_Revisions::get_revision_compare_header( $revision_2, $disabled_2, __( 'To:', 'wpcode-premium' ) );
-	WPCode_Admin_Page_Revisions::get_revision_compare_content( $revision_1_data, $revision_2_data, $type );
-
-	$markup = ob_get_clean();
+	// Not checked against the item's rows: the revision limit can remove the restored revision.
+	$restored = isset( $_POST['restored'] ) ? absint( $_POST['restored'] ) : 0;
 
 	wp_send_json_success(
 		array(
-			'markup' => $markup,
+			'markup' => $view->render_detail( $revision, $restored ),
 		)
 	);
 }
@@ -645,4 +614,43 @@ function wpcode_refresh_license() {
 	} else {
 		wp_send_json_error( esc_html__( 'There was an error refreshing your license. Please try again later.', 'wpcode-premium' ) );
 	}
+}
+
+/**
+ * Advance the user-triggered revision cleanup by one batch.
+ *
+ * Takes nothing from the request but the nonce. The limit, the items and the row count are all
+ * re-derived server side from the saved settings, so a crafted request cannot widen what gets
+ * deleted, and the run is bounded per call by the retention class.
+ *
+ * @return void
+ */
+function wpcode_revisions_cleanup_step() {
+	// Its own nonce, not the shared wpcode_admin one. That action is minted on every WPCode admin
+	// screen and shared with a dozen harmless endpoints; this one destroys history irreversibly, so
+	// it should not be unlocked by a leak anywhere else in the plugin.
+	// Keyed to the saved limit: a nonce minted while a different limit was in force no longer
+	// verifies, so a stale tab cannot run a cleanup the dialog it is showing never described.
+	if ( ! check_ajax_referer( 'wpcode_revisions_cleanup_' . wpcode()->revisions_retention->get_keep_count(), 'nonce', false ) ) {
+		wp_send_json_error( array( 'message' => __( 'Security check failed.', 'wpcode-premium' ) ) );
+	}
+
+	// The same capability as the Settings page, so anyone shown the cleanup button can run it.
+	if ( ! current_user_can( 'wpcode_manage_settings' ) ) {
+		wp_send_json_error( array( 'message' => __( 'You do not have permission to remove revisions.', 'wpcode-premium' ) ) );
+	}
+
+	if ( ! isset( wpcode()->revisions_retention ) ) {
+		wp_send_json_error( array( 'message' => __( 'Revision removal is not available.', 'wpcode-premium' ) ) );
+	}
+
+	$state = wpcode()->revisions_retention->cleanup_step();
+
+	wp_send_json_success(
+		array(
+			'status'  => isset( $state['status'] ) ? $state['status'] : 'done',
+			'removed' => isset( $state['removed'] ) ? absint( $state['removed'] ) : 0,
+			'total'   => isset( $state['total'] ) ? absint( $state['total'] ) : 0,
+		)
+	);
 }

@@ -36,6 +36,9 @@ $profile_link = trailingslashit( bp_displayed_user_domain() . bp_get_profile_slu
 			case 'profile':
 				bp_get_template_part( 'members/single/settings/profile' );
 				break;
+			case 'security':
+				bp_get_template_part( 'members/single/settings/security' );
+				break;
 			case 'invites':
 				bp_get_template_part( 'members/single/settings/group-invites' );
 				break;

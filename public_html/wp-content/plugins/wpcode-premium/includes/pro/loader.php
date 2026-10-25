@@ -64,6 +64,8 @@ require_once WPCODE_PLUGIN_PATH . 'includes/pro/class-wpcode-smart-tags-pro.php'
 require_once WPCODE_PLUGIN_PATH . 'includes/pro/class-wpcode-custom-shortcode.php';
 // Load revisions class.
 require_once WPCODE_PLUGIN_PATH . 'includes/pro/class-wpcode-revisions.php';
+// Load revisions retention.
+require_once WPCODE_PLUGIN_PATH . 'includes/pro/class-wpcode-revisions-retention.php';
 // Load device type filtering.
 require_once WPCODE_PLUGIN_PATH . 'includes/pro/device-type.php';
 // Load schedule filtering.

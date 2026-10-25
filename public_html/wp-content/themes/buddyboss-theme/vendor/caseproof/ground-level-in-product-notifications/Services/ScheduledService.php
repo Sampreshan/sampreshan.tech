@@ -3,21 +3,37 @@
 declare (strict_types=1);
 namespace BuddyBossTheme\GroundLevel\InProductNotifications\Services;
 
-use BuddyBossTheme\GroundLevel\Container\Container;
-use BuddyBossTheme\GroundLevel\Container\Contracts\LoadableDependency;
-use BuddyBossTheme\GroundLevel\Container\Service;
-use BuddyBossTheme\GroundLevel\InProductNotifications\Service as IPNService;
+use BuddyBossTheme\GroundLevel\InProductNotifications\Util as IPNUtil;
 use BuddyBossTheme\GroundLevel\Support\Concerns\Hookable;
 use BuddyBossTheme\GroundLevel\Support\Models\Hook;
-abstract class ScheduledService extends Service implements LoadableDependency
+/**
+ * Abstract base class for scheduled IPN services.
+ */
+abstract class ScheduledService
 {
     use Hookable;
+    /**
+     * The IPN utility service.
+     *
+     * @var IPNUtil
+     */
+    protected IPNUtil $util;
     /**
      * The cron recurrence interval.
      *
      * @var string
      */
     protected string $recurrence = 'daily';
+    /**
+     * Constructor.
+     *
+     * @param IPNUtil $util The IPN utility service.
+     */
+    public function __construct(IPNUtil $util)
+    {
+        $this->util = $util;
+        $this->addHooks();
+    }
     /**
      * Retrieves the hook name for the event action.
      *
@@ -44,16 +60,7 @@ abstract class ScheduledService extends Service implements LoadableDependency
      */
     protected function eventHookName() : string
     {
-        return $this->container->get(IPNService::class)->prefixId($this->eventName());
-    }
-    /**
-     * Load service dependencies.
-     *
-     * @param \GroundLevel\Container\Container $container The container.
-     */
-    public function load(Container $container) : void
-    {
-        $this->addHooks();
+        return $this->util->prefixId($this->eventName());
     }
     /**
      * Schedules the fetch cron job.

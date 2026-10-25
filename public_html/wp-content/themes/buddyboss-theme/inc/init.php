@@ -456,6 +456,8 @@ if ( ! class_exists( '\BuddyBossTheme\BaseTheme' ) ) {
 		 * Get new version of theme.
 		 *
 		 * @since 1.8.7
+		 * @since 2.22.2 Read the update container through
+		 *                    buddyboss_theme_update_response() instead of indexing it.
 		 *
 		 * @param object $theme Get Theme data.
 		 *
@@ -468,8 +470,25 @@ if ( ! class_exists( '\BuddyBossTheme\BaseTheme' ) ) {
 			if ( ! isset( $themes_update ) ) {
 				$themes_update = get_site_transient( 'update_themes' );
 			}
-			if ( isset( $themes_update->response[ $stylesheet ] ) ) {
-				$update      = $themes_update->response[ $stylesheet ];
+
+			/*
+			 * Normalize the container rather than indexing it, for the reason
+			 * given in buddyboss_theme_update_response(). This call site is the
+			 * one that matters: _do_includes() reaches it on every request the
+			 * theme serves, the front end included, where wp-admin's own readers
+			 * are not loaded at all - so a container another plugin has reshaped
+			 * would take the public site down here, from this line, before core
+			 * ever touches it. inc/theme/update.php is required earlier in
+			 * _do_includes() than the call above, so the helper is always
+			 * defined by the time this runs; function_exists() is belt and
+			 * braces, and degrades to "no update found" rather than to a fatal.
+			 */
+			$response = function_exists( 'buddyboss_theme_update_response' )
+				? buddyboss_theme_update_response( $themes_update )
+				: array();
+
+			if ( isset( $response[ $stylesheet ] ) && is_array( $response[ $stylesheet ] ) ) {
+				$update      = $response[ $stylesheet ];
 				$new_version = isset( $update['new_version'] ) ? $update['new_version'] : '';
 			}
 

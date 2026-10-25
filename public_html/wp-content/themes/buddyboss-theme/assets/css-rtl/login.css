@@ -3246,6 +3246,9 @@ input[type="submit"] {
 .bb-member-blog .nav-links .page-numbers,
 .bb-member-blog .nav-links .post-page-numbers,
 .bb-member-blog .nav-links .bb-rl-page-numbers,
+.gamipress-earnings-pagination .page-numbers,
+.gamipress-earnings-pagination .post-page-numbers,
+.gamipress-earnings-pagination .bb-rl-page-numbers,
 .bb-member-blog + .navigation .nav-links .page-numbers,
 .bb-member-blog + .navigation .nav-links .post-page-numbers,
 .bb-member-blog + .navigation .nav-links .bb-rl-page-numbers,
@@ -3281,6 +3284,9 @@ input[type="submit"] {
 .bb-member-blog .nav-links .page-numbers:not(.next, .prev),
 .bb-member-blog .nav-links .post-page-numbers:not(.next, .prev),
 .bb-member-blog .nav-links .bb-rl-page-numbers:not(.next, .prev),
+.gamipress-earnings-pagination .page-numbers:not(.next, .prev),
+.gamipress-earnings-pagination .post-page-numbers:not(.next, .prev),
+.gamipress-earnings-pagination .bb-rl-page-numbers:not(.next, .prev),
 .bb-member-blog + .navigation .nav-links .page-numbers:not(.next, .prev),
 .bb-member-blog + .navigation .nav-links .post-page-numbers:not(.next, .prev),
 .bb-member-blog + .navigation .nav-links .bb-rl-page-numbers:not(.next, .prev),
@@ -3330,6 +3336,12 @@ input[type="submit"] {
 .bb-member-blog .nav-links .post-page-numbers.prev,
 .bb-member-blog .nav-links .bb-rl-page-numbers.next,
 .bb-member-blog .nav-links .bb-rl-page-numbers.prev,
+.gamipress-earnings-pagination .page-numbers.next,
+.gamipress-earnings-pagination .page-numbers.prev,
+.gamipress-earnings-pagination .post-page-numbers.next,
+.gamipress-earnings-pagination .post-page-numbers.prev,
+.gamipress-earnings-pagination .bb-rl-page-numbers.next,
+.gamipress-earnings-pagination .bb-rl-page-numbers.prev,
 .bb-member-blog + .navigation .nav-links .page-numbers.next,
 .bb-member-blog + .navigation .nav-links .page-numbers.prev,
 .bb-member-blog + .navigation .nav-links .post-page-numbers.next,
@@ -3365,6 +3377,9 @@ input[type="submit"] {
 .bb-member-blog .nav-links a.page-numbers:not(.prev, .next),
 .bb-member-blog .nav-links a.bb-rl-page-numbers:not(.prev, .next),
 .bb-member-blog .nav-links a.post-page-numbers,
+.gamipress-earnings-pagination a.page-numbers:not(.prev, .next),
+.gamipress-earnings-pagination a.bb-rl-page-numbers:not(.prev, .next),
+.gamipress-earnings-pagination a.post-page-numbers,
 .bb-member-blog + .navigation .nav-links a.page-numbers:not(.prev, .next),
 .bb-member-blog + .navigation .nav-links a.bb-rl-page-numbers:not(.prev, .next),
 .bb-member-blog + .navigation .nav-links a.post-page-numbers,
@@ -3395,6 +3410,9 @@ input[type="submit"] {
 .bb-member-blog .nav-links a.page-numbers:not(.prev, .next):hover,
 .bb-member-blog .nav-links a.bb-rl-page-numbers:not(.prev, .next):hover,
 .bb-member-blog .nav-links a.post-page-numbers:hover,
+.gamipress-earnings-pagination a.page-numbers:not(.prev, .next):hover,
+.gamipress-earnings-pagination a.bb-rl-page-numbers:not(.prev, .next):hover,
+.gamipress-earnings-pagination a.post-page-numbers:hover,
 .bb-member-blog + .navigation .nav-links a.page-numbers:not(.prev, .next):hover,
 .bb-member-blog + .navigation .nav-links a.bb-rl-page-numbers:not(.prev, .next):hover,
 .bb-member-blog + .navigation .nav-links a.post-page-numbers:hover,
@@ -3410,6 +3428,7 @@ input[type="submit"] {
 .woocommerce-pagination a.prev,
 .llms-pagination a.prev,
 .bb-member-blog .nav-links a.prev,
+.gamipress-earnings-pagination a.prev,
 .bb-member-blog + .navigation .nav-links a.prev,
 .page-links a.prev {
   margin-left: 5px;
@@ -3421,6 +3440,7 @@ input[type="submit"] {
 .woocommerce-pagination a.next,
 .llms-pagination a.next,
 .bb-member-blog .nav-links a.next,
+.gamipress-earnings-pagination a.next,
 .bb-member-blog + .navigation .nav-links a.next,
 .page-links a.next {
   margin-right: 5px;
@@ -3439,6 +3459,8 @@ input[type="submit"] {
 .llms-pagination a.next,
 .bb-member-blog .nav-links a.prev,
 .bb-member-blog .nav-links a.next,
+.gamipress-earnings-pagination a.prev,
+.gamipress-earnings-pagination a.next,
 .bb-member-blog + .navigation .nav-links a.prev,
 .bb-member-blog + .navigation .nav-links a.next,
 .page-links a.prev,
@@ -3471,6 +3493,8 @@ input[type="submit"] {
 .llms-pagination a.next:hover,
 .bb-member-blog .nav-links a.prev:hover,
 .bb-member-blog .nav-links a.next:hover,
+.gamipress-earnings-pagination a.prev:hover,
+.gamipress-earnings-pagination a.next:hover,
 .bb-member-blog + .navigation .nav-links a.prev:hover,
 .bb-member-blog + .navigation .nav-links a.next:hover,
 .page-links a.prev:hover,
@@ -3491,6 +3515,8 @@ input[type="submit"] {
 .llms-pagination a.next:before,
 .bb-member-blog .nav-links a.prev:before,
 .bb-member-blog .nav-links a.next:before,
+.gamipress-earnings-pagination a.prev:before,
+.gamipress-earnings-pagination a.next:before,
 .bb-member-blog + .navigation .nav-links a.prev:before,
 .bb-member-blog + .navigation .nav-links a.next:before,
 .page-links a.prev:before,
@@ -3513,6 +3539,7 @@ input[type="submit"] {
 .woocommerce-pagination a.prev:before,
 .llms-pagination a.prev:before,
 .bb-member-blog .nav-links a.prev:before,
+.gamipress-earnings-pagination a.prev:before,
 .bb-member-blog + .navigation .nav-links a.prev:before,
 .page-links a.prev:before {
   content: "\e8ab";
@@ -3524,6 +3551,7 @@ input[type="submit"] {
 .woocommerce-pagination a.next:before,
 .llms-pagination a.next:before,
 .bb-member-blog .nav-links a.next:before,
+.gamipress-earnings-pagination a.next:before,
 .bb-member-blog + .navigation .nav-links a.next:before,
 .page-links a.next:before {
   content: "\e827";
@@ -3549,6 +3577,9 @@ input[type="submit"] {
 .bb-member-blog .nav-links span.page-numbers:not(.dots),
 .bb-member-blog .nav-links span.bb-rl-page-numbers:not(.dots),
 .bb-member-blog .nav-links span.post-page-numbers,
+.gamipress-earnings-pagination span.page-numbers:not(.dots),
+.gamipress-earnings-pagination span.bb-rl-page-numbers:not(.dots),
+.gamipress-earnings-pagination span.post-page-numbers,
 .bb-member-blog + .navigation .nav-links span.page-numbers:not(.dots),
 .bb-member-blog + .navigation .nav-links span.bb-rl-page-numbers:not(.dots),
 .bb-member-blog + .navigation .nav-links span.post-page-numbers,
@@ -3572,6 +3603,8 @@ input[type="submit"] {
 .llms-pagination span.bb-rl-page-numbers.disabled,
 .bb-member-blog .nav-links span.page-numbers.disabled,
 .bb-member-blog .nav-links span.bb-rl-page-numbers.disabled,
+.gamipress-earnings-pagination span.page-numbers.disabled,
+.gamipress-earnings-pagination span.bb-rl-page-numbers.disabled,
 .bb-member-blog + .navigation .nav-links span.page-numbers.disabled,
 .bb-member-blog + .navigation .nav-links span.bb-rl-page-numbers.disabled,
 .page-links span.page-numbers.disabled,
@@ -5936,4 +5969,128 @@ div.bb-sso-container .bb-sso-button-default {
 
 #loginform > .cf-turnstile {
   margin-right: 0;
+}
+
+/* Two Factor */
+/*
+ * The two-factor challenge screens print the Two Factor plugin's own login markup
+ * and ship an inline <style> in the body, which would otherwise win on source
+ * order - keep the #login id so these selectors stay ahead of it on specificity.
+ */
+.login.bb-login #login #loginform[name="validate_2fa_form"] .two-factor-prompt {
+  margin: 0 0 20px;
+  color: var(--bb-alternate-text-color);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.login.bb-login #login #loginform[name="validate_2fa_form"] label[for="authcode"] {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--bb-headings-color);
+  font-size: 14px;
+  font-weight: 500;
+}
+.login.bb-login #login #loginform[name="validate_2fa_form"] input.authcode {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 16px;
+  letter-spacing: 0.3em;
+}
+.login.bb-login #login #loginform[name="validate_2fa_form"] input.authcode::-webkit-input-placeholder {
+  letter-spacing: 0.3em;
+  opacity: 0.45;
+}
+.login.bb-login #login #loginform[name="validate_2fa_form"] input.authcode:-ms-input-placeholder {
+  letter-spacing: 0.3em;
+  opacity: 0.45;
+}
+.login.bb-login #login #loginform[name="validate_2fa_form"] input.authcode::placeholder {
+  letter-spacing: 0.3em;
+  opacity: 0.45;
+}
+.login.bb-login #login #loginform[name="validate_2fa_form"] p.submit {
+  margin: 0;
+}
+.login.bb-login #login #loginform[name="validate_2fa_form"] .two-factor-email-resend {
+  margin: 10px 0 0;
+}
+.login.bb-login #login #loginform[name="validate_2fa_form"] .two-factor-email-resend .button {
+  background-color: var(--bb-content-background-color);
+  color: var(--bb-headings-color);
+  border: 1px solid var(--bb-content-border-color);
+  width: 100%;
+  min-height: 40px;
+  padding: 4px 30px;
+  border-radius: var(--bb-button-radius);
+  box-shadow: none;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.3;
+  text-shadow: none;
+}
+.login.bb-login #login #loginform[name="validate_2fa_form"] .two-factor-email-resend .button:focus {
+  box-shadow: var(--bb-outline-button-focus-shadow);
+}
+.login.bb-login #login #loginform[name="validate_2fa_form"] .two-factor-email-resend .button:hover, .login.bb-login #login #loginform[name="validate_2fa_form"] .two-factor-email-resend .button:focus, .login.bb-login #login #loginform[name="validate_2fa_form"] .two-factor-email-resend .button:active {
+  background-color: var(--bb-secondary-button-background-hover);
+  color: var(--bb-secondary-button-text-hover);
+  border: 1px solid var(--bb-secondary-button-border-hover);
+}
+.login.bb-login #login .backup-methods-wrap {
+  margin-top: 24px;
+  padding: 0;
+}
+.login.bb-login #login .backup-methods-wrap p {
+  margin: 0 0 8px;
+  color: var(--bb-headings-color);
+  font-size: 14px;
+  font-weight: 500;
+}
+.login.bb-login #login .backup-methods-wrap ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.login.bb-login #login .backup-methods-wrap li {
+  margin-bottom: 6px;
+}
+.login.bb-login #login .backup-methods-wrap li:last-child {
+  margin-bottom: 0;
+}
+.login.bb-login #login .backup-methods-wrap a {
+  color: var(--bb-primary-color);
+  font-size: 14px;
+}
+.login.bb-login #login .backup-methods-wrap a:hover, .login.bb-login #login .backup-methods-wrap a:focus {
+  text-decoration: underline;
+}
+
+/*
+ * A wrong code posts back to these actions; a wrong password shares
+ * login-action-login, so the login screen's own error styling is left alone.
+ */
+.login.bb-login.login-action-validate_2fa #login #login_error,
+.login.bb-login.login-action-revalidate_2fa #login #login_error {
+  margin: 15px 0 20px;
+  padding: 12px 16px;
+  border: 0;
+  border-right: 3px solid var(--bb-danger-color);
+  border-radius: var(--bb-block-radius-inner);
+  background-color: rgba(var(--bb-danger-color-rgb), 0.08);
+  box-shadow: none;
+  color: var(--bb-body-text-color);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.login.bb-login.login-action-validate_2fa #login #login_error strong,
+.login.bb-login.login-action-revalidate_2fa #login #login_error strong {
+  font-weight: 500;
+}
+.login.bb-login.login-action-validate_2fa #login #login_error a,
+.login.bb-login.login-action-revalidate_2fa #login #login_error a {
+  color: var(--bb-primary-color);
+}
+.login.bb-login.login-action-validate_2fa #login #login_error br,
+.login.bb-login.login-action-revalidate_2fa #login #login_error br {
+  display: none;
 }

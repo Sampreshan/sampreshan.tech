@@ -293,7 +293,10 @@ function buddyboss_theme_scripts() {
 		wp_enqueue_style( 'buddyboss-theme-badgeos', get_template_directory_uri() . '/assets/css' . $rtl_css . '/badgeos' . $mincss . '.css', '', buddyboss_theme()->version() );
 	}
 
-	if ( class_exists( 'BuddyForms' ) || class_exists( 'WPCF7' ) || class_exists( 'Easy_Digital_Downloads' ) || class_exists( 'GFForms' ) || class_exists( 'IT_Exchange' ) || class_exists( 'Ninja_Forms' ) || class_exists( 'WPForms' ) || class_exists( 'BuddyBoss_SAP_Plugin' ) || class_exists( 'BPAPR_Activity_Plus_Reloaded' ) || function_exists( 'pm_load_libs' ) ) {
+	// Two-factor styles only apply to the Account screens (the Security tab and its nav icon), so load them there and nowhere else.
+	$load_two_factor_styles = function_exists( 'bb_two_factor_is_active' ) && bb_two_factor_is_active() && function_exists( 'bp_is_user_settings' ) && bp_is_user_settings();
+
+	if ( class_exists( 'BuddyForms' ) || class_exists( 'WPCF7' ) || class_exists( 'Easy_Digital_Downloads' ) || class_exists( 'GFForms' ) || class_exists( 'IT_Exchange' ) || class_exists( 'Ninja_Forms' ) || class_exists( 'WPForms' ) || class_exists( 'BuddyBoss_SAP_Plugin' ) || class_exists( 'BPAPR_Activity_Plus_Reloaded' ) || function_exists( 'pm_load_libs' ) || $load_two_factor_styles ) {
 		wp_enqueue_style( 'buddyboss-theme-plugins', get_template_directory_uri() . '/assets/css' . $rtl_css . '/plugins' . $mincss . '.css', '', buddyboss_theme()->version() );
 	}
 

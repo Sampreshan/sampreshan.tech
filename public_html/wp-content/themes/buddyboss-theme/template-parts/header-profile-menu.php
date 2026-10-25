@@ -64,6 +64,19 @@ if ( is_user_logged_in() ) {
 							<?php esc_html_e( 'Login Information', 'buddyboss-theme' ); ?>
 						</a>
 					</li>
+					<?php
+					// True only when the Two Factor plugin is active and the BuddyBoss
+					// integration is switched on, which is what adds the Security tab.
+					if ( function_exists( 'bb_two_factor_is_active' ) && bb_two_factor_is_active() ) {
+						?>
+						<li id="wp-admin-bar-my-account-settings-security">
+							<a class="ab-item" href="<?php echo esc_url( trailingslashit( $settings_link . 'security' ) ); ?>">
+								<?php esc_html_e( 'Security', 'buddyboss-theme' ); ?>
+							</a>
+						</li>
+						<?php
+					}
+					?>
 					<?php if ( has_action( 'bp_notification_settings' ) ) { ?>
 					<li id="wp-admin-bar-my-account-settings-notifications">
 						<a class="ab-item" href="<?php echo esc_url( trailingslashit( $settings_link . 'notifications' ) ); ?>">

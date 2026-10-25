@@ -3509,3 +3509,417 @@ div.wpforms-container-full .wpforms-form .wpforms-field-credit-card-expiration s
 .wedevs-pm-wrap table.fixed {
   position: static;
 }
+
+/* Two Factor */
+/*
+ * The Security tab under Account Settings prints the Two Factor plugin's own
+ * wp-admin markup verbatim, so everything below restyles that markup - form
+ * tables, notices, wp-admin buttons - to the theme's account-settings standards.
+ */
+.buddypress-wrap .bp-settings-container .bp-navs #security:before,
+.bp-single-vert-nav .bp-settings-container .bp-navs #security:before {
+  content: "\eecd";
+}
+
+#buddypress .bb-bp-settings-content .security-info {
+  max-width: 640px;
+  margin-bottom: 24px;
+  color: var(--bb-alternate-text-color);
+  font-size: 15px;
+  line-height: 1.6;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form h2 {
+  margin-bottom: 8px;
+  color: var(--bb-headings-color);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form fieldset[disabled] {
+  opacity: 0.6;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form fieldset > p {
+  max-width: 640px;
+  margin-bottom: 20px;
+  color: var(--bb-alternate-text-color);
+  font-size: 15px;
+  line-height: 1.6;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form hr {
+  height: 1px;
+  margin: 24px 0;
+  border: 0;
+  background-color: var(--bb-content-border-color);
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-methods-table,
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-primary-method-table {
+  display: block;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-methods-table tbody,
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-methods-table tr,
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-methods-table th,
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-methods-table td,
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-primary-method-table tbody,
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-primary-method-table tr,
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-primary-method-table th,
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-primary-method-table td {
+  display: block;
+  padding: 0;
+  border: 0;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-methods-table tr,
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-primary-method-table tr {
+  margin-bottom: 16px;
+  padding: 20px 24px;
+  border: 1px solid var(--bb-content-border-color);
+  border-radius: var(--bb-block-radius-inner);
+  background-color: var(--bb-content-background-color);
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-methods-table tr:last-child,
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-primary-method-table tr:last-child {
+  margin-bottom: 0;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-methods-table th,
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-primary-method-table th {
+  margin-bottom: 12px;
+  color: var(--bb-alternate-text-color);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-methods-table th label,
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-primary-method-table th label {
+  display: block;
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-method-label {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin: 0;
+  color: var(--bb-headings-color);
+  font-size: 15px;
+  line-height: 1.4;
+  cursor: pointer;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-method-label input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-method-label strong {
+  position: relative;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-weight: 500;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-method-label strong:before {
+  content: "";
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border: 1px solid var(--bb-content-border-color);
+  border-radius: var(--bb-checkbox-radius);
+  background: var(--bb-content-background-color);
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-method-label input[type="checkbox"]:focus + strong:before {
+  border-color: var(--bb-input-focus-border-color);
+  box-shadow: var(--bb-input-focus-shadow);
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-method-label input[type="checkbox"]:checked + strong:before {
+  border-color: var(--bb-primary-color);
+  background: var(--bb-primary-color);
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-method-label input[type="checkbox"]:checked + strong:after {
+  content: "\e876";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 20px;
+  color: #fff;
+  font-family: bb-icons;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1;
+  text-align: center;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-method-label input[type="checkbox"]:disabled + strong {
+  color: #bdbdbd;
+  cursor: auto;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-method-label input[type="checkbox"]:disabled + strong:before {
+  background: #dedfe2;
+  box-shadow: none;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-method-recommended {
+  margin: 0 0 0 8px;
+  padding: 3px 8px;
+  border: 0;
+  border-radius: 100px;
+  background-color: rgba(var(--bb-success-color-rgb), 0.12);
+  color: var(--bb-success-color);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: help;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form #two-factor-totp-options,
+#buddypress .bb-bp-settings-content .bb-two-factor-form #two-factor-backup-codes,
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-backup-codes-wrapper {
+  margin-top: 16px;
+  padding: 16px 20px;
+  border-radius: var(--bb-block-radius-inner);
+  background-color: var(--bb-content-alternate-background-color);
+  font-size: 14px;
+  line-height: 1.6;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form #two-factor-totp-options p,
+#buddypress .bb-bp-settings-content .bb-two-factor-form #two-factor-backup-codes p,
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-backup-codes-wrapper p {
+  margin-bottom: 12px;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form #two-factor-totp-options p:last-child,
+#buddypress .bb-bp-settings-content .bb-two-factor-form #two-factor-backup-codes p:last-child,
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-backup-codes-wrapper p:last-child {
+  margin-bottom: 0;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-backup-codes-wrapper {
+  margin-top: 12px;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-methods-table td > p {
+  margin: 12px 0 0;
+  color: var(--bb-alternate-text-color);
+  font-size: 14px;
+  line-height: 1.6;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .totp-steps {
+  margin: 0;
+  padding-left: 18px;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .totp-steps > li {
+  margin-bottom: 20px;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .totp-steps > li:last-child {
+  margin-bottom: 0;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form #two-factor-qr-code {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 204px;
+  min-width: 0;
+  height: 204px;
+  min-height: 0;
+  margin: 12px 0;
+  padding: 12px;
+  border: 1px solid var(--bb-content-border-color);
+  border-radius: var(--bb-block-radius-inner);
+  background-color: #fff;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form #two-factor-qr-code svg {
+  display: block;
+  width: 180px;
+  height: 180px;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form code {
+  display: inline-block;
+  padding: 6px 10px;
+  border: 1px solid var(--bb-content-border-color);
+  border-radius: var(--bb-block-radius-inner);
+  background-color: var(--bb-content-background-color);
+  color: var(--bb-headings-color);
+  font-family: "Courier New", courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+  font-size: 14px;
+  letter-spacing: 1px;
+  word-break: break-all;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form label[for="two-factor-totp-authcode"] {
+  display: block;
+  margin-bottom: 0;
+  color: var(--bb-headings-color);
+  font-size: 14px;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form #two-factor-totp-authcode {
+  display: block;
+  width: 100%;
+  max-width: 220px;
+  margin-top: 6px;
+  letter-spacing: 0.2em;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .totp-submit {
+  margin-top: 12px;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-backup-codes-count {
+  color: var(--bb-headings-color);
+  font-weight: 500;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-backup-codes-list-wrap {
+  display: block;
+  margin-top: 0;
+  padding: 16px 20px;
+  border: 1px solid var(--bb-content-border-color);
+  border-radius: var(--bb-block-radius-inner);
+  background-color: var(--bb-content-background-color);
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-backup-codes-unused-codes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 24px;
+  margin: 0;
+  padding: 0;
+  list-style-position: inside;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-backup-codes-unused-codes li {
+  margin: 0;
+  color: var(--bb-alternate-text-color);
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-backup-codes-token {
+  color: var(--bb-headings-color);
+  font-family: "Courier New", courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+  letter-spacing: 0.2em;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form #two-factor-primary-provider {
+  width: 100%;
+  max-width: 320px;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .description {
+  margin: 8px 0 0;
+  color: var(--bb-alternate-text-color);
+  font-size: 13px;
+  line-height: 1.6;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .notice,
+#buddypress .bb-bp-settings-content .bb-two-factor-form #totp-setup-error {
+  margin: 0 0 20px;
+  padding: 12px 16px;
+  border: 0;
+  border-left: 3px solid var(--bb-default-notice-color);
+  border-radius: var(--bb-block-radius-inner);
+  background-color: rgba(var(--bb-default-notice-color-rgb), 0.08);
+  box-shadow: none;
+  color: var(--bb-body-text-color);
+  font-size: 14px;
+  line-height: 1.6;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .notice p,
+#buddypress .bb-bp-settings-content .bb-two-factor-form #totp-setup-error p {
+  margin: 0 0 8px;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .notice p:last-child,
+#buddypress .bb-bp-settings-content .bb-two-factor-form #totp-setup-error p:last-child {
+  margin-bottom: 0;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .notice .button,
+#buddypress .bb-bp-settings-content .bb-two-factor-form #totp-setup-error .button {
+  margin-left: 6px;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .notice.notice-warning,
+#buddypress .bb-bp-settings-content .bb-two-factor-form #totp-setup-error.notice-warning {
+  border-left-color: var(--bb-warning-color);
+  background-color: rgba(var(--bb-warning-color-rgb), 0.08);
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .notice.notice-error,
+#buddypress .bb-bp-settings-content .bb-two-factor-form #totp-setup-error.notice-error {
+  border-left-color: var(--bb-danger-color);
+  background-color: rgba(var(--bb-danger-color-rgb), 0.08);
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .notice.notice-success,
+#buddypress .bb-bp-settings-content .bb-two-factor-form #totp-setup-error.notice-success {
+  border-left-color: var(--bb-success-color);
+  background-color: rgba(var(--bb-success-color-rgb), 0.08);
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form #totp-setup-error {
+  margin: 12px 0 0;
+  border-left-color: var(--bb-danger-color);
+  background-color: rgba(var(--bb-danger-color-rgb), 0.08);
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form button.button-secondary,
+#buddypress .bb-bp-settings-content .bb-two-factor-form a.button-secondary,
+#buddypress .bb-bp-settings-content .bb-two-factor-form input.button-secondary {
+  background-color: var(--bb-content-background-color);
+  color: var(--bb-headings-color);
+  border: 1px solid var(--bb-content-border-color);
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form button.button-secondary:focus,
+#buddypress .bb-bp-settings-content .bb-two-factor-form a.button-secondary:focus,
+#buddypress .bb-bp-settings-content .bb-two-factor-form input.button-secondary:focus {
+  box-shadow: var(--bb-outline-button-focus-shadow);
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form button.button-secondary:hover, #buddypress .bb-bp-settings-content .bb-two-factor-form button.button-secondary:focus, #buddypress .bb-bp-settings-content .bb-two-factor-form button.button-secondary:active,
+#buddypress .bb-bp-settings-content .bb-two-factor-form a.button-secondary:hover,
+#buddypress .bb-bp-settings-content .bb-two-factor-form a.button-secondary:focus,
+#buddypress .bb-bp-settings-content .bb-two-factor-form a.button-secondary:active,
+#buddypress .bb-bp-settings-content .bb-two-factor-form input.button-secondary:hover,
+#buddypress .bb-bp-settings-content .bb-two-factor-form input.button-secondary:focus,
+#buddypress .bb-bp-settings-content .bb-two-factor-form input.button-secondary:active {
+  background-color: var(--bb-secondary-button-background-hover);
+  color: var(--bb-secondary-button-text-hover);
+  border: 1px solid var(--bb-secondary-button-border-hover);
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .button-two-factor-backup-codes-copy,
+#buddypress .bb-bp-settings-content .bb-two-factor-form .button-two-factor-backup-codes-download {
+  margin-right: 8px;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form #two-factor-backup-codes em {
+  display: inline-block;
+  margin-left: 4px;
+  color: var(--bb-alternate-text-color);
+  font-size: 13px;
+}
+#buddypress .bb-bp-settings-content .bb-two-factor-form .submit {
+  margin-top: 24px;
+}
+@media (max-width: 544px) {
+  #buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-methods-table tr,
+  #buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-primary-method-table tr {
+    padding: 16px;
+  }
+  #buddypress .bb-bp-settings-content .bb-two-factor-form #two-factor-totp-options,
+  #buddypress .bb-bp-settings-content .bb-two-factor-form #two-factor-backup-codes,
+  #buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-backup-codes-wrapper {
+    padding: 12px 14px;
+  }
+  #buddypress .bb-bp-settings-content .bb-two-factor-form .two-factor-backup-codes-unused-codes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

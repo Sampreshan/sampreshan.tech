@@ -39,6 +39,8 @@ class WPCode_Admin_Page_Loader_Pro extends WPCode_Admin_Page_Loader {
 		require_once WPCODE_PLUGIN_PATH . 'includes/pro/admin/pages/class-wpcode-admin-page-snippet-manager-pro.php';
 		require_once WPCODE_PLUGIN_PATH . 'includes/pro/admin/pages/class-wpcode-admin-page-library-pro.php';
 		require_once WPCODE_PLUGIN_PATH . 'includes/pro/admin/pages/class-wpcode-admin-page-revisions.php';
+		require_once WPCODE_PLUGIN_PATH . 'includes/pro/admin/class-wpcode-revisions-code-diff.php';
+		require_once WPCODE_PLUGIN_PATH . 'includes/pro/admin/class-wpcode-revisions-view.php';
 		require_once WPCODE_PLUGIN_PATH . 'includes/pro/admin/pages/class-wpcode-admin-page-settings-pro.php';
 		require_once WPCODE_PLUGIN_PATH . 'includes/pro/admin/pages/class-wpcode-admin-page-pixel-pro.php';
 		require_once WPCODE_PLUGIN_PATH . 'includes/pro/admin/pages/class-wpcode-admin-page-file-editor-pro.php';
