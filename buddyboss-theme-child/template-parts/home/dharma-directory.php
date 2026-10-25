@@ -115,7 +115,7 @@ if ( empty( $peeths ) ) {
                     </a>
                     <p class="sp-dharma-sampradaya-card__family"><?php echo esc_html( sp_sampradaya_family_label( $item['family'] ) ); ?></p>
                     <h4><a href="<?php echo esc_url( get_permalink( $post ) ); ?>"><?php echo esc_html( get_the_title( $post ) ); ?></a></h4>
-                    <?php if ( ! empty( $item['name_hi'] ) ) : ?><p class="sp-dharma-acharya-card__role" lang="hi"><?php echo esc_html( $item['name_hi'] ); ?></p><?php endif; ?>
+                    
                     <div class="sp-dharma-acharya-card__cta">
                         <a class="sp-dharma-acharya-card__profile" href="<?php echo esc_url( get_permalink( $post ) ); ?>"><?php esc_html_e( 'Read more', 'sampreshan-child' ); ?></a>
                         <?php sp_dharma_follow_button( $post->ID, 'sp-dharma-follow--compact' ); ?>
