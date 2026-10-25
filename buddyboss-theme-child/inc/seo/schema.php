@@ -275,6 +275,10 @@ function sp_seo_public_description( $description ) {
         return $content ?: 'Support a meaningful community cause on SampreShan.';
     }
 
+    if ( is_404() ) {
+        return 'This page could not be found on SampreShan. Explore petitions, community stories and the Acharyas and Peeths of Sanatana Dharma.';
+    }
+
     if ( is_tax( 'dharma_peeth' ) || is_category() ) {
         $term = get_queried_object();
         $text = $term ? trim( wp_strip_all_tags( term_description( $term ) ) ) : '';
