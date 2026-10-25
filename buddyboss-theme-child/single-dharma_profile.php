@@ -32,7 +32,7 @@ while ( have_posts() ) : the_post();
             <?php sp_icon_e( sp_dharma_icon_name( $profile_id ), 'sp-icon--2xl sp-wiki__icon' ); ?>
             <p class="sp-wiki__kicker"><?php echo esc_html( 'sampradaya' === $kind ? sprintf( __( 'Sampradaya · %s', 'sampreshan-child' ), sp_sampradaya_family_label( $data['family'] ?? '' ) ) : __( 'Peeth', 'sampreshan-child' ) ); ?></p>
             <h1><?php the_title(); ?></h1>
-            <?php if ( ! empty( $data['name_hi'] ) ) : ?><p class="sp-wiki__alt" lang="hi"><?php echo esc_html( $data['name_hi'] ); ?></p><?php endif; ?>
+            
             <?php $sp_pp_head = sp_parampara_for( get_post_field( 'post_name', $profile_id ) ); ?>
             <?php if ( $sp_pp_head ) : ?>
                 <dl class="sp-wiki__founding">
@@ -124,7 +124,7 @@ while ( have_posts() ) : the_post();
             <div class="sp-folio__intro">
                 <?php if ( $data ) : ?><p class="sp-folio__role"><?php sp_icon_e( sp_dharma_icon_name( $profile_id ), 'sp-icon--lg' ); ?><?php echo esc_html( $data['role'] ); ?></p><?php endif; ?>
                 <h1><?php the_title(); ?></h1>
-                <?php if ( ! empty( $data['name_hi'] ) ) : ?><p class="sp-folio__alt" lang="hi"><?php echo esc_html( $data['name_hi'] ); ?></p><?php endif; ?>
+                
                 <p class="sp-folio__summary"><?php echo esc_html( $data ? $data['summary'] : get_the_excerpt() ); ?></p>
                 <div class="sp-folio__actions">
                     <?php sp_dharma_follow_button( $profile_id ); ?>

@@ -8,6 +8,14 @@ These rules are binding for any page, post, template or feature created for samp
 
 The full rules are in [docs/ICON-RULES.md](docs/ICON-RULES.md).
 
+## Language
+
+1. **English first:** English is the site's first and only display language. All pages, posts, profiles, petitions and their details are written in English.
+2. **No Devanagari or Hinglish:** write Sanskrit terms in Roman transliteration; translate any Hindi or Hinglish text.
+3. **Old pages:** translate their text and title, and keep the slug.
+
+The full rules are in [docs/LANGUAGE-RULES.md](docs/LANGUAGE-RULES.md).
+
 ## Content sourcing (ShivBodh Research Group)
 
 Every page, post, landing page and campaign follows `docs/CONTENT-SOURCING.md`:
