@@ -179,7 +179,7 @@ function sp_parampara_data_all() {
         ),
 
         'dakshinamnaya-sri-sharada-peetham' => array(
-            'founder' => array( 'name' => 'Adi Shankaracharya', 'when' => 'Videha-mukti 820 CE, per the Peetham', 'note' => 'Established the Sharada Peetham at Sringeri with Sureshvaracharya as its first Acharya.' ),
+            'founder' => array( 'name' => 'Adi Shankaracharya', 'when' => '', 'note' => 'Established the Sharada Peetham at Sringeri with Sureshvaracharya as its first Acharya. The Peetham records his videha-mukti in 820 CE.' ),
             'basis'   => 'peetham',
             'count'   => '36 Jagadgurus and a successor-designate, per the Peetham',
             'nodes'   => array(
