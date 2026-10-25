@@ -113,7 +113,7 @@ function sp_parampara_render( $slug, $current_slug = '' ) {
                         <svg viewBox="0 0 240 90" focusable="false"><path d="M120 0v38M120 38c-14 12-38 16-58 40M120 38c14 12 38 16 58 40M120 46c-6 14-20 24-26 40M120 46c6 14 20 24 26 40M120 30c-24 6-56 2-84 22M120 30c24 6 56 2 84 22" /></svg>
                     </span>
                     <div class="sp-pp__card sp-pp__card--root">
-                        <span class="sp-pp__chip"><?php esc_html_e( 'Founder', 'sampreshan-child' ); ?> &middot; <span lang="hi">संस्थापक</span></span>
+                        <span class="sp-pp__chip"><?php if ( ! empty( $founder['label'] ) ) : echo esc_html( $founder['label'] ); else : esc_html_e( 'Founder', 'sampreshan-child' ); ?> &middot; <span lang="hi">संस्थापक</span><?php endif; ?></span>
                         <strong class="sp-pp__name"><?php echo esc_html( $founder['name'] ); ?></strong>
                         <?php if ( ! empty( $founder['when'] ) ) : ?><span class="sp-pp__period"><?php echo esc_html( $founder['when'] ); ?></span><?php endif; ?>
                         <?php if ( ! empty( $founder['note'] ) ) : ?><span class="sp-pp__note"><?php echo esc_html( $founder['note'] ); ?></span><?php endif; ?>
