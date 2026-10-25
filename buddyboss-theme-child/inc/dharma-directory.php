@@ -703,7 +703,12 @@ function sp_dharma_legacy_redirects() {
         'puri-peetha'     => 'govardhan-math-puri',
     );
     if ( isset( $peeth_map[ $slug ] ) ) {
-        $term = get_term_by( 'slug', $peeth_map[ $slug ], 'dharma_peeth' );
+        $term    = get_term_by( 'slug', $peeth_map[ $slug ], 'dharma_peeth' );
+        $profile = ( $term && ! is_wp_error( $term ) ) ? sp_dharma_peeth_profile_for_term( $term->term_id ) : 0;
+        if ( $profile ) {
+            wp_safe_redirect( get_permalink( $profile ), 301 );
+            exit;
+        }
         if ( $term && ! is_wp_error( $term ) ) {
             wp_safe_redirect( get_term_link( $term ), 301 );
             exit;
@@ -711,6 +716,19 @@ function sp_dharma_legacy_redirects() {
     }
 }
 add_action( 'template_redirect', 'sp_dharma_legacy_redirects', 1 );
+
+/** One page per Peeth: the Peeth term archive sends visitors to its profile (with the parampara). */
+function sp_dharma_peeth_term_to_profile() {
+    if ( ! is_tax( 'dharma_peeth' ) || is_paged() ) {
+        return;
+    }
+    $profile = sp_dharma_peeth_profile_for_term( get_queried_object_id() );
+    if ( $profile ) {
+        wp_safe_redirect( get_permalink( $profile ), 301 );
+        exit;
+    }
+}
+add_action( 'template_redirect', 'sp_dharma_peeth_term_to_profile', 2 );
 
 function sp_dharma_dashboard_section() {
     if ( ! is_user_logged_in() ) {

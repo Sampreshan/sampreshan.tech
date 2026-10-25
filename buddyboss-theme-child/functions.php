@@ -202,7 +202,7 @@ add_action( 'wp_footer', 'sp_drop_unconfigured_elementor_scripts', 19 );
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.37' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.38' );
 }
 
 /**
@@ -507,6 +507,8 @@ require_once get_stylesheet_directory() . '/inc/migrated-acharya-pages.php';
 require_once get_stylesheet_directory() . '/inc/dharma-directory.php';
 require_once get_stylesheet_directory() . '/inc/sampradaya-data.php';
 require_once get_stylesheet_directory() . '/inc/dharma-data.php';
+require_once get_stylesheet_directory() . '/inc/parampara-data.php';
+require_once get_stylesheet_directory() . '/inc/parampara.php';
 require_once get_stylesheet_directory() . '/inc/ai-agent/ajax.php';
 
 /**
@@ -822,6 +824,22 @@ function sampreshan_child_enqueue_styles() {
             get_stylesheet_directory_uri() . '/assets/css/dharma-directory.css',
             array( 'sampreshan-icon-system' ),
             SAMPRESHAN_CHILD_VERSION
+        );
+    }
+
+    if ( is_singular( 'dharma_profile' ) ) {
+        wp_enqueue_style(
+            'sampreshan-parampara',
+            get_stylesheet_directory_uri() . '/assets/css/parampara.css',
+            array( 'sampreshan-dharma-directory' ),
+            SAMPRESHAN_CHILD_VERSION
+        );
+        wp_enqueue_script(
+            'sampreshan-parampara',
+            get_stylesheet_directory_uri() . '/assets/js/parampara.js',
+            array(),
+            SAMPRESHAN_CHILD_VERSION,
+            true
         );
     }
 
