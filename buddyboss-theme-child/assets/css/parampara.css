@@ -895,3 +895,32 @@ body.sp-future .sp-wiki__founding a {
 @media (prefers-reduced-motion: reduce) {
     .sp-pp3t__seg, .sp-pp3t__tag, .sp-pp3t__list button { transition: none; }
 }
+.sp-pp3t__note { font-size: .8rem; line-height: 1.4; color: #f3dcb6; max-width: 34ch; }
+.sp-pp3t__mini {
+    position: absolute; left: 0; top: 0; max-width: 190px; padding: 3px 8px; border-radius: 8px;
+    background: rgba(24, 13, 5, .72); color: #fff3df; font-size: .75rem; line-height: 1.25;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;
+}
+.sp-pp3t__mini span { display: block; color: #ffd27a; opacity: .9; }
+.sp-pp3t__mini.is-gap { color: #cfc6b8; font-style: italic; }
+.sp-pp3t__zoom { position: absolute; right: 14px; top: 62px; display: grid; gap: 6px; }
+.sp-pp3t__zoom button {
+    width: 40px; height: 40px; border: 0; border-radius: 50%; background: rgba(24, 13, 5, .8);
+    color: #ffe1a3; font-size: 1.3rem; line-height: 1; cursor: pointer; box-shadow: 0 0 0 1px rgba(246, 195, 91, .45);
+}
+.sp-pp3t__zoom button:focus-visible { outline: 3px solid #ffb347; outline-offset: 2px; }
+.sp-pp3t__hint {
+    position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); margin: 0; padding: 4px 12px;
+    border-radius: 999px; background: rgba(24, 13, 5, .65); color: #ffe1a3; font-size: .75rem;
+    pointer-events: none; transition: opacity .4s; white-space: nowrap;
+}
+.sp-pp3t.is-zoomed .sp-pp3t__hint { opacity: 0; }
+.sp-pp3t__list button small { grid-column: 2; font-size: .75rem; line-height: 1.35; opacity: .75; }
+.sp-pp3t.is-flat .sp-pp3t__main { grid-template-columns: 1fr; }
+.sp-pp3t.is-flat .sp-pp3t__list { height: auto; max-height: 520px; }
+@media (max-width: 600px) {
+    .sp-pp3t__zoom { right: 10px; top: 56px; }
+    .sp-pp3t__mini { max-width: 140px; }
+    .sp-pp3t__now .sp-pp3t__note { display: none; }
+}
+.sp-pp3t__list button span { grid-row: span 3; }

@@ -155,6 +155,7 @@ async function build(root) {
         num: root.querySelector('.sp-pp3t__num'),
         name: root.querySelector('.sp-pp3t__name'),
         period: root.querySelector('.sp-pp3t__period'),
+        note: root.querySelector('.sp-pp3t__note'),
         link: root.querySelector('.sp-pp3t__link'),
     };
     const line = data.line;
@@ -331,7 +332,7 @@ async function build(root) {
     const controls = new OrbitControls(camera, canvas);
     controls.enableDamping = true;
     controls.enablePan = false;
-    controls.minDistance = 8;
+    controls.minDistance = 3.5;
     controls.maxDistance = 34;
     controls.minPolarAngle = Math.PI * 0.2;
     controls.maxPolarAngle = Math.PI * 0.52;
@@ -346,6 +347,30 @@ async function build(root) {
         tagsEl.appendChild(el);
         return el;
     });
+    // Zooming in names every lamp, so the whole line can be read on the tree.
+    const minis = [];
+    for (let j = 0; j <= N; j++) {
+        const el = document.createElement('div');
+        el.className = 'sp-pp3t__mini' + (j > 0 && line[j - 1].gap ? ' is-gap' : '');
+        const nd = j === 0 ? data.founder : line[j - 1];
+        const lbl = j === 0 ? data.founder.chip : (nd.n ? nd.n + '. ' : '');
+        el.textContent = lbl + (j === 0 ? ': ' : '') + nd.name;
+        if (nd.period) {
+            const sp = document.createElement('span');
+            sp.textContent = nd.period;
+            el.appendChild(sp);
+        }
+        el.hidden = true;
+        tagsEl.appendChild(el);
+        minis.push(el);
+    }
+    let baseDist = 18;
+    root.querySelectorAll('[data-zoom]').forEach((b) => b.addEventListener('click', () => {
+        setPlaying(false);
+        const dir = camera.position.clone().sub(controls.target);
+        const d = dir.length() * (b.dataset.zoom === 'in' ? 0.7 : 1.4);
+        camera.position.copy(controls.target).add(dir.setLength(Math.max(controls.minDistance, Math.min(controls.maxDistance, d))));
+    }));
     const eraSet = buildEra(root, line, (k, user) => select(k, user));
     const items = list.querySelectorAll('button[data-k]');
 
@@ -359,11 +384,12 @@ async function build(root) {
     const goal = new THREE.Vector3(0, H * 0.5, 0);
 
     function nodeAt(j) {
-        return j === 0 ? { name: data.founder.name, period: data.founder.period, label: 'Founder' } : {
+        return j === 0 ? { name: data.founder.name, period: data.founder.period, note: data.founder.note, label: data.founder.chip } : {
             name: line[j - 1].name,
             period: line[j - 1].period,
             label: line[j - 1].n ? 'No. ' + line[j - 1].n : line[j - 1].branch,
             url: line[j - 1].url,
+            note: [line[j - 1].chip, line[j - 1].note].filter(Boolean).join('. '),
         };
     }
 
@@ -388,6 +414,8 @@ async function build(root) {
         now.num.textContent = nd.label || '';
         now.name.textContent = nd.name;
         now.period.textContent = nd.period || '';
+        now.note.textContent = nd.note || '';
+        now.note.hidden = !nd.note;
         now.link.hidden = !nd.url;
         if (nd.url) { now.link.href = nd.url; }
 
@@ -445,6 +473,7 @@ async function build(root) {
         camera.aspect = w / h;
         camera.updateProjectionMatrix();
         const dist = (w / h < 0.9 ? 25 : w / h < 1.4 ? 19 : 18);
+        baseDist = dist;
         const dir = camera.position.clone().sub(controls.target);
         if (dir.lengthSq() < 1) { dir.set(0.35, 0.42, 1); }
         camera.position.copy(controls.target).add(dir.normalize().multiplyScalar(dist));
@@ -461,7 +490,12 @@ async function build(root) {
         const w = stage.clientWidth;
         const h = stage.clientHeight;
         const placed = [];
-        tags.forEach((el) => {
+        const sr = stage.getBoundingClientRect();
+        [playBtn, root.querySelector('.sp-pp3t__zoom'), root.querySelector('.sp-pp3t__now')].forEach((b) => {
+            const q = b.getBoundingClientRect();
+            if (q.width) { placed.push({ l: q.left - sr.left, t: q.top - sr.top, r: q.right - sr.left, b: q.bottom - sr.top }); }
+        });
+        tags.forEach((el, i) => {
             if (el.hidden) { return; }
             const j = +el.dataset.k;
             v3.copy(j === 0 ? start : points[j - 1]).project(camera);
@@ -474,10 +508,36 @@ async function build(root) {
             const top = Math.max(6, Math.min(h - el.offsetHeight - 6, y - el.offsetHeight / 2));
             const r = { l: left, t: top, r: left + tw, b: top + el.offsetHeight };
             // Earlier lamps give way when their label would cover a newer one.
-            const clash = placed.some((q) => r.l < q.r && r.r > q.l && r.t < q.b && r.b > q.t);
+            const clash = i > 0 && placed.some((q) => r.l < q.r && r.r > q.l && r.t < q.b && r.b > q.t);
             el.style.transform = 'translate(' + left.toFixed(1) + 'px,' + top.toFixed(1) + 'px)';
             el.style.opacity = clash ? '0' : '';
             if (!clash) { placed.push(r); }
+        });
+        // Close up, every lamp in view gets its name; nearest lamps win space.
+        const zoomed = camera.position.distanceTo(controls.target) < baseDist * 0.72;
+        root.classList.toggle('is-zoomed', zoomed);
+        const order = [];
+        for (let j = 0; j <= N; j++) {
+            const el = minis[j];
+            const shown = tags.some((tg) => !tg.hidden && +tg.dataset.k === j);
+            if (!zoomed || shown) { el.hidden = true; continue; }
+            const p = j === 0 ? start : points[j - 1];
+            v3.copy(p).project(camera);
+            if (v3.z > 1 || Math.abs(v3.x) > 1.05 || Math.abs(v3.y) > 1.05) { el.hidden = true; continue; }
+            order.push({ j, x: (v3.x * 0.5 + 0.5) * w, y: (-v3.y * 0.5 + 0.5) * h, d: camera.position.distanceTo(p) });
+        }
+        order.sort((a, b) => a.d - b.d);
+        order.forEach((o) => {
+            const el = minis[o.j];
+            el.hidden = false;
+            const tw = el.offsetWidth;
+            const th = el.offsetHeight;
+            const left = Math.max(4, Math.min(w - tw - 4, o.x + 8));
+            const top = Math.max(4, Math.min(h - th - 4, o.y - th / 2));
+            const r = { l: left, t: top, r: left + tw, b: top + th };
+            if (placed.some((q) => r.l < q.r && r.r > q.l && r.t < q.b && r.b > q.t)) { el.hidden = true; return; }
+            placed.push(r);
+            el.style.transform = 'translate(' + left.toFixed(1) + 'px,' + top.toFixed(1) + 'px)';
         });
     }
 
@@ -516,13 +576,18 @@ async function build(root) {
     requestAnimationFrame(tick);
 }
 
+// Without WebGL the list and notes stay as the readable version of the tree.
+function fallback(root) {
+    root.classList.add('is-flat');
+    root.querySelector('.sp-pp3t__stage').hidden = true;
+}
+blocks.forEach((root) => { if (!hasWebGL()) { fallback(root); } });
 if (blocks.length && hasWebGL()) {
     blocks.forEach((root) => {
-        root.hidden = false;
         whenNear(root, () => {
             build(root).catch((err) => {
                 window.console && console.warn('Parampara tree unavailable:', err);
-                root.hidden = true;
+                fallback(root);
             });
         });
     });
