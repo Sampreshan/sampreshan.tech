@@ -116,15 +116,19 @@
 
     var fx = $('[data-fx]');
     var fxc = fx.getContext('2d');
+    var top = $('[data-fx-top]');
+    var tpc = top.getContext('2d');
     var bits = [];
     var motes = [];
     var fxOn = false;
 
     function sizeFx() {
         var r = window.devicePixelRatio || 1;
-        fx.width = window.innerWidth * r;
-        fx.height = window.innerHeight * r;
-        fxc.setTransform(r, 0, 0, r, 0, 0);
+        [fx, top].forEach(function (c) {
+            c.width = window.innerWidth * r;
+            c.height = window.innerHeight * r;
+            c.getContext('2d').setTransform(r, 0, 0, r, 0, 0);
+        });
     }
 
     function seedMotes() {
@@ -155,6 +159,7 @@
             fxc.arc(m.x + Math.sin(m.p) * 6, m.y, m.r, 0, Math.PI * 2);
             fxc.fill();
         });
+        tpc.clearRect(0, 0, W, H);
         for (var i = bits.length - 1; i >= 0; i--) {
             var b = bits[i];
             b.vy += b.g;
@@ -164,21 +169,22 @@
             b.a += b.spin;
             b.life -= 1;
             if (b.life <= 0) { bits.splice(i, 1); continue; }
-            fxc.globalAlpha = Math.min(1, b.life / 40);
-            fxc.fillStyle = b.c;
-            fxc.save();
-            fxc.translate(b.x, b.y);
-            fxc.rotate(b.a);
+            tpc.globalAlpha = Math.min(1, b.life / 40);
+            tpc.fillStyle = b.c;
+            tpc.save();
+            tpc.translate(b.x, b.y);
+            tpc.rotate(b.a);
             if (b.petal) {
-                fxc.beginPath();
-                fxc.ellipse(0, 0, b.s, b.s * 0.45, 0, 0, Math.PI * 2);
-                fxc.fill();
+                tpc.beginPath();
+                tpc.ellipse(0, 0, b.s, b.s * 0.45, 0, 0, Math.PI * 2);
+                tpc.fill();
             } else {
-                fxc.fillRect(-b.s / 2, -b.s / 2, b.s, b.s * 0.6);
+                tpc.fillRect(-b.s / 2, -b.s / 2, b.s, b.s * 0.6);
             }
-            fxc.restore();
+            tpc.restore();
         }
         fxc.globalAlpha = 1;
+        tpc.globalAlpha = 1;
         requestAnimationFrame(frame);
     }
 

@@ -38,7 +38,7 @@ $bank = sp_quiz_bank();
     </div>
 
     <div class="sp-quiz__countdown" data-countdown aria-hidden="true"><span></span></div>
-    <div class="sp-quiz__pop-layer" data-pops aria-hidden="true"></div>
+    <div class="sp-quiz__pop-layer" data-pops aria-hidden="true"><canvas class="sp-quiz__fx" data-fx-top></canvas></div>
 
     <div class="sp-quiz__wrap">
 
