@@ -822,3 +822,8 @@ body.sp-future .toast {
     border: 1px solid rgba(255, 138, 0, 0.4);
     color: var(--ft-text);
 }
+
+.sp-petition-single__target { margin: .25rem 0 1rem; font-size: .95rem; display: flex; flex-wrap: wrap; gap: .4rem; align-items: baseline; }
+.sp-petition-single__target span { text-transform: uppercase; font-size: .72rem; letter-spacing: .08em; opacity: .7; }
+.sp-petition-single__target strong { color: #f59e0b; }
+.sp-share-wa { background: #1f7a4d !important; color: #fff !important; }

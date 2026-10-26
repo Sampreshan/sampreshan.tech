@@ -43,6 +43,11 @@ if ( ! function_exists( 'sp_petition_meta_box' ) ) {
             : (int) get_post_meta( $post->ID, 'sampreshan_signatures', true );
         ?>
         <p>
+            <label for="sp_petition_target"><strong><?php esc_html_e( 'Addressed to (decision-maker)', 'sampreshan-child' ); ?></strong></label><br>
+            <input type="text" id="sp_petition_target" name="petition_target" value="<?php echo esc_attr( (string) get_post_meta( $post->ID, 'petition_target', true ) ); ?>" style="width:100%" />
+        </p>
+
+        <p>
             <label for="sp_petition_goal"><strong><?php esc_html_e( 'Signature goal', 'sampreshan-child' ); ?></strong></label><br>
             <input type="number" min="1" id="sp_petition_goal" name="sampreshan_goal" value="<?php echo esc_attr( $goal ?: 25000 ); ?>" style="width:100%" />
         </p>
@@ -105,6 +110,7 @@ if ( ! function_exists( 'sp_petition_meta_box' ) ) {
             'sampreshan_champion'  => 'absint',
             'sampreshan_status'    => 'sanitize_text_field',
             'sampreshan_deadline'  => 'sanitize_text_field',
+            'petition_target'      => 'sanitize_text_field',
         );
         foreach ( $fields as $key => $cb ) {
             if ( isset( $_POST[ $key ] ) ) {

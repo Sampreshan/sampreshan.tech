@@ -658,6 +658,9 @@ function sp_dharma_notify_followers_on_publish( $new_status, $old_status, $post 
     }
     foreach ( array_unique( array_map( 'intval', $followers ) ) as $user_id ) {
         sp_notify_user( (int) $user_id, 'dharma_update', (int) $post->ID, $profile_id );
+        if ( function_exists( 'sp_dharma_mail_queue' ) ) {
+            sp_dharma_mail_queue( (int) $user_id, (int) $post->ID );
+        }
     }
     update_post_meta( $post->ID, '_sp_dharma_update_notified', current_time( 'mysql' ) );
 }

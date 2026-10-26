@@ -202,7 +202,7 @@ add_action( 'wp_footer', 'sp_drop_unconfigured_elementor_scripts', 19 );
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.56' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.58' );
 }
 
 /**
@@ -506,6 +506,7 @@ require_once get_stylesheet_directory() . '/inc/dharma-news.php';
 require_once get_stylesheet_directory() . '/inc/dharma-calendar.php';
 require_once get_stylesheet_directory() . '/inc/auth/loader.php';
 require_once get_stylesheet_directory() . '/inc/notifications/center.php';
+require_once get_stylesheet_directory() . '/inc/notifications/dharma-mail.php';
 require_once get_stylesheet_directory() . '/inc/seo/schema.php';
 require_once get_stylesheet_directory() . '/inc/migrated-acharya-pages.php';
 require_once get_stylesheet_directory() . '/inc/dharma-directory.php';

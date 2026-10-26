@@ -222,7 +222,10 @@
        ════════════════════════════════════════════ */
     document.querySelectorAll('a[href^="#"]').forEach(function (link) {
         link.addEventListener('click', function (e) {
-            var target = document.querySelector(this.getAttribute('href'));
+            var href = this.getAttribute('href');
+            if (!href || href.length < 2) { return; }
+            var target = null;
+            try { target = document.querySelector(href); } catch (err) { return; }
             if (target) {
                 e.preventDefault();
                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
