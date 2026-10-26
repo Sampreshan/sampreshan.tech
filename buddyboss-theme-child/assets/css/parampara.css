@@ -968,3 +968,4 @@ body.sp-future .sp-wiki__founding a {
 .sp-pp3t__ticks span.is-start::before { left: 0; }
 .sp-pp3t__era { overflow: hidden; }
 .sp-pp3t__tag[hidden], .sp-pp3t__mini[hidden] { display: none; }
+@media (max-width: 600px) { .sp-pp3t__hint { max-width: calc(100% - 110px); white-space: normal; line-height: 1.3; } }
