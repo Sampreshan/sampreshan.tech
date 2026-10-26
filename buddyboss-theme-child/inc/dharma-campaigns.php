@@ -188,8 +188,8 @@ function sp_campaign_news_import( $per_campaign = 4 ) {
 						'post_type'     => sp_dharma_update_post_type(),
 						'post_status'   => $review ? 'pending' : 'publish',
 						'post_title'    => wp_strip_all_tags( $item['title'] ),
-						'post_content'  => '<p class="sp-news-origin">' . esc_html__( 'Original report:', 'sampreshan-child' ) . ' <a href="' . esc_url( $item['url'] ) . '" rel="nofollow noopener" target="_blank">' . esc_html( $item['source'] ) . '</a></p>',
-						'post_excerpt'  => sprintf( __( 'Reported by %s', 'sampreshan-child' ), $item['source'] ),
+						'post_content'  => '',
+						'post_excerpt'  => '',
 						'post_date_gmt' => gmdate( 'Y-m-d H:i:s', $item['time'] ),
 						'post_date'     => get_date_from_gmt( gmdate( 'Y-m-d H:i:s', $item['time'] ) ),
 						'meta_input'    => array(
@@ -202,7 +202,7 @@ function sp_campaign_news_import( $per_campaign = 4 ) {
 							'_sp_news_kind'             => 'news',
 							'_sp_news_origin'           => 'media',
 							'_sp_event_date'            => wp_date( 'Y-m-d', $item['time'] ),
-							'_sp_dharma_update_notified' => 'backfill',
+							'_sp_dharma_update_notified' => $item['time'] < time() - 3 * DAY_IN_SECONDS ? 'backfill' : '',
 						),
 					),
 					true
@@ -272,7 +272,7 @@ function sp_campaign_updates_section( $campaign_id ) {
 					<li>
 						<time datetime="<?php echo esc_attr( get_the_date( 'c', $p ) ); ?>"><?php echo esc_html( get_the_date( '', $p ) ); ?></time>
 						<a href="<?php echo esc_url( $src_url ? $src_url : get_permalink( $p ) ); ?>" rel="nofollow noopener" target="_blank"><?php echo esc_html( get_the_title( $p ) ); ?></a>
-						<small><?php echo esc_html( (string) get_post_meta( $p->ID, '_sp_news_source', true ) ); ?></small>
+						<?php echo sp_dcal_channel_icon( sp_dcal_channel( $src_url, (string) get_post_meta( $p->ID, '_sp_news_kind', true ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					</li>
 				<?php endforeach; ?>
 			</ul>

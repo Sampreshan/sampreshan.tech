@@ -72,6 +72,7 @@ $logo_url     = function_exists( 'sp_logo_url' ) ? sp_logo_url() : content_url( 
                     <li><a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>">Privacy</a></li>
                     <li><a href="<?php echo esc_url( home_url( '/terms-conditions/' ) ); ?>">Terms</a></li>
                     <li><a href="<?php echo esc_url( home_url( '/disclaimer/' ) ); ?>">Disclaimer</a></li>
+                    <li><a href="<?php echo esc_url( home_url( '/open-source-licences/' ) ); ?>">Licences</a></li>
                 </ul>
             </div>
 

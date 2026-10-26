@@ -110,3 +110,6 @@
 .sp-abhiyan-feed__list small {
     opacity: .7;
 }
+.sp-abhiyan-feed__list li { grid-template-columns: 1fr auto; align-items: center; }
+.sp-abhiyan-feed__list time { grid-column: 1 / -1; }
+.sp-abhiyan-feed__list .sp-dcal__ch { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 6px; background: rgba(148,163,184,.16); color: #cbd5e1; }

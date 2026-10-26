@@ -43,9 +43,25 @@
         link.target = '_blank'; link.rel = 'nofollow noopener';
         h.appendChild(link);
         body.appendChild(h);
-        body.appendChild(el('p', 'sp-dcal__src', it.profile + (it.source ? ' · ' + it.source : '')));
+        var src = el('p', 'sp-dcal__src');
+        src.appendChild(chIcon(it.channel));
+        src.appendChild(document.createTextNode(it.profile || ''));
+        body.appendChild(src);
         a.appendChild(body);
         return a;
+    }
+
+    var ICONS = {};
+    var CH_LABEL = { video: 'Video', photo: 'Photo post', web: 'Official page', news: 'News report' };
+    function chIcon(ch) {
+        ch = ICONS[ch] ? ch : 'news';
+        var span = el('span', 'sp-dcal__ch sp-dcal__ch--' + ch);
+        span.setAttribute('role', 'img');
+        span.setAttribute('aria-label', CH_LABEL[ch]);
+        span.title = CH_LABEL[ch];
+        // ICONS holds fixed SVG paths shipped by the theme, not user content.
+        span.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICONS[ch] || '') + '</svg>';
+        return span;
     }
 
     function init(root) {
@@ -53,6 +69,7 @@
         if (!dataNode) { return; }
         var data;
         try { data = JSON.parse(dataNode.textContent); } catch (e) { return; }
+        ICONS = data.icons || {};
         var all = data.items || [];
         var today = data.today;
         var calNode = root.querySelector('[data-sp-dcal-cal]');

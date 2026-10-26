@@ -168,22 +168,14 @@ function sp_dharma_news_import( $per_profile = 3 ) {
             $review    = sp_dharma_news_has_word( $item['title'], sp_dharma_news_review_words() );
             $programme = sp_dharma_news_has_word( $item['title'], sp_dharma_news_programme_words() );
             $date      = wp_date( get_option( 'date_format' ), $item['time'] );
-            $content   = sprintf(
-                '<p>%1$s</p><p class="sp-news-origin">%2$s</p>',
-                esc_html( sprintf( __( 'Update on %1$s, %2$s.', 'sampreshan-child' ), get_the_title( $profile ), $date ) ),
-                sprintf(
-                    /* translators: %s: publication name. */
-                    esc_html__( 'Original report: %s', 'sampreshan-child' ),
-                    '<a href="' . esc_url( $item['url'] ) . '" rel="nofollow noopener" target="_blank">' . esc_html( $item['source'] ? $item['source'] : __( 'news report', 'sampreshan-child' ) ) . '</a>'
-                )
-            );
+            $content   = '<p>' . esc_html( sprintf( __( 'Update on %1$s, %2$s.', 'sampreshan-child' ), get_the_title( $profile ), $date ) ) . '</p>';
             $id = wp_insert_post(
                 array(
                     'post_type'     => sp_dharma_update_post_type(),
                     'post_status'   => $review ? 'pending' : 'publish',
                     'post_title'    => wp_strip_all_tags( $item['title'] ),
                     'post_content'  => $content,
-                    'post_excerpt'  => $item['source'] ? sprintf( __( 'Reported by %s', 'sampreshan-child' ), $item['source'] ) : '',
+                    'post_excerpt'  => '',
                     'post_date_gmt' => gmdate( 'Y-m-d H:i:s', $item['time'] ),
                     'post_date'     => get_date_from_gmt( gmdate( 'Y-m-d H:i:s', $item['time'] ) ),
                     'meta_input'    => array_merge(

@@ -270,3 +270,28 @@ body.sp-login-body .sp-login__art {
 .post-grid .bb-comments-wrap {
     white-space: nowrap;
 }
+
+/* Mobile side panel (BuddyBoss): full-height drawer with readable links. */
+.bb-mobile-panel-wrapper {
+    top: 0 !important;
+    bottom: 0 !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    background: #12151e !important;
+}
+.bb-mobile-panel-wrapper .bb-mobile-panel-inner { min-height: 100%; height: auto !important; }
+.bb-mobile-panel-wrapper a,
+.bb-mobile-panel-wrapper .menu a span,
+.bb-mobile-panel-wrapper li span { color: #f3f4f6 !important; }
+.bb-mobile-panel-wrapper .current-menu-item > a,
+.bb-mobile-panel-wrapper .current-menu-item > a span,
+.bb-mobile-panel-wrapper a:hover span { color: #f59e0b !important; }
+.bb-mobile-panel-wrapper .bb-close-panel { color: #f3f4f6 !important; }
+.bb-mobile-panel-wrapper.left { left: -100% !important; width: min(86vw, 360px) !important; transition: left .3s ease !important; }
+.bb-mobile-panel-wrapper.left:not(.closed),
+body.bb-mobile-panel-open .bb-mobile-panel-wrapper.left { left: 0 !important; box-shadow: 8px 0 32px rgba(0,0,0,.5); }
+.bb-mobile-panel-wrapper .current-menu-item > a { background: rgba(245,158,11,.14) !important; border-radius: 12px; }
+.bb-mobile-panel-wrapper .current-menu-item > a i,
+.bb-mobile-panel-wrapper .current-menu-item > a .bb-icon-l { color: #f59e0b !important; border-color: #f59e0b !important; }
