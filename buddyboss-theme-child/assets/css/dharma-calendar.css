@@ -1,0 +1,375 @@
+/* Dharma Calendar (inc/dharma-calendar.php, assets/js/dharma-calendar.js) */
+.sp-dcal {
+    --dc-acc: #c2410c;
+    --dc-soft: #fff7ed;
+    --dc-line: #eadfd3;
+    --dc-past: #94a3b8;
+    --dc-ink: #1f2937;
+    --dc-mut: #6b7280;
+    color: var(--dc-ink);
+}
+
+.sp-dcal__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 20px;
+}
+
+.sp-dcal__cal,
+.sp-dcal__panel {
+    background: #fff;
+    border: 1px solid var(--dc-line);
+    border-radius: 14px;
+    padding: 16px;
+}
+
+.sp-dcal__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.sp-dcal__nav button {
+    border: 1px solid var(--dc-line);
+    background: #fff;
+    border-radius: 8px;
+    min-width: 36px;
+    min-height: 36px;
+    font-size: 18px;
+    cursor: pointer;
+    color: inherit;
+}
+
+.sp-dcal__days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    text-align: center;
+}
+
+.sp-dcal__dn {
+    font-size: 12px;
+    color: var(--dc-mut);
+    padding: 4px 0;
+}
+
+.sp-dcal__d {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 14px;
+    border: 1px solid transparent;
+    background: none;
+    color: inherit;
+    font: inherit;
+    padding: 0;
+}
+
+.sp-dcal__d.has-ev {
+    background: var(--dc-soft);
+    border-color: #fdba74;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.sp-dcal__d.has-ev.is-past {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #475569;
+}
+
+.sp-dcal__d.is-today {
+    outline: 2px solid var(--dc-ink);
+    outline-offset: -2px;
+}
+
+.sp-dcal__d.is-sel {
+    background: var(--dc-acc);
+    border-color: var(--dc-acc);
+    color: #fff;
+}
+
+.sp-dcal__d:focus-visible,
+.sp-dcal__nav button:focus-visible {
+    outline: 3px solid var(--dc-acc);
+    outline-offset: 1px;
+}
+
+.sp-dcal__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--dc-acc);
+    margin-top: 2px;
+}
+
+.sp-dcal__d.is-past .sp-dcal__dot {
+    background: var(--dc-past);
+}
+
+.sp-dcal__d.is-sel .sp-dcal__dot {
+    background: #fff;
+}
+
+.sp-dcal__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 12px 0 0;
+    font-size: 12px;
+    color: var(--dc-mut);
+}
+
+.sp-dcal__legend span::before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    margin-right: 5px;
+    vertical-align: -1px;
+}
+
+.sp-dcal__legend .is-up::before {
+    background: var(--dc-soft);
+    border: 1px solid #fdba74;
+}
+
+.sp-dcal__legend .is-past::before {
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+}
+
+.sp-dcal__legend .is-today::before {
+    border: 2px solid var(--dc-ink);
+}
+
+.sp-dcal__panel-title {
+    margin: 0 0 8px;
+    font-size: 17px;
+}
+
+.sp-dcal__list {
+    max-height: 560px;
+    overflow-y: auto;
+}
+
+.sp-dcal__item {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--dc-line);
+}
+
+.sp-dcal__item:last-child {
+    border-bottom: 0;
+}
+
+.sp-dcal__thumb {
+    width: 112px;
+    height: 63px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex: none;
+    background: var(--dc-soft);
+}
+
+.sp-dcal__item h3 {
+    margin: 2px 0;
+    font-size: 15px;
+    line-height: 1.35;
+}
+
+.sp-dcal__item h3 a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.sp-dcal__item h3 a:hover {
+    color: var(--dc-acc);
+    text-decoration: underline;
+}
+
+.sp-dcal__meta,
+.sp-dcal__src {
+    margin: 0;
+    font-size: 12px;
+    color: var(--dc-mut);
+}
+
+.sp-dcal__tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 1px 8px;
+    border-radius: 10px;
+    background: var(--dc-soft);
+    color: var(--dc-acc);
+    margin-right: 4px;
+}
+
+.sp-dcal__tag--video {
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+.sp-dcal__tag--news {
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+.sp-dcal__tag--past {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.sp-dcal__tag--soon {
+    background: #ecfdf5;
+    color: #047857;
+}
+
+.sp-dcal__back {
+    border: 0;
+    background: none;
+    color: var(--dc-acc);
+    padding: 0 0 6px;
+    cursor: pointer;
+    font: inherit;
+    font-size: 13px;
+    text-decoration: underline;
+}
+
+.sp-dcal__sources {
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--dc-mut);
+}
+
+.sp-dcal__sources p {
+    margin: 0 0 4px;
+}
+
+.sp-dcal__sources a {
+    color: var(--dc-acc);
+}
+
+.sp-dcal__policy {
+    font-size: 12px;
+}
+
+.sp-dcal__filter {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 14px;
+}
+
+.sp-dcal__filter label {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.sp-dcal__filter select {
+    min-height: 40px;
+    border: 1px solid var(--dc-line);
+    border-radius: 10px;
+    padding: 6px 12px;
+    background: #fff;
+    font: inherit;
+    max-width: 100%;
+}
+
+/* Home ticker: continuous, pauses on hover / focus */
+.sp-dcal__ticker {
+    overflow: hidden;
+    border-radius: 14px;
+    background: #1f2937;
+    padding: 12px 0;
+    margin-bottom: 18px;
+}
+
+.sp-dcal__track {
+    display: flex;
+    width: max-content;
+    animation: sp-dcal-run 70s linear infinite;
+}
+
+.sp-dcal__ticker:hover .sp-dcal__track,
+.sp-dcal__ticker:focus-within .sp-dcal__track {
+    animation-play-state: paused;
+}
+
+.sp-dcal__run {
+    display: flex;
+    gap: 14px;
+    padding-right: 14px;
+}
+
+.sp-dcal__tile {
+    width: 260px;
+    flex: none;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.sp-dcal__tile .sp-dcal__thumb {
+    width: 100%;
+    height: 130px;
+    border-radius: 0;
+    display: block;
+}
+
+.sp-dcal__tile>div {
+    padding: 8px 10px 10px;
+}
+
+.sp-dcal__tile h3 {
+    margin: 4px 0;
+    font-size: 14px;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.sp-dcal__tile h3 a {
+    color: inherit;
+    text-decoration: none;
+}
+
+@keyframes sp-dcal-run {
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sp-dcal__track {
+        animation: none;
+    }
+
+    .sp-dcal__ticker {
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 820px) {
+    .sp-dcal__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sp-dcal__tile {
+        width: 220px;
+    }
+
+    .sp-dcal__list {
+        max-height: none;
+    }
+}

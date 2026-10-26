@@ -11,6 +11,10 @@
  * Headlines touching sensitive topics (courts, police, politics) are saved as
  * "pending" for an editor to review instead of being published automatically.
  *
+ * This is now the BACKUP reader for the Dharma Calendar (inc/dharma-calendar.php):
+ * only trusted news organisations are accepted, and only headlines that name
+ * a Peeth or Acharya.
+ *
  * Manual run: wp eval 'sp_dharma_news_import();'
  *
  * @package SampreShan_Child
@@ -36,6 +40,32 @@ function sp_dharma_news_queries() {
         'paschimamnaya-dwarka-sharada-peetham'                   => '"Dwarka Sharada Peeth" OR "Dwarka Peeth"',
         'uttaraminaya-jyotirmath-peeth'                          => '"Jyotirmath" OR "Jyotish Peeth" Shankaracharya',
     );
+}
+
+/**
+ * Backup source policy: only established news organisations are accepted.
+ * Anything else (blogs, aggregators, unknown portals) is skipped entirely.
+ */
+function sp_dharma_news_trusted_sources() {
+    return array( 'the hindu', 'times of india', 'indian express', 'new indian express', 'hindustan times', 'deccan herald', 'deccan chronicle', 'the telegraph', 'the tribune', 'the statesman', 'ndtv', 'india today', 'aaj tak', 'news18', 'zee news', 'abp', 'republic', 'press trust of india', 'pti', 'ani', 'ians', 'doordarshan', 'dd news', 'all india radio', 'prasar bharati', 'dainik jagran', 'jagran', 'amar ujala', 'dainik bhaskar', 'divya bhaskar', 'hindustan', 'live hindustan', 'navbharat times', 'jansatta', 'patrika', 'nai dunia', 'naidunia', 'prabhat khabar', 'lokmat', 'sakal', 'loksatta', 'gujarat samachar', 'sandesh', 'vijay karnataka', 'prajavani', 'udayavani', 'vijayavani', 'kannada prabha', 'the hans india', 'eenadu', 'dinamalar', 'dinamani', 'dina thanthi', 'malayala manorama', 'mathrubhumi', 'sambad', 'dharitri', 'odishatv', 'odisha tv', 'orissapost', 'the pioneer', 'firstpost', 'the print', 'theprint', 'swarajya', 'organiser', 'business standard', 'economic times', 'mint', 'livemint', 'outlook', 'the week', 'free press journal', 'mid-day', 'telangana today', 'bhaskar english', 'etv bharat', 'tv9', 'news nation', 'india tv', 'times now', 'wion', 'bbc', 'reuters' );
+}
+
+function sp_dharma_news_is_trusted( $source ) {
+    $source = strtolower( trim( $source ) );
+    if ( '' === $source ) {
+        return false;
+    }
+    foreach ( sp_dharma_news_trusted_sources() as $name ) {
+        if ( $source === $name || 0 === strpos( $source, $name . ' ' ) || false !== strpos( ' ' . $source . ' ', ' ' . $name . ' ' ) ) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/** A backup headline must name a Peeth or Acharya to be kept at all. */
+function sp_dharma_news_is_relevant( $title ) {
+    return sp_dharma_news_has_word( $title, array( 'shankaracharya', 'shankracharya', 'sringeri', 'kanchi', 'kamakoti', 'govardhan', 'jyotir', 'jyotish', 'jyothish', 'dwarka', 'sharada peeth', 'sharada peetham', 'peeth', 'peetham', 'avimukt', 'nischalan', 'nishchalan', 'sadanand', 'bharati tirtha', 'bharati teertha', 'vidhushekhara', 'vijayendra', 'chandrasekharendra', 'chandrashekarendra', 'jagadguru' ) );
 }
 
 /** Headlines with these words go to review instead of publishing. */
@@ -131,7 +161,7 @@ function sp_dharma_news_import( $per_profile = 3 ) {
             if ( $added >= $per_profile ) {
                 break;
             }
-            if ( $item['time'] < time() - 30 * DAY_IN_SECONDS || sp_dharma_news_seen( $item['guid'], $item['title'] ) ) {
+            if ( ! sp_dharma_news_is_trusted( $item['source'] ) || ! sp_dharma_news_is_relevant( $item['title'] ) || $item['time'] < time() - 30 * DAY_IN_SECONDS || sp_dharma_news_seen( $item['guid'], $item['title'] ) ) {
                 continue;
             }
             $review    = sp_dharma_news_has_word( $item['title'], sp_dharma_news_review_words() );
@@ -162,6 +192,9 @@ function sp_dharma_news_import( $per_profile = 3 ) {
                             '_sp_news_url'          => $item['url'],
                             '_sp_news_source'       => $item['source'],
                             '_sp_news_type'         => $programme ? 'programme' : 'news',
+                            '_sp_news_kind'         => $programme ? 'event' : 'news',
+                            '_sp_news_origin'       => 'media',
+                            '_sp_event_date'        => wp_date( 'Y-m-d', $item['time'] ),
                         ),
                         // Only notify followers about fresh news, not the backlog.
                         $item['time'] < time() - 3 * DAY_IN_SECONDS ? array( '_sp_dharma_update_notified' => 'backfill' ) : array()
