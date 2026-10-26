@@ -392,3 +392,7 @@ body.sp-future .sp-dharma-news label { color: #e5e7eb; }
 .sp-dcal__ch--video { background: rgba(239,68,68,.14); color: #f87171; }
 .sp-dcal__ch--photo { background: rgba(236,72,153,.14); color: #f472b6; }
 .sp-dcal__ch--news { background: rgba(148,163,184,.16); color: #cbd5e1; }
+#main.site-main .sp-dcal__panel .sp-dcal__item h3 a,
+body.sp-future .sp-dcal__panel .sp-dcal__item h3 a { color: #1f2937 !important; }
+#main.site-main .sp-dcal__panel .sp-dcal__item h3 a:hover { color: #b45309 !important; }
+#main.site-main .sp-dcal__panel .sp-dcal__src { color: #4b5563; }
