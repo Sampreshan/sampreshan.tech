@@ -34,11 +34,13 @@ function whenNear(el, cb) {
 async function build(root) {
     const data = JSON.parse(root.querySelector('.sp-pp3d__data').textContent);
     const v = '?ver=' + encodeURIComponent(data.ver);
+    // Vendored three.js (r170) is pinned; loaders import it by the same URL,
+    // so no version query here or the library would load twice.
     const lib = data.base + 'vendor/three/';
     const [THREE, { GLTFLoader }, { OrbitControls }] = await Promise.all([
-        import(lib + 'three.module.min.js' + v),
-        import(lib + 'GLTFLoader.js' + v),
-        import(lib + 'OrbitControls.js' + v),
+        import(lib + 'three.module.min.js'),
+        import(lib + 'GLTFLoader.js'),
+        import(lib + 'OrbitControls.js'),
     ]);
 
     const view = root.querySelector('.sp-pp3d__view');
@@ -263,7 +265,8 @@ if (blocks.length && hasWebGL()) {
     blocks.forEach((root) => {
         root.hidden = false;
         whenNear(root, () => {
-            build(root).catch(() => {
+            build(root).catch((err) => {
+                window.console && console.warn('Parampara 3D tree unavailable:', err);
                 root.hidden = true;
             });
         });
