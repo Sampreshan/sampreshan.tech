@@ -175,6 +175,11 @@ function sp_dharma_profile_image_url( $profile_id, $size = 'large' ) {
         }
     }
 
+    $emblem = 'assets/images/sampradaya/' . get_post_field( 'post_name', $profile_id ) . '.webp';
+    if ( 'sampradaya' === get_post_meta( $profile_id, '_sp_dharma_kind', true ) && file_exists( get_stylesheet_directory() . '/' . $emblem ) ) {
+        return $cache[ $cache_key ] = get_stylesheet_directory_uri() . '/' . $emblem;
+    }
+
     return $cache[ $cache_key ] = '';
 }
 
