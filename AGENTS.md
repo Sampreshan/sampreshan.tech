@@ -23,6 +23,12 @@ content is compiled by the ShivBodh Research Group, written in our own words, ne
 third-party source lists on the page. Show the credit with
 `sp_research_credit()`; it reads only "ShivBodh Research Group".
 
+## Lists and pagination
+
+1. **Infinite scroll:** every list on the site (Acharyas, Peeths, Sampradayas, petitions, members, posts, archives) loads more items automatically as the reader scrolls. Do not show page-number buttons to the reader.
+2. **How:** render the list with normal WordPress pagination (`paginate_links()` / `the_posts_pagination()`) and mark the list container with `data-sp-infinite`. `assets/js/sp-infinite.js` hides the page links and appends the next page. The links remain as a no-JS and crawler fallback.
+3. **Dynamic items:** scripts that bind to list items must use event delegation or listen for the `sp:infinite-loaded` event.
+
 ## Buttons and CTAs
 
 1. **Slide effect:** every CTA and button on the site uses the shared slide effect (`assets/css/sp-slide.css` + `assets/js/sp-slide.js`): a fill slides through the inside of the button on hover, followed by a shine streak.

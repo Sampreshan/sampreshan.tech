@@ -6,13 +6,24 @@
  * @package SampreShan_Child
  */
 
-$welcome_posts = get_posts( array(
+// Pinned (sticky) posts always lead the home feed, then the latest stories.
+$sp_sticky     = array_map( 'absint', (array) get_option( 'sticky_posts', array() ) );
+$welcome_posts = $sp_sticky ? get_posts( array(
     'post_type'      => 'post',
     'post_status'    => 'publish',
-    'posts_per_page' => 6,
+    'post__in'       => $sp_sticky,
+    'posts_per_page' => count( $sp_sticky ),
     'orderby'        => 'date',
     'order'          => 'DESC',
-) );
+) ) : array();
+$welcome_posts = array_merge( $welcome_posts, get_posts( array(
+    'post_type'      => 'post',
+    'post_status'    => 'publish',
+    'posts_per_page' => max( 0, 6 - count( $welcome_posts ) ),
+    'post__not_in'   => $sp_sticky,
+    'orderby'        => 'date',
+    'order'          => 'DESC',
+) ) );
 
 if ( empty( $welcome_posts ) ) {
     return;

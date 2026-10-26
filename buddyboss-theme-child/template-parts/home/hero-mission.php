@@ -18,17 +18,6 @@ $is_logged_in = is_user_logged_in();
     <div class="d3-hero__light" aria-hidden="true"></div>
     <div class="d3-hero__grid" aria-hidden="true"></div>
 
-    <?php $sp_fly = get_stylesheet_directory_uri() . '/assets/video/pigeon-fly'; $sp_vv = defined( 'SAMPRESHAN_CHILD_VERSION' ) ? SAMPRESHAN_CHILD_VERSION : '1'; ?>
-    <!-- Kabootar post: two messenger doves fly in from far corners, grow near the shikhar and fly out of view. -->
-    <div class="sp-fly" aria-hidden="true">
-        <?php foreach ( array( 'a', 'b' ) as $sp_k ) : ?>
-        <div class="sp-fly__bird sp-fly__bird--<?php echo esc_attr( $sp_k ); ?>"><video class="sp-fly__vid" autoplay muted loop playsinline preload="auto" disablepictureinpicture>
-            <source src="<?php echo esc_url( $sp_fly . '.mov?ver=' . $sp_vv ); ?>" type='video/mp4; codecs="hvc1"'>
-            <source src="<?php echo esc_url( $sp_fly . '.webm?ver=' . $sp_vv ); ?>" type="video/webm">
-        </video></div>
-        <?php endforeach; ?>
-    </div>
-
     <div class="d3-hero__grid-inner">
         <div class="d3-hero__copy">
             <p class="d3-hero__eyebrow">

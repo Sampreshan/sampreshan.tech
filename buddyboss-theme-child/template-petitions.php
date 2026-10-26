@@ -89,7 +89,7 @@ $start_url = home_url( '/start-a-petition/' );
             );
             ?>
         </p>
-        <div class="sp-fu-petgrid">
+        <div class="sp-fu-petgrid" data-sp-infinite>
             <?php while ( $q->have_posts() ) : $q->the_post(); ?>
                 <?php get_template_part( 'template-parts/petition/card', null, array( 'id' => get_the_ID() ) ); ?>
             <?php endwhile; wp_reset_postdata(); ?>
