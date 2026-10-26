@@ -106,7 +106,13 @@ function sp_parampara_render( $slug, $current_slug = '' ) {
             </button>
         </header>
 
-        <?php sp_parampara_3d_render( $slug, $pp ); ?>
+        <?php
+        if ( sp_parampara_tree_v2_enabled( $slug ) ) {
+            sp_parampara_tree_v2_render( $slug, $pp );
+        } else {
+            sp_parampara_3d_render( $slug, $pp );
+        }
+        ?>
 
         <div class="sp-pp__stage">
             <ol class="sp-pp__tree sp-pp__list">
@@ -211,6 +217,93 @@ function sp_parampara_position_render( $acharya_slug, $peeth_post ) {
 /** True when the slug is a Peetham with its own Guru Parampara (not a sampradaya). */
 function sp_parampara_is_peetham( $slug ) {
     return isset( sp_parampara_data_all()[ $slug ] );
+}
+
+/**
+ * Peethams that show the realistic tree (v2). Preview on one Peetham
+ * first; the others keep the v1 tree until it is approved.
+ */
+function sp_parampara_tree_v2_enabled( $slug ) {
+    return in_array( $slug, array( 'dakshinamnaya-sri-sharada-peetham' ), true );
+}
+
+/** Flat chronological list of a Peetham's line for the 3D trees. */
+function sp_parampara_3d_line( $pp ) {
+    $line = array();
+    $add  = function ( $node, $branch = '' ) use ( &$line ) {
+        $line[] = array(
+            'n'      => isset( $node['n'] ) ? (int) $node['n'] : null,
+            'name'   => ! empty( $node['gap'] ) ? __( 'Not yet documented', 'sampreshan-child' ) : (string) ( $node['name'] ?? '' ),
+            'period' => (string) ( $node['period'] ?? '' ),
+            'status' => (string) ( $node['status'] ?? '' ),
+            'gap'    => ! empty( $node['gap'] ),
+            'branch' => $branch,
+            'url'    => ! empty( $node['profile'] ) ? (string) get_permalink( get_page_by_path( $node['profile'], OBJECT, 'dharma_profile' ) ) : '',
+        );
+    };
+    foreach ( $pp['nodes'] as $node ) {
+        $add( $node );
+    }
+    foreach ( $pp['branches'] ?? array() as $branch ) {
+        foreach ( $branch['nodes'] as $node ) {
+            $add( $node, (string) $branch['label'] );
+        }
+    }
+    return $line;
+}
+
+/**
+ * Realistic 3D Guru Parampara tree (v2). It plays by itself: each Acharya's
+ * lamp lights in turn with the name and period shown beside it, a Kaal
+ * Khanda bar sized by the years of each tenure, and the full list beside
+ * the tree. Names and periods come only from inc/parampara-data.php.
+ */
+function sp_parampara_tree_v2_render( $slug, $pp ) {
+    $line = sp_parampara_3d_line( $pp );
+    $data = array(
+        'founder' => array( 'name' => $pp['founder']['name'], 'period' => (string) ( $pp['founder']['when'] ?? '' ) ),
+        'line'    => $line,
+        'base'    => get_stylesheet_directory_uri() . '/assets/',
+        'ver'     => SAMPRESHAN_CHILD_VERSION,
+    );
+    $label = function ( $node ) {
+        if ( ! empty( $node['n'] ) ) {
+            /* translators: %d: position of the Acharya in the Peetham's count. */
+            return sprintf( __( 'No. %d', 'sampreshan-child' ), $node['n'] );
+        }
+        return $node['branch'];
+    };
+    ?>
+    <div class="sp-pp3t" data-sp-pp3t hidden>
+        <script type="application/json" class="sp-pp3t__data"><?php echo wp_json_encode( $data, JSON_HEX_TAG | JSON_HEX_AMP ); ?></script>
+        <div class="sp-pp3t__main">
+            <div class="sp-pp3t__stage">
+                <canvas class="sp-pp3t__canvas" role="img" aria-label="<?php esc_attr_e( 'Three dimensional tree of the Guru Parampara. Each Acharya lights up in turn with the name and period.', 'sampreshan-child' ); ?>"></canvas>
+                <div class="sp-pp3t__tags" aria-hidden="true"></div>
+                <div class="sp-pp3t__now" aria-live="polite">
+                    <span class="sp-pp3t__num"></span>
+                    <strong class="sp-pp3t__name"></strong>
+                    <span class="sp-pp3t__period"></span>
+                    <a class="sp-pp3t__link" href="#" hidden><?php esc_html_e( 'View profile', 'sampreshan-child' ); ?></a>
+                </div>
+                <button type="button" class="sp-pp3t__play" aria-pressed="true" data-label-play="<?php esc_attr_e( 'Play', 'sampreshan-child' ); ?>" data-label-pause="<?php esc_attr_e( 'Pause', 'sampreshan-child' ); ?>"><?php esc_html_e( 'Pause', 'sampreshan-child' ); ?></button>
+                <p class="sp-pp3t__loading"><?php esc_html_e( 'Growing the tree', 'sampreshan-child' ); ?></p>
+            </div>
+            <ol class="sp-pp3t__list" aria-label="<?php esc_attr_e( 'Acharyas in order', 'sampreshan-child' ); ?>">
+                <li><button type="button" data-k="0"><span><?php esc_html_e( 'Founder', 'sampreshan-child' ); ?></span><strong><?php echo esc_html( $pp['founder']['name'] ); ?></strong><em><?php echo esc_html( (string) ( $pp['founder']['when'] ?? '' ) ); ?></em></button></li>
+                <?php foreach ( $line as $i => $node ) : ?>
+                    <li<?php echo $node['gap'] ? ' class="is-gap"' : ''; ?>><button type="button" data-k="<?php echo esc_attr( $i + 1 ); ?>"><span><?php echo esc_html( $label( $node ) ); ?></span><strong><?php echo esc_html( $node['name'] ); ?></strong><em><?php echo esc_html( $node['period'] ); ?></em></button></li>
+                <?php endforeach; ?>
+            </ol>
+        </div>
+        <div class="sp-pp3t__era">
+            <p class="sp-pp3t__era-title"><?php esc_html_e( 'Kaal Khanda: each band is one Acharya, as wide as the years of the tenure', 'sampreshan-child' ); ?></p>
+            <div class="sp-pp3t__bar"></div>
+            <div class="sp-pp3t__ticks" aria-hidden="true"></div>
+        </div>
+        <p class="sp-pp3t__credit"><?php esc_html_e( 'Names and periods as published by the Peetham. Drag to turn the tree; tap a name to go to it.', 'sampreshan-child' ); ?></p>
+    </div>
+    <?php
 }
 
 /**
