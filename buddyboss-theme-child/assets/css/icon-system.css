@@ -437,65 +437,38 @@ body.sp-future .sp-iconlib .sp-iconlib__toc a:hover { background: #ea580c; color
 .sp-research-credit { align-items: center; }
 .sp-research-credit .sp-research-credit__title { margin: 0 !important; }
 
-/* ---------- Anusaran: footprints -> letters -> word -> paduka (8s loop) ---------- */
-.sp-anu { display: inline-flex; align-items: center; gap: .35em; vertical-align: middle; }
-.sp-anu .sp-khadau { margin-right: 0; }
-.sp-anu__paduka svg { width: 1.45em; height: 1.15em; }
-.sp-anu__paduka { opacity: 0; animation: spa-paduka 8s ease-out infinite; }
-.sp-anu__foot--r { animation: spa-step 8s ease-in-out infinite; }
-.sp-anu__word { display: inline-flex; align-items: flex-end; animation: spa-join 8s ease-in-out infinite; letter-spacing: .02em; }
+/* ---------- Anusaran walk: blank -> paduka steps -> dash prints -> SAMPRESHAN (anusaran.js) ---------- */
+.sp-anu { position: relative; display: inline-flex; align-items: center; vertical-align: middle; padding: 0 .2em; }
+.sp-anu__word { display: inline-flex; align-items: center; letter-spacing: .06em; font-weight: 700; }
 .sp-anu__gap { width: .3em; }
-.sp-anu__l {
-    position: relative;
-    display: inline-block;
-    opacity: 0;
-    animation: spa-letter 8s ease-out infinite;
-    animation-delay: calc(var(--i, 0) * .22s);
-}
-/* Faint paduka footprint the letter rises from. */
-.sp-anu__l::before {
+.sp-anu__l { position: relative; display: inline-block; min-width: .62em; text-align: center; opacity: 0; transform: translateY(.25em); transition: opacity .25s ease, transform .25s ease; }
+.sp-anu__l::after {
     content: "";
     position: absolute;
     left: 50%;
-    bottom: -.05em;
-    width: .42em;
-    height: .9em;
-    margin-left: -.21em;
-    border-radius: 50% 50% 45% 45%;
-    background: #9a5b2c;
+    bottom: .05em;
+    width: .45em;
+    height: .12em;
+    margin-left: -.225em;
+    border-radius: .1em;
+    background: currentColor;
     opacity: 0;
-    transform: rotate(14deg);
-    animation: spa-print 8s ease-out infinite;
-    animation-delay: inherit;
+    transition: opacity .2s ease;
 }
-.sp-anu__l:nth-of-type(even)::before { transform: rotate(-14deg); }
-@keyframes spa-print {
-    0%       { opacity: 0; transform: scale(.6) rotate(14deg); }
-    2%       { opacity: .55; transform: scale(1) rotate(14deg); }
-    7%, 100% { opacity: 0; }
-}
-@keyframes spa-letter {
-    0%, 2%   { opacity: 0; transform: translateY(.35em); }
-    6%, 90%  { opacity: 1; transform: translateY(0); }
-    96%, 100% { opacity: 0; transform: translateY(0); }
-}
-@keyframes spa-join {
-    0%, 24%  { letter-spacing: .38em; text-shadow: none; }
-    32%      { letter-spacing: .02em; text-shadow: 0 0 .5em rgba(212, 164, 55, .65); }
-    40%, 100% { letter-spacing: .02em; text-shadow: none; }
-}
-@keyframes spa-paduka {
-    0%, 36%  { opacity: 0; transform: translateX(-1.4em); }
-    44%      { opacity: 1; transform: translateX(.08em); }
-    48%, 90% { opacity: 1; transform: translateX(0); }
-    97%, 100% { opacity: 0; transform: translateX(0); }
-}
+.sp-anu__l.is-print::after { opacity: .55; }
+.sp-anu__l.is-on { opacity: 1; transform: translateY(0); }
+.sp-anu__l.is-on::after { opacity: 0; }
+.sp-anu.is-done .sp-anu__word { text-shadow: 0 0 .5em rgba(212, 164, 55, .6); }
+.sp-anu__paduka { position: absolute; top: 50%; left: 0; margin-top: -.55em; pointer-events: none; transition: transform .22s linear, opacity .3s ease; opacity: 0; }
+.sp-anu__paduka svg { width: 1.3em; height: 1.05em; display: block; }
+.sp-anu.is-walking .sp-anu__paduka { opacity: 1; }
+.sp-anu.is-rtl .sp-anu__paduka svg { transform: scaleX(-1); }
+.sp-anu.is-walking .sp-anu__foot--r { animation: spa-step .44s ease-in-out infinite; }
 @keyframes spa-step {
-    0%, 40%  { transform: translate(28px, 13px) rotate(90deg); }
-    44%      { transform: translate(31px, 13px) rotate(90deg); }
-    48%, 100% { transform: translate(28px, 13px) rotate(90deg); }
+    0%, 100% { transform: translate(28px, 13px) rotate(90deg); }
+    50%      { transform: translate(24px, 13px) rotate(90deg); }
 }
 @media (prefers-reduced-motion: reduce) {
-    .sp-anu__paduka, .sp-anu__l { animation: none; opacity: 1; }
-    .sp-anu__word, .sp-anu__foot--r, .sp-anu__l::before { animation: none; }
+    .sp-anu__l { opacity: 1; transform: none; transition: none; }
+    .sp-anu__paduka { display: none; }
 }

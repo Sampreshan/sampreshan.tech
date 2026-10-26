@@ -599,8 +599,9 @@ function sp_quiz_assets() {
         'dashboard' => home_url( '/dashboard/' ),
         'login'     => wp_login_url( sp_quiz_page_url() ),
         'audio'     => array(
-            'correct' => $uri . '/assets/audio/quiz-correct.m4a',
-            'wrong'   => $uri . '/assets/audio/quiz-wrong.m4a',
+            'correct' => $uri . '/assets/audio/quiz-satya.m4a',
+            'wrong'   => $uri . '/assets/audio/quiz-horn.m4a',
+            'bell'    => $uri . '/assets/audio/quiz-bell.m4a',
         ),
     ) );
 }

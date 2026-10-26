@@ -18,13 +18,14 @@ $is_logged_in = is_user_logged_in();
     <div class="d3-hero__light" aria-hidden="true"></div>
     <div class="d3-hero__grid" aria-hidden="true"></div>
 
-    <?php if ( function_exists( 'sp_pigeon' ) ) : ?>
-    <!-- Kabootar post: messenger doves carry the community's voice across the hero. -->
-    <div class="sp-pigeon-flight" aria-hidden="true">
-        <div class="sp-pigeon sp-pigeon--near"><div class="sp-pigeon__bob"><?php sp_pigeon( 'hn', true ); ?></div></div>
-        <div class="sp-pigeon sp-pigeon--far"><div class="sp-pigeon__bob"><?php sp_pigeon( 'hf', false ); ?></div></div>
+    <?php $sp_vid = get_stylesheet_directory_uri() . '/assets/video/hero-pigeons'; $sp_vv = defined( 'SAMPRESHAN_CHILD_VERSION' ) ? SAMPRESHAN_CHILD_VERSION : '1'; ?>
+    <!-- Kabootar post: messenger doves arrive at the shikhar, exchange the message and fly on. -->
+    <div class="sp-hero-video" aria-hidden="true">
+        <video class="sp-hero-video__el" autoplay muted loop playsinline preload="auto" disablepictureinpicture poster="<?php echo esc_url( $sp_vid . '-poster.webp?ver=' . $sp_vv ); ?>">
+            <source src="<?php echo esc_url( $sp_vid . '.mov?ver=' . $sp_vv ); ?>" type='video/mp4; codecs="hvc1"'>
+            <source src="<?php echo esc_url( $sp_vid . '.webm?ver=' . $sp_vv ); ?>" type="video/webm">
+        </video>
     </div>
-    <?php endif; ?>
 
     <div class="d3-hero__grid-inner">
         <div class="d3-hero__copy">
