@@ -14,67 +14,103 @@ get_header();
 $bank = sp_quiz_bank();
 ?>
 
-<main id="main" class="site-main sp-quiz" role="main">
+<main id="main" class="site-main sp-quiz" role="main" data-mood="idle">
+
+    <!-- Animated stage (decorative) -->
+    <div class="sp-quiz__stage" aria-hidden="true">
+        <div class="sp-quiz__rays"></div>
+        <svg class="sp-quiz__mandala" viewBox="-200 -200 400 400">
+            <g class="sp-quiz__ring sp-quiz__ring--a">
+                <?php for ( $i = 0; $i < 24; $i++ ) : ?>
+                    <ellipse cx="0" cy="-150" rx="16" ry="46" transform="rotate(<?php echo (int) ( $i * 15 ); ?>)"/>
+                <?php endfor; ?>
+            </g>
+            <g class="sp-quiz__ring sp-quiz__ring--b">
+                <?php for ( $i = 0; $i < 16; $i++ ) : ?>
+                    <path d="M0 -112 Q 22 -80 0 -48 Q -22 -80 0 -112Z" transform="rotate(<?php echo (int) ( $i * 22.5 ); ?>)"/>
+                <?php endfor; ?>
+                <circle r="118" />
+                <circle r="44" />
+            </g>
+        </svg>
+        <div class="sp-quiz__orb"></div>
+        <canvas class="sp-quiz__fx" data-fx></canvas>
+    </div>
+
+    <div class="sp-quiz__countdown" data-countdown aria-hidden="true"><span></span></div>
+    <div class="sp-quiz__pop-layer" data-pops aria-hidden="true"></div>
+
     <div class="sp-quiz__wrap">
 
         <!-- Start -->
         <section class="sp-quiz__screen is-active" data-screen="start" aria-labelledby="sp-quiz-title">
-            <p class="sp-quiz__eyebrow"><?php esc_html_e( 'ShivBodh Trust presents', 'sampreshan-child' ); ?></p>
-            <h1 id="sp-quiz-title" class="sp-quiz__title"><?php esc_html_e( 'Sangyani Sanatan Quiz', 'sampreshan-child' ); ?></h1>
-            <p class="sp-quiz__lead"><?php esc_html_e( 'Ten levels, 500 questions, from simple to scholarly. Clear all ten levels to receive the Sangyani Sanatan certificate from ShivBodh Trust.', 'sampreshan-child' ); ?></p>
+            <div class="sp-quiz__hero">
+                <p class="sp-quiz__eyebrow"><?php esc_html_e( 'ShivBodh Trust presents', 'sampreshan-child' ); ?></p>
+                <h1 id="sp-quiz-title" class="sp-quiz__title"><span><?php esc_html_e( 'Sangyani', 'sampreshan-child' ); ?></span> <em><?php esc_html_e( 'Sanatan', 'sampreshan-child' ); ?></em></h1>
+                <p class="sp-quiz__lead"><?php esc_html_e( 'A ten-level journey of 500 flash cards, from simple to scholarly. Clear every level to earn the Sangyani Sanatan certificate.', 'sampreshan-child' ); ?></p>
+            </div>
 
             <ul class="sp-quiz__rules">
-                <li><strong>+<?php echo esc_html( SP_QUIZ_POINTS_OK ); ?></strong> <?php esc_html_e( 'for every correct answer', 'sampreshan-child' ); ?></li>
-                <li><strong><?php echo esc_html( SP_QUIZ_POINTS_BAD ); ?></strong> <?php esc_html_e( 'for a wrong answer or when time runs out', 'sampreshan-child' ); ?></li>
-                <li><strong><?php echo esc_html( SP_QUIZ_SECONDS ); ?>s</strong> <?php esc_html_e( 'to answer each card', 'sampreshan-child' ); ?></li>
-                <li><?php esc_html_e( 'A level is cleared only when every question in it is answered correctly. Missed questions return at the end of the level.', 'sampreshan-child' ); ?></li>
+                <li><b>+<?php echo esc_html( SP_QUIZ_POINTS_OK ); ?></b><span><?php esc_html_e( 'Correct', 'sampreshan-child' ); ?></span></li>
+                <li><b><?php echo esc_html( SP_QUIZ_POINTS_BAD ); ?></b><span><?php esc_html_e( 'Wrong or timeout', 'sampreshan-child' ); ?></span></li>
+                <li><b><?php echo esc_html( SP_QUIZ_SECONDS ); ?>s</b><span><?php esc_html_e( 'Per card', 'sampreshan-child' ); ?></span></li>
+                <li><b>10</b><span><?php esc_html_e( 'Levels to clear', 'sampreshan-child' ); ?></span></li>
             </ul>
-
-            <ol class="sp-quiz__levels">
-                <?php foreach ( $bank as $n => $lvl ) : ?>
-                    <li><span><?php echo esc_html( $n ); ?></span><?php echo esc_html( $lvl['title'] ); ?></li>
-                <?php endforeach; ?>
-            </ol>
 
             <form class="sp-quiz__start" data-start-form>
                 <label for="sp-quiz-name"><?php esc_html_e( 'Your name, as it should appear on the certificate', 'sampreshan-child' ); ?></label>
-                <div class="sp-quiz__start-row">
-                    <input id="sp-quiz-name" name="name" type="text" maxlength="60" autocomplete="name" required>
-                    <button type="submit" class="sp-quiz__btn sp-quiz__btn--primary" data-start-btn><?php esc_html_e( 'Begin', 'sampreshan-child' ); ?></button>
-                </div>
+                <input id="sp-quiz-name" name="name" type="text" maxlength="60" autocomplete="name" required>
+                <button type="submit" class="sp-quiz__btn sp-quiz__btn--primary sp-quiz__btn--play" data-start-btn><?php esc_html_e( 'Play', 'sampreshan-child' ); ?></button>
                 <p class="sp-quiz__note" data-resume-note hidden></p>
                 <?php if ( ! is_user_logged_in() ) : ?>
                     <p class="sp-quiz__note">
-                        <?php esc_html_e( 'Playing as a guest works, but your history is saved to your dashboard only when you are signed in.', 'sampreshan-child' ); ?>
+                        <?php esc_html_e( 'Guests can play. Sign in to keep your history on your dashboard.', 'sampreshan-child' ); ?>
                         <a href="<?php echo esc_url( wp_login_url( sp_quiz_page_url() ) ); ?>"><?php esc_html_e( 'Sign in', 'sampreshan-child' ); ?></a>
                     </p>
                 <?php endif; ?>
                 <p class="sp-quiz__error" data-error role="alert" hidden></p>
             </form>
+
+            <p class="sp-quiz__section-label"><?php esc_html_e( 'The journey', 'sampreshan-child' ); ?></p>
+            <ol class="sp-quiz__map" data-map>
+                <?php foreach ( $bank as $n => $lvl ) : ?>
+                    <li data-level="<?php echo esc_attr( $n ); ?>"><span class="sp-quiz__node"><?php echo esc_html( $n ); ?></span><span class="sp-quiz__node-name"><?php echo esc_html( $lvl['title'] ); ?></span></li>
+                <?php endforeach; ?>
+            </ol>
+            <p class="sp-quiz__note sp-quiz__keys-hint"><?php esc_html_e( 'Tip: press keys 1 to 4 to answer and Enter for the next card.', 'sampreshan-child' ); ?></p>
         </section>
 
         <!-- Play -->
         <section class="sp-quiz__screen" data-screen="play" aria-label="<?php esc_attr_e( 'Quiz', 'sampreshan-child' ); ?>">
             <header class="sp-quiz__hud">
-                <div class="sp-quiz__hud-level">
-                    <span data-hud-level></span>
+                <div class="sp-quiz__badge"><small><?php esc_html_e( 'Level', 'sampreshan-child' ); ?></small><b data-hud-num>1</b></div>
+                <div class="sp-quiz__hud-mid">
                     <strong data-hud-title></strong>
+                    <span data-hud-level></span>
+                    <div class="sp-quiz__progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-progress><span></span></div>
+                    <p class="sp-quiz__progress-text" data-progress-text></p>
                 </div>
                 <div class="sp-quiz__hud-right">
-                    <span class="sp-quiz__score" aria-live="polite"><span data-hud-score>0</span> <?php esc_html_e( 'pts', 'sampreshan-child' ); ?></span>
+                    <div class="sp-quiz__score" aria-live="polite"><b data-hud-score>0</b><small><?php esc_html_e( 'points', 'sampreshan-child' ); ?></small></div>
+                    <div class="sp-quiz__streak" data-streak hidden><b data-streak-num>0</b><small><?php esc_html_e( 'streak', 'sampreshan-child' ); ?></small></div>
                     <button type="button" class="sp-quiz__icon-btn" data-mute aria-pressed="false"><?php esc_html_e( 'Sound on', 'sampreshan-child' ); ?></button>
                 </div>
             </header>
-            <div class="sp-quiz__progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-progress><span></span></div>
-            <p class="sp-quiz__progress-text" data-progress-text></p>
 
-            <article class="sp-quiz__card" data-card>
-                <div class="sp-quiz__timer" aria-hidden="true"><span data-timer-bar></span></div>
-                <p class="sp-quiz__timer-text"><span data-timer>30</span>s</p>
-                <h2 class="sp-quiz__question" data-question tabindex="-1"></h2>
-                <div class="sp-quiz__options" data-options role="group"></div>
-                <p class="sp-quiz__feedback" data-feedback aria-live="assertive"></p>
-            </article>
+            <div class="sp-quiz__deck">
+                <div class="sp-quiz__ghost sp-quiz__ghost--2" aria-hidden="true"></div>
+                <div class="sp-quiz__ghost sp-quiz__ghost--1" aria-hidden="true"></div>
+                <article class="sp-quiz__card" data-card>
+                    <div class="sp-quiz__timer" aria-hidden="true">
+                        <svg viewBox="0 0 44 44"><circle class="sp-quiz__timer-bg" cx="22" cy="22" r="19"/><circle class="sp-quiz__timer-arc" cx="22" cy="22" r="19" data-timer-bar/></svg>
+                        <span data-timer>30</span>
+                    </div>
+                    <p class="sp-quiz__card-tag" data-card-tag></p>
+                    <h2 class="sp-quiz__question" data-question tabindex="-1"></h2>
+                    <div class="sp-quiz__options" data-options role="group"></div>
+                    <p class="sp-quiz__feedback" data-feedback aria-live="assertive"></p>
+                </article>
+            </div>
 
             <div class="sp-quiz__actions">
                 <button type="button" class="sp-quiz__btn sp-quiz__btn--primary" data-next hidden><?php esc_html_e( 'Next card', 'sampreshan-child' ); ?></button>
@@ -84,16 +120,20 @@ $bank = sp_quiz_bank();
 
         <!-- Level cleared -->
         <section class="sp-quiz__screen sp-quiz__center" data-screen="level" aria-live="polite">
+            <div class="sp-quiz__burst" aria-hidden="true"></div>
             <p class="sp-quiz__eyebrow"><?php esc_html_e( 'Level cleared', 'sampreshan-child' ); ?></p>
-            <h2 class="sp-quiz__title" data-level-heading></h2>
+            <h2 class="sp-quiz__title sp-quiz__title--win" data-level-heading></h2>
+            <div class="sp-quiz__stars" aria-hidden="true"><i></i><i></i><i></i></div>
             <p class="sp-quiz__lead" data-level-summary></p>
-            <button type="button" class="sp-quiz__btn sp-quiz__btn--primary" data-continue><?php esc_html_e( 'Continue to next level', 'sampreshan-child' ); ?></button>
+            <ol class="sp-quiz__map sp-quiz__map--mini" data-map-mini aria-hidden="true"></ol>
+            <button type="button" class="sp-quiz__btn sp-quiz__btn--primary sp-quiz__btn--play" data-continue><?php esc_html_e( 'Next level', 'sampreshan-child' ); ?></button>
         </section>
 
         <!-- Certificate -->
         <section class="sp-quiz__screen sp-quiz__center" data-screen="cert">
+            <div class="sp-quiz__burst" aria-hidden="true"></div>
             <p class="sp-quiz__eyebrow" data-cert-eyebrow><?php esc_html_e( 'All ten levels cleared', 'sampreshan-child' ); ?></p>
-            <h2 class="sp-quiz__title" data-cert-heading><?php esc_html_e( 'You are a Sangyani Sanatan', 'sampreshan-child' ); ?></h2>
+            <h2 class="sp-quiz__title sp-quiz__title--win" data-cert-heading><?php esc_html_e( 'You are a Sangyani Sanatan', 'sampreshan-child' ); ?></h2>
             <canvas class="sp-quiz__cert" data-cert-canvas width="1600" height="1131" role="img" aria-label="<?php esc_attr_e( 'Certificate', 'sampreshan-child' ); ?>"></canvas>
             <div class="sp-quiz__actions">
                 <button type="button" class="sp-quiz__btn sp-quiz__btn--primary" data-download-png><?php esc_html_e( 'Download certificate (PNG)', 'sampreshan-child' ); ?></button>
