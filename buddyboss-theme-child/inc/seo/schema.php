@@ -20,6 +20,7 @@ function sp_seo_site_org() {
         '@id'   => home_url( '/#organization' ),
         'name'  => get_bloginfo( 'name' ),
         'url'   => home_url( '/' ),
+        'description' => function_exists( 'sp_mission_short' ) ? sp_mission_short() : '',
         'logo'  => $logo ? array( '@type' => 'ImageObject', 'url' => $logo ) : home_url( '/' ),
     );
     if ( ! is_singular( 'dharma_profile' ) && ! is_post_type_archive( 'dharma_profile' ) && ! is_tax( 'dharma_peeth' ) ) {
@@ -163,29 +164,36 @@ function sp_seo_print_schema() {
             ),
         );
     }
-    /* --- Dharma profile: Sampreshan is the only publisher/host identity. --- */
+    /* --- Dharma profile: Peeth = Organization, Acharya = Person, Sampradaya = Thing. --- */
     elseif ( is_singular( 'dharma_profile' ) ) {
         $profile_id = get_queried_object_id();
         $profile    = get_post( $profile_id );
         if ( $profile ) {
-            $peeth = (string) get_post_meta( $profile_id, '_sp_dharma_peeth', true );
+            $url  = get_permalink( $profile_id );
+            $desc = sp_seo_dharma_description( $profile_id );
             $graph = array(
-                '@type'           => 'ProfilePage',
-                'mainEntityOfPage'=> get_permalink( $profile_id ),
-                'name'            => get_the_title( $profile_id ),
-                'description'     => has_excerpt( $profile_id ) ? get_the_excerpt( $profile_id ) : wp_trim_words( wp_strip_all_tags( $profile->post_content ), 30, '...' ),
-                'publisher'       => sp_seo_site_org(),
-                'mainEntity'      => array(
-                    '@type'       => 'Person',
-                    '@id'         => get_permalink( $profile_id ) . '#profile',
-                    'name'        => get_the_title( $profile_id ),
-                    'description' => has_excerpt( $profile_id ) ? get_the_excerpt( $profile_id ) : '',
-                    'url'         => get_permalink( $profile_id ),
-                    'affiliation' => $peeth ? array( '@type' => 'Organization', 'name' => $peeth ) : null,
+                '@type'            => 'ProfilePage',
+                '@id'              => $url . '#webpage',
+                'url'              => $url,
+                'name'             => get_the_title( $profile_id ),
+                'description'      => $desc,
+                'inLanguage'       => 'en',
+                'dateModified'     => get_post_modified_time( 'c', true, $profile_id ),
+                'isPartOf'         => array( '@id' => home_url( '/#website' ) ),
+                'publisher'        => sp_seo_site_org(),
+                'mainEntity'       => sp_seo_dharma_entity( $profile_id, true ),
+                'breadcrumb'       => array(
+                    '@type'           => 'BreadcrumbList',
+                    'itemListElement' => array(
+                        array( '@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => home_url( '/' ) ),
+                        array( '@type' => 'ListItem', 'position' => 2, 'name' => 'Peeths, Acharyas & Sampradayas', 'item' => sp_seo_dharma_directory_url() ),
+                        array( '@type' => 'ListItem', 'position' => 3, 'name' => get_the_title( $profile_id ), 'item' => $url ),
+                    ),
                 ),
             );
-            if ( empty( $graph['mainEntity']['affiliation'] ) ) {
-                unset( $graph['mainEntity']['affiliation'] );
+            $events = sp_seo_dharma_events( array( $profile_id ), 20 );
+            if ( $events ) {
+                $graph['hasPart'] = array( '@type' => 'ItemList', 'name' => 'Programmes and events', 'itemListElement' => $events );
             }
         }
     }
@@ -194,22 +202,167 @@ function sp_seo_print_schema() {
         $ids = get_posts( array(
             'post_type'      => 'dharma_profile',
             'post_status'    => 'publish',
-            'posts_per_page' => 50,
+            'posts_per_page' => 60,
             'fields'         => 'ids',
             'no_found_rows'  => true,
+            'orderby'        => array( 'menu_order' => 'ASC', 'title' => 'ASC' ),
         ) );
         $graph = array(
             '@type'           => 'CollectionPage',
-            'mainEntityOfPage'=> get_permalink(),
-            'name'            => is_tax() ? single_term_title( '', false ) : __( 'Acharyas & Peeths', 'sampreshan-child' ),
+            'url'             => is_tax() ? get_term_link( get_queried_object() ) : sp_seo_dharma_directory_url(),
+            'name'            => is_tax() ? single_term_title( '', false ) : __( 'Peeths, Acharyas & Sampradayas', 'sampreshan-child' ),
+            'description'     => function_exists( 'sp_mission_short' ) ? sp_mission_short() : '',
+            'inLanguage'      => 'en',
             'publisher'       => sp_seo_site_org(),
-            'mainEntity'      => array( '@type' => 'ItemList', 'itemListElement' => sp_seo_itemlist( $ids, 'ProfilePage' ) ),
+            'mainEntity'      => array( '@type' => 'ItemList', 'numberOfItems' => count( $ids ), 'itemListElement' => sp_seo_dharma_itemlist( $ids ) ),
         );
+    }
+    /* --- Home: the one-place directory + live calendar. --- */
+    elseif ( is_front_page() ) {
+        $ids = get_posts( array(
+            'post_type'      => 'dharma_profile',
+            'post_status'    => 'publish',
+            'posts_per_page' => 60,
+            'fields'         => 'ids',
+            'no_found_rows'  => true,
+            'orderby'        => array( 'menu_order' => 'ASC', 'title' => 'ASC' ),
+            'meta_query'     => array( array( 'key' => '_sp_dharma_kind', 'value' => array( 'peeth', 'acharya' ), 'compare' => 'IN' ) ),
+        ) );
+        $graph = array(
+            '@type'       => 'WebPage',
+            '@id'         => home_url( '/#sp-dharma' ),
+            'url'         => home_url( '/' ),
+            'name'        => 'Peeths, Acharyas and their programmes in one place',
+            'description' => function_exists( 'sp_mission_short' ) ? sp_mission_short() : '',
+            'inLanguage'  => 'en',
+            'publisher'   => sp_seo_site_org(),
+            'about'       => array( 'Shankaracharya Peeths', 'Sanatana Dharma Acharyas', 'Sampradayas of Bharat', 'Dharma calendar' ),
+            'mainEntity'  => array( '@type' => 'ItemList', 'name' => 'Peeths and Acharyas', 'itemListElement' => sp_seo_dharma_itemlist( $ids ) ),
+        );
+        $events = sp_seo_dharma_events( null, 20 );
+        if ( $events ) {
+            $graph['hasPart'] = array( '@type' => 'ItemList', 'name' => 'Dharma calendar', 'itemListElement' => $events );
+        }
     }
 
     if ( ! $graph ) { return; }
     $graph['@context'] = 'https://schema.org';
     return $graph;
+}
+
+/* ---------------------------------------------------------------------
+ * Dharma profile helpers
+ * ------------------------------------------------------------------ */
+
+function sp_seo_dharma_directory_url() {
+    return function_exists( 'sp_dharma_directory_url' ) ? sp_dharma_directory_url() : home_url( '/dharma-acharya/' );
+}
+
+function sp_seo_dharma_kind( $profile_id ) {
+    $kind = function_exists( 'sp_dharma_profile_kind' ) ? sp_dharma_profile_kind( $profile_id ) : get_post_meta( $profile_id, '_sp_dharma_kind', true );
+    return in_array( $kind, array( 'peeth', 'acharya', 'sampradaya' ), true ) ? $kind : 'acharya';
+}
+
+/** Description: excerpt first, else a kind-specific sentence. */
+function sp_seo_dharma_description( $profile_id ) {
+    $text = has_excerpt( $profile_id ) ? get_the_excerpt( $profile_id ) : wp_trim_words( wp_strip_all_tags( strip_shortcodes( get_post_field( 'post_content', $profile_id ) ) ), 26, '...' );
+    $text = trim( preg_replace( '/\s+/', ' ', (string) $text ) );
+    if ( '' !== $text && false === stripos( $text, 'skip to main content' ) ) {
+        return $text;
+    }
+    $name = get_the_title( $profile_id );
+    switch ( sp_seo_dharma_kind( $profile_id ) ) {
+        case 'peeth':
+            return $name . ': history, guru parampara, present Acharya, teachings and a live calendar of programmes, checked from official sources on SampreShan.';
+        case 'sampradaya':
+            return $name . ': origin, teachings, key texts, practice, branches and centres, presented in one place on SampreShan.';
+        default:
+            return $name . ': life, teachings, place in the guru parampara and upcoming programmes, checked from official sources on SampreShan.';
+    }
+}
+
+/** schema.org entity for a profile; $deep adds links to related profiles. */
+function sp_seo_dharma_entity( $profile_id, $deep = false ) {
+    $kind  = sp_seo_dharma_kind( $profile_id );
+    $url   = get_permalink( $profile_id );
+    $types = array( 'peeth' => 'Organization', 'acharya' => 'Person', 'sampradaya' => 'Thing' );
+    $e     = array(
+        '@type' => $types[ $kind ],
+        '@id'   => $url . '#entity',
+        'name'  => get_the_title( $profile_id ),
+        'url'   => $url,
+    );
+    $img = function_exists( 'sp_dharma_profile_image_url' ) ? sp_dharma_profile_image_url( $profile_id, 'large' ) : '';
+    if ( $img ) {
+        $e['image'] = $img;
+    }
+    if ( ! $deep ) {
+        return $e;
+    }
+    $e['description'] = sp_seo_dharma_description( $profile_id );
+    $data = function_exists( 'sp_dharma_data' ) ? (array) sp_dharma_data( $profile_id ) : array();
+    $ref  = static function ( $slug ) {
+        $p = function_exists( 'sp_dharma_profile_by_slug' ) ? sp_dharma_profile_by_slug( $slug ) : null;
+        return $p ? sp_seo_dharma_entity( $p->ID ) : null;
+    };
+    if ( 'acharya' === $kind && ! empty( $data['peeth'] ) && ( $peeth = $ref( $data['peeth'] ) ) ) {
+        $e['affiliation'] = $peeth;
+        $e['jobTitle']    = 'Acharya';
+    }
+    if ( 'peeth' === $kind && ! empty( $data['acharyas'] ) ) {
+        $members = array_values( array_filter( array_map( $ref, (array) $data['acharyas'] ) ) );
+        if ( $members ) {
+            $e['member'] = $members;
+        }
+        $e['knowsAbout'] = array( 'Advaita Vedanta', 'Sanatana Dharma' );
+    }
+    return $e;
+}
+
+function sp_seo_dharma_itemlist( $ids ) {
+    $items = array();
+    $pos   = 1;
+    foreach ( (array) $ids as $id ) {
+        $items[] = array( '@type' => 'ListItem', 'position' => $pos++, 'item' => sp_seo_dharma_entity( (int) $id ) );
+    }
+    return $items;
+}
+
+/** Calendar entries of kind "event" as schema.org Event list items. */
+function sp_seo_dharma_events( $profile_ids = null, $limit = 20 ) {
+    if ( ! function_exists( 'sp_dcal_items' ) ) {
+        return array();
+    }
+    $items = array();
+    $pos   = 1;
+    foreach ( sp_dcal_items( $profile_ids, 80 ) as $it ) {
+        if ( 'event' !== $it['kind'] || ! preg_match( '/^\d{4}-\d{2}-\d{2}/', (string) $it['date'] ) ) {
+            continue;
+        }
+        $pid = (int) get_post_meta( $it['id'], '_sp_dharma_profile_id', true );
+        $ev  = array(
+            '@type'               => 'Event',
+            'name'                => $it['title'],
+            'startDate'           => substr( $it['date'], 0, 10 ),
+            'url'                 => $it['link'],
+            'eventStatus'         => 'https://schema.org/EventScheduled',
+            'eventAttendanceMode' => 'https://schema.org/OfflineEventAttendanceMode',
+            'isAccessibleForFree' => true,
+        );
+        if ( $pid ) {
+            $org = sp_seo_dharma_entity( $pid );
+            $ev['organizer'] = $org;
+            $ev['location']  = array( '@type' => 'Place', 'name' => get_the_title( $pid ) );
+        }
+        if ( $it['thumb'] ) {
+            $ev['image'] = $it['thumb'];
+        }
+        $items[] = array( '@type' => 'ListItem', 'position' => $pos++, 'item' => $ev );
+        if ( $pos > $limit ) {
+            break;
+        }
+    }
+    return $items;
 }
 
 /** Add the child-theme graph to Rank Math instead of printing a second graph. */
@@ -243,7 +396,15 @@ if ( function_exists( 'rank_math' ) ) {
 /** Stable titles and descriptions for the public SampreShan information pages. */
 function sp_seo_public_description( $description ) {
     if ( is_front_page() ) {
-        return 'SampreShan is a Sanatana community platform for meaningful dialogue, cultural education, public causes and positive social participation.';
+        return 'SampreShan: one free, public place for accurate information on the Shankaracharya Peeths, their Acharyas and sampradayas, with a live calendar of programmes, community dialogue and public causes.';
+    }
+
+    if ( is_singular( 'dharma_profile' ) ) {
+        return wp_trim_words( sp_seo_dharma_description( get_queried_object_id() ), 30, '...' );
+    }
+
+    if ( is_post_type_archive( 'dharma_profile' ) && function_exists( 'sp_mission_short' ) ) {
+        return sp_mission_short();
     }
 
     $descriptions = array(
@@ -303,7 +464,14 @@ add_filter( 'rank_math/frontend/description', 'sp_seo_public_description', 30 );
 
 function sp_seo_public_title( $title ) {
     if ( is_front_page() ) {
-        return 'SampreShan | Sanatana dialogue, community and positive change';
+        return 'SampreShan | Peeths, Acharyas & Dharma Calendar in One Place';
+    }
+    if ( is_singular( 'dharma_profile' ) ) {
+        $labels = array( 'peeth' => 'Peeth Profile, Acharyas & Calendar', 'acharya' => 'Acharya Profile, Teachings & Programmes', 'sampradaya' => 'Sampradaya: Teachings, Texts & Centres' );
+        return get_the_title() . ' | ' . $labels[ sp_seo_dharma_kind( get_queried_object_id() ) ] . ' | SampreShan';
+    }
+    if ( is_post_type_archive( 'dharma_profile' ) ) {
+        return 'Peeths, Acharyas & Sampradayas of Bharat | SampreShan';
     }
     if ( is_singular( 'post' ) ) {
         return get_the_title() . ' | SampreShan Community';

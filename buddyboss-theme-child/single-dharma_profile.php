@@ -232,6 +232,7 @@ while ( have_posts() ) : the_post();
         <?php endif; ?>
     </section>
 
+    <?php if ( function_exists( 'sp_mission_block' ) ) { sp_mission_block( 'compact' ); } ?>
     <?php sp_research_credit(); ?>
 </main>
 <?php endwhile; get_footer(); ?>
