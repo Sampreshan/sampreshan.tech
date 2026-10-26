@@ -106,6 +106,8 @@ function sp_parampara_render( $slug, $current_slug = '' ) {
             </button>
         </header>
 
+        <?php sp_parampara_3d_render( $slug, $pp ); ?>
+
         <div class="sp-pp__stage">
             <ol class="sp-pp__tree sp-pp__list">
                 <li class="sp-pp__root">
@@ -203,5 +205,68 @@ function sp_parampara_position_render( $acharya_slug, $peeth_post ) {
         </ol>
         <a class="sp-pp-pos__all" href="<?php echo esc_url( get_permalink( $peeth_post ) . '#parampara' ); ?>"><?php echo esc_html( sprintf( __( 'See the full parampara of %s', 'sampreshan-child' ), get_the_title( $peeth_post ) ) ); ?></a>
     </section>
+    <?php
+}
+
+/** True when the slug is a Peetham with its own Guru Parampara (not a sampradaya). */
+function sp_parampara_is_peetham( $slug ) {
+    return isset( sp_parampara_data_all()[ $slug ] );
+}
+
+/**
+ * 3D Guru Parampara tree for Peetham pages: the founder at the roots and
+ * every Acharya as a lamp rising up the tree in order, with a time slider.
+ * The 2D tree below stays as the accessible, no-WebGL version.
+ */
+function sp_parampara_3d_render( $slug, $pp ) {
+    if ( ! sp_parampara_is_peetham( $slug ) ) {
+        return;
+    }
+    $line = array();
+    $add  = function ( $node, $branch = '' ) use ( &$line ) {
+        $line[] = array(
+            'n'      => isset( $node['n'] ) ? (int) $node['n'] : null,
+            'name'   => ! empty( $node['gap'] ) ? __( 'Not yet documented', 'sampreshan-child' ) : (string) ( $node['name'] ?? '' ),
+            'period' => (string) ( $node['period'] ?? '' ),
+            'status' => (string) ( $node['status'] ?? '' ),
+            'gap'    => ! empty( $node['gap'] ),
+            'branch' => $branch,
+            'url'    => ! empty( $node['profile'] ) ? (string) get_permalink( get_page_by_path( $node['profile'], OBJECT, 'dharma_profile' ) ) : '',
+        );
+    };
+    foreach ( $pp['nodes'] as $node ) {
+        $add( $node );
+    }
+    foreach ( $pp['branches'] ?? array() as $branch ) {
+        foreach ( $branch['nodes'] as $node ) {
+            $add( $node, (string) $branch['label'] );
+        }
+    }
+    $data = array(
+        'founder' => array( 'name' => $pp['founder']['name'], 'period' => (string) ( $pp['founder']['when'] ?? '' ) ),
+        'line'    => $line,
+        'base'    => get_stylesheet_directory_uri() . '/assets/',
+        'ver'     => SAMPRESHAN_CHILD_VERSION,
+    );
+    ?>
+    <div class="sp-pp3d" data-sp-pp3d hidden>
+        <script type="application/json" class="sp-pp3d__data"><?php echo wp_json_encode( $data, JSON_HEX_TAG | JSON_HEX_AMP ); ?></script>
+        <div class="sp-pp3d__view">
+            <canvas class="sp-pp3d__canvas" role="img" aria-label="<?php esc_attr_e( 'Three dimensional tree of the Guru Parampara. Use the time slider to move through the Acharyas.', 'sampreshan-child' ); ?>"></canvas>
+            <p class="sp-pp3d__loading"><?php esc_html_e( 'Growing the tree', 'sampreshan-child' ); ?></p>
+            <div class="sp-pp3d__card" aria-live="polite">
+                <span class="sp-pp3d__num"></span>
+                <strong class="sp-pp3d__name"></strong>
+                <span class="sp-pp3d__period"></span>
+                <a class="sp-pp3d__link" href="#" hidden><?php esc_html_e( 'View profile', 'sampreshan-child' ); ?></a>
+            </div>
+        </div>
+        <div class="sp-pp3d__time">
+            <label class="sp-pp3d__label" for="sp-pp3d-range-<?php echo esc_attr( $slug ); ?>"><?php esc_html_e( 'Kaal Khanda: move through time', 'sampreshan-child' ); ?></label>
+            <input id="sp-pp3d-range-<?php echo esc_attr( $slug ); ?>" class="sp-pp3d__range" type="range" min="0" max="<?php echo esc_attr( count( $line ) ); ?>" step="1" value="<?php echo esc_attr( count( $line ) ); ?>" />
+            <div class="sp-pp3d__ends"><span><?php echo esc_html( $pp['founder']['name'] ); ?></span><span><?php esc_html_e( 'Present', 'sampreshan-child' ); ?></span></div>
+        </div>
+        <p class="sp-pp3d__credit"><?php esc_html_e( 'Drag to turn the tree, tap a lamp to read it. Tree model: Kenney Nature Kit (CC0).', 'sampreshan-child' ); ?></p>
+    </div>
     <?php
 }

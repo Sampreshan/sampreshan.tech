@@ -50,5 +50,6 @@ $peeth_updates = $peeth_profile ? sp_dharma_updates_for_profiles( sp_dharma_same
             </div>
         </section>
     <?php endif; ?>
+    <?php sp_research_credit(); ?>
 </main>
 <?php get_footer(); ?>
