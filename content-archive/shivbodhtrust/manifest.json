@@ -1,0 +1,146 @@
+{
+  "source": "https://shivbodhtrust.org (WordPress DB export, 2026-10-18)",
+  "images": {
+    "2015pressvartaswami.png": "https://sampreshan.tech/wp-content/uploads/2026/10/2015pressvartaswami.png",
+    "AFTERS-SANYAS-ARROUND-3-YEAR-AADI-GURU-.png": "https://sampreshan.tech/wp-content/uploads/2026/10/AFTERS-SANYAS-ARROUND-3-YEAR-AADI-GURU-.png",
+    "gau-mata-rastra-mata-1008.png": "https://sampreshan.tech/wp-content/uploads/2026/10/gau-mata-rastra-mata-1008.png",
+    "swami-1008.png": "https://sampreshan.tech/wp-content/uploads/2026/09/swami-1008.png",
+    "Swami-Avimukta-Section-One-imase-e1772734305956.png": "https://sampreshan.tech/wp-content/uploads/2026/10/Swami-Avimukta-Section-One-imase-e1772734305956.png",
+    "swami-sree-avimukteshwarananda-padayatra-1.png": "https://sampreshan.tech/wp-content/uploads/2026/09/swami-sree-avimukteshwarananda-padayatra-1.png",
+    "swami10082015.png": "https://sampreshan.tech/wp-content/uploads/2026/10/swami10082015.png",
+    "swami10082015morning.png": "https://sampreshan.tech/wp-content/uploads/2026/10/swami10082015morning.png",
+    "swami2015.png": "https://sampreshan.tech/wp-content/uploads/2026/10/swami2015.png",
+    "swaminischalananda.png": "https://sampreshan.tech/wp-content/uploads/2026/03/swaminischalananda.png",
+    "swamisadananda.png": "https://sampreshan.tech/wp-content/uploads/2026/03/swamisadananda.png",
+    "swamisri1000008-scaled.png": "https://sampreshan.tech/wp-content/uploads/2026/03/swamisri1000008-scaled.png",
+    "swamividhushekhar.png": "https://sampreshan.tech/wp-content/uploads/2026/03/swamividhushekhar.png",
+    "dwaraka.png": "https://sampreshan.tech/wp-content/uploads/2026/10/dwaraka.png",
+    "jyotirmath.png": "https://sampreshan.tech/wp-content/uploads/2026/10/jyotirmath.png",
+    "puri.png": "https://sampreshan.tech/wp-content/uploads/2026/10/puri.png",
+    "sringeri.png": "https://sampreshan.tech/wp-content/uploads/2026/09/sringeri.png"
+  },
+  "url_map": {
+    "puri-peetha": "dharmacharya/purvamnaya-govardhan-matha-puri",
+    "dwarka-peetha": "dharmacharya/paschimamnaya-dwarka-sharada-peetham",
+    "jyotishpeetha": "dharmacharya/uttaraminaya-jyotirmath-peeth",
+    "sringeri-peetha": "dharmacharya/dakshinamnaya-sri-sharada-peetham",
+    "kanchi-peetha": "dharmacharya/kanchi-kamakoti-peetham",
+    "swami-avimukta": "dharmacharya/swami-avimukta",
+    "swami-nishchalananda-saraswati": "dharmacharya/swami-nishchalananda-saraswati",
+    "swami-sadanand-saraswati": "dharmacharya/swami-sadanand-saraswati",
+    "swami-vidhushekhara-bharati": "dharmacharya/swami-vidhushekhara-bharati",
+    "sri-satya-chandrashekarendra-saraswathi-shankaracharya": "dharmacharya/sri-satya-chandrashekarendra-saraswathi-shankaracharya",
+    "adi-shankaracharya": "adi-shankaracharya",
+    "dharmasevaka": "dharma-acharya"
+  },
+  "pages": [
+    {
+      "group": "adi-shankaracharya",
+      "file": "adi-shankaracharya/00-aadyaguru-shankaracharya.html",
+      "old_id": 83,
+      "old_slug": "adi-shankaracharya",
+      "old_title": "Aadyaguru Shankaracharya Ji",
+      "old_status": "draft",
+      "target_url": "https://sampreshan.tech/adi-shankaracharya/"
+    },
+    {
+      "group": "adi-shankaracharya",
+      "file": "adi-shankaracharya/01-govardhan-math-puri.html",
+      "old_id": 70,
+      "old_slug": "puri-peetha",
+      "old_title": "Purvamnaya Govardhan Matha (Puri, Odisha)",
+      "old_status": "draft",
+      "target_url": "https://sampreshan.tech/dharmacharya/purvamnaya-govardhan-matha-puri/"
+    },
+    {
+      "group": "adi-shankaracharya",
+      "file": "adi-shankaracharya/02-dwarka-sharada-peetham.html",
+      "old_id": 68,
+      "old_slug": "dwarka-peetha",
+      "old_title": "Paschimamnaya Dwarka Sharada Peetham (Dwarka, Gujarat)",
+      "old_status": "draft",
+      "target_url": "https://sampreshan.tech/dharmacharya/paschimamnaya-dwarka-sharada-peetham/"
+    },
+    {
+      "group": "adi-shankaracharya",
+      "file": "adi-shankaracharya/03-jyotirmath-peeth.html",
+      "old_id": 72,
+      "old_slug": "jyotishpeetha",
+      "old_title": "Uttaraminaya Jyotirmath Peeth (Joshimath, Uttarakhand)",
+      "old_status": "draft",
+      "target_url": "https://sampreshan.tech/dharmacharya/uttaraminaya-jyotirmath-peeth/"
+    },
+    {
+      "group": "adi-shankaracharya",
+      "file": "adi-shankaracharya/04-sringeri-sharada-peetham.html",
+      "old_id": 66,
+      "old_slug": "sringeri-peetha",
+      "old_title": "Dakshinamnaya Sri Sharada Peetham (Sringeri, Karnataka)",
+      "old_status": "draft",
+      "target_url": "https://sampreshan.tech/dharmacharya/dakshinamnaya-sri-sharada-peetham/"
+    },
+    {
+      "group": "adi-shankaracharya",
+      "file": "adi-shankaracharya/05-kanchi-kamakoti-peetham.html",
+      "old_id": 74,
+      "old_slug": "kanchi-peetha",
+      "old_title": "Kanchi Kamakoti Peetham",
+      "old_status": "draft",
+      "target_url": "https://sampreshan.tech/dharmacharya/kanchi-kamakoti-peetham/"
+    },
+    {
+      "group": "dharmasevaka",
+      "file": "dharmasevaka/00-dharmasevaka-index.html",
+      "old_id": 59,
+      "old_slug": "dharmasevaka",
+      "old_title": "Dharmasevaka",
+      "old_status": "publish",
+      "target_url": "https://sampreshan.tech/dharma-acharya/"
+    },
+    {
+      "group": "dharmasevaka",
+      "file": "dharmasevaka/01-swami-sadanand-saraswati.html",
+      "old_id": 89,
+      "old_slug": "swami-sadanand-saraswati",
+      "old_title": "Jagadguru Shankaracharya Swami-Sadanand Saraswat Ji",
+      "old_status": "draft",
+      "target_url": "https://sampreshan.tech/dharmacharya/swami-sadanand-saraswati/"
+    },
+    {
+      "group": "dharmasevaka",
+      "file": "dharmasevaka/02-swami-avimukteshwaranand-saraswati.html",
+      "old_id": 91,
+      "old_slug": "swami-avimukta",
+      "old_title": "Jagadguru Shankaracharya Swami Shri Avimukteshwaranand Saraswati Ji Maharaj",
+      "old_status": "draft",
+      "target_url": "https://sampreshan.tech/dharmacharya/swami-avimukta/"
+    },
+    {
+      "group": "dharmasevaka",
+      "file": "dharmasevaka/03-vidhushekhara-bharati.html",
+      "old_id": 85,
+      "old_slug": "swami-vidhushekhara-bharati",
+      "old_title": "Jagadguru Shankaracharya Sri Sri Vidhushekhara Bharati Sannidhanam",
+      "old_status": "draft",
+      "target_url": "https://sampreshan.tech/dharmacharya/swami-vidhushekhara-bharati/"
+    },
+    {
+      "group": "dharmasevaka",
+      "file": "dharmasevaka/04-swami-nischalananda-saraswati.html",
+      "old_id": 87,
+      "old_slug": "swami-nishchalananda-saraswati",
+      "old_title": "Jagadguru Shankaracharya Swami Shri Nischalananda Saraswati Ji Maharaj",
+      "old_status": "draft",
+      "target_url": "https://sampreshan.tech/dharmacharya/swami-nishchalananda-saraswati/"
+    },
+    {
+      "group": "dharmasevaka",
+      "file": "dharmasevaka/05-satya-chandrashekarendra-saraswati.html",
+      "old_id": 113,
+      "old_slug": "sri-satya-chandrashekarendra-saraswathi-shankaracharya",
+      "old_title": "Sri-Satya-Chandrashekarendra-Saraswathi-Shankaracharya",
+      "old_status": "draft",
+      "target_url": "https://sampreshan.tech/dharmacharya/sri-satya-chandrashekarendra-saraswathi-shankaracharya/"
+    }
+  ]
+}
