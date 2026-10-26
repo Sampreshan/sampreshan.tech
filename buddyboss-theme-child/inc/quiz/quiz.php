@@ -604,3 +604,62 @@ function sp_quiz_assets() {
         ),
     ) );
 }
+
+/* ------------------------------------------------------------------ */
+/* Emblem: a turning, extruded four-point star (the game's icon)       */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Print the Sangyani Sanatan emblem. Pure SVG + CSS (assets/css/quiz-emblem.css):
+ * a stack of star slices gives it real thickness while it turns in 3D.
+ *
+ * @param string $size sm | md | lg | xl
+ */
+function sp_quiz_emblem( $size = 'md' ) {
+    static $defs = false;
+    $star = 'M0 -96 C 10 -34 34 -10 96 0 C 34 10 10 34 0 96 C -10 34 -34 10 -96 0 C -34 -10 -10 -34 0 -96Z';
+    if ( ! $defs ) {
+        $defs = true;
+        ?>
+        <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+            <defs>
+                <linearGradient id="spem-edge" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#fde047"/><stop offset=".35" stop-color="#f97316"/>
+                    <stop offset=".7" stop-color="#dc2626"/><stop offset="1" stop-color="#7c3aed"/>
+                </linearGradient>
+                <radialGradient id="spem-front" cx=".38" cy=".3" r=".8">
+                    <stop offset="0" stop-color="#e0fbff"/><stop offset=".25" stop-color="#5eead4"/>
+                    <stop offset=".6" stop-color="#0ea5e9"/><stop offset="1" stop-color="#1e3a8a"/>
+                </radialGradient>
+                <radialGradient id="spem-back" cx=".38" cy=".3" r=".8">
+                    <stop offset="0" stop-color="#fff1d6"/><stop offset=".25" stop-color="#fb923c"/>
+                    <stop offset=".6" stop-color="#dc2626"/><stop offset="1" stop-color="#581c87"/>
+                </radialGradient>
+                <linearGradient id="spem-rim" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#fcd34d"/><stop offset="1" stop-color="#f472b6"/>
+                </linearGradient>
+                <path id="spem-star" d="<?php echo esc_attr( $star ); ?>"/>
+            </defs>
+        </svg>
+        <?php
+    }
+    $size = in_array( $size, array( 'sm', 'md', 'lg', 'xl' ), true ) ? $size : 'md';
+    echo '<span class="sp-emblem sp-emblem--' . esc_attr( $size ) . '" aria-hidden="true"><span class="sp-emblem__halo"></span><span class="sp-emblem__spin">';
+    for ( $i = 0; $i <= 9; $i++ ) {
+        $fill = 0 === $i ? 'url(#spem-back)' : ( 9 === $i ? 'url(#spem-front)' : 'url(#spem-edge)' );
+        echo '<svg class="sp-emblem__layer" viewBox="-100 -100 200 200" style="--z:' . (int) $i . '"><use href="#spem-star" fill="' . esc_attr( $fill ) . '"'
+            . ( ( 0 === $i || 9 === $i ) ? ' stroke="url(#spem-rim)" stroke-width="3"' : '' ) . '/>';
+        if ( 9 === $i || 0 === $i ) {
+            echo '<path d="M-30 -40 Q -8 -20 -2 -70" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="6" stroke-linecap="round"/>'
+                . '<circle r="11" fill="#fff" opacity=".9"/><circle r="22" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2"/>';
+        }
+        echo '</svg>';
+    }
+    echo '</span></span>';
+}
+
+add_action( 'wp_enqueue_scripts', function () {
+    if ( is_front_page() || is_page_template( array( 'template-quiz.php', 'template-dashboard.php', 'template-profile.php' ) ) ) {
+        wp_enqueue_style( 'sp-quiz-emblem', get_stylesheet_directory_uri() . '/assets/css/quiz-emblem.css', array(), SAMPRESHAN_CHILD_VERSION );
+    }
+}, 31 );
