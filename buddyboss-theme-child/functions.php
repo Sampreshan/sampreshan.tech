@@ -202,7 +202,7 @@ add_action( 'wp_footer', 'sp_drop_unconfigured_elementor_scripts', 19 );
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.43' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.44' );
 }
 
 /**
@@ -510,6 +510,7 @@ require_once get_stylesheet_directory() . '/inc/dharma-data.php';
 require_once get_stylesheet_directory() . '/inc/parampara-data.php';
 require_once get_stylesheet_directory() . '/inc/parampara.php';
 require_once get_stylesheet_directory() . '/inc/ai-agent/ajax.php';
+require_once get_stylesheet_directory() . '/inc/quiz/quiz.php';
 
 /**
  * Skip link — the first focusable element on every page (WCAG 2.4.1).
@@ -1749,6 +1750,12 @@ function sampreshan_child_create_all_user_pages() {
             'slug'     => 'settings',
             'template' => 'template-settings.php',
             'option'   => 'sampreshan_settings_page_created',
+        ),
+        array(
+            'title'    => __( 'Sangyani Sanatan Quiz', 'sampreshan-child' ),
+            'slug'     => 'sanatan-quiz',
+            'template' => 'template-quiz.php',
+            'option'   => 'sampreshan_quiz_page_created',
         ),
         array(
             'title'    => __( 'Community', 'sampreshan-child' ),

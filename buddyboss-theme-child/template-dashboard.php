@@ -224,6 +224,7 @@ $dashboard_feed = new WP_Query( array(
         </section>
 
         <?php if ( function_exists( 'sp_dharma_dashboard_section' ) ) { sp_dharma_dashboard_section(); } ?>
+        <?php if ( function_exists( 'sp_quiz_dashboard_section' ) ) { sp_quiz_dashboard_section(); } ?>
 
         <div class="sp-dash-grid">
 
@@ -323,6 +324,13 @@ $dashboard_feed = new WP_Query( array(
                 <section class="sp-dash-card sp-dash-card--pad" aria-labelledby="sp-dash-actions-h">
                     <h2 class="sp-dash-card__title" id="sp-dash-actions-h"><?php esc_html_e( 'Quick actions', 'sampreshan-child' ); ?></h2>
                     <ul class="sp-dash-actions">
+                        <li>
+                            <a class="sp-dash-action" href="<?php echo esc_url( function_exists( 'sp_quiz_page_url' ) ? sp_quiz_page_url() : home_url( '/sanatan-quiz/' ) ); ?>">
+                                <span class="sp-dash-action__icon sp-dash-action__icon--saffron" aria-hidden="true"><?php sp_icon_auto( 'check', 'sp-icon--sm', '' ); ?></span>
+                                <span class="sp-dash-action__text"><strong><?php esc_html_e( 'Sangyani Sanatan Quiz', 'sampreshan-child' ); ?></strong><small><?php esc_html_e( '10 levels, earn your certificate', 'sampreshan-child' ); ?></small></span>
+                                <span aria-hidden="true">&rarr;</span>
+                            </a>
+                        </li>
                         <li>
                             <a class="sp-dash-action" href="<?php echo esc_url( $petitions_url ); ?>">
                                 <span class="sp-dash-action__icon sp-dash-action__icon--saffron" aria-hidden="true"><?php sp_icon_auto( 'plus', 'sp-icon--sm', '' ); ?></span>
