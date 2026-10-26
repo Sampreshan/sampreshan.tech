@@ -70,3 +70,20 @@ public_html/wp-content/wpcode/
 *.sql
 *.sql.gz
 !public_html/wp-content/plugins/**/*.sql
+
+# Public repo: only the theme, tools, workflows and docs are tracked.
+# Live-site copies, server config and local AI/tool configs stay on this machine.
+/public_html/
+/child-theme-local/
+/workspace-access/
+/shivbodhtrust-patches/
+/.htaccess.live
+/AI-PROMPTS-SHIVBODH-REDESIGN.md
+/claude-settings-*.json
+/kilo-config-*.jsonc
+/opencode*.json
+/mcp-config.json
+/*.sh
+.env
+.env.*
+!.env.example
