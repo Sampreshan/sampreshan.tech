@@ -8,7 +8,7 @@
  */
 (function () {
     'use strict';
-    if (!('IntersectionObserver' in window) || !window.fetch) { return; }
+    if (!window.fetch || !window.DOMParser) { return; }
 
     function pagerOf(next) {
         // Only a dedicated pagination wrapper; never hide a page section.
@@ -43,31 +43,42 @@
         pager.parentNode.insertBefore(sentinel, pager);
         pager.hidden = true;
 
-        var io = new IntersectionObserver(function (entries) {
-            if (!entries[0].isIntersecting || busy || !url) { return; }
-            busy = true;
-            sentinel.textContent = 'Loading more';
-            fetch(url, { credentials: 'same-origin' })
-                .then(function (r) { if (!r.ok) { throw new Error(r.status); } return r.text(); })
-                .then(function (html) {
-                    var doc = new DOMParser().parseFromString(html, 'text/html');
-                    var incoming = sameList(doc, list);
-                    if (incoming) {
-                        while (incoming.firstElementChild) { list.appendChild(document.adoptNode(incoming.firstElementChild)); }
-                    }
-                    var more = doc.querySelector('a.next.page-numbers');
-                    url = more ? more.href : null;
-                    sentinel.textContent = '';
-                    if (!url) { io.disconnect(); sentinel.remove(); }
-                    document.dispatchEvent(new CustomEvent('sp:infinite-loaded', { detail: { list: list } }));
-                    busy = false;
-                })
-                .catch(function () {
-                    // Fall back to the normal page links.
-                    io.disconnect(); sentinel.remove(); pager.hidden = false;
-                });
-        }, { rootMargin: '600px 0px' });
-        io.observe(sentinel);
+        var done = false;
+    function stop() { done = true; window.removeEventListener('scroll', check); window.removeEventListener('resize', check); }
+
+    function load() {
+      busy = true;
+      sentinel.textContent = 'Loading more';
+      fetch(url, { credentials: 'same-origin' })
+        .then(function (r) { if (!r.ok) { throw new Error(r.status); } return r.text(); })
+        .then(function (html) {
+          var doc = new DOMParser().parseFromString(html, 'text/html');
+          var incoming = sameList(doc, list);
+          if (incoming) {
+            while (incoming.firstElementChild) { list.appendChild(document.adoptNode(incoming.firstElementChild)); }
+          }
+          var more = doc.querySelector('a.next.page-numbers');
+          url = more ? more.href : null;
+          sentinel.textContent = '';
+          if (!url) { stop(); sentinel.remove(); }
+          document.dispatchEvent(new CustomEvent('sp:infinite-loaded', { detail: { list: list } }));
+          busy = false;
+          check();
+        })
+        .catch(function () {
+          // Fall back to the normal page links.
+          stop(); sentinel.remove(); pager.hidden = false;
+        });
+    }
+
+    // Scroll position check: works in every browser, no observer needed.
+    function check() {
+      if (done || busy || !url) { return; }
+      if (sentinel.getBoundingClientRect().top < window.innerHeight + 600) { load(); }
+    }
+    window.addEventListener('scroll', check, { passive: true });
+    window.addEventListener('resize', check);
+    check();
     }
 
     document.addEventListener('DOMContentLoaded', function () {
