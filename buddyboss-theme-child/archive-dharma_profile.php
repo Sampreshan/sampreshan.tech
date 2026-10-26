@@ -61,7 +61,7 @@ $profiles = new WP_Query( $args );
         <button class="btn btn--primary" type="submit"><?php esc_html_e( 'Search', 'sampreshan-child' ); ?></button>
     </form>
     <?php if ( $profiles->have_posts() ) : ?>
-        <div class="sp-dharma-profile-grid">
+        <div class="sp-dharma-profile-grid" data-sp-infinite>
             <?php while ( $profiles->have_posts() ) : $profiles->the_post(); ?>
                 <?php
                 $profile_id = get_the_ID();

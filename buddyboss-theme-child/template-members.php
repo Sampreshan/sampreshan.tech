@@ -61,7 +61,7 @@ $bb_members_url = function_exists( 'bp_get_members_directory_permalink' ) ? bp_g
     </form>
 
     <?php if ( ! empty( $members ) ) : ?>
-        <div class="sp-member-grid">
+        <div class="sp-member-grid" data-sp-infinite>
             <?php foreach ( $members as $m ) :
                 $mid      = (int) $m->ID;
                 $avatar   = get_avatar_url( $mid, array( 'size' => 160 ) );
