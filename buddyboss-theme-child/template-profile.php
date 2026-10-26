@@ -244,6 +244,7 @@ $community_url = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/
             <?php endif; ?>
         </div>
 
+        <?php if ( function_exists( 'sp_quiz_profile_card' ) ) { sp_quiz_profile_card( $user_id, $is_me ); } ?>
     </div>
 </main>
 
