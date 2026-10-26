@@ -27,6 +27,44 @@
 
     /* ---------- helpers ---------- */
 
+    /*
+     * Portal transition: clouds part, paper-cut rings zoom like a tunnel,
+     * the game emblem is revealed with a title, then an iris opens the screen.
+     * Runs on game entry and on every level clear.
+     */
+    function portal(kicker, title, done) {
+        if (calm) { if (done) { done(); } return; }
+        var o = document.createElement('div');
+        o.className = 'sp-portal';
+        o.setAttribute('aria-hidden', 'true');
+        var rings = '';
+        for (var i = 0; i < 9; i++) {
+            rings += '<span class="sp-portal__ring sp-portal__ring--' + (i % 4) + '" style="--i:' + i + '"></span>';
+        }
+        var sparks = '';
+        for (var j = 0; j < 12; j++) {
+            sparks += '<i style="--j:' + j + '"></i>';
+        }
+        o.innerHTML = '<div class="sp-portal__tunnel">' + rings + '</div>' +
+            '<div class="sp-portal__sparks">' + sparks + '</div>' +
+            '<div class="sp-portal__core"><div class="sp-portal__emblem"></div>' +
+            '<p class="sp-portal__kicker"></p><p class="sp-portal__title"></p></div>' +
+            '<span class="sp-portal__cloud sp-portal__cloud--l"></span>' +
+            '<span class="sp-portal__cloud sp-portal__cloud--r"></span>';
+        o.querySelector('.sp-portal__kicker').textContent = kicker;
+        o.querySelector('.sp-portal__title').textContent = title;
+        var src = document.querySelector('.sp-quiz__hero-emblem .sp-emblem');
+        if (src) {
+            var em = src.cloneNode(true);
+            em.className = 'sp-emblem sp-emblem--lg';
+            o.querySelector('.sp-portal__emblem').appendChild(em);
+        }
+        document.body.appendChild(o);
+        requestAnimationFrame(function () { o.classList.add('is-on'); });
+        setTimeout(function () { o.classList.add('is-out'); if (done) { done(); } }, 2600);
+        setTimeout(function () { o.remove(); }, 3400);
+    }
+
     function show(name) {
         root.setAttribute('data-screen', name);
         root.querySelectorAll('.sp-quiz__screen').forEach(function (s) {
@@ -461,8 +499,10 @@
             play('cert');
             mood('win');
             fillMiniMap();
-            show('level');
-            celebrate();
+            portal('Level ' + run.levelsCleared + ' cleared', 'Sangyani Sanatan', function () {
+                show('level');
+                celebrate();
+            });
             return;
         }
         renderQuestion();
@@ -483,7 +523,7 @@
         localStorage.setItem(STORE, run.token);
         paintStreak();
         paintMap($('[data-map]'), run.level, run.levelsCleared);
-        enterLevel();
+        portal('Entering the game', 'Sangyani Sanatan', enterLevel);
     }
 
     function reset() {
