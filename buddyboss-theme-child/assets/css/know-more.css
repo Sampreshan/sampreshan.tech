@@ -99,3 +99,4 @@ a:focus-visible .sp-know__shankh {
         opacity: 0;
     }
 }
+@media (max-width: 600px) { .sp-know__word { font-size: .75rem; } }

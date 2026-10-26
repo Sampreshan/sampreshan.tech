@@ -278,3 +278,5 @@ a.button.signup,
 a[href*="wp-login.php"] {
     display: none !important;
 }
+
+@media (max-width: 600px) { .sp-fu-pet__cause-text { font-size: .75rem; } }
