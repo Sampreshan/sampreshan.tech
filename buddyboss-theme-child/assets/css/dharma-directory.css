@@ -366,3 +366,9 @@ body.sp-future .sp-dharma-sampradaya-card__family { color: #c2410c; }
 @keyframes sp-samp-rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .sp-samp-block { animation: none; } .sp-samp-card { transition: none; } }
 @media (max-width: 600px) { .sp-samp-cards, .sp-samp-list { grid-template-columns: 1fr; } }
+
+/* Encyclopedia readability: small labels stay at least 12px on phones. */
+@media (max-width: 600px) {
+    .sp-wiki dt, .sp-samp-glance dt, .sp-dharma-card dt, .sp-dharma-sampradaya-card__family { font-size: .75rem; }
+
+}

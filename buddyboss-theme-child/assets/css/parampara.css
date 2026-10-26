@@ -751,3 +751,46 @@ body.sp-future .sp-wiki__founding a {
         transition: none;
     }
 }
+/* ---- 3D Guru Parampara tree (Peetham pages) ---- */
+.sp-pp3d { margin: 0 0 1.5rem; }
+.sp-pp3d__view {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    max-height: 640px;
+    border-radius: 18px;
+    overflow: hidden;
+    background: radial-gradient(120% 90% at 50% 15%, #4a2a12 0%, #241409 55%, #120a05 100%);
+    box-shadow: inset 0 0 0 1px rgba(246, 195, 91, .18);
+    touch-action: pan-y;
+}
+.sp-pp3d__canvas { display: block; width: 100%; height: 100%; cursor: grab; }
+.sp-pp3d__canvas:active { cursor: grabbing; }
+.sp-pp3d__loading {
+    position: absolute; inset: 0; display: grid; place-items: center; margin: 0;
+    color: #f6dcae; font-size: .95rem; letter-spacing: .04em;
+}
+.sp-pp3d.is-ready .sp-pp3d__loading { display: none; }
+.sp-pp3d__card {
+    position: absolute; left: 14px; bottom: 14px; max-width: min(340px, calc(100% - 28px));
+    display: grid; gap: 2px; padding: 10px 14px; border-radius: 12px;
+    background: rgba(18, 10, 5, .72); color: #fff3df; backdrop-filter: blur(6px);
+    box-shadow: 0 0 0 1px rgba(246, 195, 91, .3);
+    opacity: 0; transition: opacity .3s;
+}
+.sp-pp3d.is-ready .sp-pp3d__card { opacity: 1; }
+.sp-pp3d__num { font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; color: #f6c35b; }
+.sp-pp3d__name { font-size: 1.05rem; line-height: 1.25; }
+.sp-pp3d__period { font-size: .85rem; opacity: .85; }
+.sp-pp3d__link { font-size: .85rem; color: #ffc85c; text-decoration: underline; }
+.sp-pp3d__time { margin-top: .8rem; }
+.sp-pp3d__label { display: block; font-weight: 600; font-size: .9rem; margin-bottom: .35rem; }
+.sp-pp3d__range { width: 100%; accent-color: #e8761a; min-height: 32px; }
+.sp-pp3d__ends { display: flex; justify-content: space-between; gap: 1rem; font-size: .78rem; opacity: .75; }
+.sp-pp3d__credit { margin: .4rem 0 0; font-size: .75rem; opacity: .65; }
+@media (max-width: 1024px) { .sp-pp3d__view { aspect-ratio: 4 / 3; } }
+@media (max-width: 600px) {
+    .sp-pp3d__view { aspect-ratio: 4 / 5; border-radius: 14px; }
+    .sp-pp3d__card { left: 10px; right: 10px; bottom: 10px; max-width: none; }
+    .sp-pp3d__name { font-size: .98rem; }
+}

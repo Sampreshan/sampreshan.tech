@@ -296,7 +296,7 @@
     .sp-quiz__node::after { font-size: 15px; }
     .sp-quiz__floater--2, .sp-quiz__floater--4 { display: none; }
     .sp-quiz__map li::after { top: 22px; left: calc(50% + 24px); width: calc(100% - 44px); }
-    .sp-quiz__node-name { font-size: 10px; }
+    .sp-quiz__node-name { font-size: 12px; }
     .sp-quiz__question { margin-right: 58px; }
     .sp-quiz__timer { top: 14px; right: 14px; width: 50px; height: 50px; }
 }

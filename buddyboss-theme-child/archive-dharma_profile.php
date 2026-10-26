@@ -87,5 +87,6 @@ $profiles = new WP_Query( $args );
     <?php else : ?>
         <div class="sp-dash-empty sp-dash-card"><?php sp_icon_e( 'empty-search', 'sp-icon--3xl' ); ?><h2><?php esc_html_e( 'No profiles found', 'sampreshan-child' ); ?></h2><p><?php esc_html_e( 'Try a different name or select all Peeths.', 'sampreshan-child' ); ?></p></div>
     <?php endif; ?>
+    <?php sp_research_credit(); ?>
 </main>
 <?php get_footer(); ?>
