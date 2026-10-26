@@ -26,7 +26,7 @@ $peeth_updates = $peeth_profile ? sp_dharma_updates_for_profiles( sp_dharma_same
         <?php endif; ?>
     </header>
     <?php if ( have_posts() ) : ?>
-        <div class="sp-dharma-profile-grid">
+        <div class="sp-dharma-profile-grid" data-sp-infinite>
             <?php while ( have_posts() ) : the_post(); ?>
                 <article class="sp-dharma-profile-card">
                     <p class="sp-dharma-card__peeth"><?php echo esc_html( $term->name ); ?></p>
