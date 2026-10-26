@@ -83,7 +83,7 @@ $profiles = new WP_Query( $args );
                 </article>
             <?php endwhile; wp_reset_postdata(); ?>
         </div>
-        <?php echo paginate_links( array( 'total' => $profiles->max_num_pages, 'current' => max( 1, (int) get_query_var( 'paged' ) ) ) ); ?>
+        <nav class="sp-users__pagination" aria-label="<?php esc_attr_e( 'Profile pages', 'sampreshan-child' ); ?>"><?php echo paginate_links( array( 'total' => $profiles->max_num_pages, 'current' => max( 1, (int) get_query_var( 'paged' ) ) ) ); ?></nav>
     <?php else : ?>
         <div class="sp-dash-empty sp-dash-card"><?php sp_icon_e( 'empty-search', 'sp-icon--3xl' ); ?><h2><?php esc_html_e( 'No profiles found', 'sampreshan-child' ); ?></h2><p><?php esc_html_e( 'Try a different name or select all Peeths.', 'sampreshan-child' ); ?></p></div>
     <?php endif; ?>

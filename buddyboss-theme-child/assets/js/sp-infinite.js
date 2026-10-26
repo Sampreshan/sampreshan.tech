@@ -11,7 +11,8 @@
     if (!('IntersectionObserver' in window) || !window.fetch) { return; }
 
     function pagerOf(next) {
-        return next.closest('nav, .navigation, .pagination, .sp-users__pagination') || next.parentNode;
+        // Only a dedicated pagination wrapper; never hide a page section.
+    return next.closest('nav, .navigation, .pagination, .sp-users__pagination');
     }
 
     function listFor(pager) {
@@ -31,6 +32,7 @@
 
     function init(next) {
         var pager = pagerOf(next);
+    if (!pager) { return; }
         var list = listFor(pager);
         if (!list) { return; }
         var url = next.href;

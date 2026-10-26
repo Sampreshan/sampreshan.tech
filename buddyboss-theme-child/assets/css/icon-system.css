@@ -438,8 +438,8 @@ body.sp-future .sp-iconlib .sp-iconlib__toc a:hover { background: #ea580c; color
 .sp-research-credit .sp-research-credit__title { margin: 0 !important; }
 
 /* ---------- Anusaran walk: paduka crosses the whole button, footprints, typed SAMPRESHAN (anusaran.js) ---------- */
-.sp-dharma-follow:has(.sp-anu) { position: relative; overflow: hidden; }
-.sp-anu { position: relative; display: flex; flex: 1 1 auto; width: 100%; min-width: 9.5em; justify-content: center; align-items: center; vertical-align: middle; padding: 0 .2em; }
+.sp-dharma-follow:has(.sp-anu) { position: relative; overflow: hidden; padding-left: 0 !important; padding-right: 0 !important; justify-content: center; }
+.sp-anu { position: relative; display: flex; flex: 1 1 auto; width: 100%; min-width: 9.5em; align-self: stretch; justify-content: center; align-items: center; vertical-align: middle; padding: 0 1em; }
 .sp-anu__word { display: inline-flex; align-items: center; letter-spacing: .06em; font-weight: 700; }
 .sp-anu__gap { width: .3em; }
 .sp-anu__l { position: relative; display: inline-block; min-width: .62em; text-align: center; opacity: 0; transform: translateY(.3em) scale(.7); transition: opacity .18s steps(2, end), transform .3s ease; }
