@@ -365,33 +365,36 @@ function sp_seo_dharma_events( $profile_ids = null, $limit = 20 ) {
     return $items;
 }
 
-/** Add the child-theme graph to Rank Math instead of printing a second graph. */
+/**
+ * Add the child-theme graph to Rank Math's graph. Rank Math's json_ld data is
+ * keyed by entity name (it builds @graph later), so append under our own key.
+ * Where Rank Math prints no JSON-LD (e.g. dharma profiles), print it ourselves.
+ */
 function sp_seo_rank_math_graph( $data ) {
     $graph = sp_seo_print_schema();
-    if ( ! $graph ) { return $data; }
-
-    if ( is_array( $data ) && isset( $data['@graph'] ) && is_array( $data['@graph'] ) ) {
-        $data['@graph'][] = $graph;
+    if ( ! $graph || ! is_array( $data ) ) {
         return $data;
     }
-
+    unset( $graph['@context'] );
+    $data['sp_child_graph']           = $graph;
+    $GLOBALS['sp_seo_graph_printed'] = true;
     return $data;
 }
 
-if ( function_exists( 'rank_math' ) ) {
-    add_filter( 'rank_math/json_ld', 'sp_seo_rank_math_graph', 20, 1 );
-} else {
-    add_action(
-        'wp_head',
-        static function () {
-            $graph = sp_seo_print_schema();
-            if ( $graph ) {
-                echo '<script type="application/ld+json">' . wp_json_encode( $graph, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
-            }
-        },
-        30
-    );
+function sp_seo_print_fallback_schema() {
+    if ( ! empty( $GLOBALS['sp_seo_graph_printed'] ) ) {
+        return;
+    }
+    $graph = sp_seo_print_schema();
+    if ( $graph ) {
+        echo '<script type="application/ld+json">' . wp_json_encode( $graph, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
+    }
 }
+
+if ( function_exists( 'rank_math' ) ) {
+    add_filter( 'rank_math/json_ld', 'sp_seo_rank_math_graph', 99, 1 );
+}
+add_action( 'wp_head', 'sp_seo_print_fallback_schema', 99 );
 
 /** Stable titles and descriptions for the public SampreShan information pages. */
 function sp_seo_public_description( $description ) {
