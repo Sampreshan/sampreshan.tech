@@ -5,7 +5,7 @@
 set -euo pipefail
 
 CONFIG_FILE="$HOME/.claude/cache/gateway-models.json"
-BAI_API_KEY="sk-canmbr2jyis9fkq46k8dec0c037mejhk"  # Your b.ai API key
+BAI_API_KEY="${BAI_API_KEY:?set BAI_API_KEY in your environment}"  # Your b.ai API key
 
 echo "🔧 Updating Claude CLI model gateway config..."
 

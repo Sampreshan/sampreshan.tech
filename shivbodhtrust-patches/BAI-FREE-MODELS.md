@@ -1,7 +1,7 @@
 # b.ai Free Models — Configuration Guide
 
 ## Endpoint: `https://api.b.ai/v1`
-API Key: `sk-canmbr2jyis9fkq46k8dec0c037mejhk`
+API Key: `<BAI_API_KEY from your environment>`
 
 ### Alternative endpoints (if primary fails)
 ```
@@ -62,7 +62,7 @@ If using Claude Desktop MCP servers, point `baseURL` to `https://api.b.ai/v1`.
 ## Test manually
 ```bash
 curl -sS https://api.b.ai/v1/models \
-  -H "Authorization: Bearer sk-canmbr2jyis9fkq46k8dec0c037mejhk"
+  -H "Authorization: Bearer <BAI_API_KEY from your environment>"
 ```
 
 ## Troubleshooting

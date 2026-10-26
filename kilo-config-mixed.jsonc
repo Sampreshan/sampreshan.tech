@@ -19,7 +19,7 @@
     },
     "b": {
       "options": {
-        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "apiKey": "${BAI_API_KEY}",
         "baseURL": "https://api.b.ai/v1"
       },
       "models": {
@@ -40,7 +40,7 @@
     },
     "b-router": {
       "options": {
-        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "apiKey": "${BAI_API_KEY}",
         "baseURL": "https://api.bairouter.io/v1"
       },
       "models": {
@@ -61,7 +61,7 @@
     },
     "b-gateway": {
       "options": {
-        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "apiKey": "${BAI_API_KEY}",
         "baseURL": "https://api.baigateway.io/v1"
       },
       "models": {
