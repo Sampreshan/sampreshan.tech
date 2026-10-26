@@ -464,6 +464,7 @@ add_action( 'init', 'sampreshan_handle_community_story_submission', 20 );
 require_once get_stylesheet_directory() . '/inc/icon-helper.php';
 require_once get_stylesheet_directory() . '/inc/no-emoji.php';
 require_once get_stylesheet_directory() . '/inc/research-credit.php';
+require_once get_stylesheet_directory() . '/inc/mission.php';
 require_once get_stylesheet_directory() . '/inc/khadau.php';
 
 /** Assets for the Gau Mata campaign petition (template-parts/campaign/gau-mata.php). */

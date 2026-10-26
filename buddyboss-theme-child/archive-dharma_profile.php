@@ -40,6 +40,7 @@ $profiles = new WP_Query( $args );
         <h1><?php esc_html_e( 'Peeths, Acharyas & Sampradayas', 'sampreshan-child' ); ?></h1>
         <p><?php esc_html_e( 'One place for sourced profiles of the four Amnaya Shankaracharya Peethas, the Kanchi Kamakoti Peetham, their Acharyas and the major sampradayas of Bharat. Choose Anusaran for verified updates that matter to you.', 'sampreshan-child' ); ?></p>
     </header>
+    <?php if ( function_exists( 'sp_mission_block' ) && ! is_paged() ) { sp_mission_block( 'full' ); } ?>
     <form class="sp-dharma-filters" method="get" action="<?php echo esc_url( sp_dharma_directory_url() ); ?>" role="search">
         <label>
             <span class="screen-reader-text"><?php esc_html_e( 'Search Acharyas and Peeths', 'sampreshan-child' ); ?></span>
