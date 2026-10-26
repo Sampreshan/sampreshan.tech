@@ -49,7 +49,7 @@ while ( have_posts() ) : the_post();
 
         <div class="sp-wiki__body">
             <aside class="sp-wiki__infobox" aria-label="<?php esc_attr_e( 'Key facts', 'sampreshan-child' ); ?>">
-                <?php if ( 'sampradaya' === $kind ) : ?><div class="sp-wiki__tilak"><?php echo sp_tilak_markup( get_post_field( 'post_name', $profile_id ), 150, $data['family'] ?? '' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div><?php elseif ( $image_url ) : ?><img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" width="640" height="640" loading="eager" /><?php endif; ?>
+                <?php if ( 'sampradaya' === $kind && $image_url ) : ?><img class="sp-wiki__emblem" src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?> emblem" width="512" height="512" loading="eager" /><?php elseif ( 'sampradaya' === $kind ) : ?><div class="sp-wiki__tilak"><?php echo sp_tilak_markup( get_post_field( 'post_name', $profile_id ), 150, $data['family'] ?? '' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div><?php elseif ( $image_url ) : ?><img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" width="640" height="640" loading="eager" /><?php endif; ?>
                 <?php if ( $data ) : ?>
                     <table>
                         <?php foreach ( $data['infobox'] as $label => $value ) : ?>
