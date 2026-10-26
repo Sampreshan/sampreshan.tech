@@ -44,11 +44,48 @@ function sp_khadau_icon( $class = '' ) {
 }
 
 /**
- * "Anusaran" label with the khadau mark in front of it.
+ * One pair of padukas (left + right) for the merged Anusaran mark.
+ *
+ * @return string
+ */
+function sp_khadau_pair() {
+    $sole = '<path class="sp-khadau__sole" d="M5 .8C8.2.8 9.4 4 9.2 7.5 9 10.5 8 12 8.1 14.5c.1 3 .7 6.7-3.1 6.7S1.8 17.5 1.9 14.5C2 12 1 10.5.8 7.5.6 4 1.8.8 5 .8Z"/>'
+        . '<path class="sp-khadau__grain" d="M3.4 9.5c.6 2.5.4 5.5 0 8M6.6 9.5c-.6 2.5-.4 5.5 0 8"/>'
+        . '<circle class="sp-khadau__knob" cx="5" cy="4.6" r="1.7"/>';
+    return '<svg viewBox="0 0 30 24" width="30" height="24" focusable="false">'
+        . '<g class="sp-anu__foot sp-anu__foot--l" transform="translate(22 1) rotate(90)">' . $sole . '</g>'
+        . '<g class="sp-anu__foot sp-anu__foot--r" transform="translate(28 13) rotate(90)">' . $sole . '</g>'
+        . '</svg>';
+}
+
+/**
+ * Letters of the label, each standing on a faint paduka footprint.
+ *
+ * @param string $text Already-translated label.
+ * @return string
+ */
+function sp_khadau_letters( $text ) {
+    $out = '';
+    foreach ( mb_str_split( (string) $text ) as $i => $ch ) {
+        $out .= ' ' === $ch
+            ? '<span class="sp-anu__gap" aria-hidden="true"> </span>'
+            : '<span class="sp-anu__l" style="--i:' . (int) $i . '" aria-hidden="true">' . esc_html( $ch ) . '</span>';
+    }
+    return $out;
+}
+
+/**
+ * "Anusaran" label merged with the khadau walk: footprints appear one by one,
+ * a letter rises from each, the letters close into the word, and then the
+ * paduka pair steps in. Motion lives in icon-system.css; it stops under
+ * prefers-reduced-motion and shows the finished mark.
  *
  * @param string $text Already-translated label.
  * @return string
  */
 function sp_khadau_label( $text ) {
-    return sp_khadau_icon() . '<span class="sp-khadau-label">' . esc_html( $text ) . '</span>';
+    return '<span class="sp-anu">'
+        . '<span class="sp-khadau sp-anu__paduka" aria-hidden="true">' . sp_khadau_pair() . '</span>'
+        . '<span class="sp-khadau-label sp-anu__word" aria-label="' . esc_attr( $text ) . '" data-sp-anu>' . sp_khadau_letters( $text ) . '</span>'
+        . '</span>';
 }

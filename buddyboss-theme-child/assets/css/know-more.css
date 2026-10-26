@@ -1,0 +1,101 @@
+/* Know-more shankh: mostly the shankh, briefly the word (View / Read). */
+.sp-know {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    min-width: 2.6em;
+    min-height: 1.9em;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+.sp-know>* {
+    grid-area: 1 / 1;
+}
+
+.sp-know__shankh {
+    display: inline-flex;
+    animation: sp-know-shankh 9s ease-in-out infinite;
+    animation-delay: var(--sp-know-d, 0s);
+}
+
+.sp-know__shankh .sp-icon,
+.sp-know__shankh img {
+    width: 1.8em;
+    height: 1.8em;
+}
+
+.sp-know__word {
+    font-weight: 700;
+    font-size: .82em;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: sp-know-word 9s ease-in-out infinite;
+    animation-delay: var(--sp-know-d, 0s);
+    white-space: nowrap;
+}
+
+@keyframes sp-know-shankh {
+
+    0%,
+    74% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+
+    70% {
+        transform: scale(1.08) rotate(-8deg);
+    }
+
+    78%,
+    92% {
+        opacity: 0;
+        transform: scale(.6) rotate(12deg);
+    }
+
+    97%,
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes sp-know-word {
+
+    0%,
+    76% {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+
+    80%,
+    90% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    95%,
+    100% {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+}
+
+a:hover .sp-know__shankh,
+a:focus-visible .sp-know__shankh {
+    transform: scale(1.12) rotate(-10deg);
+    transition: transform .25s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sp-know__shankh {
+        animation: none;
+        opacity: 1;
+    }
+
+    .sp-know__word {
+        animation: none;
+        opacity: 0;
+    }
+}

@@ -64,7 +64,7 @@ get_header();
                 <p class="sp-adiguru__note">
                     <?php sp_icon( 'peeth-kanchi', 'sp-icon sp-icon--md', '' ); ?>
                     <?php esc_html_e( 'Kanchi Kamakoti Peetham in Tamil Nadu also traces its foundation to Adi Shankaracharya by its own tradition.', 'sampreshan-child' ); ?>
-                    <a href="<?php echo esc_url( get_permalink( $sp_kanchi ) ); ?>"><?php esc_html_e( 'Read the profile', 'sampreshan-child' ); ?></a>
+                    <a href="<?php echo esc_url( get_permalink( $sp_kanchi ) ); ?>"><?php sp_know_more( __( 'View', 'sampreshan-child' ), __( 'View the profile', 'sampreshan-child' ) ); ?></a>
                 </p>
             <?php endif; ?>
         </section>

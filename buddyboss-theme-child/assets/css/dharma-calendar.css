@@ -373,3 +373,15 @@
         max-height: none;
     }
 }
+/* Home dark theme: keep calendar text readable on its light tiles and controls. */
+body .sp-dharma-news .sp-dcal__tile h3 a,
+body.sp-future .sp-dharma-news .sp-dcal__tile h3 a { color: #1f2937; }
+body .sp-dharma-news .sp-dcal__tile .sp-dcal__meta,
+body .sp-dharma-news .sp-dcal__tile .sp-dcal__src { color: #6b7280; }
+body .sp-dharma-news select,
+body.sp-future .sp-dharma-news select { color: #1f2937; background-color: #fff; }
+body .sp-dharma-news label,
+body.sp-future .sp-dharma-news label { color: #e5e7eb; }
+/* The site-wide full-width rule targets every <article>; ticker tiles keep their card width. */
+#main.site-main .sp-dcal__tile { width: 260px !important; flex: none; }
+@media (max-width: 820px) { #main.site-main .sp-dcal__tile { width: 220px !important; } }

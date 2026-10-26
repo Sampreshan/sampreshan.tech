@@ -40,7 +40,7 @@ if ( empty( $welcome_posts ) ) {
                 </header>
                 <?php if ( has_post_thumbnail( $welcome ) ) : ?><a class="post-card__image" href="<?php echo esc_url( $wurl ); ?>"><img src="<?php echo esc_url( get_the_post_thumbnail_url( $welcome, 'large' ) ); ?>" alt="" loading="lazy" /></a><?php endif; ?>
                 <div class="post-card__content"><p><?php echo esc_html( $wexcerpt ); ?></p></div>
-                <footer class="post-card__actions"><a class="post-card__action" href="<?php echo esc_url( $wurl ); ?>"><span><?php esc_html_e( 'Read story', 'sampreshan-child' ); ?> &rarr;</span></a><a class="post-card__action" href="<?php echo esc_url( $wurl ); ?>#comments"><span><?php esc_html_e( 'Discuss', 'sampreshan-child' ); ?></span></a></footer>
+                <footer class="post-card__actions"><a class="post-card__action" href="<?php echo esc_url( $wurl ); ?>"><?php sp_know_more( __( 'Read', 'sampreshan-child' ), __( 'Read story', 'sampreshan-child' ) ); ?></a><a class="post-card__action" href="<?php echo esc_url( $wurl ); ?>#comments"><span><?php esc_html_e( 'Discuss', 'sampreshan-child' ); ?></span></a></footer>
             </article>
         <?php endforeach; ?>
     </div>

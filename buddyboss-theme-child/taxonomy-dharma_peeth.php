@@ -32,7 +32,7 @@ $peeth_updates = $peeth_profile ? sp_dharma_updates_for_profiles( sp_dharma_same
                     <p class="sp-dharma-card__peeth"><?php echo esc_html( $term->name ); ?></p>
                     <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
                     <p><?php echo esc_html( get_the_excerpt() ); ?></p>
-                    <div class="sp-dharma-card__footer"><a href="<?php the_permalink(); ?>"><?php esc_html_e( 'Open profile', 'sampreshan-child' ); ?></a><?php sp_dharma_follow_button( get_the_ID() ); ?></div>
+                    <div class="sp-dharma-card__footer"><a href="<?php the_permalink(); ?>"><?php sp_know_more( __( 'View', 'sampreshan-child' ), __( 'View profile', 'sampreshan-child' ) ); ?></a><?php sp_dharma_follow_button( get_the_ID() ); ?></div>
                 </article>
             <?php endwhile; ?>
         </div>

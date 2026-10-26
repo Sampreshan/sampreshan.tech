@@ -22,8 +22,7 @@ get_header();
         if ( file_exists( $quiz_tpl ) ) { include $quiz_tpl; }
 
         /* === ACHARYA & PEETH DISCOVERY === */
-        $dharma_tpl = get_stylesheet_directory() . '/template-parts/home/dharma-directory.php';
-        if ( file_exists( $dharma_tpl ) ) { include $dharma_tpl; }
+        // Profile cards stay on the directory; the home page shows only the gathered calendar.
 
         /* === PEETH NEWS & PROGRAMMES (auto-imported) === */
         $news_tpl = get_stylesheet_directory() . '/template-parts/home/dharma-news.php';

@@ -190,7 +190,7 @@ $dashboard_feed = new WP_Query( array(
                     <?php sp_icon_auto( 'plus', 'sp-icon--sm', '' ); ?>
                     <?php esc_html_e( 'New Petition', 'sampreshan-child' ); ?>
                 </a>
-                <a class="btn btn--ghost" href="<?php echo esc_url( $profile_url ); ?>"><?php esc_html_e( 'View Profile', 'sampreshan-child' ); ?></a>
+                <a class="btn btn--ghost" href="<?php echo esc_url( $profile_url ); ?>"><?php sp_know_more( __( 'View', 'sampreshan-child' ), __( 'View profile', 'sampreshan-child' ) ); ?></a>
                 <button id="sp-theme-toggle" class="btn btn--ghost sp-theme-toggle" type="button" aria-pressed="false" title="<?php esc_attr_e( 'Dark mode', 'sampreshan-child' ); ?>">
                     <?php sp_icon_auto( 'spark', 'sp-icon--sm', '' ); ?>
                     <span class="sp-theme-toggle__label"><?php esc_html_e( 'Dark mode', 'sampreshan-child' ); ?></span>
@@ -303,7 +303,7 @@ $dashboard_feed = new WP_Query( array(
                                         <span class="sp-dash-bar__fill" style="width: <?php echo esc_attr( $progress ); ?>%"></span>
                                     </div>
                                     <div class="sp-dash-row__actions">
-                                        <a class="sp-dash-link" href="<?php echo esc_url( $pet_url ); ?>"><?php esc_html_e( 'View', 'sampreshan-child' ); ?></a>
+                                        <a class="sp-dash-link" href="<?php echo esc_url( $pet_url ); ?>"><?php sp_know_more( __( 'View', 'sampreshan-child' ), __( 'View petition', 'sampreshan-child' ) ); ?></a>
                                         <a class="sp-dash-link" href="<?php echo esc_url( get_edit_post_link( $pid, 'raw' ) ); ?>"><?php esc_html_e( 'Edit', 'sampreshan-child' ); ?></a>
                                         <button class="sp-dash-link sp-share-btn" type="button" data-url="<?php echo esc_url( $pet_url ); ?>" data-title="<?php echo esc_attr( $petition->post_title ); ?>"><?php esc_html_e( 'Share', 'sampreshan-child' ); ?></button>
                                         <?php if ( $is_live && 'victory' !== $status && ( (int) $petition->post_author === $user_id || current_user_can( 'edit_petition', $pid ) ) ) : ?>

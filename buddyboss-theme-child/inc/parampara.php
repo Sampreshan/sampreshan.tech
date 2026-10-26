@@ -47,7 +47,7 @@ function sp_parampara_node_html( $node, $current_slug = '' ) {
                 <strong class="sp-pp__name"><?php echo esc_html( $node['name'] ); ?></strong>
                 <?php if ( ! empty( $node['period'] ) ) : ?><span class="sp-pp__period"><?php echo esc_html( $node['period'] ); ?></span><?php endif; ?>
                 <?php if ( ! empty( $node['note'] ) ) : ?><span class="sp-pp__note"><?php echo esc_html( $node['note'] ); ?></span><?php endif; ?>
-                <?php if ( $profile ) : ?><a class="sp-pp__link" href="<?php echo esc_url( get_permalink( $profile ) ); ?>"><?php esc_html_e( 'Open profile', 'sampreshan-child' ); ?></a><?php endif; ?>
+                <?php if ( $profile ) : ?><a class="sp-pp__link" href="<?php echo esc_url( get_permalink( $profile ) ); ?>"><?php sp_know_more( __( 'View', 'sampreshan-child' ), __( 'View profile', 'sampreshan-child' ) ); ?></a><?php endif; ?>
             </div>
         </div>
     </li>

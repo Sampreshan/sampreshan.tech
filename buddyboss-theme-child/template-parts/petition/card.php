@@ -99,7 +99,7 @@ if ( function_exists( 'sp_petition_get_signatures' ) ) {
             <?php else : ?>
                 <a class="sp-fu-btn sp-fu-btn--primary sp-fu-btn--sm" href="<?php echo esc_url( $purl ); ?>"><?php sp_support_eye( 20 ); ?> <?php esc_html_e( 'Support', 'sampreshan-child' ); ?></a>
             <?php endif; ?>
-            <a class="sp-fu-link" href="<?php echo esc_url( $purl ); ?>"><?php esc_html_e( 'Read', 'sampreshan-child' ); ?></a>
+            <a class="sp-fu-link" href="<?php echo esc_url( $purl ); ?>"><?php sp_know_more( __( 'Read', 'sampreshan-child' ), __( 'Read petition', 'sampreshan-child' ) ); ?></a>
             <?php if ( is_user_logged_in() ) : ?>
                 <button type="button" class="sp-save-btn sp-save-btn--sm<?php echo $saved ? ' is-saved' : ''; ?>" data-petition-id="<?php echo esc_attr( $pid ); ?>" data-saved="<?php echo $saved ? '1' : '0'; ?>" aria-pressed="<?php echo $saved ? 'true' : 'false'; ?>" aria-label="<?php esc_attr_e( 'Save petition', 'sampreshan-child' ); ?>">
                     <?php sp_icon_auto( 'bookmark', 'sp-icon--sm', '' ); ?>
