@@ -260,7 +260,7 @@ function sp_dcal_fetch_sringeri() {
             }
             $time  = strtotime( $lines[ $i ] );
             $title = ltrim( $lines[ $i + 1 ], '# ' );
-            if ( ! $time || strlen( $title ) > 160 || $time < time() - 60 * DAY_IN_SECONDS ) {
+            if ( ! $time || strlen( $title ) > 160 || preg_match( '/^[A-Z][a-z]+ \d{1,2}, \d{4}$/', $title ) || $time < time() - 60 * DAY_IN_SECONDS ) {
                 continue;
             }
             $slug    = sanitize_title( $title );
