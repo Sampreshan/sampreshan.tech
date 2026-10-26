@@ -924,3 +924,5 @@ body.sp-future .sp-wiki__founding a {
     .sp-pp3t__now .sp-pp3t__note { display: none; }
 }
 .sp-pp3t__list button span { grid-row: span 3; }
+.sp-pp3t .sp-pp3t__zoom button:hover, .sp-pp3t .sp-pp3t__zoom button:focus, .sp-pp3t .sp-pp3t__zoom button:active,
+.sp-pp3t .sp-pp3t__play:hover, .sp-pp3t .sp-pp3t__play:focus { background: rgba(24, 13, 5, .9); color: #ffe1a3; }
