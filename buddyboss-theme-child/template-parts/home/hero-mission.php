@@ -18,13 +18,15 @@ $is_logged_in = is_user_logged_in();
     <div class="d3-hero__light" aria-hidden="true"></div>
     <div class="d3-hero__grid" aria-hidden="true"></div>
 
-    <?php $sp_vid = get_stylesheet_directory_uri() . '/assets/video/hero-pigeons'; $sp_vv = defined( 'SAMPRESHAN_CHILD_VERSION' ) ? SAMPRESHAN_CHILD_VERSION : '1'; ?>
-    <!-- Kabootar post: messenger doves arrive at the shikhar, exchange the message and fly on. -->
-    <div class="sp-hero-video" aria-hidden="true">
-        <video class="sp-hero-video__el" autoplay muted loop playsinline preload="auto" disablepictureinpicture poster="<?php echo esc_url( $sp_vid . '-poster.webp?ver=' . $sp_vv ); ?>">
-            <source src="<?php echo esc_url( $sp_vid . '.mov?ver=' . $sp_vv ); ?>" type='video/mp4; codecs="hvc1"'>
-            <source src="<?php echo esc_url( $sp_vid . '.webm?ver=' . $sp_vv ); ?>" type="video/webm">
-        </video>
+    <?php $sp_fly = get_stylesheet_directory_uri() . '/assets/video/pigeon-fly'; $sp_vv = defined( 'SAMPRESHAN_CHILD_VERSION' ) ? SAMPRESHAN_CHILD_VERSION : '1'; ?>
+    <!-- Kabootar post: two messenger doves fly in from far corners, grow near the shikhar and fly out of view. -->
+    <div class="sp-fly" aria-hidden="true">
+        <?php foreach ( array( 'a', 'b' ) as $sp_k ) : ?>
+        <div class="sp-fly__bird sp-fly__bird--<?php echo esc_attr( $sp_k ); ?>"><video class="sp-fly__vid" autoplay muted loop playsinline preload="auto" disablepictureinpicture>
+            <source src="<?php echo esc_url( $sp_fly . '.mov?ver=' . $sp_vv ); ?>" type='video/mp4; codecs="hvc1"'>
+            <source src="<?php echo esc_url( $sp_fly . '.webm?ver=' . $sp_vv ); ?>" type="video/webm">
+        </video></div>
+        <?php endforeach; ?>
     </div>
 
     <div class="d3-hero__grid-inner">
@@ -63,7 +65,6 @@ $is_logged_in = is_user_logged_in();
                 <img class="d3-hero__mandala" src="<?php echo esc_url( sp_art_url( 'mandala.svg' ) ); ?>" alt="" width="400" height="400" loading="lazy" decoding="async" />
             <?php endif; ?>
             <div class="d3-hero__object">
-                <div class="d3-hero__shankh"><picture><source media="(prefers-reduced-motion: reduce)" srcset="<?php echo esc_url( sp_art_url( 'sampreshan-shankh-poster.webp' ) ); ?>" /><img class="d3-hero__shankh-anim" src="<?php echo esc_url( sp_art_url( 'sampreshan-shankh.webp' ) ); ?>" alt="" width="400" height="400" loading="eager" decoding="async" /></picture></div>
                 <div class="d3-hero__card">
                     <img class="d3-hero__logo" src="<?php echo esc_url( $logo_url ); ?>" alt="" width="120" height="120" fetchpriority="high" />
                     <p class="d3-hero__logo-name"><?php echo esc_html( $site_name ); ?></p>
