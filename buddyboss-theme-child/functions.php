@@ -202,7 +202,7 @@ add_action( 'wp_footer', 'sp_drop_unconfigured_elementor_scripts', 19 );
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.71' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.72' );
 }
 
 /**
@@ -873,7 +873,7 @@ function sampreshan_child_enqueue_styles() {
             true
         );
         $sp_pp_slug = get_post_field( 'post_name', get_queried_object_id() );
-        if ( function_exists( 'sp_parampara_is_peetham' ) && sp_parampara_is_peetham( $sp_pp_slug ) ) {
+        if ( function_exists( 'sp_parampara_for' ) && sp_parampara_for( $sp_pp_slug ) ) {
             wp_enqueue_script_module(
                 'sampreshan-parampara-3d',
                 get_stylesheet_directory_uri() . ( sp_parampara_tree_v2_enabled( $sp_pp_slug ) ? '/assets/js/parampara-tree.js' : '/assets/js/parampara-3d.js' ),

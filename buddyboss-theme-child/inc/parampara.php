@@ -224,11 +224,29 @@ function sp_parampara_is_peetham( $slug ) {
 }
 
 /**
- * Peethams that show the realistic tree (v2). Preview on one Peetham
- * first; the others keep the v1 tree until it is approved.
+ * Every page with a Guru Parampara shows the realistic tree (v2).
  */
 function sp_parampara_tree_v2_enabled( $slug ) {
-    return in_array( $slug, array( 'dakshinamnaya-sri-sharada-peetham' ), true );
+    return true;
+}
+
+/**
+ * Tree model for a page, so each Peetham grows a different tree. Other
+ * pages get one of the same set, fixed by their slug.
+ */
+function sp_parampara_tree_model( $slug ) {
+    $map = array(
+        'dakshinamnaya-sri-sharada-peetham'    => 'parampara-tree-real.glb',
+        'purvamnaya-govardhan-matha-puri'      => 'parampara-tree-4.glb',
+        'uttaraminaya-jyotirmath-peeth'        => 'parampara-tree-2.glb',
+        'kanchi-kamakoti-peetham'              => 'parampara-tree-5.glb',
+        'paschimamnaya-dwarka-sharada-peetham' => 'parampara-tree-6.glb',
+    );
+    if ( isset( $map[ $slug ] ) ) {
+        return $map[ $slug ];
+    }
+    $pool = array( 'parampara-tree-6.glb', 'parampara-tree-5.glb', 'parampara-tree-4.glb', 'parampara-tree-real.glb' );
+    return $pool[ abs( crc32( (string) $slug ) ) % count( $pool ) ];
 }
 
 /** Flat chronological list of a Peetham's line for the 3D trees. */
@@ -274,6 +292,7 @@ function sp_parampara_tree_v2_render( $slug, $pp ) {
             'chip'   => ! empty( $pp['founder']['label'] ) ? (string) $pp['founder']['label'] : __( 'Founder', 'sampreshan-child' ),
         ),
         'line'    => $line,
+        'model'   => sp_parampara_tree_model( $slug ),
         'base'    => get_stylesheet_directory_uri() . '/assets/',
         'ver'     => SAMPRESHAN_CHILD_VERSION,
     );
