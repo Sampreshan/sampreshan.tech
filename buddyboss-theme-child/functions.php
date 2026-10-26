@@ -202,7 +202,7 @@ add_action( 'wp_footer', 'sp_drop_unconfigured_elementor_scripts', 19 );
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.47' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.48' );
 }
 
 /**

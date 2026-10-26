@@ -17,6 +17,10 @@ get_header();
         $hero_tpl = get_stylesheet_directory() . '/template-parts/home/hero-mission.php';
         if ( file_exists( $hero_tpl ) ) { include $hero_tpl; }
 
+        /* === SANGYANI SANATAN GAME (featured) === */
+        $quiz_tpl = get_stylesheet_directory() . '/template-parts/home/quiz-feature.php';
+        if ( file_exists( $quiz_tpl ) ) { include $quiz_tpl; }
+
         /* === ACHARYA & PEETH DISCOVERY === */
         $dharma_tpl = get_stylesheet_directory() . '/template-parts/home/dharma-directory.php';
         if ( file_exists( $dharma_tpl ) ) { include $dharma_tpl; }

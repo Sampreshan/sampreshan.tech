@@ -348,6 +348,7 @@
             var key = document.createElement('span');
             key.className = 'sp-quiz__key';
             key.textContent = String(i + 1);
+            key.setAttribute('data-k', String(i + 1));
             var label = document.createElement('span');
             label.textContent = text;
             b.appendChild(key);
