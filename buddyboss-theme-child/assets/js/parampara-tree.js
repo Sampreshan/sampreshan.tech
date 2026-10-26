@@ -101,6 +101,7 @@ function buildEra(root, line, select) {
     const sum = widths.reduce((a, b) => a + b, 0);
     const segs = [];
     let off = 0;
+    bar.classList.toggle('is-dense', line.length > 40);
     line.forEach((n, i) => {
         const b = document.createElement('button');
         b.type = 'button';
@@ -123,6 +124,8 @@ function buildEra(root, line, select) {
         const x = seg.from + (seg.to - seg.from) * ((y - seg.s[0]) / (seg.s[1] - seg.s[0]));
         const t = document.createElement('span');
         t.style.left = (x * 100).toFixed(2) + '%';
+        // Keep the first and last marks inside the bar.
+        if (x > 0.93) { t.classList.add('is-end'); } else if (x < 0.07) { t.classList.add('is-start'); }
         t.textContent = yearLabel(y);
         ticks.appendChild(t);
     }
@@ -152,6 +155,7 @@ async function build(root) {
     const list = root.querySelector('.sp-pp3t__list');
     const playBtn = root.querySelector('.sp-pp3t__play');
     const now = {
+        root: root.querySelector('.sp-pp3t__now'),
         num: root.querySelector('.sp-pp3t__num'),
         name: root.querySelector('.sp-pp3t__name'),
         period: root.querySelector('.sp-pp3t__period'),
@@ -162,12 +166,16 @@ async function build(root) {
     const N = line.length;
     const H = 10;
 
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, window.innerWidth < 700 ? 1.5 : 2));
+    // Phones and low-core devices get a lighter scene: no shadow pass and a
+    // lower pixel ratio, which drops further if frames run slow.
+    const small = Math.min(window.innerWidth, window.innerHeight) < 700 || (navigator.hardwareConcurrency || 8) <= 4;
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: !small, powerPreference: 'high-performance' });
+    let dprCap = small ? 1.5 : 2;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, dprCap));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.05;
-    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.enabled = !small;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     const scene = new THREE.Scene();
@@ -191,7 +199,7 @@ async function build(root) {
     scene.add(new THREE.HemisphereLight(0xdcecff, 0x5a4a2a, 1.25));
     const sun = new THREE.DirectionalLight(0xffe2b0, 2.6);
     sun.position.set(8, 16, 6);
-    sun.castShadow = true;
+    sun.castShadow = !small;
     sun.shadow.mapSize.set(1024, 1024);
     Object.assign(sun.shadow.camera, { left: -12, right: 12, top: 12, bottom: -12, near: 1, far: 50 });
     sun.shadow.bias = -0.0008;
@@ -207,7 +215,7 @@ async function build(root) {
     scene.add(ground);
 
     // The tree, scaled to the scene height, with a gentle wind in the crown.
-    const gltf = await new GLTFLoader().loadAsync(data.base + 'models/parampara-tree-real.glb' + v);
+    const gltf = await new GLTFLoader().loadAsync(data.base + 'models/' + (data.model || 'parampara-tree-real.glb') + v);
     const tree = gltf.scene;
     let box = new THREE.Box3().setFromObject(tree);
     const s = H / (box.max.y - box.min.y);
@@ -216,8 +224,8 @@ async function build(root) {
     const wind = { value: 0 };
     tree.traverse((o) => {
         if (!o.isMesh) { return; }
-        o.castShadow = true;
-        o.receiveShadow = true;
+        o.castShadow = !small;
+        o.receiveShadow = !small;
         const mat = o.material;
         mat.side = THREE.DoubleSide;
         mat.transparent = false;
@@ -255,7 +263,11 @@ async function build(root) {
         }
     });
     const avgY = (a) => a.reduce((t, q) => t + q.y, 0) / Math.max(1, a.length);
-    const crown = avgY(leaves) >= avgY(bark) ? leaves : bark;
+    const crownAll = avgY(leaves) >= avgY(bark) ? leaves : bark;
+    // A few thousand canopy points are enough to seat every lamp.
+    const every = Math.max(1, Math.floor(crownAll.length / 4000));
+    const crown = crownAll.filter((q, i) => i % every === 0);
+    const treeBox = new THREE.Box3().setFromObject(tree);
     box = new THREE.Box3().setFromPoints(crown);
     const rMax = Math.max(...crown.map((q) => Math.hypot(q.x, q.z))) || 1;
 
@@ -294,23 +306,42 @@ async function build(root) {
     const threadCount = thread.geometry.index.count;
 
     const glow = glowTexture(THREE);
-    const makeLamp = (pt, size) => {
-        const core = new THREE.Mesh(
-            new THREE.SphereGeometry(size, 16, 10),
-            new THREE.MeshBasicMaterial({ color: 0x6b5a46 })
-        );
-        core.position.copy(pt);
+    const makeHalo = (pt, size) => {
         const halo = new THREE.Sprite(new THREE.SpriteMaterial({
             map: glow, color: 0xffc85c, transparent: true, depthWrite: false,
             blending: THREE.AdditiveBlending, opacity: 0, fog: false,
         }));
         halo.scale.setScalar(size * 7);
         halo.position.copy(pt);
-        scene.add(core, halo);
-        return { core, halo, size };
+        scene.add(halo);
+        return halo;
     };
-    const founderLamp = makeLamp(start, 0.3);
-    const lamps = points.map((pt) => makeLamp(pt, N > 80 ? 0.1 : 0.14));
+    const founderLamp = {
+        core: new THREE.Mesh(new THREE.SphereGeometry(0.3, 16, 10), new THREE.MeshBasicMaterial({ color: 0x6b5a46 })),
+        halo: makeHalo(start, 0.3),
+    };
+    founderLamp.core.position.copy(start);
+    scene.add(founderLamp.core);
+
+    // Every Acharya's lamp in one instanced mesh, and their glows in one
+    // point cloud, so a long line costs two draw calls instead of hundreds.
+    const lampSize = N > 80 ? 0.1 : 0.14;
+    const cores = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 12, 8), new THREE.MeshBasicMaterial(), Math.max(1, N));
+    cores.count = N;
+    scene.add(cores);
+    const haloGeo = new THREE.BufferGeometry();
+    const haloCol = new Float32Array(Math.max(1, N) * 3);
+    haloGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(points.flatMap((q) => [q.x, q.y, q.z])), 3));
+    haloGeo.setAttribute('color', new THREE.BufferAttribute(haloCol, 3));
+    const halos = new THREE.Points(haloGeo, new THREE.PointsMaterial({
+        map: glow, size: lampSize * 7, vertexColors: true, transparent: true, depthWrite: false,
+        blending: THREE.AdditiveBlending, fog: false,
+    }));
+    scene.add(halos);
+    const curHalo = makeHalo(start, lampSize);
+    const m4 = new THREE.Matrix4();
+    const one = new THREE.Quaternion();
+    const sc = new THREE.Vector3();
 
     // Fireflies drifting round the crown.
     const FF = 70;
@@ -329,6 +360,14 @@ async function build(root) {
     scene.add(fireflies);
 
     const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 200);
+    // The tree fills the frame whatever its shape or the screen's.
+    const treeR = Math.max(rMax, (treeBox.max.x - treeBox.min.x) / 2, (treeBox.max.z - treeBox.min.z) / 2);
+    const fitDist = (aspect) => {
+        const vh = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+        const byH = (H * 0.56) / vh;
+        const byW = (treeR * 1.12) / (vh * aspect);
+        return Math.min(34, Math.max(byH, byW) + treeR * 0.4);
+    };
     const controls = new OrbitControls(camera, canvas);
     controls.enableDamping = true;
     controls.enablePan = false;
@@ -396,21 +435,30 @@ async function build(root) {
     function select(j, user) {
         k = Math.max(0, Math.min(N, j));
         if (user) { setPlaying(false); }
-        lamps.forEach((l, i) => {
-            const n = line[i];
+        line.forEach((n, i) => {
             let c = i < k ? (n.status ? C.present : C.lit) : C.dim;
             if (n.gap) { c = C.gap; }
             if (i === k - 1) { c = C.cur; }
-            l.core.material.color.copy(c);
-            l.halo.material.opacity = i < k && !n.gap ? (i === k - 1 ? 1 : 0.55) : 0;
-            l.halo.scale.setScalar(l.size * (i === k - 1 ? 14 : 7));
-            l.core.scale.setScalar(i < k || n.gap ? 1 : 0.6);
+            cores.setColorAt(i, c);
+            m4.compose(points[i], one, sc.setScalar(lampSize * (i < k || n.gap ? 1 : 0.6)));
+            cores.setMatrixAt(i, m4);
+            const hv = i < k - 1 && !n.gap ? 0.55 : 0;
+            haloCol.set([C.lit.r * hv, C.lit.g * hv, C.lit.b * hv], i * 3);
         });
+        if (N) {
+            cores.instanceMatrix.needsUpdate = true;
+            cores.instanceColor.needsUpdate = true;
+            haloGeo.attributes.color.needsUpdate = true;
+        }
+        const curGap = k > 0 && line[k - 1].gap;
+        curHalo.material.opacity = k > 0 && !curGap ? 1 : 0;
+        if (k > 0) { curHalo.position.copy(points[k - 1]); }
         founderLamp.core.material.color.copy(k === 0 ? C.cur : C.lit);
         founderLamp.halo.material.opacity = 1;
         threadGoal = threadCount * (k / Math.max(1, N));
 
         const nd = nodeAt(k);
+        now.root.classList.toggle('has-note', !!nd.note);
         now.num.textContent = nd.label || '';
         now.name.textContent = nd.name;
         now.period.textContent = nd.period || '';
@@ -434,6 +482,7 @@ async function build(root) {
                 el.appendChild(sp);
             }
             el.dataset.k = String(j);
+            el.sz = [el.offsetWidth, el.offsetHeight];
         });
 
         items.forEach((b) => b.classList.toggle('is-current', +b.dataset.k === k));
@@ -445,6 +494,7 @@ async function build(root) {
         eraSet(k);
         const pt = k === 0 ? start : points[k - 1];
         goal.set(pt.x * 0.25, H * 0.42 + (pt.y / H) * H * 0.12, pt.z * 0.25);
+        dirty = true;
     }
 
     // Autoplay through time; a tap anywhere hands control to the reader.
@@ -465,15 +515,34 @@ async function build(root) {
     items.forEach((b) => b.addEventListener('click', () => select(+b.dataset.k, true)));
     canvas.addEventListener('pointerdown', () => setPlaying(false));
 
+    // Overlay boxes (buttons and the card) that labels must not cover; read
+    // once per resize instead of every frame.
+    let blockers = [];
+    let dirty = true;
+    function measure() {
+        const sr = stage.getBoundingClientRect();
+        blockers = [playBtn, root.querySelector('.sp-pp3t__zoom'), root.querySelector('.sp-pp3t__now')].map((b) => {
+            const q = b.getBoundingClientRect();
+            return q.width ? { l: q.left - sr.left, t: q.top - sr.top, r: q.right - sr.left, b: q.bottom - sr.top } : null;
+        }).filter(Boolean);
+        minis.forEach((el) => { el.sz = null; });
+    }
+
+    let W = 0;
+    let Hh = 0;
     function resize() {
         const w = stage.clientWidth;
         const h = stage.clientHeight;
         if (!w || !h) { return; }
+        W = w;
+        Hh = h;
         renderer.setSize(w, h, false);
         camera.aspect = w / h;
         camera.updateProjectionMatrix();
-        const dist = (w / h < 0.9 ? 25 : w / h < 1.4 ? 19 : 18);
+        const dist = fitDist(w / h);
         baseDist = dist;
+        controls.maxDistance = Math.max(34, dist * 1.4);
+        measure();
         const dir = camera.position.clone().sub(controls.target);
         if (dir.lengthSq() < 1) { dir.set(0.35, 0.42, 1); }
         camera.position.copy(controls.target).add(dir.normalize().multiplyScalar(dist));
@@ -487,14 +556,10 @@ async function build(root) {
 
     const v3 = new THREE.Vector3();
     function placeTags() {
-        const w = stage.clientWidth;
-        const h = stage.clientHeight;
-        const placed = [];
-        const sr = stage.getBoundingClientRect();
-        [playBtn, root.querySelector('.sp-pp3t__zoom'), root.querySelector('.sp-pp3t__now')].forEach((b) => {
-            const q = b.getBoundingClientRect();
-            if (q.width) { placed.push({ l: q.left - sr.left, t: q.top - sr.top, r: q.right - sr.left, b: q.bottom - sr.top }); }
-        });
+        const w = W;
+        const h = Hh;
+        if (dirty) { measure(); dirty = false; }
+        const placed = blockers.slice();
         tags.forEach((el, i) => {
             if (el.hidden) { return; }
             const j = +el.dataset.k;
@@ -503,12 +568,20 @@ async function build(root) {
             const x = (v3.x * 0.5 + 0.5) * w;
             const y = (-v3.y * 0.5 + 0.5) * h;
             const right = x < w * 0.62;
-            const tw = el.offsetWidth;
-            const left = Math.max(6, Math.min(w - tw - 6, right ? x + 14 : x - tw - 14));
-            const top = Math.max(6, Math.min(h - el.offsetHeight - 6, y - el.offsetHeight / 2));
-            const r = { l: left, t: top, r: left + tw, b: top + el.offsetHeight };
+            const [tw, th] = el.sz || [el.offsetWidth, el.offsetHeight];
+            const top = Math.max(6, Math.min(h - th - 6, y - th / 2));
+            const hit = (q) => placed.some((z) => q.l < z.r && q.r > z.l && q.t < z.b && q.b > z.t);
+            // Try the preferred side first, then the other, to stay clear of the controls.
+            let r = null;
+            for (const sideRight of [right, !right]) {
+                const l = Math.max(6, Math.min(w - tw - 6, sideRight ? x + 14 : x - tw - 14));
+                r = { l, t: top, r: l + tw, b: top + th };
+                if (!hit(r)) { break; }
+            }
+            const left = r.l;
             // Earlier lamps give way when their label would cover a newer one.
-            const clash = i > 0 && placed.some((q) => r.l < q.r && r.r > q.l && r.t < q.b && r.b > q.t);
+            // On narrow screens the card already names the current Acharya.
+            const clash = (i > 0 || w < 600) && hit(r);
             el.style.transform = 'translate(' + left.toFixed(1) + 'px,' + top.toFixed(1) + 'px)';
             el.style.opacity = clash ? '0' : '';
             if (!clash) { placed.push(r); }
@@ -530,8 +603,8 @@ async function build(root) {
         order.forEach((o) => {
             const el = minis[o.j];
             el.hidden = false;
-            const tw = el.offsetWidth;
-            const th = el.offsetHeight;
+            if (!el.sz) { el.sz = [el.offsetWidth, el.offsetHeight]; }
+            const [tw, th] = el.sz;
             const left = Math.max(4, Math.min(w - tw - 4, o.x + 8));
             const top = Math.max(4, Math.min(h - th - 4, o.y - th / 2));
             const r = { l: left, t: top, r: left + tw, b: top + th };
@@ -541,14 +614,31 @@ async function build(root) {
         });
     }
 
-    function onScreen() {
-        const r = stage.getBoundingClientRect();
-        return r.bottom > 0 && r.top < window.innerHeight && !document.hidden;
-    }
+    let visible = true;
+    new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(stage);
+    const onScreen = () => visible && !document.hidden;
     const ffPos = ffGeo.attributes.position;
+    // If frames run slow, lower the pixel ratio once or twice.
+    let prevT = 0;
+    let slow = 0;
+    let frames = 0;
     function tick(t) {
         requestAnimationFrame(tick);
-        if (!onScreen()) { last = t; return; }
+        if (!onScreen()) { last = t; prevT = 0; return; }
+        if (prevT) {
+            frames++;
+            if (t - prevT > 30) { slow++; }
+            if (frames >= 90) {
+                if (slow > 45 && dprCap > 1) {
+                    dprCap = Math.max(1, dprCap - 0.5);
+                    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, dprCap));
+                    renderer.setSize(W, Hh, false);
+                }
+                frames = 0;
+                slow = 0;
+            }
+        }
+        prevT = t;
         if (playing && t - last > (k >= N ? 6000 : stepMs)) {
             last = t;
             select(k >= N ? 0 : k + 1);
@@ -564,10 +654,7 @@ async function build(root) {
         fireflies.material.opacity = 0.55 + Math.sin(t / 500) * 0.25;
         threadNow += (threadGoal - threadNow) * 0.08;
         thread.geometry.setDrawRange(0, Math.round(threadNow / 3) * 3);
-        if (k > 0) {
-            const l = lamps[k - 1];
-            l.halo.scale.setScalar(l.size * (13 + Math.sin(t / 300) * 2));
-        }
+        curHalo.scale.setScalar(lampSize * (13 + Math.sin(t / 300) * 2));
         controls.target.lerp(goal, 0.04);
         controls.update();
         renderer.render(scene, camera);
