@@ -24,3 +24,9 @@ original institutions, their publications and people connected with them;
 about 15% with AI help), written in our own words, never copied, with no
 third-party source lists on the page. Show the credit with
 `sp_research_credit()`.
+
+## Buttons and CTAs
+
+1. **Slide effect:** every CTA and button on the site uses the shared slide effect (`assets/css/sp-slide.css` + `assets/js/sp-slide.js`): a fill slides through the inside of the button on hover, followed by a shine streak.
+2. **New buttons:** anything built later follows the same effect. Use a normal `<button>`, `a.button`, or a class containing `btn`, `button`, `cta` or `__play` and it is applied automatically. Do not write a different hover effect for buttons.
+3. **Opt-out:** only for icon-only or tiny controls, with class `sp-noslide`.
