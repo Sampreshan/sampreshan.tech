@@ -31,7 +31,7 @@ Thumbs.db
 .env
 .local.env
 
-# ---- Backup archives (keep the SQL dump in repo per decision) ----
+# ---- Backup archives (SQL dumps must never be committed; repo is public) ----
 *.tar.gz
 *.zip
 backups/
@@ -65,3 +65,8 @@ push-via-api.sh
 public_html/wp-content/themes/buddyboss-theme-child/
 public_html/wp-content/themes/.buddyboss-theme-child.*
 public_html/wp-content/wpcode/
+
+# ---- Never commit database dumps or secrets ----
+*.sql
+*.sql.gz
+!public_html/wp-content/plugins/**/*.sql

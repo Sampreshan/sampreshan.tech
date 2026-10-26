@@ -18,7 +18,7 @@ echo
 # Step 1: Test primary endpoint
 echo -e "${BLUE}1. Testing b.ai API endpoint...${NC}"
 echo "   Endpoint: https://api.b.ai/v1"
-echo "   Key: sk-canmbr2...mejhk"
+echo "   Key: (read from BAI_API_KEY)"
 echo "   Free models:"
 echo "     • DeepSeek V4 Flash (text)"
 echo "     • DeepSeek V4 Flash Vision (image+voice)"
@@ -58,7 +58,7 @@ echo
 
 echo -e "${BLUE}4. Testing API connectivity (if network available)...${NC}"
 RESPONSE=$(curl -sS --max-time 10 "$B_ENDPOINT/models" \
-    -H "Authorization: Bearer sk-canmbr2jyis9fkq46k8dec0c037mejhk" \
+    -H "Authorization: Bearer $BAI_API_KEY" \
     -H "Content-Type: application/json" 2>&1) || true
 
 if echo "$RESPONSE" | grep -qE "(DeepSeek|deepseek|model)"; then
@@ -66,7 +66,7 @@ if echo "$RESPONSE" | grep -qE "(DeepSeek|deepseek|model)"; then
 else
     echo -e "   ${YELLOW}⚠️  Cannot reach $B_ENDPOINT from here${NC}"
     echo "   Test manually:"
-    echo "   curl -H \"Authorization: Bearer sk-canmbr2jyis9fkq46k8dec0c037mejhk\" \\"
+    echo "   curl -H \"Authorization: Bearer $BAI_API_KEY\" \\"
     echo "        -H \"Content-Type: application/json\" \\"
     echo "        \"$B_ENDPOINT/models\""
     echo

@@ -38,7 +38,7 @@
       "id": "deepseek/deepseek-v4-flash",
       "provider": "b",
       "options": {
-        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "apiKey": "${BAI_API_KEY}",
         "baseURL": "https://api.b.ai/v1"
       },
       "isFree": true,
@@ -51,7 +51,7 @@
       "id": "deepseek/deepseek-v4-flash-vision-exp",
       "provider": "b",
       "options": {
-        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "apiKey": "${BAI_API_KEY}",
         "baseURL": "https://api.b.ai/v1"
       },
       "isFree": true,
@@ -63,7 +63,7 @@
       "id": "deepseek/deepseek-v4-flash",
       "provider": "b",
       "options": {
-        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "apiKey": "${BAI_API_KEY}",
         "baseURL": "https://api.bairouter.io/v1"
       },
       "isFree": true,
@@ -76,7 +76,7 @@
       "id": "deepseek/deepseek-v4-flash",
       "provider": "b",
       "options": {
-        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "apiKey": "${BAI_API_KEY}",
         "baseURL": "https://api.baigateway.io/v1"
       },
       "isFree": true,
@@ -89,7 +89,7 @@
       "id": "deepseek/deepseek-v4-flash-vision-exp",
       "provider": "b",
       "options": {
-        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "apiKey": "${BAI_API_KEY}",
         "baseURL": "https://api.bairouter.io/v1"
       },
       "isFree": true,
@@ -101,7 +101,7 @@
       "id": "deepseek/deepseek-v4-flash-vision-exp",
       "provider": "b",
       "options": {
-        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "apiKey": "${BAI_API_KEY}",
         "baseURL": "https://api.baigateway.io/v1"
       },
       "isFree": true,
@@ -113,7 +113,7 @@
       "id": "deepseek/deepseek-v4-pro",
       "provider": "b",
       "options": {
-        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "apiKey": "${BAI_API_KEY}",
         "baseURL": "https://api.b.ai/v1"
       },
       "isFree": false,

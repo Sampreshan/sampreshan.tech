@@ -15,7 +15,7 @@ claude --model deepseek/deepseek-v4-flash-vision-exp
 ```
 
 ### Kilo (`~/.config/kilo/kilo.jsonc`)
-- Replaced b.ai API key with your new key: `sk-canmbr2jyis9fkq46k8dec0c037mejhk`
+- Replaced b.ai API key with your new key: `<BAI_API_KEY from your environment>`
 - Added `deepseek-v4-flash-vision-exp` to provider `b` models
 - Changed default model to `b/deepseek-v4-flash`
 

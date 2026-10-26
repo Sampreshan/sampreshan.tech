@@ -22,7 +22,7 @@
       "name": "b.ai",
       "options": {
         "baseURL": "https://api.b.ai/v1",
-        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk"
+        "apiKey": "${BAI_API_KEY}"
       },
       "models": {
         "deepseek-v4-flash": {
@@ -47,7 +47,7 @@
       "name": "b.ai Router fallback",
       "options": {
         "baseURL": "https://api.bairouter.io/v1",
-        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk"
+        "apiKey": "${BAI_API_KEY}"
       },
       "models": {
         "deepseek-v4-flash": {
@@ -67,7 +67,7 @@
       "name": "b.ai Gateway fallback",
       "options": {
         "baseURL": "https://api.baigateway.io/v1",
-        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk"
+        "apiKey": "${BAI_API_KEY}"
       },
       "models": {
         "deepseek-v4-flash": {
