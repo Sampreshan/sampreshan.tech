@@ -1,0 +1,67 @@
+/*
+ * Site-wide button slide effect (see assets/js/sp-slide.js).
+ * Rule: every CTA / button on the site uses this effect. New buttons get it
+ * automatically; opt out only with class "sp-noslide".
+ */
+.sp-slidable {
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.sp-slide {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: inherit;
+    overflow: hidden;
+}
+
+/* Fill layer that slides in from the left. */
+.sp-slide::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, rgba(255, 255, 255, .22), rgba(255, 255, 255, .08));
+    transform: translateX(-101%) skewX(-12deg);
+    transform-origin: left;
+    transition: transform .45s cubic-bezier(.65, 0, .25, 1);
+}
+
+/* Shine streak that crosses after the fill. */
+.sp-slide::after {
+    content: "";
+    position: absolute;
+    top: -20%;
+    bottom: -20%;
+    left: 0;
+    width: 38%;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .55), transparent);
+    transform: translateX(-140%) skewX(-20deg);
+    opacity: 0;
+}
+
+.sp-slidable:hover > .sp-slide::before,
+.sp-slidable:focus-visible > .sp-slide::before {
+    transform: translateX(0) skewX(0);
+}
+
+.sp-slidable:hover > .sp-slide::after,
+.sp-slidable:focus-visible > .sp-slide::after {
+    opacity: 1;
+    animation: sp-slide-shine .75s .12s cubic-bezier(.4, 0, .2, 1) both;
+}
+
+.sp-slidable:active > .sp-slide::before {
+    background: rgba(255, 255, 255, .3);
+}
+
+@keyframes sp-slide-shine {
+    from { transform: translateX(-140%) skewX(-20deg); }
+    to   { transform: translateX(380%) skewX(-20deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sp-slide::before { transition: none; }
+    .sp-slidable:hover > .sp-slide::after { animation: none; opacity: 0; }
+}

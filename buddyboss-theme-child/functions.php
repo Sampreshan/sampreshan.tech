@@ -202,7 +202,7 @@ add_action( 'wp_footer', 'sp_drop_unconfigured_elementor_scripts', 19 );
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.49' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.50' );
 }
 
 /**
@@ -1071,6 +1071,13 @@ function sp_responsive_layout_css() {
     wp_enqueue_style( 'sp-responsive-layout', get_stylesheet_directory_uri() . '/assets/css/responsive-layout.css', array(), SAMPRESHAN_CHILD_VERSION );
 }
 add_action( 'wp_enqueue_scripts', 'sp_responsive_layout_css', 1000 );
+
+/** Site-wide button slide effect (rule: every CTA/button uses it). */
+function sp_button_slide_assets() {
+    wp_enqueue_style( 'sp-slide', get_stylesheet_directory_uri() . '/assets/css/sp-slide.css', array(), SAMPRESHAN_CHILD_VERSION );
+    wp_enqueue_script( 'sp-slide', get_stylesheet_directory_uri() . '/assets/js/sp-slide.js', array(), SAMPRESHAN_CHILD_VERSION, true );
+}
+add_action( 'wp_enqueue_scripts', 'sp_button_slide_assets', 1001 );
 
 /**
  * Futuristic skin: flag every frontend page so future.css applies.
