@@ -62,6 +62,9 @@ while ( have_posts() ) : the_post();
             <div class="sp-wiki__main">
                 <p class="sp-wiki__lead"><?php echo esc_html( $data ? $data['summary'] : get_the_excerpt() ); ?></p>
 
+                <?php if ( 'sampradaya' === $kind && $data ) : ?>
+                    <?php sp_sampradaya_profile_main( $data, $profile_id ); ?>
+                <?php else : ?>
                 <?php $sp_has_pp = (bool) sp_parampara_for( get_post_field( 'post_name', $profile_id ) ); ?>
 
                 <?php if ( count( $sections ) > 1 ) : ?>
@@ -104,6 +107,7 @@ while ( have_posts() ) : the_post();
                     <?php endif; ?>
                 <?php else : ?>
                     <div class="sp-wiki__section"><?php the_content(); ?></div>
+                <?php endif; ?>
                 <?php endif; ?>
             </div>
         </div>

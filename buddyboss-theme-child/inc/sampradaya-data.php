@@ -11,7 +11,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-function sp_sampradaya_data_all() {
+function sp_sampradaya_base_data() {
     return array(
 
         /* ------------------------------------------------------ Smarta */
@@ -428,7 +428,242 @@ function sp_sampradaya_data_all() {
                 'Overview' => '<p>Udasis are renunciant sadhus who were historically among the first missionary traditions linked to Guru Nanak. They have akharas that take part in the Kumbh Mela.</p>',
             ),
         ),
+
+        'sikh-panth' => array(
+            'kind'     => 'sampradaya',
+            'order'    => 530,
+            'family'   => 'Sikh',
+            'title'    => 'Sikh Panth (Gurmat)',
+            'name_hi'  => 'सिख पंथ (गुरमत)',
+            'summary'  => 'The path taught by Guru Nanak (1469–1539) and the nine Gurus after him, centred on remembrance of one God, honest work, sharing and service, with the Guru Granth Sahib as the living Guru.',
+            'infobox'  => array(
+                'Tradition'   => 'Sikh (Gurmat)',
+                'Founder'     => 'Guru Nanak (1469–1539)',
+                'Gurus'       => 'Ten Gurus, from Guru Nanak to Guru Gobind Singh',
+                'Scripture'   => 'Guru Granth Sahib',
+                'Region'      => 'Punjab, then across India and the world',
+                'Key centre'  => 'Harmandir Sahib and the Akal Takht, Amritsar',
+            ),
+            'sections' => array(
+                'Overview' => '<p>Guru Nanak taught that the highest aim of human life is union with the one Creator, reached through right belief, right worship and right conduct as shown by the Guru. He rejected empty ritual and caste pride and gave his followers new forms of shared worship, such as the community kitchen (langar).</p>',
+                'History'  => '<p>Nine Gurus followed Guru Nanak. Guru Arjan Dev compiled the Adi Granth and was executed on the orders of the Mughal emperor Jahangir. His son, Guru Hargobind, built the Akal Takht and gave the community a martial form. Guru Tegh Bahadur gave his life for freedom of faith. Guru Gobind Singh, the tenth Guru, founded the Khalsa through initiation and passed the Guru\'s authority to the Granth and the Panth.</p>',
+                'Practice' => '<p>Daily recitation of the Gurus\' hymns, congregational kirtan in the gurdwara, langar open to all, and seva (selfless service).</p>',
+            ),
+        ),
+
+        /* ------------------------------------------------ Shramana */
+
+        'jain-dharma' => array(
+            'kind'     => 'sampradaya',
+            'order'    => 600,
+            'family'   => 'Shramana',
+            'title'    => 'Jain Dharma',
+            'name_hi'  => 'जैन धर्म',
+            'summary'  => 'The ancient Shramana tradition of the twenty-four Tirthankaras, from Rishabhanatha to Mahavira, teaching liberation of the soul through right faith, right knowledge and right conduct.',
+            'infobox'  => array(
+                'Tradition'   => 'Shramana (also called Arhata Darshana)',
+                'Tirthankaras' => 'Twenty-four, from Rishabhanatha (Adinatha) to Mahavira',
+                'Last Tirthankara' => 'Vardhamana Mahavira (6th century BCE)',
+                'Philosophy'  => 'Anekantavada and Syadvada',
+                'Key texts'   => 'Agamas; Tattvartha Sutra of Umasvati',
+                'Branches'    => 'Digambara and Shvetambara',
+            ),
+            'sections' => array(
+                'Overview' => '<p>Jain Dharma has no single founder. It holds that truth was revealed again and again by Tirthankaras, "ford-makers" who crossed the ocean of rebirth and showed the way to others. The soul (jiva) is distinct from matter, conscious, and takes the size of the body it lives in. Freedom comes when every particle of karma that clings to the soul is shed.</p>',
+                'History'  => '<p>Mahavira, the twenty-fourth Tirthankara, was born as Vardhamana at Kundagrama near Vaishali into the Jnatrika clan, son of King Siddhartha and Queen Trishala. He renounced the world, attained kevala jnana (perfect knowledge) in Bihar and taught for about thirty years. His chief disciple Gautama Indrabhuti arranged his teachings into the Angas. The community later divided into the Digambara and Shvetambara traditions.</p>',
+                'Practice' => '<p>The five vows (non-violence, truth, non-stealing, chastity and non-possession) are kept fully by monks and nuns and in a lighter form by lay followers. Fasting, daily self-reflection (samayika), temple worship in most branches and the festival of Paryushana mark the year.</p>',
+            ),
+        ),
+
+        'bauddha-dharma' => array(
+            'kind'     => 'sampradaya',
+            'order'    => 610,
+            'family'   => 'Shramana',
+            'title'    => 'Bauddha Dharma',
+            'name_hi'  => 'बौद्ध धर्म',
+            'summary'  => 'The path taught by Siddhartha Gautama, the Buddha, who awoke at Bodh Gaya and taught the Four Noble Truths and the Eightfold Path as the way out of suffering.',
+            'infobox'  => array(
+                'Tradition'   => 'Shramana',
+                'Founder'     => 'Siddhartha Gautama, the Buddha (6th–5th century BCE)',
+                'Philosophy'  => 'Four Noble Truths, dependent origination, no-self',
+                'Key texts'   => 'Tripitaka (Sutta, Vinaya, Abhidhamma)',
+                'Branches'    => 'Theravada, Mahayana, Vajrayana',
+                'Key centres' => 'Bodh Gaya, Sarnath, Kushinagar, Rajgir, Vaishali',
+            ),
+            'sections' => array(
+                'Overview' => '<p>The Buddha taught a middle way between indulgence and harsh self-torture. Everything that arises is impermanent, unsatisfying and without a lasting self; craving binds beings to rebirth; and when craving ends, nirvana is reached. Buddhist thinkers accept two means of knowledge: perception and inference.</p>',
+                'History'  => '<p>Siddhartha was born at Lumbini to Shuddhodana, a Shakya ruler, and Mayadevi, who died soon after his birth; he was raised by Mahaprajapati Gautami. Moved by the sight of old age, sickness and death, he left the palace, studied with teachers such as Arada Kalama, practised austerities at Uruvela and awoke under the Bodhi tree at Bodh Gaya. He gave his first teaching to five companions at Sarnath, taught for decades in the Magadhi tongue and passed away at Kushinagar at the age of eighty. His followers held councils to fix the teaching, and King Ashoka sent missions far beyond India.</p>',
+                'Practice' => '<p>Taking refuge in the Buddha, the Dharma and the Sangha; keeping the precepts; meditation; and pilgrimage to the places of the Buddha\'s life. Vesak (Buddha Purnima) marks his birth, awakening and passing.</p>',
+            ),
+        ),
+
+        'ajivika' => array(
+            'kind'     => 'sampradaya',
+            'order'    => 620,
+            'family'   => 'Shramana',
+            'title'    => 'Ajivika',
+            'name_hi'  => 'आजीविक सम्प्रदाय',
+            'summary'  => 'An ascetic Shramana order of the 5th century BCE led by Makkhali Gosala, known for its doctrine of niyati (strict destiny); recorded here as a historical tradition.',
+            'infobox'  => array(
+                'Tradition'   => 'Shramana (ascetic)',
+                'Founder'     => 'Makkhali Gosala (5th century BCE)',
+                'Doctrine'    => 'Niyati (fixed destiny)',
+                'Patron'      => 'Mauryan emperor Bindusara',
+                'Key centre'  => 'Shravasti',
+                'Status'      => 'Historical',
+            ),
+            'sections' => array(
+                'Overview' => '<p>Ajivikas held that every event is fixed by destiny (niyati), so that free will and the effort of karma cannot change one\'s course; every soul passes through a set round of lives before release. They taught that all things are made of atoms and lived simple, severe ascetic lives.</p>',
+                'History'  => '<p>Makkhali Gosala was a contemporary of Mahavira and the Buddha, and the order competed with both. The Mauryan ruler Bindusara is said to have followed it, Ashoka\'s seventh pillar edict names the Ajivikas, and the Barabar hill caves in Bihar were cut for them. Shravasti was an important centre. None of their own scriptures survive; what is known comes from Jain and Buddhist works and inscriptions.</p>',
+            ),
+        ),
+
+        /* ------------------------------------------------ Darshana */
+
+        'charvaka-lokayata' => array(
+            'kind'     => 'sampradaya',
+            'order'    => 700,
+            'family'   => 'Darshana',
+            'title'    => 'Charvaka (Lokayata) Darshana',
+            'name_hi'  => 'चार्वाक (लोकायत) दर्शन',
+            'summary'  => 'The materialist school of Indian thought, traced to the teacher Brihaspati, which accepts perception alone as a means of knowledge and denies an afterlife.',
+            'infobox'  => array(
+                'Tradition'   => 'Darshana (nastika, materialist)',
+                'Founder'     => 'Brihaspati (author of the lost sutras)',
+                'Other name'  => 'Lokayata',
+                'Means of knowledge' => 'Perception (pratyaksha) only',
+                'Elements'    => 'Earth, water, fire and air',
+                'Known through' => 'Sarvadarshana Sangraha and critiques by other schools',
+            ),
+            'sections' => array(
+                'Overview' => '<p>Charvaka thinkers hold that only what can be perceived is real. The world is made of four elements; consciousness appears when they combine in a body, just as a red colour appears when betel leaf, areca nut and lime are chewed together. The self is the living body, there is no rebirth, and death is the end. The aims worth pursuing are wealth (artha) and pleasure (kama). The name Lokayata, "spread among the people", reflects how widely these ideas were held.</p>',
+                'History'  => '<p>The root text, the sutras ascribed to Brihaspati, is lost. The school is known mainly from the opening chapter of Madhavacharya\'s Sarvadarshana Sangraha and from the arguments of rival schools. It should not be read only as a call to indulgence; it also challenged dogma and priestly authority and kept Indian debate sharp.</p>',
+            ),
+        ),
+
+        'nyaya-darshana' => array(
+            'kind'     => 'sampradaya',
+            'order'    => 710,
+            'family'   => 'Darshana',
+            'title'    => 'Nyaya Darshana',
+            'name_hi'  => 'न्याय दर्शन',
+            'summary'  => 'The astika school of logic and reasoning founded by Gautama (Akshapada), which teaches that liberation follows from true knowledge gained through valid means of knowing.',
+            'infobox'  => array(
+                'Tradition'   => 'Darshana (astika)',
+                'Founder'     => 'Maharshi Gautama (Akshapada)',
+                'Root text'   => 'Nyaya Sutra',
+                'Other names' => 'Anvikshiki, Tarka Shastra',
+                'Means of knowledge' => 'Perception, inference, comparison, testimony',
+                'Paired with' => 'Vaisheshika',
+            ),
+            'sections' => array(
+                'Overview' => '<p>Nyaya means "that by which a conclusion is reached". It examines how we know, how a sound argument is built and where reasoning goes wrong. Its method of debate was taken up by grammar, poetics and almost every other school, which is why Kautilya called it "the lamp of all sciences".</p>',
+                'History'  => '<p>Vatsyayana wrote the classic commentary on the Nyaya Sutra, followed by Uddyotakara, Vachaspati Mishra and Udayana. In the 14th century Gangesha of Mithila founded Navya-Nyaya (New Logic) with the Tattvachintamani, a style of precise analysis later carried forward at Navadvipa.</p>',
+            ),
+        ),
+
+        'vaisheshika-darshana' => array(
+            'kind'     => 'sampradaya',
+            'order'    => 720,
+            'family'   => 'Darshana',
+            'title'    => 'Vaisheshika Darshana',
+            'name_hi'  => 'वैशेषिक दर्शन',
+            'summary'  => 'The astika school of Kanada that analyses the world into categories and explains it through eternal atoms; closely allied with Nyaya.',
+            'infobox'  => array(
+                'Tradition'   => 'Darshana (astika)',
+                'Founder'     => 'Maharshi Kanada',
+                'Root text'   => 'Vaisheshika Sutra',
+                'Key idea'    => 'Atomism (paramanuvada)',
+                'Means of knowledge' => 'Perception and inference',
+                'Paired with' => 'Nyaya',
+            ),
+            'sections' => array(
+                'Overview' => '<p>Vaisheshika takes its name from vishesha, the ultimate particularity that marks each eternal substance as itself. It is a realist system: the world of many things is real and can be known, and liberation comes from true knowledge of the categories of reality.</p>',
+                'History'  => '<p>After Kanada\'s sutras, Prashastapada\'s Padarthadharmasangraha became the main exposition. Shridhara\'s Nyayakandali and Udayana\'s Kiranavali commented on it, and later works such as Shivaditya\'s Saptapadarthi joined it with Nyaya into a single system.</p>',
+            ),
+        ),
+
+        'sankhya-darshana' => array(
+            'kind'     => 'sampradaya',
+            'order'    => 730,
+            'family'   => 'Darshana',
+            'title'    => 'Sankhya Darshana',
+            'name_hi'  => 'सांख्य दर्शन',
+            'summary'  => 'The astika school of Maharshi Kapila, among the oldest systems of Indian thought, which explains the world through two realities, Purusha and Prakriti.',
+            'infobox'  => array(
+                'Tradition'   => 'Darshana (astika)',
+                'Founder'     => 'Maharshi Kapila',
+                'Root text'   => 'Sankhya Karika of Ishvarakrishna',
+                'Realities'   => 'Purusha (consciousness) and Prakriti (nature)',
+                'Means of knowledge' => 'Perception, inference, testimony',
+                'Paired with' => 'Yoga',
+            ),
+            'sections' => array(
+                'Overview' => '<p>Sankhya counts (sankhya) the principles of reality. Purusha is pure consciousness, many and unchanging; Prakriti is unconscious nature made of three gunas. Bondage is the confusion of Purusha with the workings of Prakriti, and freedom (kaivalya) is the clear discrimination between them.</p>',
+                'History'  => '<p>Kapila is honoured as the first teacher and the Sankhya Karika of Ishvarakrishna is its classic text. Gaudapada and Vachaspati Mishra (Tattvakaumudi) wrote well-known commentaries. Its account of the tattvas shaped Yoga, the Puranas, Ayurveda and much of later Indian thought.</p>',
+            ),
+        ),
+
+        'yoga-darshana' => array(
+            'kind'     => 'sampradaya',
+            'order'    => 740,
+            'family'   => 'Darshana',
+            'title'    => 'Yoga Darshana',
+            'name_hi'  => 'योग दर्शन',
+            'summary'  => 'The astika school systematised by Maharshi Patanjali in the Yoga Sutra, which teaches stilling of the mind through practice and detachment so that the seer rests in its own nature.',
+            'infobox'  => array(
+                'Tradition'   => 'Darshana (astika)',
+                'Founder'     => 'Maharshi Patanjali',
+                'Root text'   => 'Yoga Sutra (four padas)',
+                'Definition'  => 'Yoga is the stilling of the movements of the mind',
+                'Method'      => 'Ashtanga Yoga, the eight limbs',
+                'Paired with' => 'Sankhya',
+            ),
+            'sections' => array(
+                'Overview' => '<p>Yoga accepts the Sankhya picture of Purusha and Prakriti and adds a practical path and a special Purusha, Ishvara, untouched by affliction and karma. When the movements of the mind (chitta vritti) are stilled through steady practice (abhyasa) and detachment (vairagya), the seer abides in its own nature.</p>',
+                'History'  => '<p>Patanjali arranged the Yoga Sutra in four chapters: Samadhi, Sadhana, Vibhuti and Kaivalya. Vyasa\'s commentary is the classic reading, with later works by Vachaspati Mishra (Tattvavaisharadi) and King Bhoja (Rajamartanda).</p>',
+            ),
+        ),
+
+        'mimamsa-darshana' => array(
+            'kind'     => 'sampradaya',
+            'order'    => 750,
+            'family'   => 'Darshana',
+            'title'    => 'Purva Mimamsa Darshana',
+            'name_hi'  => 'पूर्व मीमांसा दर्शन',
+            'summary'  => 'The astika school of Maharshi Jaimini that interprets the ritual portion of the Vedas and defines dharma as the duty taught by Vedic injunction.',
+            'infobox'  => array(
+                'Tradition'   => 'Darshana (astika)',
+                'Founder'     => 'Maharshi Jaimini',
+                'Root text'   => 'Mimamsa Sutra',
+                'Focus'       => 'Karma kanda of the Vedas',
+                'Schools'     => 'Bhatta (Kumarila) and Prabhakara',
+                'Paired with' => 'Uttara Mimamsa (Vedanta)',
+            ),
+            'sections' => array(
+                'Overview' => '<p>Mimamsa means "reflective inquiry". It holds that the Veda is eternal and authorless, and that dharma is what Vedic injunction (chodana) directs. Its rules for reading a text, settling doubt and resolving apparent conflict became the basis of Indian legal and textual interpretation.</p>',
+                'History'  => '<p>Shabarasvamin wrote the classic commentary on Jaimini\'s sutras. Kumarila Bhatta and Prabhakara Mishra then founded two schools, and Mandana Mishra and Parthasarathi Mishra developed them further. Vedanta, which studies the knowledge portion of the Vedas, is called Uttara Mimamsa in contrast.</p>',
+            ),
+        ),
     );
+}
+
+/**
+ * All sampradaya profiles: base facts plus the template blocks from
+ * inc/sampradaya-profile-data.php.
+ */
+function sp_sampradaya_data_all() {
+    static $all = null;
+    if ( null === $all ) {
+        $all    = sp_sampradaya_base_data();
+        $extras = function_exists( 'sp_sampradaya_profile_extras' ) ? sp_sampradaya_profile_extras() : array();
+        foreach ( $extras as $slug => $blocks ) {
+            if ( isset( $all[ $slug ] ) ) {
+                $all[ $slug ] = array_merge( $all[ $slug ], $blocks );
+            }
+        }
+    }
+    return $all;
 }
 
 /**
@@ -442,6 +677,9 @@ function sp_sampradaya_family_label( $family ) {
         'Shakta'    => __( 'Shakta', 'sampreshan-child' ),
         'Ganapatya' => __( 'Ganapatya', 'sampreshan-child' ),
         'Sant'      => __( 'Sant tradition', 'sampreshan-child' ),
+        'Sikh'      => __( 'Sikh tradition', 'sampreshan-child' ),
+        'Shramana'  => __( 'Shramana tradition', 'sampreshan-child' ),
+        'Darshana'  => __( 'Darshana (school of philosophy)', 'sampreshan-child' ),
     );
     return isset( $labels[ $family ] ) ? $labels[ $family ] : $family;
 }
