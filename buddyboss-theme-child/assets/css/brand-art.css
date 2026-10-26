@@ -243,10 +243,39 @@
         display: none;
     }
 }
-/* Hero kabootar video (transparent, full width, behind the copy) */
+/* Hero kabootar: realistic flying doves cross the full hero, far (small) to near (large) and out */
 .d3-hero{position:relative;overflow:hidden}
-.d3-hero .sp-hero-video{position:absolute;inset:0;z-index:1;pointer-events:none;display:flex;align-items:center;justify-content:flex-end}
-.d3-hero .sp-hero-video__el{width:100%;height:100%;object-fit:contain;object-position:right center;opacity:.92;filter:drop-shadow(0 18px 40px rgba(0,0,0,.35))}
 .d3-hero .d3-hero__grid-inner{position:relative;z-index:2}
-@media (max-width:900px){.d3-hero .sp-hero-video{align-items:flex-start;padding-top:24px}.d3-hero .sp-hero-video__el{height:auto;max-height:60%;object-position:center top;opacity:.85}}
-@media (prefers-reduced-motion:reduce){.d3-hero .sp-hero-video__el{display:none}.d3-hero .sp-hero-video{background:url(../video/hero-pigeons-poster.webp) right center/contain no-repeat;opacity:.9}}
+.d3-hero__shankh{display:none!important}
+.d3-hero .sp-fly{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}
+.sp-fly__bird{position:absolute;left:0;top:0;width:clamp(120px,16vw,230px);aspect-ratio:1;will-change:transform,opacity;opacity:0}
+.sp-fly__vid{width:100%;height:100%;display:block;filter:drop-shadow(0 14px 22px rgba(0,0,0,.45))}
+.sp-fly__bird--a{animation:sp-fly-a 16s linear infinite}
+.sp-fly__bird--b{animation:sp-fly-b 16s linear infinite;animation-delay:8s}
+.sp-fly__bird--b .sp-fly__vid{transform:scaleX(-1)}
+@keyframes sp-fly-a{
+ 0%{transform:translate(-12vw,6vh) scale(.18);opacity:0}
+ 4%{opacity:1}
+ 45%{transform:translate(38vw,22vh) scale(.75)}
+ 70%{transform:translate(62vw,30vh) scale(1)}
+ 96%{opacity:1}
+ 100%{transform:translate(104vw,48vh) scale(1.25);opacity:0}
+}
+@keyframes sp-fly-b{
+ 0%{transform:translate(102vw,8vh) scale(.18);opacity:0}
+ 4%{opacity:1}
+ 45%{transform:translate(52vw,20vh) scale(.75)}
+ 70%{transform:translate(28vw,30vh) scale(1)}
+ 96%{opacity:1}
+ 100%{transform:translate(-22vw,46vh) scale(1.25);opacity:0}
+}
+@media (prefers-reduced-motion:reduce){.d3-hero .sp-fly{display:none}}
+
+/* About: symbols and FAQ */
+.sp-symbols{display:grid;gap:14px;margin:0}
+.sp-symbols__item{padding:14px 16px;border-radius:12px;background:rgba(232,140,48,.06);border:1px solid rgba(232,140,48,.18)}
+.sp-symbols dt{font-weight:700;color:#e8a040;margin-bottom:6px}
+.sp-symbols dd{margin:0;line-height:1.65}
+.sp-faq__item{border-bottom:1px solid rgba(232,140,48,.18);padding:12px 0}
+.sp-faq__item summary{cursor:pointer;font-weight:600;list-style-position:outside}
+.sp-faq__item p{margin:8px 0 0;line-height:1.65}
