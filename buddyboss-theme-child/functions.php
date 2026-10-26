@@ -202,7 +202,7 @@ add_action( 'wp_footer', 'sp_drop_unconfigured_elementor_scripts', 19 );
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.59' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.60' );
 }
 
 /**
@@ -670,6 +670,13 @@ function sampreshan_child_enqueue_styles() {
         get_stylesheet_directory_uri() . '/assets/css/icon-system.css',
         array( 'sampreshan-homepage' ),
         SAMPRESHAN_CHILD_VERSION
+    );
+    wp_enqueue_script(
+        'sampreshan-anusaran',
+        get_stylesheet_directory_uri() . '/assets/js/anusaran.js',
+        array(),
+        SAMPRESHAN_CHILD_VERSION,
+        true
     );
 
     // Premium animations (scroll-reveal, parallax, particles, micro-interactions)

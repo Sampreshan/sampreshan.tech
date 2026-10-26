@@ -95,46 +95,35 @@
 
     /* ---------- sound ---------- */
 
+    // Correct: temple bell + "Satya" (Indian male voice). Wrong: warning horn.
     var voices = {
         correct: new Audio(cfg.audio.correct),
-        wrong: new Audio(cfg.audio.wrong)
+        wrong: new Audio(cfg.audio.wrong),
+        bell: new Audio(cfg.audio.bell || cfg.audio.correct)
     };
-    voices.correct.volume = 0.9;
-    voices.wrong.volume = 0.55;
-    var ctx = null;
+    voices.correct.volume = 1;
+    voices.wrong.volume = 0.6;
+    voices.bell.volume = 0.7;
 
-    function chime(notes, type, gain) {
-        try {
-            ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
-            notes.forEach(function (freq, i) {
-                var o = ctx.createOscillator();
-                var g = ctx.createGain();
-                var t = ctx.currentTime + i * 0.12;
-                o.type = type;
-                o.frequency.value = freq;
-                g.gain.setValueAtTime(0, t);
-                g.gain.linearRampToValueAtTime(gain, t + 0.02);
-                g.gain.exponentialRampToValueAtTime(0.0001, t + 0.6);
-                o.connect(g).connect(ctx.destination);
-                o.start(t);
-                o.stop(t + 0.65);
-            });
-        } catch (e) { /* audio not available */ }
+    function fire(kind, delay) {
+        var v = voices[kind];
+        if (!v) { return; }
+        setTimeout(function () {
+            try { v.currentTime = 0; } catch (e) { /* not loaded yet */ }
+            v.play().catch(function () { });
+        }, delay || 0);
     }
 
     function play(kind) {
         if (muted) { return; }
         if (kind === 'correct') {
-            chime([523.25, 659.25, 783.99], 'sine', 0.18);
+            fire('bell', 0);
+            fire('correct', 350);
         } else if (kind === 'wrong') {
-            chime([329.63, 261.63], 'triangle', 0.08);
+            fire('wrong', 0);
         } else {
-            chime([523.25, 659.25, 783.99, 1046.5], 'sine', 0.16);
-            return;
+            fire('bell', 0);
         }
-        var v = voices[kind];
-        v.currentTime = 0;
-        setTimeout(function () { v.play().catch(function () { }); }, 250);
     }
 
     function paintMute() {
@@ -344,7 +333,7 @@
             span.classList.remove('is-tick');
             void span.offsetWidth;
             span.classList.add('is-tick');
-            if (!muted) { chime([i < 3 ? 440 : 880], 'sine', 0.08); }
+            if (!muted && i === seq.length - 1) { fire('bell', 0); }
             setTimeout(function () { tick(i + 1); }, i < 3 ? 650 : 550);
         })(0);
     }

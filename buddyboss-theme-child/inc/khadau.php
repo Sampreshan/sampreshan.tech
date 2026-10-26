@@ -75,17 +75,18 @@ function sp_khadau_letters( $text ) {
 }
 
 /**
- * "Anusaran" label merged with the khadau walk: footprints appear one by one,
- * a letter rises from each, the letters close into the word, and then the
- * paduka pair steps in. Motion lives in icon-system.css; it stops under
- * prefers-reduced-motion and shows the finished mark.
+ * Anusaran button mark: the button starts blank, a paduka pair walks across,
+ * each step leaves a footprint dash that turns into the next letter of
+ * SAMPRESHAN; at the far edge the full word stands, then the walk repeats
+ * in the other direction. Driven by assets/js/anusaran.js; the real label
+ * (Anusaran / Anusaran mein hai) stays as the accessible name.
  *
  * @param string $text Already-translated label.
  * @return string
  */
 function sp_khadau_label( $text ) {
-    return '<span class="sp-anu">'
+    return '<span class="sp-anu" data-sp-anu-walk>'
+        . '<span class="sp-khadau-label sp-anu__word" role="img" aria-label="' . esc_attr( $text ) . '" data-sp-anu>' . sp_khadau_letters( 'SAMPRESHAN' ) . '</span>'
         . '<span class="sp-khadau sp-anu__paduka" aria-hidden="true">' . sp_khadau_pair() . '</span>'
-        . '<span class="sp-khadau-label sp-anu__word" aria-label="' . esc_attr( $text ) . '" data-sp-anu>' . sp_khadau_letters( $text ) . '</span>'
         . '</span>';
 }
