@@ -65,6 +65,7 @@ async function build(root) {
     const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 120);
     camera.position.set(0, H * 0.55, 19);
 
+    scene.add(new THREE.AmbientLight(0xffe7c2, 0.9));
     scene.add(new THREE.HemisphereLight(0xffe7c2, 0x2a1a0e, 1.6));
     const sun = new THREE.DirectionalLight(0xffd59a, 2.2);
     sun.position.set(6, 14, 8);
@@ -85,43 +86,45 @@ async function build(root) {
     const s = H / (box.max.y - box.min.y);
     tree.scale.setScalar(s);
     tree.position.set(-(box.min.x + box.max.x) / 2 * s, -box.min.y * s, -(box.min.z + box.max.z) / 2 * s);
+    tree.traverse((o) => {
+        if (o.isMesh && o.material) {
+            o.material.side = THREE.DoubleSide;
+            if (/leaf/i.test(o.material.name) && o.material.emissive) {
+                o.material.emissive.setHex(0x16361a);
+            }
+        }
+    });
     scene.add(tree);
     tree.updateMatrixWorld(true);
 
-    // Canopy bounds from the leaf material, so lamps sit on its surface.
-    const leaf = new THREE.Box3();
-    tree.traverse((o) => {
-        if (o.isMesh && /leaf/i.test(o.material && o.material.name)) {
-            leaf.expandByObject(o);
-        }
-    });
-    if (leaf.isEmpty()) {
-        leaf.set(new THREE.Vector3(-3, H * 0.4, -3), new THREE.Vector3(3, H, 3));
-    }
-    const cy = (leaf.min.y + leaf.max.y) / 2;
-    const ry = (leaf.max.y - leaf.min.y) / 2;
-    const rx = Math.max(leaf.max.x - leaf.min.x, leaf.max.z - leaf.min.z) / 2;
+    // Canopy shape of the Kenney oak (the leaf and bark parts share one
+    // bounding box in the file, so proportions are fixed here).
+    const trunkTop = H * 0.4;
+    const cy = H * 0.7;
+    const ry = H * 0.31;
+    const rx = Math.max(box.max.x - box.min.x, box.max.z - box.min.z) / 2 * s + 0.35;
 
-    // Lamp positions: a golden-angle spiral from the trunk up over the canopy.
+    // Lamp positions: one smooth helix, first round the trunk, then over the canopy.
     const points = [];
-    const yStart = 0.9;
-    const yEnd = leaf.max.y + 0.15;
+    const yStart = 0.8;
+    const yEnd = H + 0.1;
+    const turns = Math.max(3, Math.min(9, N / 14));
     for (let i = 0; i < N; i++) {
         const t = N === 1 ? 1 : i / (N - 1);
         const y = yStart + t * (yEnd - yStart);
         let r;
-        if (y < leaf.min.y + 0.2) {
-            r = 0.55 + (y / leaf.min.y) * 0.35;
+        if (y < trunkTop) {
+            r = 0.75;
         } else {
-            const k = Math.min(1, Math.abs(y - cy) / ry);
-            r = Math.max(0.5, rx * Math.sqrt(1 - k * k)) + 0.35;
+            const k = Math.min(1, Math.abs(y - cy) / (ry + 0.25));
+            r = Math.max(0.75, rx * Math.sqrt(1 - k * k));
         }
-        const a = i * 2.39996;
+        const a = t * turns * Math.PI * 2;
         points.push(new THREE.Vector3(Math.cos(a) * r, y, Math.sin(a) * r));
     }
 
     // Golden thread joining the line in order.
-    const start = new THREE.Vector3(0, 0.35, 0);
+    const start = new THREE.Vector3(0, 0.45, 1.1);
     const curve = new THREE.CatmullRomCurve3([start, ...points], false, 'centripetal');
     const segs = Math.max(64, N * 8);
     const thread = new THREE.Mesh(
@@ -191,7 +194,7 @@ async function build(root) {
 
         const p = k === 0 ? start : points[k - 1];
         halo.position.copy(p);
-        goal.set(0, Math.min(H * 0.8, Math.max(H * 0.25, p.y)), 0);
+        goal.set(0, H * 0.4 + (p.y / H) * H * 0.2, 0);
 
         const node = k === 0 ? null : line[k - 1];
         card.num.textContent = node ? (node.n ? 'No. ' + node.n : (node.branch || '')) : 'Founder';
@@ -230,16 +233,16 @@ async function build(root) {
 
     let needs = true;
     function resize() {
-        const w = view.clientWidth;
-        const h = view.clientHeight;
+        const w = canvas.clientWidth;
+        const h = canvas.clientHeight;
         if (!w || !h) { return; }
         renderer.setSize(w, h, false);
         camera.aspect = w / h;
-        camera.position.z = w < 520 ? 23 : 19;
+        camera.position.z = w < 520 ? 25 : 20;
         camera.updateProjectionMatrix();
         needs = true;
     }
-    new ResizeObserver(resize).observe(view);
+    new ResizeObserver(resize).observe(canvas);
     resize();
     select(N);
 

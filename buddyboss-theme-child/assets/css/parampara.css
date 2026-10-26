@@ -794,3 +794,18 @@ body.sp-future .sp-wiki__founding a {
     .sp-pp3d__card { left: 10px; right: 10px; bottom: 10px; max-width: none; }
     .sp-pp3d__name { font-size: .98rem; }
 }
+.sp-pp3d__time { padding: .8rem 1rem .6rem; border-radius: 14px; background: #1d120a; color: #f6dcae; }
+.sp-pp3d__label { color: #ffe3b3; }
+.sp-pp3d__ends { color: #f6dcae; }
+@media (max-width: 600px) {
+    .sp-pp3d__card { position: static; margin-top: .6rem; opacity: 1; background: #1d120a; }
+    .sp-pp3d__view { overflow: visible; aspect-ratio: auto; background: none; box-shadow: none; }
+    .sp-pp3d__canvas { aspect-ratio: 4 / 5; border-radius: 14px; background: radial-gradient(120% 90% at 50% 15%, #4a2a12 0%, #241409 55%, #120a05 100%); }
+    .sp-pp3d__loading { bottom: auto; height: 60%; }
+}
+@media (min-width: 601px) and (max-width: 1024px) {
+    .sp-pp3d__view { overflow: visible; aspect-ratio: auto; background: none; box-shadow: none; }
+    .sp-pp3d__canvas { aspect-ratio: 4 / 3; border-radius: 18px; background: radial-gradient(120% 90% at 50% 15%, #4a2a12 0%, #241409 55%, #120a05 100%); }
+    .sp-pp3d__card { position: static; margin-top: .6rem; max-width: none; opacity: 1; background: #1d120a; }
+    .sp-pp3d__loading { bottom: auto; height: 70%; }
+}
