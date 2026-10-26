@@ -426,21 +426,8 @@ body.sp-future .sp-iconlib .sp-iconlib__toc a:hover { background: #ea580c; color
 .sp-khadau__sole { fill: #9a5b2c; stroke: #5b3416; stroke-width: .9; }
 .sp-khadau__grain { fill: none; stroke: #c98a52; stroke-width: .7; stroke-linecap: round; opacity: .85; }
 .sp-khadau__knob { fill: #4a2a12; stroke: #e0a96d; stroke-width: .5; }
-.sp-khadau__step { opacity: 0; animation: spk-step 2.8s ease-in-out infinite; }
-.sp-khadau__step--2 { animation-delay: .5s; }
-.sp-khadau__step--3 { animation-delay: 1s; }
-.sp-khadau__step--4 { animation-delay: 1.5s; }
-@keyframes spk-step {
-    0%   { opacity: 0; translate: -3px 0; }
-    10%  { opacity: 1; translate: 0 0; }
-    62%  { opacity: 1; }
-    85%, 100% { opacity: 0; }
-}
 .sp-khadau-label { vertical-align: middle; }
 .sp-dharma-follow { display: inline-flex; align-items: center; }
-@media (prefers-reduced-motion: reduce) {
-    .sp-khadau__step { animation: none; opacity: 1; }
-    .sp-khadau__step--1, .sp-khadau__step--2 { opacity: .4; }
 }
 /* On the saffron follow button use pale sandalwood so the trail reads. */
 .sp-dharma-follow:not(.is-following) .sp-khadau__sole { fill: #fde4c3; stroke: #7c2d12; }
@@ -449,3 +436,66 @@ body.sp-future .sp-iconlib .sp-iconlib__toc a:hover { background: #ea580c; color
 
 .sp-research-credit { align-items: center; }
 .sp-research-credit .sp-research-credit__title { margin: 0 !important; }
+
+/* ---------- Anusaran: footprints -> letters -> word -> paduka (8s loop) ---------- */
+.sp-anu { display: inline-flex; align-items: center; gap: .35em; vertical-align: middle; }
+.sp-anu .sp-khadau { margin-right: 0; }
+.sp-anu__paduka svg { width: 1.45em; height: 1.15em; }
+.sp-anu__paduka { opacity: 0; animation: spa-paduka 8s ease-out infinite; }
+.sp-anu__foot--r { animation: spa-step 8s ease-in-out infinite; }
+.sp-anu__word { display: inline-flex; align-items: flex-end; animation: spa-join 8s ease-in-out infinite; letter-spacing: .02em; }
+.sp-anu__gap { width: .3em; }
+.sp-anu__l {
+    position: relative;
+    display: inline-block;
+    opacity: 0;
+    animation: spa-letter 8s ease-out infinite;
+    animation-delay: calc(var(--i, 0) * .22s);
+}
+/* Faint paduka footprint the letter rises from. */
+.sp-anu__l::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -.05em;
+    width: .42em;
+    height: .9em;
+    margin-left: -.21em;
+    border-radius: 50% 50% 45% 45%;
+    background: #9a5b2c;
+    opacity: 0;
+    transform: rotate(14deg);
+    animation: spa-print 8s ease-out infinite;
+    animation-delay: inherit;
+}
+.sp-anu__l:nth-of-type(even)::before { transform: rotate(-14deg); }
+@keyframes spa-print {
+    0%       { opacity: 0; transform: scale(.6) rotate(14deg); }
+    2%       { opacity: .55; transform: scale(1) rotate(14deg); }
+    7%, 100% { opacity: 0; }
+}
+@keyframes spa-letter {
+    0%, 2%   { opacity: 0; transform: translateY(.35em); }
+    6%, 90%  { opacity: 1; transform: translateY(0); }
+    96%, 100% { opacity: 0; transform: translateY(0); }
+}
+@keyframes spa-join {
+    0%, 24%  { letter-spacing: .38em; text-shadow: none; }
+    32%      { letter-spacing: .02em; text-shadow: 0 0 .5em rgba(212, 164, 55, .65); }
+    40%, 100% { letter-spacing: .02em; text-shadow: none; }
+}
+@keyframes spa-paduka {
+    0%, 36%  { opacity: 0; transform: translateX(-1.4em); }
+    44%      { opacity: 1; transform: translateX(.08em); }
+    48%, 90% { opacity: 1; transform: translateX(0); }
+    97%, 100% { opacity: 0; transform: translateX(0); }
+}
+@keyframes spa-step {
+    0%, 40%  { transform: translate(28px, 13px) rotate(90deg); }
+    44%      { transform: translate(31px, 13px) rotate(90deg); }
+    48%, 100% { transform: translate(28px, 13px) rotate(90deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .sp-anu__paduka, .sp-anu__l { animation: none; opacity: 1; }
+    .sp-anu__word, .sp-anu__foot--r, .sp-anu__l::before { animation: none; }
+}

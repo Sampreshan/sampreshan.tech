@@ -86,7 +86,7 @@ $start_url       = home_url( '/start-a-petition/' );
                     <h2 class="sp-feed__title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
                     <p class="sp-feed__excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt() ?: wp_strip_all_tags( get_the_content() ), 28 ) ); ?></p>
                     <div class="sp-dash-row__actions">
-                        <a class="sp-dash-link" href="<?php the_permalink(); ?>"><?php esc_html_e( 'Read →', 'sampreshan-child' ); ?></a>
+                        <a class="sp-dash-link" href="<?php the_permalink(); ?>"><?php sp_know_more( __( 'Read', 'sampreshan-child' ), __( 'Read article', 'sampreshan-child' ) ); ?></a>
                     </div>
                 </article>
             <?php endwhile; wp_reset_postdata(); ?>
@@ -137,7 +137,7 @@ $start_url       = home_url( '/start-a-petition/' );
                         <?php if ( $is_pet ) : ?>
                             <a class="sp-feed__support" href="<?php echo esc_url( get_permalink() ); ?>"><?php if ( function_exists( 'sp_i_eye_markup' ) ) { echo sp_i_eye_markup( array( 'size' => 26, 'tag' => 'span' ) ); } // phpcs:ignore WordPress.Security.EscapeOutput ?><span><?php esc_html_e( 'Support', 'sampreshan-child' ); ?></span></a>
                         <?php else : ?>
-                            <a class="sp-dash-link" href="<?php echo esc_url( get_permalink() ); ?>"><?php esc_html_e( 'Read →', 'sampreshan-child' ); ?></a>
+                            <a class="sp-dash-link" href="<?php echo esc_url( get_permalink() ); ?>"><?php sp_know_more( __( 'Read', 'sampreshan-child' ), __( 'Read article', 'sampreshan-child' ) ); ?></a>
                         <?php endif; ?>
                         <button class="sp-dash-link sp-share-btn" type="button" data-url="<?php echo esc_url( get_permalink() ); ?>" data-title="<?php echo esc_attr( get_the_title() ); ?>"><?php esc_html_e( 'Share', 'sampreshan-child' ); ?></button>
                     </div>

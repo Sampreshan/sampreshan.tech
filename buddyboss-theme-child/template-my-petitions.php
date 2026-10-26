@@ -80,7 +80,7 @@ $dash_url  = home_url( '/dashboard/' );
                         </p>
                         <div class="sp-dash-bar"><span class="sp-dash-bar__fill" style="width: <?php echo esc_attr( $progress ); ?>%"></span></div>
                         <div class="sp-dash-row__actions">
-                            <a class="sp-dash-link" href="<?php echo esc_url( get_permalink() ); ?>"><?php esc_html_e( 'View', 'sampreshan-child' ); ?></a>
+                            <a class="sp-dash-link" href="<?php echo esc_url( get_permalink() ); ?>"><?php sp_know_more( __( 'View', 'sampreshan-child' ), __( 'View petition', 'sampreshan-child' ) ); ?></a>
                             <a class="sp-dash-link" href="<?php echo esc_url( get_edit_post_link( $pid, 'raw' ) ); ?>"><?php esc_html_e( 'Edit', 'sampreshan-child' ); ?></a>
                             <button class="sp-dash-link sp-share-btn" type="button" data-url="<?php echo esc_url( get_permalink() ); ?>" data-title="<?php echo esc_attr( get_the_title() ); ?>"><?php esc_html_e( 'Share', 'sampreshan-child' ); ?></button>
                         </div>

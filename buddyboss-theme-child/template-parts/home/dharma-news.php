@@ -21,7 +21,6 @@ if ( ! $sp_dcal_all ) {
             <p class="sp-fu-eyebrow"><?php esc_html_e( 'From the Peeths', 'sampreshan-child' ); ?></p>
             <h2 id="sp-dharma-news-title" class="sp-fu-sectitle"><?php esc_html_e( 'Dharma Calendar: Shankaracharya programmes, videos & news', 'sampreshan-child' ); ?></h2>
         </div>
-        <a class="sp-fu-link" href="<?php echo esc_url( sp_dharma_directory_url() ); ?>"><?php esc_html_e( 'All Peeths & Acharyas', 'sampreshan-child' ); ?> &rarr;</a>
     </div>
     <?php
     sp_dcal_render(

@@ -98,7 +98,7 @@ while ( have_posts() ) : the_post();
                                     <li>
                                         <a href="<?php echo esc_url( get_permalink( $acharya ) ); ?>">
                                             <?php if ( $thumb ) : ?><img src="<?php echo esc_url( $thumb ); ?>" alt="" width="56" height="56" loading="lazy" /><?php endif; ?>
-                                            <span><strong><?php echo esc_html( get_the_title( $acharya ) ); ?></strong><?php if ( $a ) : ?><small><?php echo esc_html( $a['role'] ); ?></small><?php endif; ?><em class="sp-wiki__people-more"><?php esc_html_e( 'Read more →', 'sampreshan-child' ); ?></em></span>
+                                            <span><strong><?php echo esc_html( get_the_title( $acharya ) ); ?></strong><?php if ( $a ) : ?><small><?php echo esc_html( $a['role'] ); ?></small><?php endif; ?><em class="sp-wiki__people-more"><?php sp_know_more( __( 'View', 'sampreshan-child' ), __( 'View profile', 'sampreshan-child' ) ); ?></em></span>
                                         </a>
                                     </li>
                                 <?php endforeach; ?>
@@ -150,7 +150,7 @@ while ( have_posts() ) : the_post();
                     <span class="sp-folio__guru-body">
                         <strong><?php echo esc_html( get_the_title( $guru ) ); ?></strong>
                         <?php if ( $g ) : ?><small><?php echo esc_html( $g['role'] ); ?></small><span><?php echo esc_html( $g['summary'] ); ?></span><?php endif; ?>
-                        <em><?php esc_html_e( 'Read full profile →', 'sampreshan-child' ); ?></em>
+                        <em><?php sp_know_more( __( 'View', 'sampreshan-child' ), __( 'View full profile', 'sampreshan-child' ) ); ?></em>
                     </span>
                 </a>
             </section>
@@ -167,6 +167,8 @@ while ( have_posts() ) : the_post();
                 <?php endforeach; ?>
             </section>
         <?php endif; ?>
+
+        <?php if ( function_exists( 'sp_campaign_cards' ) ) { sp_campaign_cards( array( get_post_field( 'post_name', $profile_id ) ), sprintf( __( 'Campaigns led by %s', 'sampreshan-child' ), get_the_title( $profile_id ) ) ); } ?>
 
         <?php if ( ! empty( $data['about'] ) ) : ?>
             <section class="sp-folio__card sp-folio__about" aria-labelledby="sp-folio-about">
@@ -209,6 +211,11 @@ while ( have_posts() ) : the_post();
     </article>
 <?php endif; ?>
 
+    <?php
+    if ( 'peeth' === $kind && function_exists( 'sp_campaign_cards' ) ) {
+        sp_campaign_cards( array_merge( array( get_post_field( 'post_name', $profile_id ) ), (array) ( $data['acharyas'] ?? array() ) ), __( 'Campaigns running at this Peeth', 'sampreshan-child' ) );
+    }
+    ?>
     <section id="updates" class="sp-dharma-profile__updates" aria-labelledby="sp-dharma-updates-title">
         <p class="sp-section__eyebrow"><?php esc_html_e( 'Verified updates', 'sampreshan-child' ); ?></p>
         <?php if ( 'sampradaya' !== $kind && function_exists( 'sp_dcal_render' ) ) : ?>

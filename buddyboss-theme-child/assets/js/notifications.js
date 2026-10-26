@@ -86,7 +86,20 @@
             btn.disabled = false;
             if (!res || !res.success) { form.submit(); return; }
             var lbl = btn.querySelector('.sp-khadau-label');
-            (lbl || btn).textContent = res.data.label;
+            if (lbl && lbl.hasAttribute('data-sp-anu')) {
+                lbl.setAttribute('aria-label', res.data.label);
+                lbl.textContent = '';
+                Array.prototype.forEach.call(res.data.label, function (ch, i) {
+                    var s = document.createElement('span');
+                    s.setAttribute('aria-hidden', 'true');
+                    s.className = ch === ' ' ? 'sp-anu__gap' : 'sp-anu__l';
+                    if (ch !== ' ') { s.style.setProperty('--i', i); }
+                    s.textContent = ch;
+                    lbl.appendChild(s);
+                });
+            } else {
+                (lbl || btn).textContent = res.data.label;
+            }
             btn.classList.toggle('is-following', res.data.following);
             var count = document.querySelector('[data-sp-follow-count]');
             if (count && res.data.countText) { count.textContent = res.data.countText; }

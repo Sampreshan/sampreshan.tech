@@ -219,6 +219,9 @@ while ( have_posts() ) : the_post();
         if ( 'gau-mata-rashtramata' === $sp_campaign ) {
             include get_stylesheet_directory() . '/template-parts/campaign/gau-mata.php';
         }
+        if ( $sp_campaign && function_exists( 'sp_campaign_updates_section' ) ) {
+            sp_campaign_updates_section( $pid );
+        }
         ?>
         <div class="sp-petition-single__body">
             <section class="sp-petition-single__content card-3d" aria-label="Petition content">
