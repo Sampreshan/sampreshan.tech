@@ -53,8 +53,6 @@ Every page or feature, including blog posts, landing pages and campaigns, uses o
 ## Content sourcing (ShivBodh Research Group)
 
 Every page, post, landing page and campaign follows `docs/CONTENT-SOURCING.md`:
-content is compiled by the ShivBodh Research Group (about 85% from the
-original institutions, their publications and people connected with them;
-about 15% with AI help), written in our own words, never copied, with no
+content is compiled by the ShivBodh Research Group, written in our own words, never copied, with no
 third-party source lists on the page. Show the credit with
-`sp_research_credit()`.
+`sp_research_credit()`; it reads only "ShivBodh Research Group".

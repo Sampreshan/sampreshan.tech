@@ -7,12 +7,12 @@ sampreshan.tech, now and in future.
 
 All information on the site is compiled by the **ShivBodh Research Group**.
 Every content page shows the standard credit from
-`buddyboss-theme-child/inc/research-credit.php` (`sp_research_credit()`):
+`buddyboss-theme-child/inc/research-credit.php` (`sp_research_credit()`).
+The credit reads only:
 
-> Compiled by the ShivBodh Research Group. About 85% of this information
-> comes from authentic sources: the original institutions, the journals and
-> publications they issue, and the people connected with them. About 15% was
-> prepared with the help of AI, and we keep working to reduce that share.
+> ShivBodh Research Group
+
+Nothing else is added to it: no percentages, no source names, no references.
 
 Blog posts and site-run campaigns get it automatically (`the_content`
 filter). Templates for other content types call `sp_research_credit()`.

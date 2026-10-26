@@ -1,6 +1,7 @@
 <?php
 /**
  * ShivBodh Research Group credit, shown on every content page.
+ * The credit is the group name only, with no further text (site rule).
  *
  * Site rule (docs/CONTENT-SOURCING.md): content is compiled by the
  * ShivBodh Research Group and written in our own words, so pages carry
@@ -13,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 /** Credit text; one place so every page says the same thing. */
 function sp_research_credit_text() {
-    return __( 'Compiled by the ShivBodh Research Group. About 85% of this information comes from authentic sources: the original institutions, the journals and publications they issue, and the people connected with them. About 15% was prepared with the help of AI, and we keep working to reduce that share. Spotted an error? Write to connect@sampreshan.tech.', 'sampreshan-child' );
+    return __( 'ShivBodh Research Group', 'sampreshan-child' );
 }
 
 /** Print the credit block. */
@@ -21,10 +22,7 @@ function sp_research_credit( $class = '' ) {
     ?>
     <aside class="sp-research-credit <?php echo esc_attr( $class ); ?>" aria-label="<?php esc_attr_e( 'About this information', 'sampreshan-child' ); ?>">
         <?php sp_icon( 'seva-education', 'sp-icon sp-icon--lg', '' ); ?>
-        <div>
-            <p class="sp-research-credit__title"><?php esc_html_e( 'ShivBodh Research Group', 'sampreshan-child' ); ?></p>
-            <p><?php echo esc_html( sp_research_credit_text() ); ?></p>
-        </div>
+        <p class="sp-research-credit__title"><?php echo esc_html( sp_research_credit_text() ); ?></p>
     </aside>
     <?php
 }
