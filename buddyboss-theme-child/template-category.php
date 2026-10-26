@@ -71,11 +71,15 @@ $cause_icon = isset( $cause_icons[ $cause_slug ] ) ? $cause_icons[ $cause_slug ]
                         </li>
                     <?php endwhile; ?>
                 </ul>
+                <nav class="sp-users__pagination" aria-label="<?php esc_attr_e( 'Petition pages', 'sampreshan-child' ); ?>">
                 <?php
                 echo paginate_links( array(
                     'total' => $q->max_num_pages,
                     'mid_size' => 2,
                 ) );
+                ?>
+                </nav>
+                <?php
                 wp_reset_postdata();
             else : ?>
                 <p class="sp-dash-muted"><?php esc_html_e( 'No petitions in this category yet. Be the first to start one!', 'sampreshan-child' ); ?></p>
