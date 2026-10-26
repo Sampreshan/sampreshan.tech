@@ -21,10 +21,14 @@
     var deadline = 0;
     var busy = false;
     var muted = localStorage.getItem(MUTE) === '1';
+    var streak = 0;
+    var shownScore = 0;
+    var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     /* ---------- helpers ---------- */
 
     function show(name) {
+        root.setAttribute('data-screen', name);
         root.querySelectorAll('.sp-quiz__screen').forEach(function (s) {
             s.classList.toggle('is-active', s.getAttribute('data-screen') === name);
         });
@@ -108,12 +112,207 @@
     });
     paintMute();
 
+    /* ---------- effects ---------- */
+
+    var fx = $('[data-fx]');
+    var fxc = fx.getContext('2d');
+    var bits = [];
+    var motes = [];
+    var fxOn = false;
+
+    function sizeFx() {
+        var r = window.devicePixelRatio || 1;
+        fx.width = window.innerWidth * r;
+        fx.height = window.innerHeight * r;
+        fxc.setTransform(r, 0, 0, r, 0, 0);
+    }
+
+    function seedMotes() {
+        motes = [];
+        var n = Math.min(60, Math.round(window.innerWidth / 22));
+        for (var i = 0; i < n; i++) {
+            motes.push({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                r: Math.random() * 1.8 + 0.4,
+                v: Math.random() * 0.35 + 0.08,
+                p: Math.random() * Math.PI * 2
+            });
+        }
+    }
+
+    function frame() {
+        var W = window.innerWidth;
+        var H = window.innerHeight;
+        fxc.clearRect(0, 0, W, H);
+        motes.forEach(function (m) {
+            m.y -= m.v;
+            m.p += 0.02;
+            if (m.y < -10) { m.y = H + 10; m.x = Math.random() * W; }
+            fxc.globalAlpha = 0.35 + Math.sin(m.p) * 0.25;
+            fxc.fillStyle = '#ffd27a';
+            fxc.beginPath();
+            fxc.arc(m.x + Math.sin(m.p) * 6, m.y, m.r, 0, Math.PI * 2);
+            fxc.fill();
+        });
+        for (var i = bits.length - 1; i >= 0; i--) {
+            var b = bits[i];
+            b.vy += b.g;
+            b.vx *= 0.985;
+            b.x += b.vx;
+            b.y += b.vy;
+            b.a += b.spin;
+            b.life -= 1;
+            if (b.life <= 0) { bits.splice(i, 1); continue; }
+            fxc.globalAlpha = Math.min(1, b.life / 40);
+            fxc.fillStyle = b.c;
+            fxc.save();
+            fxc.translate(b.x, b.y);
+            fxc.rotate(b.a);
+            if (b.petal) {
+                fxc.beginPath();
+                fxc.ellipse(0, 0, b.s, b.s * 0.45, 0, 0, Math.PI * 2);
+                fxc.fill();
+            } else {
+                fxc.fillRect(-b.s / 2, -b.s / 2, b.s, b.s * 0.6);
+            }
+            fxc.restore();
+        }
+        fxc.globalAlpha = 1;
+        requestAnimationFrame(frame);
+    }
+
+    function startFx() {
+        if (fxOn || calm) { return; }
+        fxOn = true;
+        sizeFx();
+        seedMotes();
+        window.addEventListener('resize', function () { sizeFx(); seedMotes(); });
+        requestAnimationFrame(frame);
+    }
+
+    // Burst of petals and confetti from a point (viewport coordinates).
+    function burst(x, y, count, colors, spread) {
+        if (calm) { return; }
+        for (var i = 0; i < count; i++) {
+            var a = Math.random() * Math.PI * 2;
+            var v = Math.random() * (spread || 9) + 2;
+            bits.push({
+                x: x, y: y,
+                vx: Math.cos(a) * v,
+                vy: Math.sin(a) * v - 4,
+                g: 0.22,
+                s: Math.random() * 8 + 5,
+                a: Math.random() * 6,
+                spin: (Math.random() - 0.5) * 0.3,
+                life: 70 + Math.random() * 50,
+                petal: Math.random() < 0.55,
+                c: colors[i % colors.length]
+            });
+        }
+    }
+
+    var JOY = ['#ffd27a', '#ff9933', '#f472b6', '#4ade80', '#fde68a', '#ea580c'];
+    var GOLD = ['#fde68a', '#facc15', '#ff9933', '#ffffff', '#f59e0b'];
+
+    function celebrate() {
+        var W = window.innerWidth;
+        burst(W * 0.2, window.innerHeight * 0.35, 70, GOLD, 12);
+        burst(W * 0.8, window.innerHeight * 0.35, 70, GOLD, 12);
+        setTimeout(function () { burst(W / 2, window.innerHeight * 0.25, 90, JOY, 14); }, 250);
+    }
+
+    function pop(text, good, el) {
+        var r = el.getBoundingClientRect();
+        var s = document.createElement('span');
+        s.className = 'sp-quiz__pop ' + (good ? 'is-good' : 'is-bad');
+        s.textContent = text;
+        s.style.left = (r.left + r.width / 2) + 'px';
+        s.style.top = (r.top + r.height / 2) + 'px';
+        $('[data-pops]').appendChild(s);
+        setTimeout(function () { s.remove(); }, 1300);
+    }
+
+    function mood(m) {
+        root.setAttribute('data-mood', m);
+        clearTimeout(mood.t);
+        if (m === 'good' || m === 'bad') {
+            mood.t = setTimeout(function () { root.setAttribute('data-mood', 'idle'); }, 1600);
+        }
+    }
+
+    function countScore(to) {
+        var box = $('.sp-quiz__score');
+        var el = $('[data-hud-score]');
+        var from = shownScore;
+        shownScore = to;
+        box.classList.remove('is-bump');
+        void box.offsetWidth;
+        box.classList.add('is-bump');
+        if (calm || from === to) { el.textContent = to; return; }
+        var t0 = performance.now();
+        (function step(t) {
+            var k = Math.min(1, (t - t0) / 500);
+            el.textContent = Math.round(from + (to - from) * k);
+            if (k < 1) { requestAnimationFrame(step); }
+        })(t0);
+    }
+
+    function paintStreak() {
+        var box = $('[data-streak]');
+        box.hidden = streak < 2;
+        $('[data-streak-num]').textContent = 'x' + streak;
+        if (streak >= 2) {
+            box.style.animation = 'none';
+            void box.offsetWidth;
+            box.style.animation = '';
+        }
+    }
+
+    function paintMap(list, current, cleared) {
+        list.querySelectorAll('li').forEach(function (li) {
+            var n = Number(li.getAttribute('data-level'));
+            li.classList.toggle('is-done', n <= cleared);
+            li.classList.toggle('is-current', n === current && n > cleared);
+        });
+    }
+
+    function fillMiniMap() {
+        var mini = $('[data-map-mini]');
+        if (!mini.children.length) {
+            $('[data-map]').querySelectorAll('li').forEach(function (li) {
+                mini.appendChild(li.cloneNode(true));
+            });
+        }
+        paintMap(mini, run.level, run.levelsCleared);
+    }
+
+    // 3-2-1 overlay before a level starts.
+    function countdown(label, done) {
+        var box = $('[data-countdown]');
+        var span = box.firstElementChild;
+        if (calm) { done(); return; }
+        var seq = ['3', '2', '1', label];
+        box.classList.add('is-on');
+        (function tick(i) {
+            if (i >= seq.length) { box.classList.remove('is-on'); done(); return; }
+            span.textContent = seq[i];
+            span.classList.remove('is-tick');
+            void span.offsetWidth;
+            span.classList.add('is-tick');
+            if (!muted) { chime([i < 3 ? 440 : 880], 'sine', 0.08); }
+            setTimeout(function () { tick(i + 1); }, i < 3 ? 650 : 550);
+        })(0);
+    }
+
     /* ---------- HUD + card ---------- */
 
     function hud() {
+        $('[data-hud-num]').textContent = run.level;
         $('[data-hud-level]').textContent = 'Level ' + run.level + ' of ' + run.levels;
         $('[data-hud-title]').textContent = run.levelTitle;
         $('[data-hud-score]').textContent = run.score;
+        shownScore = run.score;
         var pct = run.levelTotal ? Math.round(run.levelDone / run.levelTotal * 100) : 0;
         var bar = $('[data-progress]');
         bar.setAttribute('aria-valuenow', pct);
@@ -128,6 +327,8 @@
         void card.offsetWidth;
         card.classList.add('is-flip');
         $('[data-question]').textContent = question.text;
+        var left = run.levelTotal - run.levelDone;
+        $('[data-card-tag]').textContent = 'Card ' + (run.levelDone + 1) + ' / ' + run.levelTotal + (left === 1 ? ' - final card' : '');
         $('[data-feedback]').textContent = '';
         $('[data-feedback]').className = 'sp-quiz__feedback';
         $('[data-next]').hidden = true;
@@ -161,8 +362,8 @@
         var txt = $('[data-timer]');
         timerId = setInterval(function () {
             var left = Math.max(0, deadline - Date.now());
-            bar.style.width = (left / total * 100) + '%';
-            bar.parentNode.classList.toggle('is-low', left < 8000);
+            bar.style.strokeDashoffset = (119.4 * (1 - left / total)).toFixed(2);
+            bar.closest('.sp-quiz__timer').classList.toggle('is-low', left < 8000);
             txt.textContent = Math.ceil(left / 1000);
             if (left <= 0) {
                 stopTimer();
@@ -190,19 +391,38 @@
             var card = $('[data-card]');
             buttons[res.answer].classList.add('is-right');
             var fb = $('[data-feedback]');
+            fb.textContent = '';
+            var head = document.createElement('b');
+            var body = document.createElement('span');
             if (res.correct) {
+                streak += 1;
                 card.classList.add('is-correct');
-                fb.textContent = 'Uttam! Excellent, keep it up. +' + res.points + ' points';
+                head.textContent = 'Uttam!';
+                body.textContent = 'Excellent, keep it up. +' + res.points + ' points' + (streak >= 3 ? ' - ' + streak + ' in a row!' : '');
                 fb.classList.add('is-good');
                 play('correct');
+                mood('good');
+                var r = buttons[res.answer].getBoundingClientRect();
+                burst(r.left + r.width / 2, r.top + r.height / 2, 26 + Math.min(streak, 10) * 4, JOY, 8);
+                pop('+' + res.points, true, buttons[res.answer]);
             } else {
+                streak = 0;
                 card.classList.add('is-wrong');
                 if (choice >= 0) { buttons[choice].classList.add('is-wrong'); }
-                fb.textContent = (choice < 0 ? 'Time is up. ' : '') + 'Satya Pratiksharat: the truth awaits you. ' + res.points + ' points. This card will return later in the level.';
+                head.textContent = (choice < 0 ? 'Time is up. ' : '') + 'Satya Pratiksharat';
+                body.textContent = 'The truth awaits you. ' + res.points + ' points. This card will return later in the level.';
                 fb.classList.add('is-soft');
                 play('wrong');
+                mood('bad');
+                pop(String(res.points), false, choice >= 0 ? buttons[choice] : $('.sp-quiz__timer'));
             }
-            $('[data-hud-score]').textContent = run.score;
+            fb.appendChild(head);
+            fb.appendChild(body);
+            paintStreak();
+            countScore(run.score);
+            var pct = run.levelTotal ? Math.round(run.levelDone / run.levelTotal * 100) : 0;
+            $('[data-progress]').firstElementChild.style.width = pct + '%';
+            $('[data-progress-text]').textContent = run.levelDone + ' of ' + run.levelTotal + ' questions cleared in this level';
             var next = $('[data-next]');
             next.textContent = res.cleared ? (run.status === 'completed' ? 'Receive your certificate' : 'See level result') : 'Next card';
             next.hidden = false;
@@ -221,7 +441,10 @@
         if (run.status === 'completed') {
             localStorage.removeItem(STORE);
             play('cert');
+            mood('win');
             showCertificate(run.cert, true);
+            celebrate();
+            setTimeout(celebrate, 1200);
             return;
         }
         question = res.question;
@@ -229,18 +452,31 @@
             $('[data-level-heading]').textContent = 'Level ' + run.levelsCleared + ' complete';
             $('[data-level-summary]').textContent = 'Score so far: ' + run.score + ' points. Next: level ' + run.level + ', ' + run.levelTitle + '.';
             play('cert');
+            mood('win');
+            fillMiniMap();
             show('level');
+            celebrate();
             return;
         }
         renderQuestion();
     }
 
+    function enterLevel() {
+        mood('idle');
+        countdown('Level ' + run.level, function () {
+            show('play');
+            renderQuestion();
+        });
+    }
+
     function begin(res) {
         run = res.run;
         question = res.question;
+        streak = 0;
         localStorage.setItem(STORE, run.token);
-        show('play');
-        renderQuestion();
+        paintStreak();
+        paintMap($('[data-map]'), run.level, run.levelsCleared);
+        enterLevel();
     }
 
     function reset() {
@@ -248,11 +484,13 @@
         pending = null;
         run = null;
         localStorage.removeItem(STORE);
+        mood('idle');
+        paintMap($('[data-map]'), 1, 0);
         show('start');
     }
 
     $('[data-next]').addEventListener('click', next);
-    $('[data-continue]').addEventListener('click', function () { show('play'); renderQuestion(); });
+    $('[data-continue]').addEventListener('click', enterLevel);
     $('[data-quit]').addEventListener('click', function () {
         if (!run || !window.confirm('End this game? Your progress in it will be closed.')) { return; }
         api('restart', { token: run.token }).finally(reset);
@@ -450,6 +688,10 @@
             setTimeout(function () { holder.remove(); }, 500);
         };
     });
+
+    startFx();
+    root.setAttribute('data-screen', 'start');
+    paintMap($('[data-map]'), 1, 0);
 
     var params = new URLSearchParams(window.location.search);
     var certId = params.get('certificate');
