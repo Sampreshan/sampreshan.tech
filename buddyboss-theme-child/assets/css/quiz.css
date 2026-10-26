@@ -125,6 +125,7 @@
 .sp-quiz__progress span::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .55), transparent); animation: spq-shine 2.2s infinite; }
 .sp-quiz__progress-text { margin: 6px 0 0; font-size: 12px; color: var(--q-muted); }
 .sp-quiz__hud-right { display: flex; align-items: center; gap: 10px; }
+.sp-quiz__streak[hidden] { display: none; }
 .sp-quiz__score, .sp-quiz__streak { display: grid; place-items: center; min-width: 74px; padding: 6px 10px; border-radius: 16px; background: rgba(255, 255, 255, .05); line-height: 1.05; }
 .sp-quiz__score b { font-size: 26px; color: var(--q-saffron); font-variant-numeric: tabular-nums; }
 .sp-quiz__score.is-bump b { animation: spq-bump .45s; }
