@@ -499,7 +499,6 @@ function sp_dcal_save_item( $profile, $item, $origin = 'official' ) {
     if ( '' !== $item['summary'] ) {
         $content .= '<p>' . esc_html( $item['summary'] ) . '</p>';
     }
-    $content .= '<p class="sp-news-origin">' . esc_html__( 'Original source:', 'sampreshan-child' ) . ' <a href="' . esc_url( $item['url'] ) . '" rel="nofollow noopener" target="_blank">' . esc_html( $item['source'] ) . '</a></p>';
 
     // Future-dated events are stored now; the event date lives in meta.
     $time = min( (int) $item['time'], time() );
@@ -509,7 +508,7 @@ function sp_dcal_save_item( $profile, $item, $origin = 'official' ) {
             'post_status'   => 'publish',
             'post_title'    => wp_strip_all_tags( $item['title'] ),
             'post_content'  => $content,
-            'post_excerpt'  => sprintf( __( 'Source: %s', 'sampreshan-child' ), $item['source'] ),
+            'post_excerpt'  => '',
             'post_date_gmt' => gmdate( 'Y-m-d H:i:s', $time ),
             'post_date'     => get_date_from_gmt( gmdate( 'Y-m-d H:i:s', $time ) ),
             'meta_input'    => array_merge(
@@ -663,7 +662,7 @@ function sp_dcal_items( $profile_ids = null, $limit = 150 ) {
             'date'    => $date ? $date : get_the_date( 'Y-m-d', $post ),
             'kind'    => $kind,
             'origin'  => $origin ? $origin : 'media',
-            'source'  => (string) get_post_meta( $post->ID, '_sp_news_source', true ),
+            'channel' => sp_dcal_channel( (string) get_post_meta( $post->ID, '_sp_news_url', true ), $kind ),
             'url'     => (string) get_post_meta( $post->ID, '_sp_news_url', true ),
             'link'    => get_permalink( $post ),
             'thumb'   => $thumb ? $thumb : '',
@@ -672,6 +671,44 @@ function sp_dcal_items( $profile_ids = null, $limit = 150 ) {
         );
     }
     return $out;
+}
+
+/**
+ * Channel of an entry, read from its link: video, photo, web or news.
+ */
+function sp_dcal_channel( $url, $kind = '' ) {
+    $host = strtolower( (string) wp_parse_url( $url, PHP_URL_HOST ) );
+    if ( false !== strpos( $host, 'youtube.' ) || 'youtu.be' === $host || 'video' === $kind ) {
+        return 'video';
+    }
+    if ( false !== strpos( $host, 'instagram.' ) ) {
+        return 'photo';
+    }
+    return 'event' === $kind ? 'web' : 'news';
+}
+
+/**
+ * Small own-artwork glyph for a channel (no third-party logos).
+ */
+function sp_dcal_channel_icon( $channel ) {
+    $paths = sp_dcal_channel_paths();
+    $ch    = isset( $paths[ $channel ] ) ? $channel : 'news';
+    $label = array(
+        'video' => __( 'Video', 'sampreshan-child' ),
+        'photo' => __( 'Photo post', 'sampreshan-child' ),
+        'web'   => __( 'Official page', 'sampreshan-child' ),
+        'news'  => __( 'News report', 'sampreshan-child' ),
+    );
+    return '<span class="sp-dcal__ch sp-dcal__ch--' . esc_attr( $ch ) . '" role="img" aria-label="' . esc_attr( $label[ $ch ] ) . '" title="' . esc_attr( $label[ $ch ] ) . '"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' . $paths[ $ch ] . '</svg></span>';
+}
+
+function sp_dcal_channel_paths() {
+    return array(
+        'video' => '<rect x="2.5" y="5" width="19" height="14" rx="4"/><path d="M10 9.2v5.6l4.8-2.8z" fill="currentColor"/>',
+        'photo' => '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".9" fill="currentColor"/>',
+        'web'   => '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"/>',
+        'news'  => '<rect x="3" y="4" width="15" height="16" rx="2"/><path d="M18 8h3v10a2 2 0 0 1-2 2M7 8h7M7 12h7M7 16h4"/>',
+    );
 }
 
 function sp_dcal_kind_label( $kind ) {
@@ -694,7 +731,7 @@ function sp_dcal_entry_html( $item, $class = 'sp-dcal__item' ) {
         <div>
             <p class="sp-dcal__meta"><span class="sp-dcal__tag sp-dcal__tag--<?php echo esc_attr( $item['kind'] ); ?>"><?php echo esc_html( sp_dcal_kind_label( $item['kind'] ) ); ?></span> <?php echo esc_html( wp_date( 'j M Y', strtotime( $item['date'] ) ) ); ?></p>
             <h3><a href="<?php echo esc_url( $item['url'] ? $item['url'] : $item['link'] ); ?>" rel="nofollow noopener" target="_blank"><?php echo esc_html( $item['title'] ); ?></a></h3>
-            <p class="sp-dcal__src"><?php echo esc_html( $item['profile'] ); ?><?php if ( $item['source'] ) : ?> · <?php echo esc_html( $item['source'] ); ?><?php endif; ?></p>
+            <p class="sp-dcal__src"><?php echo sp_dcal_channel_icon( $item['channel'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?><?php echo esc_html( $item['profile'] ); ?></p>
         </div>
     </article>
     <?php
@@ -708,11 +745,11 @@ function sp_dcal_entry_html( $item, $class = 'sp-dcal__item' ) {
  */
 function sp_dcal_render( $args ) {
     $items   = $args['items'] ?? array();
-    $sources = $args['sources'] ?? array();
     $filter  = ! empty( $args['filter'] );
     $payload = array(
         'today' => wp_date( 'Y-m-d' ),
         'items' => $items,
+        'icons' => sp_dcal_channel_paths(),
     );
     ?>
     <div class="sp-dcal" data-sp-dcal>
@@ -766,15 +803,7 @@ function sp_dcal_render( $args ) {
         </div>
 
         <div class="sp-dcal__sources">
-            <?php if ( $sources ) : ?>
-                <p><strong><?php esc_html_e( 'Official sources:', 'sampreshan-child' ); ?></strong>
-                    <a href="<?php echo esc_url( $sources['website'] ); ?>" rel="noopener" target="_blank"><?php echo esc_html( wp_parse_url( $sources['website'], PHP_URL_HOST ) ); ?></a>
-                    <?php foreach ( $sources['social'] as $net => $url ) : ?> · <a href="<?php echo esc_url( $url ); ?>" rel="noopener" target="_blank"><?php echo esc_html( $net ); ?></a><?php endforeach; ?>
-                </p>
-            <?php elseif ( empty( $args['all'] ) ) : ?>
-                <p><?php esc_html_e( 'No verified official website or social account has been confirmed yet. Until then, only reports from trusted news media are shown.', 'sampreshan-child' ); ?></p>
-            <?php endif; ?>
-            <p class="sp-dcal__policy"><?php esc_html_e( 'Every entry links to its original source. Only official Peeth and Acharya channels and trusted news media are used; nothing here is generated or rewritten.', 'sampreshan-child' ); ?></p>
+            <p class="sp-dcal__policy"><?php esc_html_e( 'Compiled by ShivBodh Research Group. Each entry opens the original post.', 'sampreshan-child' ); ?></p>
         </div>
 
         <script type="application/json" class="sp-dcal__data"><?php echo wp_json_encode( $payload, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE ); ?></script>
@@ -821,3 +850,24 @@ function sp_dcal_audit_existing() {
     }
     return $done;
 }
+
+/**
+ * Older saved updates carried a source line; credit stays with ShivBodh Research Group.
+ */
+function sp_dcal_strip_origin( $content ) {
+    if ( get_post_type() !== sp_dharma_update_post_type() ) {
+        return $content;
+    }
+    return preg_replace( '#<p class="sp-news-origin">.*?</p>#s', '', $content );
+}
+add_filter( 'the_content', 'sp_dcal_strip_origin', 5 );
+
+function sp_dcal_strip_excerpt( $excerpt, $post = null ) {
+    $post = get_post( $post );
+    if ( $post && sp_dharma_update_post_type() === $post->post_type ) {
+        $excerpt = preg_replace( '/^(Source|Reported by|Original (source|report)):?.*$/m', '', (string) $excerpt );
+        $excerpt = trim( preg_replace( '/(Original (source|report)):.*/s', '', $excerpt ) );
+    }
+    return $excerpt;
+}
+add_filter( 'get_the_excerpt', 'sp_dcal_strip_excerpt', 20, 2 );

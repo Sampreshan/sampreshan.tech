@@ -101,6 +101,11 @@ while ( have_posts() ) : the_post();
                         <?php endif; ?>
                     </div>
 
+                    <?php $sp_target = (string) get_post_meta( $pid, 'petition_target', true ); ?>
+                    <?php if ( '' !== $sp_target ) : ?>
+                        <p class="sp-petition-single__target"><span><?php esc_html_e( 'Addressed to', 'sampreshan-child' ); ?></span> <strong><?php echo esc_html( $sp_target ); ?></strong></p>
+                    <?php endif; ?>
+
                     <div class="sp-petition-single__progress" aria-label="Signature progress">
                         <div class="sp-petition-single__progress-label">
                             <span class="sp-petition-single__progress-count">
@@ -171,6 +176,7 @@ while ( have_posts() ) : the_post();
                             <?php sp_icon_e( 'share', 'sp-icon--sm sp-icon--white', __( 'Share', 'sampreshan-child' ) ); ?>
                             <?php esc_html_e( 'Share', 'sampreshan-child' ); ?>
                         </button>
+                        <a class="btn-3d btn-3d--lg sp-share-wa" href="<?php echo esc_url( 'https://wa.me/?text=' . rawurlencode( $title . ' ' . get_permalink() ) ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Send on WhatsApp', 'sampreshan-child' ); ?></a>
                         <?php if ( is_user_logged_in() ) :
                             $saved = function_exists( 'sp_is_petition_saved' ) && sp_is_petition_saved( $pid );
                         ?>

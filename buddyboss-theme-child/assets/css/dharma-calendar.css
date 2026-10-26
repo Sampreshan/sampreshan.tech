@@ -385,3 +385,10 @@ body.sp-future .sp-dharma-news label { color: #e5e7eb; }
 /* The site-wide full-width rule targets every <article>; ticker tiles keep their card width. */
 #main.site-main .sp-dcal__tile { width: 260px !important; flex: none; }
 @media (max-width: 820px) { #main.site-main .sp-dcal__tile { width: 220px !important; } }
+
+/* Channel glyph in place of a source name. */
+.sp-dcal__src { display: flex; align-items: center; gap: 6px; }
+.sp-dcal__ch { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 6px; background: rgba(245,158,11,.14); color: #f59e0b; flex: none; }
+.sp-dcal__ch--video { background: rgba(239,68,68,.14); color: #f87171; }
+.sp-dcal__ch--photo { background: rgba(236,72,153,.14); color: #f472b6; }
+.sp-dcal__ch--news { background: rgba(148,163,184,.16); color: #cbd5e1; }

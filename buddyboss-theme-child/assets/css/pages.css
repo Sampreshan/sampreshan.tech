@@ -675,3 +675,9 @@
         transition: none !important;
     }
 }
+
+.sp-licences { width: 100%; border-collapse: collapse; font-size: .95rem; }
+.sp-licences th, .sp-licences td { text-align: left; padding: .55rem .4rem; border-bottom: 1px solid rgba(127,127,127,.2); }
+.sp-licences th { font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; opacity: .7; }
+.sp-licences td:last-child { color: #f59e0b; white-space: nowrap; }
+@media (max-width: 520px) { .sp-licences td:last-child { white-space: normal; } }
