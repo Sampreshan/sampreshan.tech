@@ -100,10 +100,12 @@ function sp_parampara_render( $slug, $current_slug = '' ) {
                 <h2 id="sp-pp-title"><?php esc_html_e( 'The line of Acharyas', 'sampreshan-child' ); ?></h2>
                 <p class="sp-pp__count"><?php echo esc_html( $pp['count'] ); ?></p>
             </div>
+            <?php if ( ! sp_parampara_tree_v2_enabled( $slug ) ) : ?>
             <button type="button" class="sp-pp__rotate" data-sp-pp-rotate aria-pressed="false">
                 <span class="sp-pp__rotate-icon" aria-hidden="true"></span>
                 <span data-sp-pp-rotate-label data-label-present="<?php esc_attr_e( 'Show founder first', 'sampreshan-child' ); ?>" data-label-founder="<?php esc_attr_e( 'Show present Acharya first', 'sampreshan-child' ); ?>"><?php esc_html_e( 'Show founder first', 'sampreshan-child' ); ?></span>
             </button>
+            <?php endif; ?>
         </header>
 
         <?php
@@ -112,6 +114,7 @@ function sp_parampara_render( $slug, $current_slug = '' ) {
         } else {
             sp_parampara_3d_render( $slug, $pp );
         }
+        if ( ! sp_parampara_tree_v2_enabled( $slug ) ) :
         ?>
 
         <div class="sp-pp__stage">
@@ -141,6 +144,7 @@ function sp_parampara_render( $slug, $current_slug = '' ) {
                 <li class="sp-pp__crown" aria-hidden="true"><span></span></li>
             </ol>
         </div>
+        <?php endif; ?>
 
         <?php if ( ! empty( $pp['notice'] ) ) : ?><p class="sp-pp__notice" role="note"><?php echo esc_html( $pp['notice'] ); ?></p><?php endif; ?>
         <p class="sp-pp__basis">
@@ -236,6 +240,8 @@ function sp_parampara_3d_line( $pp ) {
             'name'   => ! empty( $node['gap'] ) ? __( 'Not yet documented', 'sampreshan-child' ) : (string) ( $node['name'] ?? '' ),
             'period' => (string) ( $node['period'] ?? '' ),
             'status' => (string) ( $node['status'] ?? '' ),
+            'chip'   => (string) sp_parampara_status_label( $node['status'] ?? '' ),
+            'note'   => (string) ( $node['note'] ?? '' ),
             'gap'    => ! empty( $node['gap'] ),
             'branch' => $branch,
             'url'    => ! empty( $node['profile'] ) ? (string) get_permalink( get_page_by_path( $node['profile'], OBJECT, 'dharma_profile' ) ) : '',
@@ -261,7 +267,12 @@ function sp_parampara_3d_line( $pp ) {
 function sp_parampara_tree_v2_render( $slug, $pp ) {
     $line = sp_parampara_3d_line( $pp );
     $data = array(
-        'founder' => array( 'name' => $pp['founder']['name'], 'period' => (string) ( $pp['founder']['when'] ?? '' ) ),
+        'founder' => array(
+            'name'   => $pp['founder']['name'],
+            'period' => (string) ( $pp['founder']['when'] ?? '' ),
+            'note'   => (string) ( $pp['founder']['note'] ?? '' ),
+            'chip'   => ! empty( $pp['founder']['label'] ) ? (string) $pp['founder']['label'] : __( 'Founder', 'sampreshan-child' ),
+        ),
         'line'    => $line,
         'base'    => get_stylesheet_directory_uri() . '/assets/',
         'ver'     => SAMPRESHAN_CHILD_VERSION,
@@ -274,7 +285,7 @@ function sp_parampara_tree_v2_render( $slug, $pp ) {
         return $node['branch'];
     };
     ?>
-    <div class="sp-pp3t" data-sp-pp3t hidden>
+    <div class="sp-pp3t" data-sp-pp3t>
         <script type="application/json" class="sp-pp3t__data"><?php echo wp_json_encode( $data, JSON_HEX_TAG | JSON_HEX_AMP ); ?></script>
         <div class="sp-pp3t__main">
             <div class="sp-pp3t__stage">
@@ -284,15 +295,21 @@ function sp_parampara_tree_v2_render( $slug, $pp ) {
                     <span class="sp-pp3t__num"></span>
                     <strong class="sp-pp3t__name"></strong>
                     <span class="sp-pp3t__period"></span>
+                    <span class="sp-pp3t__note"></span>
                     <a class="sp-pp3t__link" href="#" hidden><?php esc_html_e( 'View profile', 'sampreshan-child' ); ?></a>
                 </div>
                 <button type="button" class="sp-pp3t__play" aria-pressed="true" data-label-play="<?php esc_attr_e( 'Play', 'sampreshan-child' ); ?>" data-label-pause="<?php esc_attr_e( 'Pause', 'sampreshan-child' ); ?>"><?php esc_html_e( 'Pause', 'sampreshan-child' ); ?></button>
+                <div class="sp-pp3t__zoom">
+                    <button type="button" data-zoom="in" aria-label="<?php esc_attr_e( 'Zoom in', 'sampreshan-child' ); ?>">+</button>
+                    <button type="button" data-zoom="out" aria-label="<?php esc_attr_e( 'Zoom out', 'sampreshan-child' ); ?>">&minus;</button>
+                </div>
+                <p class="sp-pp3t__hint" aria-hidden="true"><?php esc_html_e( 'Zoom in to see every name on the tree', 'sampreshan-child' ); ?></p>
                 <p class="sp-pp3t__loading"><?php esc_html_e( 'Growing the tree', 'sampreshan-child' ); ?></p>
             </div>
             <ol class="sp-pp3t__list" aria-label="<?php esc_attr_e( 'Acharyas in order', 'sampreshan-child' ); ?>">
-                <li><button type="button" data-k="0"><span><?php esc_html_e( 'Founder', 'sampreshan-child' ); ?></span><strong><?php echo esc_html( $pp['founder']['name'] ); ?></strong><em><?php echo esc_html( (string) ( $pp['founder']['when'] ?? '' ) ); ?></em></button></li>
+                <li><button type="button" data-k="0"><span><?php esc_html_e( 'Founder', 'sampreshan-child' ); ?></span><strong><?php echo esc_html( $pp['founder']['name'] ); ?></strong><em><?php echo esc_html( (string) ( $pp['founder']['when'] ?? '' ) ); ?></em><?php if ( ! empty( $pp['founder']['note'] ) ) : ?><small><?php echo esc_html( $pp['founder']['note'] ); ?></small><?php endif; ?></button></li>
                 <?php foreach ( $line as $i => $node ) : ?>
-                    <li<?php echo $node['gap'] ? ' class="is-gap"' : ''; ?>><button type="button" data-k="<?php echo esc_attr( $i + 1 ); ?>"><span><?php echo esc_html( $label( $node ) ); ?></span><strong><?php echo esc_html( $node['name'] ); ?></strong><em><?php echo esc_html( $node['period'] ); ?></em></button></li>
+                    <li<?php echo $node['gap'] ? ' class="is-gap"' : ''; ?>><button type="button" data-k="<?php echo esc_attr( $i + 1 ); ?>"><span><?php echo esc_html( $label( $node ) ); ?></span><strong><?php echo esc_html( $node['name'] ); ?></strong><em><?php echo esc_html( trim( $node['period'] . ( $node['chip'] ? ' · ' . $node['chip'] : '' ), ' ·' ) ); ?></em><?php if ( $node['note'] ) : ?><small><?php echo esc_html( $node['note'] ); ?></small><?php endif; ?></button></li>
                 <?php endforeach; ?>
             </ol>
         </div>
@@ -301,7 +318,7 @@ function sp_parampara_tree_v2_render( $slug, $pp ) {
             <div class="sp-pp3t__bar"></div>
             <div class="sp-pp3t__ticks" aria-hidden="true"></div>
         </div>
-        <p class="sp-pp3t__credit"><?php esc_html_e( 'Names and periods as published by the Peetham. Drag to turn the tree; tap a name to go to it.', 'sampreshan-child' ); ?></p>
+        <p class="sp-pp3t__credit"><?php esc_html_e( 'Names and periods as published by the Peetham. Drag to turn the tree, zoom in to read every name, or tap a name to go to it.', 'sampreshan-child' ); ?></p>
     </div>
     <?php
 }
