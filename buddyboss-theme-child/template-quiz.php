@@ -34,6 +34,11 @@ $bank = sp_quiz_bank();
             </g>
         </svg>
         <div class="sp-quiz__orb"></div>
+        <div class="sp-quiz__floaters">
+            <?php for ( $i = 1; $i <= 4; $i++ ) : ?>
+                <span class="sp-quiz__floater sp-quiz__floater--<?php echo (int) $i; ?>"><?php sp_quiz_emblem( 'sm' ); ?></span>
+            <?php endfor; ?>
+        </div>
         <canvas class="sp-quiz__fx" data-fx></canvas>
     </div>
 
@@ -45,6 +50,7 @@ $bank = sp_quiz_bank();
         <!-- Start -->
         <section class="sp-quiz__screen is-active" data-screen="start" aria-labelledby="sp-quiz-title">
             <div class="sp-quiz__hero">
+                <div class="sp-quiz__hero-emblem"><?php sp_quiz_emblem( 'lg' ); ?></div>
                 <p class="sp-quiz__eyebrow"><?php esc_html_e( 'ShivBodh Trust presents', 'sampreshan-child' ); ?></p>
                 <h1 id="sp-quiz-title" class="sp-quiz__title"><span><?php esc_html_e( 'Sangyani', 'sampreshan-child' ); ?></span> <em><?php esc_html_e( 'Sanatan', 'sampreshan-child' ); ?></em></h1>
                 <p class="sp-quiz__lead"><?php esc_html_e( 'A ten-level journey of 500 flash cards, from simple to scholarly. Clear every level to earn the Sangyani Sanatan certificate.', 'sampreshan-child' ); ?></p>
@@ -74,7 +80,7 @@ $bank = sp_quiz_bank();
             <p class="sp-quiz__section-label"><?php esc_html_e( 'The journey', 'sampreshan-child' ); ?></p>
             <ol class="sp-quiz__map" data-map>
                 <?php foreach ( $bank as $n => $lvl ) : ?>
-                    <li data-level="<?php echo esc_attr( $n ); ?>"><span class="sp-quiz__node"><?php echo esc_html( $n ); ?></span><span class="sp-quiz__node-name"><?php echo esc_html( $lvl['title'] ); ?></span></li>
+                    <li data-level="<?php echo esc_attr( $n ); ?>"><span class="sp-quiz__node" data-n="<?php echo esc_attr( $n ); ?>"><?php echo esc_html( $n ); ?></span><span class="sp-quiz__node-name"><?php echo esc_html( $lvl['title'] ); ?></span></li>
                 <?php endforeach; ?>
             </ol>
             <p class="sp-quiz__note sp-quiz__keys-hint"><?php esc_html_e( 'Tip: press keys 1 to 4 to answer and Enter for the next card.', 'sampreshan-child' ); ?></p>
@@ -83,7 +89,7 @@ $bank = sp_quiz_bank();
         <!-- Play -->
         <section class="sp-quiz__screen" data-screen="play" aria-label="<?php esc_attr_e( 'Quiz', 'sampreshan-child' ); ?>">
             <header class="sp-quiz__hud">
-                <div class="sp-quiz__badge"><small><?php esc_html_e( 'Level', 'sampreshan-child' ); ?></small><b data-hud-num>1</b></div>
+                <div class="sp-quiz__badge"><span class="sp-quiz__badge-gem"><?php sp_quiz_emblem( 'sm' ); ?></span><small><?php esc_html_e( 'Level', 'sampreshan-child' ); ?></small><b data-hud-num>1</b></div>
                 <div class="sp-quiz__hud-mid">
                     <strong data-hud-title></strong>
                     <span data-hud-level></span>
@@ -101,6 +107,7 @@ $bank = sp_quiz_bank();
                 <div class="sp-quiz__ghost sp-quiz__ghost--2" aria-hidden="true"></div>
                 <div class="sp-quiz__ghost sp-quiz__ghost--1" aria-hidden="true"></div>
                 <article class="sp-quiz__card" data-card>
+                    <span class="sp-quiz__card-glint" aria-hidden="true"></span>
                     <div class="sp-quiz__timer" aria-hidden="true">
                         <svg viewBox="0 0 44 44"><circle class="sp-quiz__timer-bg" cx="22" cy="22" r="19"/><circle class="sp-quiz__timer-arc" cx="22" cy="22" r="19" data-timer-bar/></svg>
                         <span data-timer>30</span>
@@ -121,6 +128,7 @@ $bank = sp_quiz_bank();
         <!-- Level cleared -->
         <section class="sp-quiz__screen sp-quiz__center" data-screen="level" aria-live="polite">
             <div class="sp-quiz__burst" aria-hidden="true"></div>
+            <div class="sp-quiz__win-emblem"><?php sp_quiz_emblem( 'lg' ); ?></div>
             <p class="sp-quiz__eyebrow"><?php esc_html_e( 'Level cleared', 'sampreshan-child' ); ?></p>
             <h2 class="sp-quiz__title sp-quiz__title--win" data-level-heading></h2>
             <div class="sp-quiz__stars" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -132,6 +140,7 @@ $bank = sp_quiz_bank();
         <!-- Certificate -->
         <section class="sp-quiz__screen sp-quiz__center" data-screen="cert">
             <div class="sp-quiz__burst" aria-hidden="true"></div>
+            <div class="sp-quiz__win-emblem"><?php sp_quiz_emblem( 'lg' ); ?></div>
             <p class="sp-quiz__eyebrow" data-cert-eyebrow><?php esc_html_e( 'All ten levels cleared', 'sampreshan-child' ); ?></p>
             <h2 class="sp-quiz__title sp-quiz__title--win" data-cert-heading><?php esc_html_e( 'You are a Sangyani Sanatan', 'sampreshan-child' ); ?></h2>
             <canvas class="sp-quiz__cert" data-cert-canvas width="1600" height="1131" role="img" aria-label="<?php esc_attr_e( 'Certificate', 'sampreshan-child' ); ?>"></canvas>
