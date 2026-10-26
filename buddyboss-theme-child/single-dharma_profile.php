@@ -211,11 +211,24 @@ while ( have_posts() ) : the_post();
 
     <section id="updates" class="sp-dharma-profile__updates" aria-labelledby="sp-dharma-updates-title">
         <p class="sp-section__eyebrow"><?php esc_html_e( 'Verified updates', 'sampreshan-child' ); ?></p>
+        <?php if ( 'sampradaya' !== $kind && function_exists( 'sp_dcal_render' ) ) : ?>
+            <h2 id="sp-dharma-updates-title"><?php esc_html_e( 'Calendar: programmes, videos & news', 'sampreshan-child' ); ?></h2>
+            <?php
+            $sp_dcal_ids = 'peeth' === $kind ? sp_dharma_same_peeth_ids( $profile_id ) : array_filter( array( $profile_id, $peeth_post ? $peeth_post->ID : 0 ) );
+            sp_dcal_render(
+                array(
+                    'items'   => sp_dcal_items( $sp_dcal_ids ),
+                    'sources' => sp_dcal_sources_for_profile( $profile_id ),
+                )
+            );
+            ?>
+        <?php else : ?>
         <h2 id="sp-dharma-updates-title"><?php esc_html_e( 'Programmes, activities & news', 'sampreshan-child' ); ?></h2>
         <?php if ( $updates->have_posts() ) : ?>
             <div class="sp-dharma-update-list"><?php while ( $updates->have_posts() ) : $updates->the_post(); ?><article><p><?php echo esc_html( get_the_date() ); ?></p><h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3><p><?php echo esc_html( get_the_excerpt() ); ?></p></article><?php endwhile; wp_reset_postdata(); ?></div>
         <?php else : ?>
             <p class="sp-dharma-muted"><?php esc_html_e( 'Verified programme, activity, and news updates will appear here when published. Follow to be notified.', 'sampreshan-child' ); ?></p>
+        <?php endif; ?>
         <?php endif; ?>
     </section>
 

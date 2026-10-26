@@ -202,7 +202,7 @@ add_action( 'wp_footer', 'sp_drop_unconfigured_elementor_scripts', 19 );
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.51' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.52' );
 }
 
 /**
@@ -500,6 +500,7 @@ require_once get_stylesheet_directory() . '/inc/brand/shankh.php';
 require_once get_stylesheet_directory() . '/inc/brand/pigeon.php';
 require_once get_stylesheet_directory() . '/inc/brand/tilak.php';
 require_once get_stylesheet_directory() . '/inc/dharma-news.php';
+require_once get_stylesheet_directory() . '/inc/dharma-calendar.php';
 require_once get_stylesheet_directory() . '/inc/auth/loader.php';
 require_once get_stylesheet_directory() . '/inc/notifications/center.php';
 require_once get_stylesheet_directory() . '/inc/seo/schema.php';
@@ -827,6 +828,22 @@ function sampreshan_child_enqueue_styles() {
             get_stylesheet_directory_uri() . '/assets/css/dharma-directory.css',
             array( 'sampreshan-icon-system' ),
             SAMPRESHAN_CHILD_VERSION
+        );
+    }
+
+    if ( is_front_page() || is_singular( 'dharma_profile' ) ) {
+        wp_enqueue_style(
+            'sampreshan-dharma-calendar',
+            get_stylesheet_directory_uri() . '/assets/css/dharma-calendar.css',
+            array( 'sampreshan-dharma-directory' ),
+            SAMPRESHAN_CHILD_VERSION
+        );
+        wp_enqueue_script(
+            'sampreshan-dharma-calendar',
+            get_stylesheet_directory_uri() . '/assets/js/dharma-calendar.js',
+            array(),
+            SAMPRESHAN_CHILD_VERSION,
+            true
         );
     }
 
