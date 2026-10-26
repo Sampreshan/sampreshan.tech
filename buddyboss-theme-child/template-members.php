@@ -89,7 +89,7 @@ $bb_members_url = function_exists( 'bp_get_members_directory_permalink' ) ? bp_g
                     <p class="sp-member-card__stats">
                         <?php echo esc_html( sprintf( _n( '%s petition', '%s petitions', $pet_n, 'sampreshan-child' ), number_format_i18n( $pet_n ) ) ); ?>
                     </p>
-                    <a class="sp-dash-link" href="<?php echo esc_url( $prof_url ); ?>"><?php esc_html_e( 'View profile →', 'sampreshan-child' ); ?></a>
+                    <a class="sp-dash-link" href="<?php echo esc_url( $prof_url ); ?>"><?php sp_know_more( __( 'View', 'sampreshan-child' ), __( 'View profile', 'sampreshan-child' ) ); ?></a>
                 </article>
             <?php endforeach; ?>
         </div>

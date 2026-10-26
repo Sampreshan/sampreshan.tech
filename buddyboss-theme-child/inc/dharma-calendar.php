@@ -15,7 +15,12 @@
  * renders script-heavy official pages; a direct HTTP reader is the fallback,
  * so the calendar keeps updating even if TinyFish is unavailable.
  *
+ * Social: public Instagram posts are read daily through TinyFish. Facebook
+ * pages need a login (TinyFish returns login_required), so Facebook stays a
+ * linked source only until a Meta Graph API page token is configured.
+ *
  * Manual run: wp eval 'print_r( sp_dcal_import_official() );'
+ *             wp eval 'print_r( sp_dcal_import_social() );'
  *
  * @package SampreShan_Child
  */
@@ -33,6 +38,7 @@ function sp_dcal_sources() {
         'dakshinamnaya-sri-sharada-peetham' => array(
             'website' => 'https://www.sringeri.net/',
             'youtube' => 'UCC7AKcYvtFdlubqwW6Ave2Q',
+            'instagram' => 'sharadapeetham',
             'parser'  => 'sringeri',
             'social'  => array(
                 'YouTube'   => 'https://www.youtube.com/@sharadapeetham',
@@ -46,6 +52,7 @@ function sp_dcal_sources() {
         'kanchi-kamakoti-peetham'           => array(
             'website' => 'https://www.kamakoti.org/',
             'youtube' => 'UCCWq7MrlHSdkfe_2QslyOqA',
+            'instagram' => 'kanchimutt',
             'parser'  => 'kanchi',
             'social'  => array(
                 'YouTube'   => 'https://www.youtube.com/kanchimath',
@@ -64,9 +71,18 @@ function sp_dcal_sources() {
                 'X'        => 'https://twitter.com/govardhanmath',
             ),
         ),
+        'paschimamnaya-dwarka-sharada-peetham' => array(
+            'website' => 'https://dwarakasharadapeetham.org/',
+            'youtube' => 'UCWaDkBT_qaoBGPDYTtYWUcg',
+            'social'  => array(
+                'YouTube' => 'https://www.youtube.com/@DwarakaSharadaPeetham',
+                'X'       => 'https://x.com/SriSharadaPeeth',
+            ),
+        ),
         'swami-avimukta'                    => array(
             'website' => 'https://1008.guru/',
             'youtube' => 'UCGSneKADR6fhEEg7rIGlgNA',
+            'instagram' => '1008.guru',
             'social'  => array(
                 'YouTube'   => 'https://www.youtube.com/channel/UCGSneKADR6fhEEg7rIGlgNA',
                 'Facebook'  => 'https://www.facebook.com/1008.guru/',
@@ -158,6 +174,153 @@ function sp_dcal_tinyfish_fetch( $url ) {
         'image_links' => isset( $r['image_links'] ) ? (array) $r['image_links'] : array(),
     );
 }
+
+/**
+ * TinyFish Fetch for several URLs in one request. Returns results keyed by URL.
+ */
+function sp_dcal_tinyfish_fetch_many( $urls ) {
+    if ( ! defined( 'SP_TINYFISH_API_KEY' ) || ! SP_TINYFISH_API_KEY || empty( $urls ) ) {
+        return array();
+    }
+    $resp = wp_remote_post(
+        'https://api.fetch.tinyfish.ai',
+        array(
+            'timeout' => 150,
+            'headers' => array(
+                'X-API-Key'    => SP_TINYFISH_API_KEY,
+                'Content-Type' => 'application/json',
+            ),
+            'body'    => wp_json_encode( array( 'urls' => array_values( $urls ), 'format' => 'markdown', 'image_links' => true ) ),
+        )
+    );
+    if ( is_wp_error( $resp ) || 200 !== wp_remote_retrieve_response_code( $resp ) ) {
+        return array();
+    }
+    $json = json_decode( wp_remote_retrieve_body( $resp ), true );
+    $out  = array();
+    foreach ( (array) ( $json['results'] ?? array() ) as $r ) {
+        if ( ! empty( $r['url'] ) ) {
+            $out[ $r['url'] ] = $r;
+        }
+    }
+    return $out;
+}
+
+/**
+ * Official Instagram account: newest public posts with caption and date.
+ * The caption is kept as published; only the hashtag-only lines are skipped
+ * when choosing the title line.
+ */
+function sp_dcal_fetch_instagram( $handle, $limit = 6 ) {
+    $profile = sp_dcal_tinyfish_fetch( 'https://www.instagram.com/' . rawurlencode( $handle ) . '/' );
+    if ( ! $profile ) {
+        return array();
+    }
+    $posts = array();
+    foreach ( $profile['links'] as $link ) {
+        if ( preg_match( '#instagram\.com/(?:[^/]+/)?(p|reel)/([A-Za-z0-9_-]+)#', $link, $m ) ) {
+            $posts[ $m[2] ] = array( 'kind' => $m[1], 'url' => 'https://www.instagram.com/' . $m[1] . '/' . $m[2] . '/' );
+        }
+        if ( count( $posts ) >= $limit ) {
+            break;
+        }
+    }
+    $fresh = array();
+    foreach ( $posts as $code => $p ) {
+        if ( ! sp_dharma_news_seen( 'ig:' . $code, 'ig:' . $code ) ) {
+            $fresh[ $code ] = $p;
+        }
+    }
+    if ( ! $fresh ) {
+        return array();
+    }
+    $pages = sp_dcal_tinyfish_fetch_many( wp_list_pluck( $fresh, 'url' ) );
+    $items = array();
+    foreach ( $fresh as $code => $p ) {
+        $r = null;
+        foreach ( $pages as $u => $page ) {
+            if ( false !== strpos( $u, '/' . $code ) ) {
+                $r = $page;
+                break;
+            }
+        }
+        if ( ! $r ) {
+            continue;
+        }
+        $desc = (string) ( $r['description'] ?? '' );
+        $time = 0;
+        if ( preg_match( '/ on ([A-Z][a-z]+ \d{1,2}, \d{4})/', $desc, $dm ) ) {
+            $time = strtotime( $dm[1] . ' 12:00:00' );
+        } elseif ( ! empty( $r['published_date'] ) ) {
+            $time = strtotime( $r['published_date'] );
+        }
+        $caption = '';
+        if ( preg_match( '/: "(.*)"\.?\s*$/s', $desc, $cm ) ) {
+            $caption = $cm[1];
+        } elseif ( preg_match( '/on Instagram: "(.*)"/s', (string) ( $r['title'] ?? '' ), $cm ) ) {
+            $caption = $cm[1];
+        }
+        $title = '';
+        foreach ( preg_split( '/\R/u', $caption ) as $line ) {
+            $line = trim( $line );
+            if ( '' !== $line && ! preg_match( '/^(#\S+\s*)+$/u', $line ) ) {
+                $title = $line;
+                break;
+            }
+        }
+        if ( '' === $title || ! $time ) {
+            continue;
+        }
+        $items[] = array(
+            'guid'       => 'ig:' . $code,
+            'title'      => wp_html_excerpt( $title, 140, '...' ),
+            'url'        => $p['url'],
+            'source'     => '@' . $handle . ' (official Instagram)',
+            'type'       => 'reel' === $p['kind'] ? 'video' : 'news',
+            'event_date' => wp_date( 'Y-m-d', $time ),
+            'time'       => $time,
+            'thumb'      => '',
+            'summary'    => wp_html_excerpt( trim( preg_replace( '/\s+/u', ' ', $caption ) ), 280, '...' ),
+        );
+    }
+    return $items;
+}
+
+/**
+ * Daily import from official social accounts (Instagram). Returns created per slug.
+ */
+function sp_dcal_import_social() {
+    $report = array();
+    foreach ( sp_dcal_sources() as $slug => $src ) {
+        if ( empty( $src['instagram'] ) ) {
+            continue;
+        }
+        $profile = sp_dharma_profile_by_slug( $slug );
+        if ( ! $profile ) {
+            continue;
+        }
+        $items   = sp_dcal_fetch_instagram( $src['instagram'] );
+        $created = 0;
+        foreach ( $items as $item ) {
+            if ( sp_dcal_save_item( $profile, $item ) ) {
+                $created++;
+            }
+        }
+        $report[ $slug ] = array( 'found' => count( $items ), 'created' => $created );
+    }
+    update_option( 'sp_dcal_social_last_run', array( 'time' => time(), 'report' => $report ), false );
+    return $report;
+}
+add_action( 'sp_dcal_social_cron', 'sp_dcal_import_social' );
+add_action(
+    'init',
+    static function () {
+        if ( ! wp_next_scheduled( 'sp_dcal_social_cron' ) ) {
+            wp_schedule_event( time() + 300, 'daily', 'sp_dcal_social_cron' );
+        }
+    },
+    31
+);
 
 /* -------------------------------------------------------------------------
  * Official fetchers. Each returns a list of items:

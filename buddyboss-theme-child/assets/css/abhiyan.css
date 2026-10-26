@@ -1,0 +1,112 @@
+/* Abhiyan (campaign) cards on Acharya / Peeth pages and the campaign feed. */
+.sp-abhiyan {
+    margin: 1.5rem 0;
+    padding: clamp(1rem, 3vw, 1.6rem);
+    border-radius: 16px;
+    border: 1px solid rgba(212, 164, 55, .4);
+    background: linear-gradient(135deg, rgba(212, 164, 55, .12), rgba(212, 164, 55, .03));
+}
+
+.sp-abhiyan__eyebrow {
+    margin: 0 0 .25rem;
+    font-size: .76rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #b8862a;
+}
+
+.sp-abhiyan__title {
+    margin: 0 0 1rem;
+    font-size: clamp(1.2rem, 2.4vw, 1.55rem);
+    color: inherit;
+}
+
+.sp-abhiyan__grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.sp-abhiyan__card {
+    display: flex;
+    gap: .9rem;
+    align-items: flex-start;
+    padding: .8rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .06);
+}
+
+.sp-abhiyan__img img {
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+}
+
+.sp-abhiyan__body h3 {
+    margin: 0 0 .35rem;
+    font-size: 1.05rem;
+}
+
+.sp-abhiyan__body h3 a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.sp-abhiyan__body p {
+    margin: 0 0 .5rem;
+    font-size: .92rem;
+    line-height: 1.5;
+    opacity: .9;
+}
+
+.sp-abhiyan__more {
+    display: inline-flex;
+    color: #b8862a;
+}
+
+.sp-abhiyan-feed {
+    margin: 1.5rem 0;
+    padding: clamp(1rem, 3vw, 1.6rem);
+}
+
+.sp-abhiyan-feed h2 {
+    margin: 0 0 .4rem;
+}
+
+.sp-abhiyan-feed__note {
+    margin: 0 0 1rem;
+    opacity: .8;
+    font-size: .92rem;
+}
+
+.sp-abhiyan-feed__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: .65rem;
+}
+
+.sp-abhiyan-feed__list li {
+    display: grid;
+    gap: .15rem;
+    padding: .6rem 0;
+    border-bottom: 1px solid rgba(127, 127, 127, .2);
+}
+
+.sp-abhiyan-feed__list time {
+    font-size: .8rem;
+    opacity: .75;
+}
+
+.sp-abhiyan-feed__list a {
+    font-weight: 600;
+    color: inherit;
+}
+
+.sp-abhiyan-feed__list small {
+    opacity: .7;
+}

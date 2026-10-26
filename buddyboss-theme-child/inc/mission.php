@@ -42,9 +42,6 @@ function sp_mission_block( $variant = 'full' ) {
 		<?php foreach ( $paras as $p ) : ?>
 			<p class="sp-mission__text"><?php echo esc_html( $p ); ?></p>
 		<?php endforeach; ?>
-		<?php if ( 'full' === $variant && function_exists( 'sp_dharma_directory_url' ) ) : ?>
-			<p class="sp-mission__cta"><a class="btn btn--primary" href="<?php echo esc_url( sp_dharma_directory_url() ); ?>"><?php esc_html_e( 'Explore Peeths & Acharyas', 'sampreshan-child' ); ?></a></p>
-		<?php endif; ?>
 	</section>
 	<?php
 }

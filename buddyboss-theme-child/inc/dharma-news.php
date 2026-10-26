@@ -91,9 +91,10 @@ function sp_dharma_news_has_word( $text, $words ) {
 /**
  * Fetch one query; returns list of array( guid, title, source, url, time ).
  */
-function sp_dharma_news_fetch( $query ) {
-    $url  = add_query_arg(
-        array( 'q' => rawurlencode( $query . ' when:30d' ), 'hl' => 'en-IN', 'gl' => 'IN', 'ceid' => 'IN:en' ),
+function sp_dharma_news_fetch( $query, $lang = 'en' ) {
+    $hindi = 'hi' === $lang;
+    $url   = add_query_arg(
+        array( 'q' => rawurlencode( $query . ' when:30d' ), 'hl' => $hindi ? 'hi' : 'en-IN', 'gl' => 'IN', 'ceid' => $hindi ? 'IN:hi' : 'IN:en' ),
         'https://news.google.com/rss/search'
     );
     $resp = wp_remote_get( $url, array( 'timeout' => 20, 'user-agent' => 'SampreshanBot/1.0 (+https://sampreshan.tech)' ) );

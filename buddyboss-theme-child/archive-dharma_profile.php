@@ -79,7 +79,7 @@ $profiles = new WP_Query( $args );
                     <h2><?php sp_icon_e( sp_dharma_icon_name( get_the_ID() ), 'sp-icon--lg' ); ?><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
                     <p><?php echo esc_html( get_the_excerpt() ); ?></p>
                     <?php if ( $direction || $veda ) : ?><dl><div><dt><?php esc_html_e( 'Direction', 'sampreshan-child' ); ?></dt><dd><?php echo esc_html( $direction ); ?></dd></div><div><dt><?php esc_html_e( 'Veda', 'sampreshan-child' ); ?></dt><dd><?php echo esc_html( $veda ); ?></dd></div></dl><?php endif; ?>
-                    <div class="sp-dharma-card__footer"><a href="<?php the_permalink(); ?>"><?php esc_html_e( 'Open profile', 'sampreshan-child' ); ?></a><?php sp_dharma_follow_button( $profile_id ); ?></div>
+                    <div class="sp-dharma-card__footer"><a href="<?php the_permalink(); ?>"><?php sp_know_more( __( 'View', 'sampreshan-child' ), __( 'View profile', 'sampreshan-child' ) ); ?></a><?php sp_dharma_follow_button( $profile_id ); ?></div>
                 </article>
             <?php endwhile; wp_reset_postdata(); ?>
         </div>
