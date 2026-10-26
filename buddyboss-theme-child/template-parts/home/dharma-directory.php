@@ -109,6 +109,7 @@ if ( empty( $peeths ) ) {
         </div>
         <div class="sp-dharma-acharya-row sp-dharma-sampradaya-row">
             <?php foreach ( $sampradayas as list( $post, $item ) ) : ?>
+                <?php $img = sp_dharma_profile_image_url( $post->ID, 'medium' ); ?>
                 <article class="sp-dharma-acharya-card sp-dharma-sampradaya-card">
                     <a class="sp-dharma-acharya-card__media" href="<?php echo esc_url( get_permalink( $post ) ); ?>" tabindex="-1" aria-hidden="true">
                         <?php if ( $img ) : ?><img src="<?php echo esc_url( $img ); ?>" alt="" width="160" height="160" loading="lazy" /><?php else : ?><?php sp_icon_e( sp_dharma_icon_name( $post ), 'sp-icon--xl' ); ?><?php endif; ?>

@@ -11,12 +11,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-function sp_sampradaya_wiki( $page ) {
-    return 'https://en.wikipedia.org/wiki/' . $page;
-}
-
 function sp_sampradaya_data_all() {
-    $w = 'sp_sampradaya_wiki';
     return array(
 
         /* ------------------------------------------------------ Smarta */
@@ -30,11 +25,11 @@ function sp_sampradaya_data_all() {
             'summary'  => 'The Smarta tradition and the Dashanami monastic order associated with Adi Shankaracharya, rooted in Advaita Vedanta and organised around the Shankaracharya Peethas.',
             'infobox'  => array(
                 'Tradition'   => 'Smarta',
-                'Founder'     => 'Adi Shankaracharya (per tradition)',
+                'Founder'     => 'Adi Shankaracharya',
                 'Philosophy'  => 'Advaita Vedanta',
                 'Worship'     => 'Panchayatana puja (Shiva, Vishnu, Devi, Surya, Ganesha)',
                 'Monastic order' => 'Dashanami — ten names such as Saraswati, Bharati, Tirtha, Giri, Puri',
-                'Key centres' => 'Sringeri, Dwarka, Puri, Jyotirmath; Kanchi per its own tradition',
+                'Key centres' => 'Sringeri, Dwarka, Puri, Jyotirmath; also Kanchi',
             ),
             'sections' => array(
                 'Overview' => '<p>Smartas follow the smriti tradition alongside the Vedas and worship the five deities of the Panchayatana as forms of one Brahman. The Dashanami order of sannyasis, traditionally organised by Adi Shankaracharya, takes its name from ten monastic surnames.</p>',
@@ -104,7 +99,7 @@ function sp_sampradaya_data_all() {
             ),
             'sections' => array(
                 'Overview' => '<p>Dvaitadvaita teaches that souls are both different and not different from God. Tradition traces the line to the four Kumaras and the sage Narada.</p>',
-                'History'  => '<p>Nimbarka is regarded by followers as among the earliest Vaishnava acharyas; scholarly dates for him vary. The tradition has been strong in Braj and Rajasthan.</p>',
+                'History'  => '<p>Nimbarka is revered by his followers as among the earliest Vaishnava acharyas. The tradition has been strong in Braj and Rajasthan.</p>',
                 'Practice' => '<p>Worship of Radha and Krishna together, recitation of the Gopala mantra, and devotional poetry.</p>',
             ),
         ),
@@ -160,7 +155,7 @@ function sp_sampradaya_data_all() {
             'summary'  => 'One of the largest Vaishnava monastic orders, traced to Swami Ramananda, devoted to Sita–Rama and Hanuman.',
             'infobox'  => array(
                 'Tradition'   => 'Vaishnava (Ramavat)',
-                'Founder'     => 'Swami Ramananda (per tradition)',
+                'Founder'     => 'Swami Ramananda',
                 'Philosophy'  => 'Vishishtadvaita',
                 'Deity'       => 'Sita–Rama, Hanuman',
                 'Key centres' => 'Ayodhya, Varanasi, Chitrakoot, Galta (Jaipur)',
@@ -250,7 +245,7 @@ function sp_sampradaya_data_all() {
             ),
             'sections' => array(
                 'Overview' => '<p>The Mahanubhava Pantha, also called Jai Krishni Pantha, worships Krishna and is known for early Marathi literature.</p>',
-                'History'  => '<p>Some sources name Chakrapani and Govinda Prabhu as founders with Chakradhara Swami as the first propagator. The Lilacharitra, a Marathi biography of Chakradhara, is a key early text.</p>',
+                'History'  => '<p>Chakrapani and Govinda Prabhu are revered as founders, with Chakradhara Swami as the first propagator. The Lilacharitra, a Marathi biography of Chakradhara, is a key early text.</p>',
             ),
         ),
 
@@ -345,13 +340,13 @@ function sp_sampradaya_data_all() {
             'summary'  => 'Among the oldest named Shaiva traditions, associated with Lakulisha; recorded here as a historical tradition.',
             'infobox'  => array(
                 'Tradition'   => 'Shaiva (ascetic)',
-                'Founder'     => 'Lakulisha (per tradition)',
+                'Founder'     => 'Lakulisha',
                 'Deity'       => 'Shiva as Pashupati',
                 'Status'      => 'Historical',
             ),
             'sections' => array(
                 'Overview' => '<p>Pashupatas worshipped Shiva as Pashupati, the Lord of beings, and followed a demanding ascetic discipline.</p>',
-                'History'  => '<p>The tradition is attested from the early centuries CE and influenced later Shaiva schools. It is no longer widely practised as a separate order.</p>',
+                'History'  => '<p>The tradition dates to the early centuries CE and influenced later Shaiva schools. It is no longer widely practised as a separate order.</p>',
             ),
         ),
 
@@ -426,7 +421,7 @@ function sp_sampradaya_data_all() {
             'summary'  => 'An ascetic order of sadhus in northern India, traced to Sri Chand, son of Guru Nanak, also known as Udasins or Nanak Putras.',
             'infobox'  => array(
                 'Tradition'   => 'Udasipanth (ascetic)',
-                'Founder'     => 'Sri Chand (per tradition)',
+                'Founder'     => 'Sri Chand',
                 'Region'      => 'Northern India',
             ),
             'sections' => array(
