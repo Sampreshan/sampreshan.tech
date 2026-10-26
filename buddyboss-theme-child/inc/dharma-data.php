@@ -459,7 +459,7 @@ function sp_dharma_profile_by_slug( $slug ) {
  * Acharya profiles. Bump the version to re-run after editing the data.
  */
 function sp_dharma_sync_reference_data() {
-    $version = '2026-10-d';
+    $version = '2026-10-e';
     if ( get_option( 'sp_dharma_data_version' ) === $version ) {
         return;
     }

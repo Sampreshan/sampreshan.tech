@@ -444,6 +444,16 @@ function sp_dharma_icon_name( $profile ) {
         'ganapatya-sampradaya'                 => 'tilak-ganapatya',
         'kabir-panth'                          => 'tilak-kabirpanthi',
         'udasi-sampradaya'                     => 'tilak-udasi',
+        'sikh-panth'                           => 'sym-dhwaja',
+        'jain-dharma'                          => 'sym-swastik',
+        'bauddha-dharma'                       => 'sym-chakra',
+        'ajivika'                              => 'sym-kamandalu',
+        'charvaka-lokayata'                    => 'sym-diya',
+        'nyaya-darshana'                       => 'sym-diya',
+        'vaisheshika-darshana'                 => 'sym-chakra',
+        'sankhya-darshana'                     => 'sym-lotus',
+        'yoga-darshana'                        => 'sym-lotus',
+        'mimamsa-darshana'                     => 'sym-kalash',
     );
     if ( isset( $map[ $post->post_name ] ) ) {
         return $map[ $post->post_name ];
