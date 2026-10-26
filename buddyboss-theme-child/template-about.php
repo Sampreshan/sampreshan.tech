@@ -114,6 +114,47 @@ get_header();
             </div>
         </section>
 
+        <!-- SYMBOLS -->
+        <section class="sp-page__card" id="symbols">
+            <h2 class="sp-page__section-title">
+                <?php sp_icon_auto( 'dharma', 'sp-icon--md sp-icon--gold', __( 'Symbols', 'sampreshan-child' ) ); ?>
+                <?php esc_html_e( 'Symbols and their meaning', 'sampreshan-child' ); ?>
+            </h2>
+            <dl class="sp-symbols">
+                <div class="sp-symbols__item"><dt><?php esc_html_e( 'The messenger dove (Kabootar)', 'sampreshan-child' ); ?></dt><dd><?php esc_html_e( 'For centuries the trained pigeon carried letters between kingdoms, ashrams and families. On SampreShan the dove stands for Sampreshan itself: carrying a message honestly from one heart to another. The grey dove is the voice of the people; the white dove is the reply of peace and dialogue. When they meet at the shikhar they exchange scrolls, showing that every issue raised here is meant to be heard and answered.', 'sampreshan-child' ); ?></dd></div>
+                <div class="sp-symbols__item"><dt><?php esc_html_e( 'The scroll in the beak (Sandesh)', 'sampreshan-child' ); ?></dt><dd><?php esc_html_e( 'The rolled scroll is the message: a petition, a question or an issue. It is sealed with a red thread, a reminder that what you share should be truthful and respectful.', 'sampreshan-child' ); ?></dd></div>
+                <div class="sp-symbols__item"><dt><?php esc_html_e( 'The temple shikhar', 'sampreshan-child' ); ?></dt><dd><?php esc_html_e( 'The shikhar is the highest point of a mandir, pointing to the divine. The doves land on it because every voice on this platform is offered in the spirit of Dharma, above personal interest.', 'sampreshan-child' ); ?></dd></div>
+                <div class="sp-symbols__item"><dt><?php esc_html_e( 'The saffron dhwaja (flag)', 'sampreshan-child' ); ?></dt><dd><?php esc_html_e( 'Bhagwa is the colour of tyaga (renunciation) and courage. The flag on the shikhar carries the name Sampreshan, marking the platform as a home for the Sanatan voice.', 'sampreshan-child' ); ?></dd></div>
+                <div class="sp-symbols__item"><dt><?php esc_html_e( 'The rising sun rays', 'sampreshan-child' ); ?></dt><dd><?php esc_html_e( 'The rays behind the logo stand for gyana (knowledge) and clarity. Information on SampreShan should bring light, not confusion.', 'sampreshan-child' ); ?></dd></div>
+                <div class="sp-symbols__item"><dt><?php esc_html_e( 'The open hands', 'sampreshan-child' ); ?></dt><dd><?php esc_html_e( 'The two hands holding the temple in the logo stand for seva and protection: the community together protects its heritage, temples and traditions.', 'sampreshan-child' ); ?></dd></div>
+                <div class="sp-symbols__item"><dt><?php esc_html_e( 'The khadau (Paduka) on the Anusaran button', 'sampreshan-child' ); ?></dt><dd><?php esc_html_e( 'Khadau are the wooden sandals of saints. Following someone\'s paduka means walking their path. That is why the Anusaran (follow) button shows a khadau walking and writing SAMPRESHAN with its footsteps: when you follow a Peeth, Acharya or sampradaya, you walk with them and receive their updates.', 'sampreshan-child' ); ?></dd></div>
+                <div class="sp-symbols__item"><dt><?php esc_html_e( 'The shankh icon', 'sampreshan-child' ); ?></dt><dd><?php esc_html_e( 'The conch is blown to announce an important moment and to call people together. It marks Issue Sampreshan, the place where you raise your voice on an issue.', 'sampreshan-child' ); ?></dd></div>
+                <div class="sp-symbols__item"><dt><?php esc_html_e( 'The temple bell (Ghanti)', 'sampreshan-child' ); ?></dt><dd><?php esc_html_e( 'The ghanti is rung to awaken attention before darshan. In the Sanatan Quiz it rings at the start and with a correct answer, followed by the word Satya (truth).', 'sampreshan-child' ); ?></dd></div>
+            </dl>
+        </section>
+
+        <!-- FAQ -->
+        <section class="sp-page__card" id="faq">
+            <h2 class="sp-page__section-title">
+                <?php sp_icon_auto( 'dharma', 'sp-icon--md sp-icon--gold', __( 'FAQ', 'sampreshan-child' ) ); ?>
+                <?php esc_html_e( 'Frequently asked questions', 'sampreshan-child' ); ?>
+            </h2>
+            <?php $sp_faq = array(
+                array( __( 'What does the word Sampreshan mean?', 'sampreshan-child' ), __( 'Sampreshan means communication: sending a message so that it truly reaches the other person. The platform is built for clear, respectful communication on matters of Sanatan Dharma.', 'sampreshan-child' ) ),
+                array( __( 'Why are there pigeons on the home page?', 'sampreshan-child' ), __( 'The flying doves are the Kabootar post, the traditional messenger. One comes from far away, the other replies; together they show that your voice travels and is answered. See Symbols and their meaning above.', 'sampreshan-child' ) ),
+                array( __( 'What is the Anusaran button?', 'sampreshan-child' ), __( 'Anusaran means following. Press it on a Peeth, Acharya or sampradaya profile to follow it. You get in-site notifications and an email digest when new updates are published. The walking khadau on the button shows you are following their footsteps.', 'sampreshan-child' ) ),
+                array( __( 'What is Issue Sampreshan?', 'sampreshan-child' ), __( 'It is the section where you raise an issue or start a petition, marked with the shankh icon. Others can support it, share it and follow its progress.', 'sampreshan-child' ) ),
+                array( __( 'What sounds does the Sanatan Quiz use?', 'sampreshan-child' ), __( 'A temple bell and the voice saying Satya for a correct answer, and a warning horn for a wrong answer. You can mute sounds in the quiz at any time.', 'sampreshan-child' ) ),
+                array( __( 'Who runs SampreShan?', 'sampreshan-child' ), __( 'SampreShan is built and maintained by ShivBodh Research Group under ShivBodh Trust.', 'sampreshan-child' ) ),
+            ); ?>
+            <div class="sp-faq">
+                <?php foreach ( $sp_faq as $sp_qa ) : ?>
+                <details class="sp-faq__item"><summary><?php echo esc_html( $sp_qa[0] ); ?></summary><p><?php echo esc_html( $sp_qa[1] ); ?></p></details>
+                <?php endforeach; ?>
+            </div>
+            <script type="application/ld+json"><?php echo wp_json_encode( array( '@context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => array_map( function ( $qa ) { return array( '@type' => 'Question', 'name' => $qa[0], 'acceptedAnswer' => array( '@type' => 'Answer', 'text' => $qa[1] ) ); }, $sp_faq ) ) ); ?></script>
+        </section>
+
         <!-- TIMELINE -->
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
