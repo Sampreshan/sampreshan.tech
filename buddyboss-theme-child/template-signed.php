@@ -83,7 +83,7 @@ $browse_url = home_url( '/petitions/' );
                             <?php echo esc_html( sprintf( _n( '%s total signature', '%s total signatures', $sig_count, 'sampreshan-child' ), number_format_i18n( $sig_count ) ) ); ?>
                         </p>
                         <div class="sp-dash-row__actions">
-                            <a class="sp-dash-link" href="<?php echo esc_url( get_permalink( $pid ) ); ?>"><?php esc_html_e( 'View', 'sampreshan-child' ); ?></a>
+                            <a class="sp-dash-link" href="<?php echo esc_url( get_permalink( $pid ) ); ?>"><?php sp_know_more( __( 'View', 'sampreshan-child' ), __( 'View petition', 'sampreshan-child' ) ); ?></a>
                             <button class="sp-dash-link sp-share-btn" type="button" data-url="<?php echo esc_url( get_permalink( $pid ) ); ?>" data-title="<?php echo esc_attr( $s->post_title ); ?>"><?php esc_html_e( 'Share', 'sampreshan-child' ); ?></button>
                         </div>
                     </div>

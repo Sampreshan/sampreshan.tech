@@ -50,7 +50,7 @@ if ( empty( $peeths ) ) {
                         <?php endforeach; ?>
                     </ul>
                     <div class="sp-dharma-card__footer">
-                        <a href="<?php echo esc_url( get_permalink( $post ) ); ?>"><?php esc_html_e( 'Read article', 'sampreshan-child' ); ?></a>
+                        <a href="<?php echo esc_url( get_permalink( $post ) ); ?>"><?php sp_know_more( __( 'Read', 'sampreshan-child' ), __( 'Read article', 'sampreshan-child' ) ); ?></a>
                         <?php sp_dharma_follow_button( $post->ID, 'sp-dharma-follow--compact' ); ?>
                     </div>
                 </div>
@@ -83,7 +83,7 @@ if ( empty( $peeths ) ) {
                     <h4><a href="<?php echo esc_url( get_permalink( $acharya ) ); ?>"><?php echo esc_html( get_the_title( $acharya ) ); ?></a></h4>
                     <?php if ( ! empty( $a['role'] ) ) : ?><p class="sp-dharma-acharya-card__role"><?php echo esc_html( $a['role'] ); ?></p><?php endif; ?>
                     <div class="sp-dharma-acharya-card__cta">
-                        <a class="sp-dharma-acharya-card__profile" href="<?php echo esc_url( get_permalink( $acharya ) ); ?>"><?php esc_html_e( 'View profile', 'sampreshan-child' ); ?></a>
+                        <a class="sp-dharma-acharya-card__profile" href="<?php echo esc_url( get_permalink( $acharya ) ); ?>"><?php sp_know_more( __( 'View', 'sampreshan-child' ), __( 'View profile', 'sampreshan-child' ) ); ?></a>
                         <?php sp_dharma_follow_button( $acharya->ID, 'sp-dharma-follow--compact' ); ?>
                     </div>
                 </article>
@@ -118,7 +118,7 @@ if ( empty( $peeths ) ) {
                     <h4><a href="<?php echo esc_url( get_permalink( $post ) ); ?>"><?php echo esc_html( get_the_title( $post ) ); ?></a></h4>
                     
                     <div class="sp-dharma-acharya-card__cta">
-                        <a class="sp-dharma-acharya-card__profile" href="<?php echo esc_url( get_permalink( $post ) ); ?>"><?php esc_html_e( 'Read more', 'sampreshan-child' ); ?></a>
+                        <a class="sp-dharma-acharya-card__profile" href="<?php echo esc_url( get_permalink( $post ) ); ?>"><?php sp_know_more( __( 'View', 'sampreshan-child' ), __( 'View profile', 'sampreshan-child' ) ); ?></a>
                         <?php sp_dharma_follow_button( $post->ID, 'sp-dharma-follow--compact' ); ?>
                     </div>
                 </article>
