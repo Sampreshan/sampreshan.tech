@@ -93,6 +93,11 @@ get_header();
 $mobile_tpl = get_stylesheet_directory() . '/template-parts/home/mobile-tab-nav.php';
 if ( file_exists( $mobile_tpl ) ) { include $mobile_tpl; }
 
+/* === SHIVBODH TRUST COMMUNITY (daily Varanasi Pooja Panchanga) === */
+if ( function_exists( 'shivbodh_community_banner' ) ) {
+    shivbodh_community_banner( array( 'lang' => 'en', 'page' => 'home' ) );
+}
+
 /* === FOOTER === */
 $footer_tpl = get_stylesheet_directory() . '/template-parts/footer/site-footer.php';
 if ( file_exists( $footer_tpl ) ) {

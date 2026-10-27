@@ -202,7 +202,7 @@ add_action( 'wp_footer', 'sp_drop_unconfigured_elementor_scripts', 19 );
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.74' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.75' );
 }
 
 /**
@@ -468,6 +468,7 @@ require_once get_stylesheet_directory() . '/inc/mission.php';
 require_once get_stylesheet_directory() . '/inc/know-more.php';
 require_once get_stylesheet_directory() . '/inc/dharma-campaigns.php';
 require_once get_stylesheet_directory() . '/inc/khadau.php';
+require_once get_stylesheet_directory() . '/inc/shivbodh-community.php'; // ShivBodh Trust Community box -> varanasipooja.com hub
 
 /** Assets for the Gau Mata campaign petition (template-parts/campaign/gau-mata.php). */
 function sp_campaign_assets() {
