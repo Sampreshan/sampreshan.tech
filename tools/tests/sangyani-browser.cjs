@@ -40,6 +40,13 @@ const script = fs.readFileSync(path.join(root,'buddyboss-theme-child/assets/js/q
    await page.screenshot({path:path.join(evidence,`play-${width}.png`),fullPage:true});
    await page.locator('[data-quit]').click();assert.equal(await page.evaluate(()=>localStorage.getItem('spQuizToken')),token);checks++;
    await page.locator('[data-start-btn]').click();await page.locator('[data-explanation]').waitFor({state:'visible'});assert.equal(await page.locator('[data-hud-score]').textContent(),'10');checks++;
+   if (width === 320) {
+    await page.setViewportSize({width,height:640});
+    await page.route('https://fixture.invalid/api/action',route=>route.fulfill({json:{run:{...run,score:10},question:{...question,id:'q2'}}}));
+    await page.evaluate(()=>window.scrollTo(0,document.body.scrollHeight));
+    await page.locator('[data-next]').click();await page.waitForFunction(()=>document.querySelector('[data-next]').hidden);
+    assert((await page.locator('[data-question]').boundingBox()).y >= 0,'Next card brings its question into view');checks++;
+   }
    await ctx.close();
   }
   // Blocked browser storage + interrupted expired-card answer still recovers in the open tab.

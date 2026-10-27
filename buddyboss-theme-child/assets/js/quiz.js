@@ -60,7 +60,7 @@
             var key = document.createElement('span'); key.className = 'sp-quiz__key'; key.textContent = index + 1; key.dataset.k = index + 1;
             var label = document.createElement('span'); label.textContent = text; button.append(key, label); button.addEventListener('click', function () { answer(index); }); box.append(button);
         });
-        $('[data-question]').focus({ preventScroll: true });
+        $('[data-question]').focus();
         $('.sp-quiz__timer').hidden = question.remaining === null;
         if (question.remaining !== null && !feedback) {
             var deadline = Date.now() + question.remaining * 1000, warned = false;

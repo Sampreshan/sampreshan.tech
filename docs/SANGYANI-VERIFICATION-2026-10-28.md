@@ -6,7 +6,7 @@ Live page: https://sampreshan.tech/sanatan-quiz/
 | --- | --- | --- |
 | Protocol regression | PASS, 2,026 checks | Isolated memory storage; timeout, duplicate receipt, stale card, guest claim, ownership and all 500 cards |
 | WordPress/InnoDB regression | PASS, 1,018 checks | Temporary tables on the actual VPS; full course, ten logs, verification/revocation, revision and member resume without a browser token |
-| Browser fixtures | PASS, 55 checks | 320, 390, 768 and 1440px; connection failure, blocked browser storage, expired-card recovery, hidden Next, long certificate name and print visibility |
+| Browser fixtures | PASS, 56 checks | 320, 390, 768 and 1440px; connection failure, blocked browser storage, expired-card recovery, next-card visibility on a 320×640px screen, hidden Next, long certificate name and print visibility |
 | Live rendered browser | PASS, 29 checks | Same four widths; network interruption, reload recovery, concurrent duplicate answers, stale rejection, save/exit, no overflow and no JavaScript page errors |
 | Live timed challenge | PASS, 8 checks | Resume kept the original question and reduced remaining time; after 32 seconds the server rejected the answer, deducted five points once and returned the same receipt on replay |
 | Concurrent initial answer | PASS | Two simultaneous submissions for a fresh card returned identical receipts and counted exactly one answer |
