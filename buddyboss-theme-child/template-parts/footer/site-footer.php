@@ -84,11 +84,21 @@ $logo_url     = function_exists( 'sp_logo_url' ) ? sp_logo_url() : content_url( 
                     <li><a href="https://shivbodhtrust.org/contact/" target="_blank" rel="noopener">Contact</a></li>
                 </ul>
                 <div class="site-footer__newsletter">
-                    <p style="font-size: var(--text-sm); color: rgba(255,255,255,0.6); margin-bottom: var(--space-2);">Stay updated with community news</p>
-                    <form class="site-footer__newsletter-form" onsubmit="return false;">
-                        <input class="site-footer__newsletter-input" type="email" placeholder="Your email" aria-label="Email for newsletter" />
+                    <p style="font-size: var(--text-sm); color: rgba(255,255,255,0.6); margin-bottom: var(--space-2);">Join ShivBodh Trust Community</p>
+                    <?php /* Joins ShivBodh Trust Community: forwarded to the varanasipooja.com hub (inc/shivbodh-community.php). */ ?>
+                    <form class="site-footer__newsletter-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+                        <input type="hidden" name="action" value="sbc_join" />
+                        <input type="hidden" name="page" value="footer" />
+                        <input type="hidden" name="ts" value="" data-sbc-ts />
+                        <input type="hidden" name="ref" value="<?php echo esc_url( home_url( add_query_arg( array() ) ) ); ?>" />
+                        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
+                        <input class="site-footer__newsletter-input" type="email" name="email" required placeholder="Your email" aria-label="Email for ShivBodh Trust Community" autocomplete="email" />
                         <button class="site-footer__newsletter-btn" type="submit">Subscribe</button>
                     </form>
+                    <?php if ( isset( $_GET['sbc'] ) && in_array( $_GET['sbc'], array( 'ok', 'later' ), true ) ) : // phpcs:ignore WordPress.Security.NonceVerification ?>
+                        <p role="status" style="font-size: var(--text-sm); color: #9be7b0; margin-top: var(--space-2);">Pranam! You are now part of ShivBodh Trust Community.</p>
+                    <?php endif; ?>
+                    <script>document.querySelectorAll('[data-sbc-ts]').forEach(function (i) { i.value = String(Date.now()); });</script>
                 </div>
             </div>
         </div>
