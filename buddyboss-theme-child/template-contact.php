@@ -198,6 +198,8 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['sp_contact_nonce'] 
     </div>
 </main>
 
+<?php if ( function_exists( 'shivbodh_community_banner' ) ) { shivbodh_community_banner( array( 'lang' => 'en', 'page' => 'contact' ) ); } ?>
+
 <?php
 $footer_tpl = get_stylesheet_directory() . '/template-parts/footer/site-footer.php';
 if ( file_exists( $footer_tpl ) ) {
