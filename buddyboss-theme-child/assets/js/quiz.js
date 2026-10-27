@@ -1,566 +1,145 @@
-/**
- * Sangyani Sanatan Quiz client.
- * The server owns scoring; this file only renders cards, runs the timer,
- * plays feedback sounds and draws the certificate.
- */
+/* Sangyani Sanatan: progress survives refresh, retries and temporary network loss. */
 (function () {
     'use strict';
-
-    var cfg = window.spQuiz;
-    var root = document.querySelector('.sp-quiz');
-    if (!cfg || !root) { return; }
-
-    var STORE = 'spQuizToken';
-    var MUTE = 'spQuizMuted';
-    var $ = function (sel) { return root.querySelector(sel); };
-
-    var run = null;
-    var question = null;
-    var pending = null; // response waiting for "Next"
-    var timerId = null;
-    var deadline = 0;
-    var busy = false;
-    var muted = localStorage.getItem(MUTE) === '1';
-    var streak = 0;
-    var shownScore = 0;
-    var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    /* ---------- helpers ---------- */
-
-    /*
-     * Portal transition: clouds part, paper-cut rings zoom like a tunnel,
-     * the game emblem is revealed with a title, then an iris opens the screen.
-     * Runs on game entry and on every level clear.
-     */
-    function portal(kicker, title, done) {
-        if (calm) { if (done) { done(); } return; }
-        var o = document.createElement('div');
-        o.className = 'sp-portal';
-        o.setAttribute('aria-hidden', 'true');
-        var rings = '';
-        for (var i = 0; i < 9; i++) {
-            rings += '<span class="sp-portal__ring sp-portal__ring--' + (i % 4) + '" style="--i:' + i + '"></span>';
-        }
-        var sparks = '';
-        for (var j = 0; j < 12; j++) {
-            sparks += '<i style="--j:' + j + '"></i>';
-        }
-        o.innerHTML = '<div class="sp-portal__tunnel">' + rings + '</div>' +
-            '<div class="sp-portal__sparks">' + sparks + '</div>' +
-            '<div class="sp-portal__core"><div class="sp-portal__emblem"></div>' +
-            '<p class="sp-portal__kicker"></p><p class="sp-portal__title"></p></div>' +
-            '<span class="sp-portal__cloud sp-portal__cloud--l"></span>' +
-            '<span class="sp-portal__cloud sp-portal__cloud--r"></span>';
-        o.querySelector('.sp-portal__kicker').textContent = kicker;
-        o.querySelector('.sp-portal__title').textContent = title;
-        var src = document.querySelector('.sp-quiz__hero-emblem .sp-emblem');
-        if (src) {
-            var em = src.cloneNode(true);
-            em.className = 'sp-emblem sp-emblem--lg';
-            o.querySelector('.sp-portal__emblem').appendChild(em);
-        }
-        document.body.appendChild(o);
-        requestAnimationFrame(function () { o.classList.add('is-on'); });
-        setTimeout(function () { o.classList.add('is-out'); if (done) { done(); } }, 2600);
-        setTimeout(function () { o.remove(); }, 3400);
+    var root = document.querySelector('.sp-quiz'), cfg = window.spQuiz;
+    if (!root || !cfg) return;
+    var $ = function (s) { return root.querySelector(s); };
+    var store = { get: function (k) { try { return localStorage.getItem(k); } catch (_) { return null; } }, set: function (k, v) { try { localStorage.setItem(k, v); return true; } catch (_) { return false; } }, remove: function (k) { try { localStorage.removeItem(k); } catch (_) {} } };
+    var STORE = 'spQuizToken', run = null, question = null, feedback = null, busy = false, timer = null, certificate = null;
+    var practiceParent = null, fresh = false;
+    var calm = store.get('spQuizCalm') === '1' || matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var sound = store.get('spQuizSound') === '1';
+    function motion() { root.dataset.calm = String(calm); $('[data-calm]').checked = calm; }
+    function soundSetting() { $('[data-sound]').checked = sound; $('[data-mute]').textContent = sound ? 'Sound on' : 'Sound off'; $('[data-mute]').setAttribute('aria-pressed', String(sound)); }
+    motion(); soundSetting();
+    root.querySelectorAll('[name="mode"]').forEach(function (input) { input.addEventListener('change', function () { $('[data-mode-note]').textContent = input.value === 'challenge' ? 'Challenge: 30 seconds per card.' : 'Self-paced learning, with no timer.'; }); });
+    $('[data-calm]').addEventListener('change', function (e) { calm = e.target.checked; store.set('spQuizCalm', calm ? '1' : '0'); motion(); });
+    $('[data-sound]').addEventListener('change', function (e) { sound = e.target.checked; store.set('spQuizSound', sound ? '1' : '0'); soundSetting(); });
+    $('[data-mute]').addEventListener('click', function () { sound = !sound; store.set('spQuizSound', sound ? '1' : '0'); soundSetting(); });
+    document.addEventListener('visibilitychange', function () { root.dataset.paused = String(document.hidden); });
+    function show(name) { clearInterval(timer); root.dataset.screen = name; root.querySelectorAll('[data-screen]').forEach(function (el) { el.classList.toggle('is-active', el.dataset.screen === name); }); }
+    function error(message, play) { var el = $(play ? '[data-play-error]' : '[data-error]'); el.textContent = message || ''; el.hidden = !message; if (play) $('[data-recover]').hidden = !message; }
+    async function api(path, data) {
+        var controller = new AbortController(), timeout = setTimeout(function () { controller.abort(); }, 15000);
+        try {
+            var response = await fetch(cfg.api + path, { method: 'POST', credentials: 'same-origin', cache: 'no-store', signal: controller.signal, headers: { 'Content-Type': 'application/json', 'X-WP-Nonce': cfg.nonce }, body: JSON.stringify(data) });
+            var body = await response.json();
+            if (!response.ok) throw new Error(body.message || 'Please try again.');
+            return body;
+        } catch (e) { if (e.name === 'AbortError' || e instanceof TypeError) throw new Error('Connection interrupted. Your progress is saved. Resume to check your last answer.'); throw e; }
+        finally { clearTimeout(timeout); }
     }
-
-    function show(name) {
-        root.setAttribute('data-screen', name);
-        root.querySelectorAll('.sp-quiz__screen').forEach(function (s) {
-            s.classList.toggle('is-active', s.getAttribute('data-screen') === name);
-        });
-        window.scrollTo({ top: root.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+    function saveToken(token) {
+        if (!store.set(STORE, token)) error('Browser storage is unavailable. Keep this tab open or sign in to preserve your progress.', true);
     }
-
-    function api(path, body, method) {
-        return fetch(cfg.api + path, {
-            method: method || 'POST',
-            credentials: 'same-origin',
-            headers: { 'Content-Type': 'application/json', 'X-WP-Nonce': cfg.nonce },
-            body: method === 'GET' ? undefined : JSON.stringify(body || {})
-        }).then(function (r) {
-            return r.json().then(function (data) {
-                if (!r.ok) { throw new Error((data && data.message) || 'Something went wrong.'); }
-                return data;
-            });
-        });
-    }
-
-    function error(msg) {
-        var el = $('[data-error]');
-        el.textContent = msg;
-        el.hidden = !msg;
-    }
-
-    /* ---------- sound ---------- */
-
-    // Correct: temple bell + "Satya" (Indian male voice). Wrong: warning horn.
-    var voices = {
-        correct: new Audio(cfg.audio.correct),
-        wrong: new Audio(cfg.audio.wrong),
-        bell: new Audio(cfg.audio.bell || cfg.audio.correct)
-    };
-    voices.correct.volume = 1;
-    voices.wrong.volume = 0.6;
-    voices.bell.volume = 0.7;
-
-    function fire(kind, delay) {
-        var v = voices[kind];
-        if (!v) { return; }
-        setTimeout(function () {
-            try { v.currentTime = 0; } catch (e) { /* not loaded yet */ }
-            v.play().catch(function () { });
-        }, delay || 0);
-    }
-
-    function play(kind) {
-        if (muted) { return; }
-        if (kind === 'correct') {
-            fire('bell', 0);
-            fire('correct', 350);
-        } else if (kind === 'wrong') {
-            fire('wrong', 0);
-        } else {
-            fire('bell', 0);
-        }
-    }
-
-    function paintMute() {
-        var b = $('[data-mute]');
-        b.textContent = muted ? 'Sound off' : 'Sound on';
-        b.setAttribute('aria-pressed', muted ? 'true' : 'false');
-    }
-
-    $('[data-mute]').addEventListener('click', function () {
-        muted = !muted;
-        localStorage.setItem(MUTE, muted ? '1' : '0');
-        paintMute();
-    });
-    paintMute();
-
-    /* ---------- effects ---------- */
-
-    var fx = $('[data-fx]');
-    var fxc = fx.getContext('2d');
-    var top = $('[data-fx-top]');
-    var tpc = top.getContext('2d');
-    var bits = [];
-    var motes = [];
-    var fxOn = false;
-
-    function sizeFx() {
-        var r = window.devicePixelRatio || 1;
-        [fx, top].forEach(function (c) {
-            c.width = window.innerWidth * r;
-            c.height = window.innerHeight * r;
-            c.getContext('2d').setTransform(r, 0, 0, r, 0, 0);
-        });
-    }
-
-    function seedMotes() {
-        motes = [];
-        var n = Math.min(60, Math.round(window.innerWidth / 22));
-        for (var i = 0; i < n; i++) {
-            motes.push({
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
-                r: Math.random() * 1.8 + 0.4,
-                v: Math.random() * 0.35 + 0.08,
-                p: Math.random() * Math.PI * 2
-            });
-        }
-    }
-
-    function frame() {
-        var W = window.innerWidth;
-        var H = window.innerHeight;
-        fxc.clearRect(0, 0, W, H);
-        motes.forEach(function (m) {
-            m.y -= m.v;
-            m.p += 0.02;
-            if (m.y < -10) { m.y = H + 10; m.x = Math.random() * W; }
-            fxc.globalAlpha = 0.35 + Math.sin(m.p) * 0.25;
-            fxc.fillStyle = '#ffd27a';
-            fxc.beginPath();
-            fxc.arc(m.x + Math.sin(m.p) * 6, m.y, m.r, 0, Math.PI * 2);
-            fxc.fill();
-        });
-        tpc.clearRect(0, 0, W, H);
-        for (var i = bits.length - 1; i >= 0; i--) {
-            var b = bits[i];
-            b.vy += b.g;
-            b.vx *= 0.985;
-            b.x += b.vx;
-            b.y += b.vy;
-            b.a += b.spin;
-            b.life -= 1;
-            if (b.life <= 0) { bits.splice(i, 1); continue; }
-            tpc.globalAlpha = Math.min(1, b.life / 40);
-            tpc.fillStyle = b.c;
-            tpc.save();
-            tpc.translate(b.x, b.y);
-            tpc.rotate(b.a);
-            if (b.petal) {
-                tpc.beginPath();
-                tpc.ellipse(0, 0, b.s, b.s * 0.45, 0, 0, Math.PI * 2);
-                tpc.fill();
-            } else {
-                tpc.fillRect(-b.s / 2, -b.s / 2, b.s, b.s * 0.6);
-            }
-            tpc.restore();
-        }
-        fxc.globalAlpha = 1;
-        tpc.globalAlpha = 1;
-        requestAnimationFrame(frame);
-    }
-
-    function startFx() {
-        if (fxOn || calm) { return; }
-        fxOn = true;
-        sizeFx();
-        seedMotes();
-        window.addEventListener('resize', function () { sizeFx(); seedMotes(); });
-        requestAnimationFrame(frame);
-    }
-
-    // Burst of petals and confetti from a point (viewport coordinates).
-    function burst(x, y, count, colors, spread) {
-        if (calm) { return; }
-        for (var i = 0; i < count; i++) {
-            var a = Math.random() * Math.PI * 2;
-            var v = Math.random() * (spread || 9) + 2;
-            bits.push({
-                x: x, y: y,
-                vx: Math.cos(a) * v,
-                vy: Math.sin(a) * v - 4,
-                g: 0.22,
-                s: Math.random() * 8 + 5,
-                a: Math.random() * 6,
-                spin: (Math.random() - 0.5) * 0.3,
-                life: 70 + Math.random() * 50,
-                petal: Math.random() < 0.55,
-                c: colors[i % colors.length]
-            });
-        }
-    }
-
-    var JOY = ['#ffd27a', '#ff9933', '#f472b6', '#4ade80', '#fde68a', '#ea580c'];
-    var GOLD = ['#fde68a', '#facc15', '#ff9933', '#ffffff', '#f59e0b'];
-
-    function celebrate() {
-        var W = window.innerWidth;
-        burst(W * 0.2, window.innerHeight * 0.35, 70, GOLD, 12);
-        burst(W * 0.8, window.innerHeight * 0.35, 70, GOLD, 12);
-        setTimeout(function () { burst(W / 2, window.innerHeight * 0.25, 90, JOY, 14); }, 250);
-    }
-
-    function pop(text, good, el) {
-        var r = el.getBoundingClientRect();
-        var s = document.createElement('span');
-        s.className = 'sp-quiz__pop ' + (good ? 'is-good' : 'is-bad');
-        s.textContent = text;
-        s.style.left = (r.left + r.width / 2) + 'px';
-        s.style.top = (r.top + r.height / 2) + 'px';
-        $('[data-pops]').appendChild(s);
-        setTimeout(function () { s.remove(); }, 1300);
-    }
-
-    function mood(m) {
-        root.setAttribute('data-mood', m);
-        clearTimeout(mood.t);
-        if (m === 'good' || m === 'bad') {
-            mood.t = setTimeout(function () { root.setAttribute('data-mood', 'idle'); }, 1600);
-        }
-    }
-
-    function countScore(to) {
-        var box = $('.sp-quiz__score');
-        var el = $('[data-hud-score]');
-        var from = shownScore;
-        shownScore = to;
-        box.classList.remove('is-bump');
-        void box.offsetWidth;
-        box.classList.add('is-bump');
-        if (calm || from === to) { el.textContent = to; return; }
-        var t0 = performance.now();
-        (function step(t) {
-            var k = Math.min(1, (t - t0) / 500);
-            el.textContent = Math.round(from + (to - from) * k);
-            if (k < 1) { requestAnimationFrame(step); }
-        })(t0);
-    }
-
-    function paintStreak() {
-        var box = $('[data-streak]');
-        box.hidden = streak < 2;
-        $('[data-streak-num]').textContent = 'x' + streak;
-        if (streak >= 2) {
-            box.style.animation = 'none';
-            void box.offsetWidth;
-            box.style.animation = '';
-        }
-    }
-
-    function paintMap(list, current, cleared) {
-        list.querySelectorAll('li').forEach(function (li) {
-            var n = Number(li.getAttribute('data-level'));
-            li.classList.toggle('is-done', n <= cleared);
-            li.classList.toggle('is-current', n === current && n > cleared);
-        });
-    }
-
-    function fillMiniMap() {
-        var mini = $('[data-map-mini]');
-        if (!mini.children.length) {
-            $('[data-map]').querySelectorAll('li').forEach(function (li) {
-                mini.appendChild(li.cloneNode(true));
-            });
-        }
-        paintMap(mini, run.level, run.levelsCleared);
-    }
-
-    // 3-2-1 overlay before a level starts.
-    function countdown(label, done) {
-        var box = $('[data-countdown]');
-        var span = box.firstElementChild;
-        if (calm) { done(); return; }
-        var seq = ['3', '2', '1', label];
-        box.classList.add('is-on');
-        (function tick(i) {
-            if (i >= seq.length) { box.classList.remove('is-on'); done(); return; }
-            span.textContent = seq[i];
-            span.classList.remove('is-tick');
-            void span.offsetWidth;
-            span.classList.add('is-tick');
-            if (!muted && i === seq.length - 1) { fire('bell', 0); }
-            setTimeout(function () { tick(i + 1); }, i < 3 ? 650 : 550);
-        })(0);
-    }
-
-    /* ---------- HUD + card ---------- */
-
     function hud() {
         $('[data-hud-num]').textContent = run.level;
-        $('[data-hud-level]').textContent = 'Level ' + run.level + ' of ' + run.levels;
         $('[data-hud-title]').textContent = run.levelTitle;
+        $('[data-hud-level]').textContent = (run.mode === 'practice' ? 'Revision' : run.mode === 'learn' ? 'Self-paced learning' : 'Timed challenge') + ' · Topic ' + run.level + ' of ' + run.levels;
         $('[data-hud-score]').textContent = run.score;
-        shownScore = run.score;
-        var pct = run.levelTotal ? Math.round(run.levelDone / run.levelTotal * 100) : 0;
-        var bar = $('[data-progress]');
-        bar.setAttribute('aria-valuenow', pct);
-        bar.firstElementChild.style.width = pct + '%';
-        $('[data-progress-text]').textContent = run.levelDone + ' of ' + run.levelTotal + ' questions cleared in this level';
+        var pct = Math.max(0, Math.min(100, Math.round(run.levelDone / run.levelTotal * 100)));
+        $('[data-progress]').setAttribute('aria-valuenow', pct); $('[data-progress]').firstElementChild.style.width = pct + '%';
+        $('[data-progress-text]').textContent = run.levelDone + ' of ' + run.levelTotal + ' cards learned in this topic';
+        var list = $('[data-revision-list]'); list.replaceChildren();
+        (run.review || []).forEach(function (item) { var detail = document.createElement('details'), title = document.createElement('summary'), note = document.createElement('p'); title.textContent = item.question; note.textContent = item.answer + '. ' + item.note; detail.append(title, note); list.append(detail); });
+        $('[data-notebook]').textContent = (run.review || []).length ? (run.review.length + ' cards to revisit.') : 'No outstanding cards. Incorrect answers will appear here.';
+        $('[data-claim]').hidden = !cfg.loggedIn;
+        $('[data-practice]').hidden = run.mode === 'practice';
     }
-
-    function renderQuestion() {
-        var card = $('[data-card]');
-        card.classList.remove('is-correct', 'is-wrong');
-        card.classList.remove('is-flip');
-        void card.offsetWidth;
-        card.classList.add('is-flip');
-        $('[data-question]').textContent = question.text;
-        var left = run.levelTotal - run.levelDone;
-        $('[data-card-tag]').textContent = 'Card ' + (run.levelDone + 1) + ' / ' + run.levelTotal + (left === 1 ? ' - final card' : '');
-        $('[data-feedback]').textContent = '';
-        $('[data-feedback]').className = 'sp-quiz__feedback';
-        $('[data-next]').hidden = true;
-        var box = $('[data-options]');
-        box.innerHTML = '';
-        question.options.forEach(function (text, i) {
-            var b = document.createElement('button');
-            b.type = 'button';
-            b.className = 'sp-quiz__option';
-            b.setAttribute('data-choice', i);
-            var key = document.createElement('span');
-            key.className = 'sp-quiz__key';
-            key.textContent = String(i + 1);
-            key.setAttribute('data-k', String(i + 1));
-            var label = document.createElement('span');
-            label.textContent = text;
-            b.appendChild(key);
-            b.appendChild(label);
-            b.addEventListener('click', function () { answer(i); });
-            box.appendChild(b);
+    function render() {
+        if (!question) { if (run && run.cert) return showCertificate(run.cert); return show('start'); }
+        show('play'); hud(); root.dataset.mood = 'idle';
+        $('[data-question]').textContent = question.text; $('[data-card-tag]').textContent = question.key;
+        $('[data-feedback]').textContent = ''; $('[data-explanation]').hidden = true; $('[data-report-wrap]').hidden = true;
+        $('[data-report-status]').textContent = ''; $('[data-report-form]').reset();
+        $('[data-next]').hidden = true; $('[data-checkpoint]').textContent = '';
+        $('[data-timer-warning]').textContent = run.seconds ? 'Challenge: 30 seconds per card. The timer continues if you leave this page.' : 'Take your time. This learning session has no timer.';
+        var box = $('[data-options]'); box.replaceChildren();
+        question.options.forEach(function (text, index) {
+            var button = document.createElement('button'); button.type = 'button'; button.className = 'sp-quiz__option sp-quiz__btn'; button.dataset.choice = index;
+            var key = document.createElement('span'); key.className = 'sp-quiz__key'; key.textContent = index + 1; key.dataset.k = index + 1;
+            var label = document.createElement('span'); label.textContent = text; button.append(key, label); button.addEventListener('click', function () { answer(index); }); box.append(button);
         });
-        hud();
-        startTimer();
         $('[data-question]').focus({ preventScroll: true });
-    }
-
-    function startTimer() {
-        stopTimer();
-        var total = run.seconds * 1000;
-        deadline = Date.now() + total;
-        var bar = $('[data-timer-bar]');
-        var txt = $('[data-timer]');
-        timerId = setInterval(function () {
-            var left = Math.max(0, deadline - Date.now());
-            bar.style.strokeDashoffset = (119.4 * (1 - left / total)).toFixed(2);
-            bar.closest('.sp-quiz__timer').classList.toggle('is-low', left < 8000);
-            txt.textContent = Math.ceil(left / 1000);
-            if (left <= 0) {
-                stopTimer();
-                answer(-1);
+        $('.sp-quiz__timer').hidden = question.remaining === null;
+        if (question.remaining !== null && !feedback) {
+            var deadline = Date.now() + question.remaining * 1000, warned = false;
+            function tick() {
+                var seconds = Math.max(0, Math.ceil((deadline - Date.now()) / 1000)); $('[data-timer]').textContent = seconds;
+                $('[data-timer-bar]').style.strokeDashoffset = 119.4 * (1 - seconds / 30);
+                if (seconds <= 10 && !warned) { $('[data-timer-warning]').textContent = 'Ten seconds or less remaining.'; warned = true; }
+                if (seconds === 0 && !busy) { clearInterval(timer); answer(-1); }
             }
-        }, 100);
-    }
-
-    function stopTimer() {
-        if (timerId) { clearInterval(timerId); timerId = null; }
-    }
-
-    /* ---------- flow ---------- */
-
-    function answer(choice) {
-        if (busy || pending) { return; }
-        busy = true;
-        stopTimer();
-        var buttons = root.querySelectorAll('.sp-quiz__option');
-        buttons.forEach(function (b) { b.disabled = true; });
-        api('answer', { token: run.token, choice: choice }).then(function (res) {
-            busy = false;
-            pending = res;
-            run = res.run;
-            var card = $('[data-card]');
-            buttons[res.answer].classList.add('is-right');
-            var fb = $('[data-feedback]');
-            fb.textContent = '';
-            var head = document.createElement('b');
-            var body = document.createElement('span');
-            if (res.correct) {
-                streak += 1;
-                card.classList.add('is-correct');
-                head.textContent = 'Uttam!';
-                body.textContent = 'Excellent, keep it up. +' + res.points + ' points' + (streak >= 3 ? ' - ' + streak + ' in a row!' : '');
-                fb.classList.add('is-good');
-                play('correct');
-                mood('good');
-                var r = buttons[res.answer].getBoundingClientRect();
-                burst(r.left + r.width / 2, r.top + r.height / 2, 26 + Math.min(streak, 10) * 4, JOY, 8);
-                pop('+' + res.points, true, buttons[res.answer]);
-            } else {
-                streak = 0;
-                card.classList.add('is-wrong');
-                if (choice >= 0) { buttons[choice].classList.add('is-wrong'); }
-                head.textContent = (choice < 0 ? 'Time is up. ' : '') + 'Satya Pratiksharat';
-                body.textContent = 'The truth awaits you. ' + res.points + ' points. This card will return later in the level.';
-                fb.classList.add('is-soft');
-                play('wrong');
-                mood('bad');
-                pop(String(res.points), false, choice >= 0 ? buttons[choice] : $('.sp-quiz__timer'));
-            }
-            fb.appendChild(head);
-            fb.appendChild(body);
-            paintStreak();
-            countScore(run.score);
-            var pct = run.levelTotal ? Math.round(run.levelDone / run.levelTotal * 100) : 0;
-            $('[data-progress]').firstElementChild.style.width = pct + '%';
-            $('[data-progress-text]').textContent = run.levelDone + ' of ' + run.levelTotal + ' questions cleared in this level';
-            var next = $('[data-next]');
-            next.textContent = res.cleared ? (run.status === 'completed' ? 'Receive your certificate' : 'See level result') : 'Next card';
-            next.hidden = false;
-            next.focus({ preventScroll: true });
-        }).catch(function (e) {
-            busy = false;
-            alert(e.message);
-            reset();
-        });
-    }
-
-    function next() {
-        if (!pending) { return; }
-        var res = pending;
-        pending = null;
-        if (run.status === 'completed') {
-            localStorage.removeItem(STORE);
-            play('cert');
-            mood('win');
-            showCertificate(run.cert, true);
-            celebrate();
-            setTimeout(celebrate, 1200);
-            return;
+            timer = setInterval(tick, 250); tick();
         }
-        question = res.question;
-        if (res.cleared) {
-            $('[data-level-heading]').textContent = 'Level ' + run.levelsCleared + ' complete';
-            $('[data-level-summary]').textContent = 'Score so far: ' + run.score + ' points. Next: level ' + run.level + ', ' + run.levelTitle + '.';
-            play('cert');
-            mood('win');
-            fillMiniMap();
-            portal('Level ' + run.levelsCleared + ' cleared', 'Sangyani Sanatan', function () {
-                show('level');
-                celebrate();
-            });
-            return;
-        }
-        renderQuestion();
     }
-
-    function enterLevel() {
-        mood('idle');
-        countdown('Level ' + run.level, function () {
-            show('play');
-            renderQuestion();
-        });
+    function paintFeedback(result) {
+        clearInterval(timer); feedback = result; root.dataset.mood = result.correct ? 'good' : 'bad';
+        root.querySelectorAll('[data-choice]').forEach(function (button) { button.disabled = true; button.classList.toggle('is-right', Number(button.dataset.choice) === result.answer); });
+        $('[data-feedback]').textContent = result.correct ? 'Correct. +10 points.' : (result.expired ? 'Time has ended. ' : 'Keep learning. ') + 'The correct answer is ' + question.options[result.answer] + '. −5 points. This card will return for revision.';
+        $('[data-explanation]').textContent = result.explanation; $('[data-explanation]').hidden = false; $('[data-report-wrap]').hidden = false;
+        $('[data-next]').hidden = false; $('[data-next]').textContent = run.cert ? 'View completion certificate' : run.status === 'practised' ? 'Finish revision' : result.cleared ? 'Continue to next topic' : 'Next card';
+        $('[data-checkpoint]').textContent = result.checkpoint ? 'Ten cards practised. A good moment to pause; your progress is saved.' : '';
+        hud();
+        if (sound) { var audio = new Audio(cfg.audio[result.correct ? 'correct' : 'wrong']); audio.play().catch(function () {}); }
+        $('[data-next]').focus({ preventScroll: true });
     }
-
-    function begin(res) {
-        run = res.run;
-        question = res.question;
-        streak = 0;
-        localStorage.setItem(STORE, run.token);
-        paintStreak();
-        paintMap($('[data-map]'), run.level, run.levelsCleared);
-        portal('Entering the game', 'Sangyani Sanatan', enterLevel);
+    function accept(data) {
+        run = data.run; $('[name="name"]').value = run.player; $('[name="name"]').required = false; question = data.question; feedback = data.feedback || null; saveToken(run.token); fresh = false;
+        if (run.cert && !feedback) return showCertificate(run.cert);
+        if (run.status === 'practised' && !feedback) return finishPractice();
+        render(); if (feedback) paintFeedback(feedback);
     }
-
-    function reset() {
-        stopTimer();
-        pending = null;
-        run = null;
-        localStorage.removeItem(STORE);
-        mood('idle');
-        paintMap($('[data-map]'), 1, 0);
-        show('start');
+    async function resume() {
+        if (busy) return; busy = true; error('', true);
+        try { accept(await api('start', { token: fresh ? '' : (store.get(STORE) || (run && run.token) || ''), name: $('[name="name"]').value, mode: $('[name="mode"]:checked').value, fresh: fresh })); }
+        catch (e) { error(e.message, root.dataset.screen === 'play'); } finally { busy = false; }
     }
-
-    $('[data-next]').addEventListener('click', next);
-    $('[data-continue]').addEventListener('click', enterLevel);
-    $('[data-quit]').addEventListener('click', function () {
-        if (!run || !window.confirm('End this game? Your progress in it will be closed.')) { return; }
-        api('restart', { token: run.token }).finally(reset);
+    async function answer(choice) {
+        if (busy || feedback || !question) return; busy = true; clearInterval(timer);
+        root.querySelectorAll('[data-choice]').forEach(function (button) { button.disabled = true; });
+        try { var data = await api('answer', { token: run.token, questionId: question.id, choice: choice }); run = data.run; paintFeedback(data); error('', true); }
+        catch (e) { error(e.message, true); } finally { busy = false; }
+    }
+    async function action(name, extra) {
+        if (busy || !run) return; busy = true;
+        try { var data = await api('action', Object.assign({ token: run.token, action: name }, extra || {})); error('', true); return data; }
+        catch (e) { error(e.message, true); } finally { busy = false; }
+    }
+    async function next() {
+        if (!feedback || busy) return;
+        if (run.cert) return showCertificate(run.cert);
+        if (run.status === 'practised') return finishPractice();
+        var data = await action('next', { questionId: feedback.questionId }); if (data) accept(data);
+    }
+    function finishPractice() {
+        if (practiceParent) { saveToken(practiceParent); practiceParent = null; store.remove('spQuizPracticeParent'); }
+        show('start'); note('Revision complete. Your main journey is saved. Begin or resume when you are ready.');
+    }
+    function note(text) { $('[data-resume-note]').hidden = false; $('[data-resume-note]').textContent = text; $('[data-new]').hidden = !store.get(STORE); $('[data-forget]').hidden = !store.get(STORE); }
+    $('[data-start-form]').addEventListener('submit', function (e) { e.preventDefault(); resume(); });
+    $('[data-next]').addEventListener('click', next); $('[data-continue]').addEventListener('click', next);
+    $('[data-recover]').addEventListener('click', resume);
+    $('[data-quit]').addEventListener('click', function () { if (busy) return; clearInterval(timer); show('start'); note('Your progress is saved. Begin or resume to continue. Timed challenge cards keep their original deadline.'); });
+    $('[data-new]').addEventListener('click', function () { if (!confirm('Begin a new journey on this browser? Your previous account history will remain.')) return; store.remove(STORE); fresh = true; $('[name="name"]').required = true; show('start'); $('[data-new]').hidden = true; $('[data-resume-note]').hidden = true; error(''); });
+    $('[data-forget]').addEventListener('click', async function () {
+        if (busy || !confirm('Permanently delete this saved journey and any certificate it issued?')) return; busy = true;
+        try { await api('action', { token: store.get(STORE), action: 'forget' }); store.remove(STORE); store.remove('spQuizPracticeParent'); run = null; question = null; feedback = null; fresh = true; $('[data-new]').hidden = true; $('[data-forget]').hidden = true; $('[data-resume-note]').textContent = 'Saved journey deleted.'; }
+        catch(e) { error(e.message); } finally { busy = false; }
     });
-
+    $('[data-practice]').addEventListener('click', async function () {
+        if (busy || !confirm('Pause your journey for a short revision session? Your main progress will be kept.')) return;
+        var parent = run.token, data = await action('practice'); if (data) { practiceParent = parent; store.set('spQuizPracticeParent', parent); accept(data); }
+    });
+    $('[data-claim]').addEventListener('click', async function () { var data = await action('claim'); if (data) { accept(data); $('[data-checkpoint]').textContent = 'Saved to your account and private dashboard.'; } });
+    $('[data-rename]').addEventListener('click', async function () { var name = prompt('Certificate recipient name (up to 60 characters)', run.player); if (name) { var data = await action('rename', { name: name }); if (data) accept(data); } });
+    $('[data-report-form]').addEventListener('submit', async function (e) { e.preventDefault(); var data = await action('report', { key: question.key, message: $('#sp-report').value }); if (data) { $('[data-report-status]').textContent = 'Thank you. Your question has been sent for editorial review.'; $('#sp-report').value = ''; } });
     document.addEventListener('keydown', function (e) {
-        if (!$('[data-screen="play"]').classList.contains('is-active')) { return; }
-        if (/^[1-4]$/.test(e.key) && !pending) { answer(Number(e.key) - 1); }
-        if (e.key === 'Enter' && pending) { e.preventDefault(); next(); }
+        if (/^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(document.activeElement.tagName) || document.activeElement.isContentEditable || e.altKey || e.ctrlKey || e.metaKey) return;
+        if (root.dataset.screen !== 'play') return;
+        if (/^[1-4]$/.test(e.key) && !feedback) { e.preventDefault(); answer(Number(e.key) - 1); }
+        if (e.key === 'Enter' && feedback) { e.preventDefault(); next(); }
     });
-
-    var form = $('[data-start-form]');
-    var nameInput = form.querySelector('input');
-    nameInput.value = cfg.name || '';
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        error('');
-        var btn = $('[data-start-btn]');
-        btn.disabled = true;
-        api('start', { name: nameInput.value, token: localStorage.getItem(STORE) || '' })
-            .then(begin)
-            .catch(function (err) { error(err.message); })
-            .finally(function () { btn.disabled = false; });
-    });
-
-    var saved = localStorage.getItem(STORE);
-    if (saved || cfg.loggedIn) {
-        var note = $('[data-resume-note]');
-        note.textContent = 'If you have a game in progress, Begin will resume it where you left off.';
-        note.hidden = false;
-    }
-
-    /* ---------- certificate ---------- */
-
     function wrapCenter(c, text, x, y, max, lh) {
         var words = text.split(' ');
         var line = '';
@@ -625,7 +204,7 @@
         c.fillText('SHIVBODH TRUST', W / 2, 278);
         c.font = 'italic 26px Georgia, serif';
         c.fillStyle = gold;
-        c.fillText('Certificate of Achievement', W / 2, 322);
+        c.fillText('Certificate of Course Completion', W / 2, 322);
 
         c.fillStyle = saffron;
         c.font = '700 74px Georgia, serif';
@@ -635,7 +214,9 @@
         c.font = '26px Georgia, serif';
         c.fillText('This certificate is proudly presented to', W / 2, 500);
 
-        c.font = 'italic 700 68px Georgia, serif';
+        var nameSize = 68;
+        c.font = 'italic 700 ' + nameSize + 'px Georgia, serif';
+        while (c.measureText(cert.name).width > 1180 && nameSize > 18) { nameSize--; c.font = 'italic 700 ' + nameSize + 'px Georgia, serif'; }
         c.fillStyle = '#7c2d12';
         c.fillText(cert.name, W / 2, 590);
         c.strokeStyle = gold;
@@ -647,7 +228,7 @@
 
         c.fillStyle = ink;
         c.font = '27px Georgia, serif';
-        wrapCenter(c, 'for clearing all ten levels of the Sangyani Sanatan Quiz, answering every one of its 500 questions on Sanatan Dharma correctly, with a final score of ' + cert.score + ' points.', W / 2, 675, 1080, 40);
+        wrapCenter(c, 'for completing all ten topics and studying all 500 cards, including revision where needed, with a final score of ' + cert.score + ' points.', W / 2, 675, 1080, 40);
 
         c.font = '24px Georgia, serif';
         c.textAlign = 'left';
@@ -692,48 +273,28 @@
         c.fillText('Verify at ' + cert.url.replace(/^https?:\/\//, ''), W / 2, H - 112);
     }
 
-    function showCertificate(cert, fresh) {
-        drawCertificate(cert);
-        $('[data-cert-eyebrow]').textContent = fresh ? 'All ten levels cleared' : 'Verified certificate';
-        $('[data-cert-heading]').textContent = fresh ? 'You are a Sangyani Sanatan' : cert.name + ', Sangyani Sanatan';
-        $('[data-cert-verify]').textContent = 'Certificate ID ' + cert.id + ', issued by ShivBodh Trust on ' + cert.date + '.';
+    function showCertificate(cert) {
+        certificate = cert; show('cert'); drawCertificate(cert);
+        $('[data-cert-heading]').textContent = 'Your learning milestone';
+        $('[data-cert-eyebrow]').textContent = 'Verified course completion';
+        $('[data-cert-text]').textContent = cert.name + ' completed the Sangyani Sanatan learning course of ten topics and 500 cards, with revision where needed. Score: ' + cert.score + '. Issued by ShivBodh Trust on ' + cert.date + '. Certificate ID: ' + cert.id + '.';
+        $('[data-cert-canvas]').setAttribute('aria-label', $('[data-cert-text]').textContent);
+        $('[data-cert-verify]').textContent = 'Certificate ID ' + cert.id + ' · ' + cert.date;
         $('[data-cert-dashboard]').hidden = !cfg.loggedIn;
-        root.dataset.certFile = 'Sangyani-Sanatan-' + cert.name.replace(/[^A-Za-z0-9]+/g, '-') + '.png';
-        show('cert');
     }
-
-    $('[data-download-png]').addEventListener('click', function () {
-        var a = document.createElement('a');
-        a.download = root.dataset.certFile || 'Sangyani-Sanatan-certificate.png';
-        a.href = $('[data-cert-canvas]').toDataURL('image/png');
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
+    $('[data-download-png]').addEventListener('click', function () { var a = document.createElement('a'); a.download = 'Sangyani-Sanatan-' + certificate.id + '.png'; a.href = $('[data-cert-canvas]').toDataURL('image/png'); a.click(); });
+    $('[data-download-pdf]').addEventListener('click', function () { window.print(); });
+    $('[data-share]').addEventListener('click', async function () {
+        try { if (navigator.share) await navigator.share({ title: 'Sangyani Sanatan completion', url: certificate.url }); else { await navigator.clipboard.writeText(certificate.url); $('[data-cert-verify]').textContent = 'Certificate link copied.'; } }
+        catch (e) { if (e.name !== 'AbortError') $('[data-cert-verify]').textContent = certificate.url; }
     });
-
-    $('[data-download-pdf]').addEventListener('click', function () {
-        var holder = document.createElement('div');
-        holder.className = 'sp-quiz-print';
-        var img = new Image();
-        img.alt = 'Sangyani Sanatan certificate';
-        img.src = $('[data-cert-canvas]').toDataURL('image/png');
-        holder.appendChild(img);
-        document.body.appendChild(holder);
-        img.onload = function () {
-            window.print();
-            setTimeout(function () { holder.remove(); }, 500);
-        };
-    });
-
-    startFx();
-    root.setAttribute('data-screen', 'start');
-    paintMap($('[data-map]'), 1, 0);
-
-    var params = new URLSearchParams(window.location.search);
-    var certId = params.get('certificate');
-    if (certId && /^SBT-[A-Z0-9]{8}$/.test(certId)) {
-        api('certificate/' + certId, null, 'GET')
-            .then(function (cert) { showCertificate(cert, false); })
-            .catch(function (e) { error(e.message); });
+    practiceParent = store.get('spQuizPracticeParent');
+    $('[name="name"]').value = cfg.name || '';
+    $('[name="name"]').required = !store.get(STORE);
+    if (store.get(STORE)) note('Your saved journey is ready. Begin or resume to continue.');
+    show('start');
+    var certId = new URLSearchParams(location.search).get('certificate');
+    if (certId) {
+        fetch(cfg.api + 'certificate/' + encodeURIComponent(certId), { cache: 'no-store' }).then(async function (response) { var data = await response.json(); if (!response.ok) throw new Error(data.message || 'Certificate unavailable.'); showCertificate(data); }).catch(function (e) { error(e.message); });
     }
 })();

@@ -1,4 +1,4 @@
-title: Vaigyanik Sanatan
+title: Learning and Knowledge
 The traditional residential school where students lived with their teacher was called what? | Gurukul | Mandapa | Madrasa | Sabha
 Which ancient university in Bihar was a great centre of learning? | Nalanda | Takshashila | Ujjain | Kanchi
 Which ancient centre of learning stood in the north-west, near present-day Rawalpindi? | Takshashila | Nalanda | Vikramashila | Valabhi
@@ -13,7 +13,7 @@ Who wrote the Ashtadhyayi, the classical grammar of Sanskrit? | Panini | Patanja
 How many arts are traditionally listed as the Chausath Kala? | Sixty-four | Thirty-two | Eighteen | 108
 The Upaveda that deals with archery and warfare is called what? | Dhanurveda | Ayurveda | Gandharvaveda | Sthapatyaveda
 The Upaveda that deals with music and dance is called what? | Gandharvaveda | Dhanurveda | Ayurveda | Arthaveda
-Ayurveda is regarded as an Upaveda attached to which Veda? | Atharvaveda | Samaveda | Rigveda | Yajurveda
+In a common classification linking Ayurveda with the Atharvan tradition, which Veda is it attached to? | Atharvaveda | Samaveda | Rigveda | Yajurveda
 Which ancient mathematician-astronomer wrote the Aryabhatiya? | Aryabhata | Varahamihira | Brahmagupta | Bhaskara II
 Which mathematician gave rules for calculating with zero in the Brahmasphutasiddhanta? | Brahmagupta | Aryabhata | Panini | Pingala
 Which mathematician wrote the Lilavati? | Bhaskaracharya (Bhaskara II) | Aryabhata | Brahmagupta | Madhava
@@ -39,10 +39,10 @@ The seasonal routine prescribed in Ayurveda is called what? | Ritucharya | Dinac
 Which famous Ayurvedic formula is made of three fruits? | Triphala | Trikatu | Chyawanprash | Dashamoola
 Which Ayurvedic preparation is named after Rishi Chyavana? | Chyawanprash | Triphala | Trikatu | Brahmi Ghrita
 Trikatu is made of black pepper, long pepper and what? | Ginger | Turmeric | Cardamom | Clove
-Which herb is commonly called Giloy and praised for immunity? | Guduchi | Brahmi | Shatavari | Neem
+Which Ayurvedic plant name refers to the climbing plant commonly called Giloy? | Guduchi | Brahmi | Shatavari | Neem
 Which herb is traditionally used to support memory and the mind? | Brahmi | Ashwagandha | Shatavari | Guggulu
-Which spice is famous in Ayurveda for its healing yellow colour? | Turmeric (Haridra) | Saffron | Mustard | Cumin
-The science of sound and mantra holds that the universe arose from which primordial sound? | Om (Nada Brahman) | Ram | Hum | Svaha
+Which spice is known in Ayurveda as Haridra and has a yellow colour? | Turmeric (Haridra) | Saffron | Mustard | Cumin
+Which primordial sound is revered as Nada Brahman in the tradition of sound and mantra? | Om (Nada Brahman) | Ram | Hum | Svaha
 The repetition of a mantra silently in the mind is called what? | Manasika japa | Vachika japa | Upamshu japa | Kirtan
 The repetition of a mantra in a whisper is called what? | Upamshu japa | Vachika japa | Manasika japa | Bhajan
 The metre of the Gayatri Mantra has how many syllables? | Twenty-four | Sixteen | Thirty-two | Eight

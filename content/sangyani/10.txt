@@ -1,4 +1,4 @@
-title: Sanatan Shastra
+title: Philosophy and Shastra
 Vastu Shastra is the traditional science of what? | Architecture and space | Medicine | Music | Grammar
 In Vastu, the central zone of a building is called what? | Brahmasthana | Ishanya | Agneya | Nairutya
 In Vastu, which direction is preferred for the place of worship? | North-east (Ishanya) | South-west | South | West
@@ -27,7 +27,7 @@ Who is the author of the Arthashastra, a classical text on statecraft? | Kautily
 The collection of moral stories with animals written by Vishnu Sharma is called what? | Panchatantra | Hitopadesha | Jataka | Kathasaritsagara
 The teachings on right conduct given by Vidura to Dhritarashtra are called what? | Vidura Niti | Chanakya Niti | Shukra Niti | Bhartrihari Niti
 Who composed the Niti Shataka, a hundred verses on wise conduct? | Bhartrihari | Kalidasa | Chanakya | Bana
-Which ancient text by Lagadha is the oldest Indian text on astronomy? | Vedanga Jyotisha | Surya Siddhanta | Aryabhatiya | Brihat Samhita
+Which early Indian text on calendrical astronomy is attributed to Lagadha? | Vedanga Jyotisha | Surya Siddhanta | Aryabhatiya | Brihat Samhita
 Aryabhata proposed that the apparent motion of the stars is caused by what? | The rotation of the Earth | The Sun going around | The Moon's pull | Wind
 The classical Indian astronomy text attributed to Surya is called what? | Surya Siddhanta | Surya Samhita | Surya Sutra | Surya Gita
 Ayurveda states that the body is made of how many great elements (Panchamahabhuta)? | Five | Three | Seven | Nine

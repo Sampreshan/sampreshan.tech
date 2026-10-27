@@ -1,4 +1,4 @@
-title: Sacred Texts of Sanatan
+title: Sacred Texts
 Which Veda is the Veda of melodies and chanting? | Samaveda | Rigveda | Yajurveda | Atharvaveda
 Which Veda mainly contains the formulas for yajna rituals? | Yajurveda | Rigveda | Samaveda | Atharvaveda
 Which Veda is best known for hymns on healing and daily life? | Atharvaveda | Rigveda | Samaveda | Yajurveda
@@ -12,7 +12,7 @@ The Devi Mahatmya (Durga Saptashati) is part of which Purana? | Markandeya Puran
 The Upanishads are also known as what, being the end of the Vedas? | Vedanta | Vedanga | Smriti | Agama
 Which Upanishad tells the story of Nachiketa and Yama? | Katha Upanishad | Isha Upanishad | Kena Upanishad | Mandukya Upanishad
 Which is the shortest of the principal Upanishads, with twelve verses? | Mandukya Upanishad | Chandogya Upanishad | Brihadaranyaka Upanishad | Taittiriya Upanishad
-Which is the largest of the principal Upanishads? | Brihadaranyaka Upanishad | Isha Upanishad | Mandukya Upanishad | Kena Upanishad
+Which principal Upanishad contains Yajnavalkya’s dialogues with Maitreyi? | Brihadaranyaka Upanishad | Isha Upanishad | Mandukya Upanishad | Kena Upanishad
 Scriptures that are "remembered", such as the Dharma Shastras, are called what? | Smriti | Shruti | Agama | Sutra
 The Ramayana and the Mahabharata together are called what? | Itihasa | Purana | Upanishad | Agama
 Shorter Puranas that supplement the Mahapuranas are called what? | Upapuranas | Vedangas | Aranyakas | Brahmanas

@@ -3,19 +3,19 @@
  * Sangyani Sanatan quiz: storage, REST API, certificate, dashboard + profile.
  *
  * Rules:
- * - 10 levels, 50 questions each (inc/quiz/bank/NN.txt).
+ * - 10 topics, 50 questions each, loaded from a private runtime directory.
  * - Correct answer: +10. Wrong answer or time-out: -5, and the question
  *   returns at the end of the level with its options reshuffled.
  * - A level is cleared only when every question in it is answered correctly.
  * - Clearing level 10 issues a certificate from ShivBodh Trust.
- * Answers are checked on the server; the browser never receives the key.
+ * Public study material; completion recognises study with retries, not a proctored examination.
  *
  * @package SampreShan_Child
  */
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-const SP_QUIZ_DB_VERSION = '1.0.0';
+const SP_QUIZ_DB_VERSION = '2.0.0';
 const SP_QUIZ_POINTS_OK  = 10;
 const SP_QUIZ_POINTS_BAD = -5;
 const SP_QUIZ_SECONDS    = 30;
@@ -35,7 +35,8 @@ function sp_quiz_bank() {
         return $bank;
     }
     $bank  = array();
-    $files = glob( get_stylesheet_directory() . '/inc/quiz/bank/*.txt' );
+    $directory = defined( 'SP_QUIZ_BANK_DIR' ) ? SP_QUIZ_BANK_DIR : dirname( ABSPATH ) . '/private/sangyani';
+    $files = glob( $directory . '/*.txt' );
     sort( $files );
     foreach ( $files as $file ) {
         $level = (int) basename( $file, '.txt' );
@@ -48,6 +49,12 @@ function sp_quiz_bank() {
                 $items[] = $parts;
             }
         }
+        $overrides = get_option( 'sp_quiz_content', array() );
+        foreach ( $items as $i => &$item ) {
+            $key = sprintf( 'L%02d-Q%03d', $level, $i + 1 );
+            if ( isset( $overrides[$key]['fields'] ) ) { $item = $overrides[$key]['fields']; }
+        }
+        unset( $item );
         $bank[ $level ] = array( 'title' => $title, 'items' => $items );
     }
     return $bank;
@@ -115,6 +122,23 @@ function sp_quiz_install() {
         KEY run_id (run_id),
         KEY user_id (user_id)
     ) $charset;" );
+    $analytics = $wpdb->prefix . 'sp_quiz_stats';
+    $reports = $wpdb->prefix . 'sp_quiz_reports';
+    dbDelta( "CREATE TABLE $analytics (
+        card varchar(12) NOT NULL,
+        attempts bigint(20) unsigned NOT NULL DEFAULT 0,
+        wrong bigint(20) unsigned NOT NULL DEFAULT 0,
+        PRIMARY KEY  (card)
+    ) $charset;" );
+    dbDelta( "CREATE TABLE $reports (
+        id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+        card varchar(12) NOT NULL,
+        message text NOT NULL,
+        reported_at datetime NOT NULL,
+        status varchar(12) NOT NULL DEFAULT 'open',
+        PRIMARY KEY  (id),
+        KEY status (status)
+    ) $charset;" );
     update_option( 'sp_quiz_db_version', SP_QUIZ_DB_VERSION );
 }
 
@@ -146,9 +170,11 @@ function sp_quiz_get_run( $token ) {
 
 function sp_quiz_save_run( $run ) {
     global $wpdb;
-    $wpdb->update( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+    $saved = $wpdb->update( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
         sp_quiz_runs_table(),
         array(
+            'user_id'        => (int) $run->user_id,
+            'player_name'    => $run->player_name,
             'level'          => (int) $run->level,
             'levels_cleared' => (int) $run->levels_cleared,
             'score'          => (int) $run->score,
@@ -162,6 +188,7 @@ function sp_quiz_save_run( $run ) {
         ),
         array( 'id' => (int) $run->id )
     );
+    if ( false === $saved ) { throw new RuntimeException( 'Progress could not be saved.' ); }
 }
 
 /** Fresh state for a level: every question queued in bank order. */
@@ -181,18 +208,18 @@ function sp_quiz_level_state( $level ) {
 function sp_quiz_issue_question( $run ) {
     $bank  = sp_quiz_bank();
     $items = $bank[ (int) $run->level ]['items'];
-    $index = (int) $run->state['queue'][0];
-    $order = array( 1, 2, 3, 4 );
-    shuffle( $order );
-    $run->state['current'] = array(
-        'i'      => $index,
-        'order'  => $order,
-        'issued' => time(),
-    );
-    $item = $items[ $index ];
+    if ( empty( $run->state['current'] ) ) {
+        $order = array( 1, 2, 3, 4 ); shuffle( $order );
+        $run->state['current'] = array( 'i' => (int) $run->state['queue'][0], 'order' => $order, 'issued' => time(), 'id' => bin2hex( random_bytes( 16 ) ), 'item' => $items[(int) $run->state['queue'][0]], 'explanation' => sp_quiz_explanation( $run->level, (int) $run->state['queue'][0] ) );
+    }
+    $current = &$run->state['current'];
+    if ( empty( $current['id'] ) ) { $current['id'] = bin2hex( random_bytes( 16 ) ); }
+    $item = $current['item'] ?? $items[ $current['i'] ];
+    $timed = 'challenge' === ( $run->state['mode'] ?? 'challenge' );
     return array(
-        'text'    => $item[0],
-        'options' => array_map( function ( $o ) use ( $item ) { return $item[ $o ]; }, $order ),
+        'id' => $current['id'], 'key' => sprintf( 'L%02d-Q%03d', $run->level, $current['i'] + 1 ),
+        'text' => $item[0], 'options' => array_map( function ( $o ) use ( $item ) { return $item[$o]; }, $current['order'] ),
+        'remaining' => $timed ? max( 0, SP_QUIZ_SECONDS - ( time() - $current['issued'] ) ) : null,
     );
 }
 
@@ -201,6 +228,7 @@ function sp_quiz_summary( $run ) {
     $bank  = sp_quiz_bank();
     $level = (int) $run->level;
     $total = isset( $bank[ $level ] ) ? count( $bank[ $level ]['items'] ) : 0;
+    $total = $run->state['practiceTotal'] ?? $total;
     $left  = isset( $run->state['queue'] ) ? count( array_unique( $run->state['queue'] ) ) : 0;
     return array(
         'token'         => $run->token,
@@ -215,13 +243,16 @@ function sp_quiz_summary( $run ) {
         'correct'       => (int) $run->correct,
         'wrong'         => (int) $run->wrong,
         'status'        => $run->status,
-        'seconds'       => SP_QUIZ_SECONDS,
-        'cert'          => $run->cert_id ? sp_quiz_cert_payload( $run ) : null,
+        'mode'          => $run->state['mode'] ?? 'challenge',
+        'seconds'       => 'challenge' === ( $run->state['mode'] ?? 'challenge' ) ? SP_QUIZ_SECONDS : 0,
+        'review' => sp_quiz_review( $run ),
+        'cert'          => $run->cert_id && 'completed' === $run->status ? sp_quiz_cert_payload( $run ) : null,
     );
 }
 
 function sp_quiz_cert_payload( $run ) {
     return array(
+        'kind'  => 'Course completion',
         'id'    => $run->cert_id,
         'name'  => $run->player_name,
         'score' => (int) $run->score,
@@ -274,12 +305,12 @@ function sp_quiz_routes() {
 /**
  * Resume a run (by token, or the member's active run) or start a new one.
  */
-function sp_quiz_rest_start( WP_REST_Request $req ) {
+function sp_quiz_legacy_start( WP_REST_Request $req ) {
     global $wpdb;
     $user_id = get_current_user_id();
     $run     = sp_quiz_get_run( (string) $req->get_param( 'token' ) );
 
-    if ( ! $run && $user_id ) {
+    if ( ! $run && $user_id && ! $req->get_param( 'fresh' ) ) {
         $table = sp_quiz_runs_table();
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery
         $token = $wpdb->get_var( $wpdb->prepare( "SELECT token FROM $table WHERE user_id = %d AND status = 'active' ORDER BY id DESC LIMIT 1", $user_id ) );
@@ -312,78 +343,13 @@ function sp_quiz_rest_start( WP_REST_Request $req ) {
         }
     }
 
+    $run->state['mode'] = 'challenge' === $req->get_param( 'mode' ) ? 'challenge' : 'learn';
     $question = sp_quiz_issue_question( $run );
     sp_quiz_save_run( $run );
     return rest_ensure_response( array( 'run' => sp_quiz_summary( $run ), 'question' => $question ) );
 }
 
-/**
- * Check an answer. choice = index of the option as shown, or -1 for time-out.
- */
-function sp_quiz_rest_answer( WP_REST_Request $req ) {
-    global $wpdb;
-    $run = sp_quiz_get_run( (string) $req->get_param( 'token' ) );
-    if ( ! $run || 'active' !== $run->status || empty( $run->state['current'] ) ) {
-        return new WP_Error( 'sp_quiz_run', 'This quiz session has ended. Please start again.', array( 'status' => 404 ) );
-    }
-    $choice  = (int) $req->get_param( 'choice' );
-    $current = $run->state['current'];
-    $order   = $current['order'];
-    $right   = (int) array_search( 1, $order, true );
-    $ok      = $choice === $right;
-    $points  = $ok ? SP_QUIZ_POINTS_OK : SP_QUIZ_POINTS_BAD;
-
-    $run->score += $points;
-    $run->state['lp'] += $points;
-    $queue = $run->state['queue'];
-    array_shift( $queue );
-    if ( $ok ) {
-        $run->correct++;
-        $run->state['lc']++;
-    } else {
-        $run->wrong++;
-        $run->state['lw']++;
-        $queue[] = (int) $current['i']; // Ask again at the end of the level.
-    }
-    $run->state['queue']   = $queue;
-    $run->state['current'] = null;
-
-    $cleared = empty( $queue );
-    if ( $cleared ) {
-        $wpdb->insert( sp_quiz_log_table(), array( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-            'run_id'     => (int) $run->id,
-            'user_id'    => (int) $run->user_id,
-            'level'      => (int) $run->level,
-            'correct'    => (int) $run->state['lc'],
-            'wrong'      => (int) $run->state['lw'],
-            'points'     => (int) $run->state['lp'],
-            'cleared_at' => current_time( 'mysql', true ),
-        ) );
-        $run->levels_cleared = (int) $run->level;
-        if ( (int) $run->level >= sp_quiz_level_count() ) {
-            $run->status      = 'completed';
-            $run->finished_at = current_time( 'mysql', true );
-            $run->cert_id     = 'SBT-' . strtoupper( wp_generate_password( 8, false, false ) );
-        } else {
-            $run->level++;
-            $run->state = sp_quiz_level_state( (int) $run->level );
-        }
-    }
-
-    $next = 'active' === $run->status ? sp_quiz_issue_question( $run ) : null;
-    sp_quiz_save_run( $run );
-
-    return rest_ensure_response( array(
-        'correct'  => $ok,
-        'answer'   => $right,
-        'points'   => $points,
-        'cleared'  => $cleared,
-        'run'      => sp_quiz_summary( $run ),
-        'question' => $next,
-    ) );
-}
-
-function sp_quiz_rest_restart( WP_REST_Request $req ) {
+function sp_quiz_legacy_restart( WP_REST_Request $req ) {
     $run = sp_quiz_get_run( (string) $req->get_param( 'token' ) );
     if ( $run && 'active' === $run->status ) {
         $run->status      = 'abandoned';
@@ -434,21 +400,14 @@ function sp_quiz_user_data( $user_id ) {
     $rows  = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $runs WHERE user_id = %d AND (levels_cleared > 0 OR status = 'active' OR correct > 0) ORDER BY score DESC, id DESC LIMIT 50", $user_id ) );
     $steps = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $log WHERE user_id = %d ORDER BY id DESC LIMIT 30", $user_id ) );
     // phpcs:enable
-    $stats = array( 'best' => 0, 'certs' => 0, 'levels' => 0, 'plays' => count( $rows ), 'correct' => 0 );
-    foreach ( $rows as $r ) {
-        $stats['best']     = max( $stats['best'], (int) $r->score );
-        $stats['levels']   = max( $stats['levels'], (int) $r->levels_cleared );
-        $stats['correct'] += (int) $r->correct;
-        if ( $r->cert_id ) {
-            $stats['certs']++;
-        }
-    }
+    $stats = (array) $wpdb->get_row( $wpdb->prepare( "SELECT COALESCE(MAX(score),0) best, COUNT(CASE WHEN status='completed' AND cert_id IS NOT NULL THEN 1 END) certs, COALESCE(MAX(levels_cleared),0) levels, COUNT(*) plays, COALESCE(SUM(correct),0) correct FROM $runs WHERE user_id = %d", $user_id ) );
     return array( 'stats' => $stats, 'runs' => $rows, 'log' => $steps );
 }
 
 function sp_quiz_status_label( $run ) {
+    if ( 'revoked' === $run->status ) { return __( 'Certificate revoked', 'sampreshan-child' ); }
     if ( 'completed' === $run->status ) {
-        return __( 'Certified', 'sampreshan-child' );
+        return __( 'Course completed', 'sampreshan-child' );
     }
     if ( 'active' === $run->status ) {
         /* translators: %d: level number */
@@ -473,7 +432,7 @@ function sp_quiz_render_history( $data, $show_log ) {
     <?php endif; ?>
     <div class="sp-quiz-table-wrap">
         <table class="sp-quiz-table">
-            <caption><?php esc_html_e( 'Ranked by score', 'sampreshan-child' ); ?></caption>
+            <caption><?php esc_html_e( 'Best 50 journeys, ranked by score', 'sampreshan-child' ); ?></caption>
             <thead><tr>
                 <th scope="col">#</th>
                 <th scope="col"><?php esc_html_e( 'Started', 'sampreshan-child' ); ?></th>
@@ -491,7 +450,7 @@ function sp_quiz_render_history( $data, $show_log ) {
                     <td><strong><?php echo esc_html( number_format_i18n( (int) $r->score ) ); ?></strong></td>
                     <td><?php echo esc_html( (int) $r->correct . ' / ' . (int) $r->wrong ); ?></td>
                     <td>
-                        <?php if ( $r->cert_id ) : ?>
+                        <?php if ( $r->cert_id && 'completed' === $r->status ) : ?>
                             <a class="sp-text-link" href="<?php echo esc_url( add_query_arg( 'certificate', $r->cert_id, sp_quiz_page_url() ) ); ?>"><?php esc_html_e( 'View certificate', 'sampreshan-child' ); ?></a>
                         <?php else : ?>
                             <?php echo esc_html( sp_quiz_status_label( $r ) ); ?>
@@ -504,7 +463,7 @@ function sp_quiz_render_history( $data, $show_log ) {
     </div>
     <?php if ( $show_log && ! empty( $data['log'] ) ) : ?>
         <details class="sp-quiz-log">
-            <summary><?php esc_html_e( 'Level log', 'sampreshan-child' ); ?></summary>
+            <summary><?php esc_html_e( 'Latest 30 completed topics', 'sampreshan-child' ); ?></summary>
             <ul>
             <?php
             $bank = sp_quiz_bank();
@@ -584,12 +543,12 @@ add_action( 'wp_enqueue_scripts', 'sp_quiz_assets', 30 );
 function sp_quiz_assets() {
     $uri = get_stylesheet_directory_uri();
     if ( is_page_template( array( 'template-quiz.php', 'template-dashboard.php', 'template-profile.php' ) ) ) {
-        wp_enqueue_style( 'sp-quiz', $uri . '/assets/css/quiz.css', array(), SAMPRESHAN_CHILD_VERSION );
+        wp_enqueue_style( 'sp-quiz', $uri . '/assets/css/quiz.css', array(), substr( hash_file( 'sha256', get_stylesheet_directory() . '/assets/css/quiz.css' ), 0, 16 ) );
     }
     if ( ! is_page_template( 'template-quiz.php' ) ) {
         return;
     }
-    wp_enqueue_script( 'sp-quiz', $uri . '/assets/js/quiz.js', array(), SAMPRESHAN_CHILD_VERSION, true );
+    wp_enqueue_script( 'sp-quiz', $uri . '/assets/js/quiz.js', array(), substr( hash_file( 'sha256', get_stylesheet_directory() . '/assets/js/quiz.js' ), 0, 16 ), true );
     $user = wp_get_current_user();
     wp_localize_script( 'sp-quiz', 'spQuiz', array(
         'api'       => esc_url_raw( rest_url( 'sp-quiz/v1/' ) ),
@@ -664,3 +623,6 @@ add_action( 'wp_enqueue_scripts', function () {
         wp_enqueue_style( 'sp-quiz-emblem', get_stylesheet_directory_uri() . '/assets/css/quiz-emblem.css', array(), SAMPRESHAN_CHILD_VERSION );
     }
 }, 31 );
+
+require_once __DIR__ . "/runtime.php";
+require_once __DIR__ . "/admin.php";

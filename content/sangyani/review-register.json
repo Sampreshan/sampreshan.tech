@@ -1,0 +1,4514 @@
+{
+  "version": "2026-10-27",
+  "cards": [
+    {
+      "id": "L01-Q001",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "a9dee2934c69ef9ab61ae18c8c624018c36d55335356761f8b7b1c4094a7811c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q002",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "05be350cc0df6b54480e99b37641644c958ce1dfe25953c793f6f51bbbbb13f1",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q003",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "e780f8407c32ed39f379f83807e6d2166c2b64316ff7f8a59fb6e67e089087d1",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q004",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "737bd35a1ce4e270579cce4563abfa0e0c787e2001181acd19d00e4e1268e022",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q005",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "2a4a7afad112e24aa382d9c7517a798e64e5af3a4b7d87c426bad6e474b14fb5",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q006",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "9994440b8371287d3b533ab34cf07f8695dee25787ff41a7c0a3ae0928e97b17",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q007",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "c12fa8ea3fd723640c0172082889902aa8c3e9698bf1ce8bf522ac9d4d22fdcb",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q008",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "0244efcdad967613069055374dd225c8233600d88357930a0ab525b82fb716b4",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q009",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "9d8a1310780c8e5a67cabd814bcc28d26d81c9abed0dd2a859fb7dd7fcb2d41f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q010",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "7cd2cb352f228e7d7aedf1b21461f400fc4ea5b6532de16560c7e071c12fd45e",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q011",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "d64f6b38cdd0dc8a912295883c6e0ad600489b220e6b6f155d50fb73f6d891e8",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q012",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "7f43eb9c1c1c2b5661a985af31742a2b507bdd5b9f257482657465dcdee48f12",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q013",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "4e4417d71cecaea0aba4a71914036d7a11a3bfda1490fd6d2927ce9aa0de9f4c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q014",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "e4c1cc9c99d435b770e91723e16cf53cf90df6d584d8ab7596b586b9fbccccf2",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q015",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "a4d5ea6de54340e30db73a0cbd2a3d3f50001edddd535e2067e8ed6917329fc9",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q016",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "7bb114df112e44f983251c4a7d2dc530ac0e558f21dc854d9e417868fd93a921",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q017",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "39643b1ba29492bb999867e39bf8cdbf4510011335ddc78c0043d70a4e4b6c5d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q018",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "94cd0e85cab61227d996ce5e3a6db058ff9dfde7876aef9e6a74bf6c465bec9f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q019",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "289e1e95f587a46e26780f9171b5e2a34cc9efd7f5960b0141e57c233b96768f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q020",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "5699eaf34e24944e6263a7e490f5e34e5e0d449918ea02c878a7b47e7b5193f2",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q021",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "de92dd1235c9890c1f75baf59e9700944e2b4ae2b79ee24446c1c886a64e792e",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q022",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "85f04f57155a46a83dcdedecb572ad21081723e4f661002e8794f9587a94dc65",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q023",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "2d415abf0c4c96dc795adc351d9b5b3c539dcd1d012f27ba332a1fc32ed4ae2f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q024",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "57e9a6a2c19c25fb0b308742ea4bc5ffac2c7b40fd68d2acd0ebc0b4a7242300",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q025",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "8c210a9f1605e875867d22a08bd27c3db4ead807687ca69a85a3a1958446ebc4",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q026",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "2caf77b3c756eafc7219dd5c941de22162da872582eb54350cbcb7c37d90d39a",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q027",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "fa94f61fb897bf55def3f50b3a138d6605fef353a5d1a184006cd11d49b0852c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q028",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "017c3015fd224f240ff77527dd8d43d93f1c8e6be79996ccbca66027192aac36",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q029",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "1a389ebab8bdb080502f8713404271797d1c73edcd065a7a01c7627e9890cb4f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q030",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "b8ee9ce17261f611d14fa498b186230479cb77299d6fa7dab5b6a257e41248e8",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q031",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "57962d4b18cd2bb5fd2c879c19f62028b23aff1a2e35310dd4e81f0f717431d7",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q032",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "d5c2057203f666afc9bede7b08b68666d6f1055a92eb45082312eca0f23ca95a",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q033",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "b2d2a62877b295ce58c0ad3fa6045049bbce92e7478ab8c80c60dd9d8611ec28",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q034",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "0719bb50796c210224d60881cb5156ef9f6fe9a35d54ea845d2a8aadc6326315",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q035",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "94764d247f77839486e4e94881864b2ddc7153770316d80e07e2162e0d40af71",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q036",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "662ef75d85abe7a6799a2fc4b6b0b949464b76cbc0dfd236c0c52b6e6f2ce181",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q037",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "dcbdfdbf149ea3827468061f1da789ea3239f63d272d6b2ffe75374a8ff15fa3",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q038",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "848be8b7f39dbfbbff200ae483895238d5b5afd61af5956a41e96790e56f628c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q039",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "84a273fbc55764d12608cabd221c476992b09b25c4898435a2d5a17a02726486",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q040",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "e4cedd93e213ba57140286589d5068c1d959ca15e12a44b61243c3fd0d438d83",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q041",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "df600ae0d7c7e1dc276d35b48a53437526b384e78a96fbae3e58fa565e998e97",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q042",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "d3418158078334a440a4d29a45191d43fe6c4ec82cf18ff8e36ab5e7600ba0ec",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q043",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "67d3eb6f81c61416a10d6680661e6f1a41c2b006a91a6d1ce087cdba4d5ba2a3",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q044",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "d657a6f942d3661207f5f2f4b1f8bde36fc5a42b235642ee684b460d361d63f1",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q045",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "6c3d9af2c11aa3009ff700278b4f0b97e2cc6f5783a6e95d005ff87a8553a2f1",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q046",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "46fbcbf8a74d3bc716c3f7ebfdbf7e44a7cbe4f2102778a52aece97fd5613530",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q047",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "05e5d8e57ed17d9e80683d25409d93b2da2985356624ebddee46ee5c95ba978d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q048",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "3fff116a237a7c6ea2ee0d03490a18382b12cb803f15b8bc4a640107622e34ee",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q049",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "a7eaa8047b1e80f3be47abbb66a1337a28432b46b001a4633a97d84405efb0ce",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L01-Q050",
+      "topic": "Sanatan Foundations",
+      "questionSha256": "abcad01957964b8e27039241662b32640de560672966fa2366531d5edb76f18c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q001",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "a3be153b244da4808837d56e305d14dbeb1dfeaf6e295a0722178a749f076944",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q002",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "c02da74fe5fc3a45da546640625d126ab6fe8f30d3d962fe34ce4580518c439f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q003",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "fe8c93019770f7624c6e89b28afb8ecfc2f9a1293a13b4e573706774c0cec797",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q004",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "3bee88f45fe75101bfc8583f060e0bddcdf0ad9969fedefc5ae6c94be33d5dde",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q005",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "3559f0d8b757b802d980350ab62900bec9617e4779b920065fc75967564d6319",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q006",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "f4059a2c6d154e0a7e7768483a8b588cd6dc3d8de427deb66b9e0ba335abbd76",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q007",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "81ebc4d8b0562cad517e64e8fb28477c7dabec4339b5538923c29a5597f7871c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q008",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "3e94c6121d88615f6d2b48786798c6c63a206fef0b8583bf807301f29b577c3f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q009",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "001b837095f29c4d24bca59d0a0e6f69ed3a1ba10a692dd62b190c846deba4e5",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q010",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "572977629710b8a36d48d0ae2b45d681f532bb215f990310a1543107333b50d1",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q011",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "0467028cd13be09dc74e623ece95ec84891420c3e30079a559fb8bc6c2ef6053",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q012",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "54a700ca784bd0a0595db45460e9c4050154caf3b6658b47386a2881544ebbb3",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q013",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "384a023d420dc017eeba942d1eb459b35a0fdefd3da209d8138fa2cf0e36d9a4",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q014",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "48cec5386de0c4654d7446e943b903b232315d2ce0d08923404d50c1a78b0842",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q015",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "2e139f545856e805220ff17b90bd31c7918ed533b5c883b34239b43796768167",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q016",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "9f40231bce40fb1b2380e0b3ab1828246ad104ccba555f6ed469dd5649fa578b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q017",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "69f5ca2116eb987dc230f395cace9712372298c0ffe1e2270c2dace36705bde3",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q018",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "b5cbcf32c3f0f256c64e8c6b7e26ca98cf88c88923663d406afe5fcd07757e18",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q019",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "9d58180e9097c8f0db21e0170ebc2e728b4a8326c1d8dc8e26e1107af9048dc8",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q020",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "e1fae2210f8bde5b64d0bdcc0d105089e7f30c27e051af65e4766e217609a1cf",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q021",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "be5e587cf6820e5a9f7084b27424be2651ac121f79d4b173e71bd4eaa3ca9038",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q022",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "989f7761fde240b3ddd87f35e8f883825d37c31a86e25c1bfda9383104947428",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q023",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "956e8f89f1d7ccdd696c6479a61017fa869fd587b3c3c8f1e3eabe10c2bb1131",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q024",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "48c27849e6bdc4e5d1bf80d637e6191c2f8b992426424e649e3857cbc19dfe9a",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q025",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "f9e327fd44c91f852cbce7e3cc9f60e91bfc582d8fa22753530ae1f288c754c6",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q026",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "d8e4c0fcbf8a3e028d4e444830c6c140707af4ac0ff73d1f9ad99bf055d4d704",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q027",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "8e40f3384b0cff87a9538bf649397b674d214dd23de7d5fc773961052b6ac54a",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q028",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "5a090385cba78195ce1564962f192efffc129be771ae625efc3e2745fb42230e",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q029",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "7502a9e1de1d187450460b880227a0335d03ccf8bb21648af920b50a5d63209b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q030",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "4c1fa024a78729f8690263515830a33e441c18a561b7982053dd21a9986d7ddb",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q031",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "4b1bdd9f32e84bf08e3e02780945bc1125f19d84e08b90e8d3bab8de9bf4f418",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q032",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "a915e42e6002d7d8ca4bbb6416cbcccd533b2bbe3a3d816b4faa664a2e4e7726",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q033",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "61851eb1583e10cfdced4615d295c7af07b832467ed6621bf2e4fed32bb6a188",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q034",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "4b5373d17bfcd30b69da0c6eb97284fbfa148e1a9e52c3936048da71e674d347",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q035",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "57523b77735d5fa9912059c38472ea8f45164ed89e562413de0087f8ae70b9db",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q036",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "8d4d1de9adeaee165d2e4f41cdb8a84af8ba86f50600f2dd82a645bb2531cdf8",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q037",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "2e7b7a1f810c34ef0fe91aa3346b3a1cd512e8101d6275d0cf0faedf8a3368d7",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q038",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "9d2b52b1f0a006d5bef53b43ca7a1423fed5f2505ee34ec04842dc92372d8c69",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q039",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "9c6649a74f366bc380c8faf394519262b8046034e9b0c1e13b81bb99e64c7b7d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q040",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "8ce3c74c8ae2aeb66873d010b58fda45e25ea6350a65826fa51daec27d2e7234",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q041",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "ae6b02f1413f5e127550e2ece6cb15a8658cf6c630fe016a119b963272ffcf99",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q042",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "efafb0eb0f9e431abb3fda6d46ed6b8c2c61af413bd5493ded5d918301154aea",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q043",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "91a34074e02cbc04c1337e130132d83d64c41861b4d465fcdf698feb2a127f6c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q044",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "8a04376482b820ea60e92fff2668fde09f83076bebe9102bd0862b3423465491",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q045",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "f5f71dca3338dc7f0c1a01132c66051d6119bea0d0016166e40d103bb95d3fb7",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q046",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "dc6f1210b393ddcf1532c95236b1c862c8447c11883e5978bc6286ae788b5c8d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q047",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "f755b10f1cfba00c5dff9707dffc6f23299c70b6ac2e8d818eba1fb52067a203",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q048",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "a2af4d09ec8f8b51ab5d515c61acb9e94d23bff293405540e94542ae19a67f16",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q049",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "e31458b37b3692066e70ad3f5ee53c3c8b31c5a92994fb8aaf8bda07eef45f6f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L02-Q050",
+      "topic": "Deities and Sacred Symbols",
+      "questionSha256": "1748b8075c10bf20aa3a50328f4cf450c777172afb02c38b4b5fe8122fb7e115",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q001",
+      "topic": "Sacred Texts",
+      "questionSha256": "1062b85551c1553d7154462e673a21cb63050f6f75332b67e29f4335234d3e77",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q002",
+      "topic": "Sacred Texts",
+      "questionSha256": "a376daabe6a71397abb8a92f9984c43f75a457b42e3401601f0e8c0974e72f9d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q003",
+      "topic": "Sacred Texts",
+      "questionSha256": "3b21bd4bb4850060e9728581b0c1f0f2f7773b9ae971b762cb6239e69cc52597",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q004",
+      "topic": "Sacred Texts",
+      "questionSha256": "7f9aa694479ecb1cc0a244161b11235baec404b7a5996ac15115ea2eef358820",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q005",
+      "topic": "Sacred Texts",
+      "questionSha256": "e29117c7ffe08387970af997c9d5117acce5937a3904efe0238a91b0df01d951",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q006",
+      "topic": "Sacred Texts",
+      "questionSha256": "c18660dd910b66e7aa1e999f70eb212b367377fa10457ad32eeea158257a4474",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q007",
+      "topic": "Sacred Texts",
+      "questionSha256": "9d8735135bda7fcac40e54dee66a0d09823d7014f72574713fd65f98c1b18cdd",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q008",
+      "topic": "Sacred Texts",
+      "questionSha256": "6c207eb0a20f1ab43226c8af703289b2d790edb72b670106cdc4391041d449b5",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q009",
+      "topic": "Sacred Texts",
+      "questionSha256": "560abf0a4a16dd257f44ecfb85aa123fa3dad06da8473d820df58b27dfc9654a",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q010",
+      "topic": "Sacred Texts",
+      "questionSha256": "8da6d6e9786c55ae40b95b2bdf94ec27b6892bf9f7ec4f12ef7824b00d31c16e",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q011",
+      "topic": "Sacred Texts",
+      "questionSha256": "4f92143848b83cf30496294b8d75df9f72d10c86b74aca24d87a85b75215e45c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q012",
+      "topic": "Sacred Texts",
+      "questionSha256": "144a62346deb5d86287cb9d1ffa42b25f8e92b4278c93b12d9aca3f4832da802",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q013",
+      "topic": "Sacred Texts",
+      "questionSha256": "bd4a9929a494fc494452c61eed1e01f6dc5f1a58d73c8af656272ff253686686",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q014",
+      "topic": "Sacred Texts",
+      "questionSha256": "84775419a289b2ad3a904eef967b6f906edb9af9940a657781f7707bbe4a1f6f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q015",
+      "topic": "Sacred Texts",
+      "questionSha256": "e9d845ac0485c0b702ee8368e6248135c9348fa72e5c925d3f0c31b20964cd37",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q016",
+      "topic": "Sacred Texts",
+      "questionSha256": "a0f5a03edac81f55ac40c0297c047e9083681d44916417680fa9e6d7100fdcaa",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q017",
+      "topic": "Sacred Texts",
+      "questionSha256": "3010ddd5a4e875279d63623e0a0f5a4e40b2fbb1bdbb2c47f7d57b161aab8d30",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q018",
+      "topic": "Sacred Texts",
+      "questionSha256": "86d2e2e957567239af31ba543dadbb3d0e0b617f83ee2001bac499e95ec8b558",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q019",
+      "topic": "Sacred Texts",
+      "questionSha256": "87d36e676c1a39dc1283dd46cccbf918ec00cc66ab7ff49584ea0aeb5544c3db",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q020",
+      "topic": "Sacred Texts",
+      "questionSha256": "f2595f91cb0a39fa73f21ef386454141b30ebae0700522c377ec1b8afa34902a",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q021",
+      "topic": "Sacred Texts",
+      "questionSha256": "224a789ee67823c9b167da824a5be9ffef369e57fe1dcc2848cec7f731c747e0",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q022",
+      "topic": "Sacred Texts",
+      "questionSha256": "4731e544531119b0990654c3b725b30252e23bae0a5e2f5a1df6ed027f897242",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q023",
+      "topic": "Sacred Texts",
+      "questionSha256": "1c7ea7f6f4a4ad4d92c728f29bf19e3f31f3ac689ecf8ab48fa3e2651f372626",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q024",
+      "topic": "Sacred Texts",
+      "questionSha256": "f73e771e36ff0554da9126091fa204b3d680ac9fdabc3c2f9929d3319ee99de7",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q025",
+      "topic": "Sacred Texts",
+      "questionSha256": "eeb54b41ca02ab453752f5408f81cf886a3854de2d54268ea7324ef50dc5d313",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q026",
+      "topic": "Sacred Texts",
+      "questionSha256": "5f47a726f70755eaa1a7cf4c4ba52ec4a117c4dd470a295db16e3dafe0c9519b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q027",
+      "topic": "Sacred Texts",
+      "questionSha256": "ceb24acbb9b08bf43cd2de4534e382728bf80f0e4920d5546c582a896ff59e44",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q028",
+      "topic": "Sacred Texts",
+      "questionSha256": "8a177e5b8aa556820120eb5b8015bc264d9a276ae1f5402260c6fa9edeed67e8",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q029",
+      "topic": "Sacred Texts",
+      "questionSha256": "ad8f425893d88310d18e215a6c4f9aa11f277e84d91dd3e814f39501234cbd4e",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q030",
+      "topic": "Sacred Texts",
+      "questionSha256": "0e01f4a9db4fa8b6b461b1fe8c6440adefab19688401ee7dbbd0d7bf0f2f48e0",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q031",
+      "topic": "Sacred Texts",
+      "questionSha256": "5e14ab510805536bc45e9cb54508b2b8163eb3fe6e97930cebe409ef9e4d5f5c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q032",
+      "topic": "Sacred Texts",
+      "questionSha256": "5ccb5321e7a938ecf2a80d11d8e705d3637097c04370adc4afe2b5e6658a2c5f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q033",
+      "topic": "Sacred Texts",
+      "questionSha256": "5c932d687e12d3445a103ce3088651ef151cf667998cfd2e28163929a041773d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q034",
+      "topic": "Sacred Texts",
+      "questionSha256": "3174391e32108f4086c75df020db7bc37a3bd149de90641bba94edba136b0153",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q035",
+      "topic": "Sacred Texts",
+      "questionSha256": "47adcb75284f895e11885dcd05421809e260f7952c93fc8db5a4f4afa8b82296",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q036",
+      "topic": "Sacred Texts",
+      "questionSha256": "156253dd77f8c95eab32f45e018736b5d1373c49c36fc55bbda4bc868713428c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q037",
+      "topic": "Sacred Texts",
+      "questionSha256": "77a8855fcf87358997809338f28b66e97176a5f57c9faa6585cd7463dc549abd",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q038",
+      "topic": "Sacred Texts",
+      "questionSha256": "ba4aebace88a0de7324d509325e051d4180b9d3cd41ba9c0d6c3865487deb739",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q039",
+      "topic": "Sacred Texts",
+      "questionSha256": "b5c6cda4252d294373bcf89b0bdf1ee57f3c2a436449457d16c84a6e898c2c70",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q040",
+      "topic": "Sacred Texts",
+      "questionSha256": "a946e5492447a878a758c6fb2ac4d399391ec489593a9c4f78e8f721daec3799",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q041",
+      "topic": "Sacred Texts",
+      "questionSha256": "eafd1b36e69828cb5f3357e29a56acea24a8b4da554f2bb7c32dfeb19b293b4c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q042",
+      "topic": "Sacred Texts",
+      "questionSha256": "9a5e8ea8463a990b0632c364e5b2f7322a701c331ae14e50cb745eef22195322",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q043",
+      "topic": "Sacred Texts",
+      "questionSha256": "8a18b5fe0831a2b1aaa057f6fbc65876346081001a447200e7cdba6f0b4569e9",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q044",
+      "topic": "Sacred Texts",
+      "questionSha256": "d9ee9d1dd9cadac43d36e75fcfd5c576dafdaeaa6903107c2ab63cfdae82d164",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q045",
+      "topic": "Sacred Texts",
+      "questionSha256": "5b967d31d558978b396f4c2fd5f3dfc18aec376d353474d08159c47a07a9d9c3",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q046",
+      "topic": "Sacred Texts",
+      "questionSha256": "4f8d7de99045ae2ea1bf93a7b6ecc0759293291fa0dd7163e30eb7e3f0e1de5c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q047",
+      "topic": "Sacred Texts",
+      "questionSha256": "b5c4234bf602d4017dabe183adcd63082bb017b57e0c28074e35129213fc2499",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q048",
+      "topic": "Sacred Texts",
+      "questionSha256": "13f91b0ea0a874117ff0328fa3ee554513629e6ccbe65f6b9250fc5c3c838e98",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q049",
+      "topic": "Sacred Texts",
+      "questionSha256": "63eecb46b317ca5db6ec47bc81d5242c88de0094a8a4b653dc3e0cd3c8c4c723",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L03-Q050",
+      "topic": "Sacred Texts",
+      "questionSha256": "2e2a8ed2c9334902da72790965adba5f8d5d8e527a08292f238b712d067fa36c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q001",
+      "topic": "Sacred Geography",
+      "questionSha256": "354ccd1e09814cbf814c9cab597d858dacf905dc504a2f1bdbab14a99b868fe4",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q002",
+      "topic": "Sacred Geography",
+      "questionSha256": "930513f39178e308633dec6d781ed8b49b138d7783e4dbe0bbf2fc4f87c964d8",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q003",
+      "topic": "Sacred Geography",
+      "questionSha256": "84ecc2ad9cc36dae76d47fec012d367831dc5adb89a2d0dcfb5fbf088eb6d829",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q004",
+      "topic": "Sacred Geography",
+      "questionSha256": "572632da2d9abf2d6e304a17456ed9ea9bf7f097330295caf55978ecd8310d22",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q005",
+      "topic": "Sacred Geography",
+      "questionSha256": "d967fcc29d7146b166a27a58982ba44a85b40adb0cc9b3b4a5568339867b05f7",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q006",
+      "topic": "Sacred Geography",
+      "questionSha256": "4af9f0d675cc4fa255506e7df56e73349c47dc335b9c7f58e63c8cafc9e2db0f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q007",
+      "topic": "Sacred Geography",
+      "questionSha256": "8251a260721126830b199854fd8626912abe0d8bafcd840c5f42837d96deae85",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q008",
+      "topic": "Sacred Geography",
+      "questionSha256": "3d1eb26eb821a79d317002e6077bf00aab72014433d2ea924dcda81701097303",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q009",
+      "topic": "Sacred Geography",
+      "questionSha256": "f24fc581ce5f9b5352d7ecfe181d15034de038a2466d70ab8247943983c4850d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q010",
+      "topic": "Sacred Geography",
+      "questionSha256": "8a1f24b557a9eecd6afe8a8ebebf9cee9661530b5e89c5442cb48959dd627821",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q011",
+      "topic": "Sacred Geography",
+      "questionSha256": "b50edaf5c4b7222a66f3b89e2dde00828356789e163b14edb536bfa55885881d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q012",
+      "topic": "Sacred Geography",
+      "questionSha256": "0892dbbab6f969335b21b069f30b06932a85f9029b113e9bc277f6bf143f9944",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q013",
+      "topic": "Sacred Geography",
+      "questionSha256": "34295b2217fd518b6fdd11fb596c87f886adf1ede6556f335f310285e4725c44",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q014",
+      "topic": "Sacred Geography",
+      "questionSha256": "f7f95e8e8c3fc78e447afd823f2068999876870cac0187118677735d4c35317b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q015",
+      "topic": "Sacred Geography",
+      "questionSha256": "ddda2a8440d9cbfe2c51a7721690407d3140be2ec629d98abf12ea7468e0aa47",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q016",
+      "topic": "Sacred Geography",
+      "questionSha256": "9d87bf9946ab67e53c3ab48aa26aa718179008c09fbb7e5b218784d9c6b4d96f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q017",
+      "topic": "Sacred Geography",
+      "questionSha256": "291242f56b1c3de78e3a274b53f33e53c667064fefa2a4a8811db2fab3f3910e",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q018",
+      "topic": "Sacred Geography",
+      "questionSha256": "2e069f9e08275bb66fd4a384944254b81e0ad680ee378eaefa394a6c373d3b17",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q019",
+      "topic": "Sacred Geography",
+      "questionSha256": "a7f7db7fcf1161235dbb06260ee74872ef93f03aa41e21c5b23c7bbe833b41c0",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q020",
+      "topic": "Sacred Geography",
+      "questionSha256": "0994d7edf0dba36a386d81091e6ce465a2089362d62de72c9638522e4da94a2f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q021",
+      "topic": "Sacred Geography",
+      "questionSha256": "7f9640517ccaccbbf0b60f3463305ab6f861936ccc7d1cd83f4e0cd135260ff7",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q022",
+      "topic": "Sacred Geography",
+      "questionSha256": "d3dd150daaf41c7c2fc91e3b11c2d7476c750218e1b6b192bbb76caec360e96b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q023",
+      "topic": "Sacred Geography",
+      "questionSha256": "4c3801efd3e7a89810b36684e1b4068909837041079d92a863ef402992d51f4c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q024",
+      "topic": "Sacred Geography",
+      "questionSha256": "1b2af12d92ec11e369a1e05b101706f5dfd5a57358648a75c2b3e8fbe1c27a2d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q025",
+      "topic": "Sacred Geography",
+      "questionSha256": "5ca7d314ed8515bf89245e5fa5d092863b6668c7b4729303f6896376dae9ec30",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q026",
+      "topic": "Sacred Geography",
+      "questionSha256": "6ab308f83e2efa753e09ecfb34424113df678daa23b9767a2828a3be34550b0d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q027",
+      "topic": "Sacred Geography",
+      "questionSha256": "84822b80e870ce78cb54f1634d93cfc96e8601cae520f113196acb9827b65111",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q028",
+      "topic": "Sacred Geography",
+      "questionSha256": "668114abe613f292e5ec52b1f77988494995e54a98c7d13db913ef4736037784",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q029",
+      "topic": "Sacred Geography",
+      "questionSha256": "68fb5e2e4d0e47d74f033bf3b814dc87832bc9c7aee402172d2b4b8068c62053",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q030",
+      "topic": "Sacred Geography",
+      "questionSha256": "e2e256051f22e4b66eba111ce7b923f32cd7a2b1716cfb87a0c8b269c07adb1d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q031",
+      "topic": "Sacred Geography",
+      "questionSha256": "8fab2db2bc09a1dcdf83a269fb90328f9af9887fed66815fc5de48ca475e2174",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q032",
+      "topic": "Sacred Geography",
+      "questionSha256": "e929d83c92142236651706c26d3a90c571869b16ea254593f713c85ac86d5aa1",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q033",
+      "topic": "Sacred Geography",
+      "questionSha256": "bbfba19681f2d686fa54128707801f926d7715c84e004c4addb27b078c156334",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q034",
+      "topic": "Sacred Geography",
+      "questionSha256": "39525f805c1ae90b7addd52df93d803873d3c9d78e23c2441e79713cfe16edb4",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q035",
+      "topic": "Sacred Geography",
+      "questionSha256": "2395e1f69b38c3e2b0b69e599be036a8b368dbaba7b7b93e8600543ed644f277",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q036",
+      "topic": "Sacred Geography",
+      "questionSha256": "4d23b6700f7eac2defb6ed13fea52882cc993e59f9ab53619661e1ac942d055e",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q037",
+      "topic": "Sacred Geography",
+      "questionSha256": "9bd9e08012272fbd1b236fd5731bdf06cb1f9c3a6ac4c7f89f1e5aca506041db",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q038",
+      "topic": "Sacred Geography",
+      "questionSha256": "6302a9036e558793357afb4cafad8bf2db9d6a49393b9583f42d78a37a524736",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q039",
+      "topic": "Sacred Geography",
+      "questionSha256": "a4e45681b88b879c06cb62e7a1d21b583737edf4d90f0c97316eff382cd8cd73",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q040",
+      "topic": "Sacred Geography",
+      "questionSha256": "55ecc159bfcaad1b2597745ee1957e5fbc06b7c825e5db74836af58bd4fe3dd7",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q041",
+      "topic": "Sacred Geography",
+      "questionSha256": "6847707de1f2fd654056f3dce49da4b889518fccb28c15d2fe5d0d4448a4756b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q042",
+      "topic": "Sacred Geography",
+      "questionSha256": "a6d37ec0f4bea6140f7cfe98d9db34cf08ffefac368f2b0ba24b95c2bfc0d016",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q043",
+      "topic": "Sacred Geography",
+      "questionSha256": "6f9cae1c2e41b397b4a607eb86a2163e81cc20997c81a84c5498358210e479cc",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q044",
+      "topic": "Sacred Geography",
+      "questionSha256": "15cb2dd67fe51e715e6d37086181ee3ebac793252b000db74e58d2900f68eb0b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q045",
+      "topic": "Sacred Geography",
+      "questionSha256": "9d81afef531b4801a39c62c592cea225bea2805476aca9ae381bbccffd032695",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q046",
+      "topic": "Sacred Geography",
+      "questionSha256": "987aae5f64bb8b31e88c29876c5c69dd48daf6ab792475ca5713abb8d49c917e",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q047",
+      "topic": "Sacred Geography",
+      "questionSha256": "75e332abce06d8dabc8b0be13c30dcaee647a44446cb99f02709732fe79b9afa",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q048",
+      "topic": "Sacred Geography",
+      "questionSha256": "bbef3eb78541ee70b37a1f5ea1df470e958dbad26ccef116f2bd29c5822673e7",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q049",
+      "topic": "Sacred Geography",
+      "questionSha256": "4916408ca8667db44fe3b439d282e6bf8760bb0410af5e9754316a9f3f04fe0c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L04-Q050",
+      "topic": "Sacred Geography",
+      "questionSha256": "4bd513eb2468bcff4cf9911a2f4f0102ba831b3941f7843693c8c7c60a28ea91",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q001",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "f6a07555e21ca784658899e0fcdd9a97ac7ddf6796e9af57842f28a6d64a6e0b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q002",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "598aa0b0a107c63c469521256265bc1dcaa05f9d28377cc211b474b928107a1a",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q003",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "b57547b31b99c314a748ff261f5737bff24cc1088ad7da4832985161d4a9f58b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q004",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "940f5ac815c32616c87cd17c4ad7d120aa3d7e4d0a71d39ccb0d0cbf8e07658f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q005",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "00a9efe10e5340a9e253d63dbf8fe2934c3973d4a90f610423ad8b2860f52ef9",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q006",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "0a6490b86ff132d5eec00189d87e9c9766eede26c80778c6ea556e2d99a9291b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q007",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "750be1db5ef61d53e24a9345d384fbbbf9b1ebf17ee29ac745f710eb21bbf39f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q008",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "01bfb1469e95aedf43835611793a0297cf3306835c50de72934a673a268924e6",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q009",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "d2020b7a6065b0573618bed3a4784d628e4e45ad19694acd105a2fa3c833cf4d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q010",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "7b468d9266ffcea6691dad181de2d4eac4a86451e82d0f596535a7f1d2420081",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q011",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "8bf8640dcd07d02a11ec651c82fdf797e1dd9421399d6bfa11059cb04288eb9a",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q012",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "d8dc07608f260ef1c02ff6424175388da8e3a1b4f7267758ddd2ceccd63d5e12",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q013",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "0a70bee7aad9833bf869fa02d19ae930ed4935998029d38630ce8e52edd12c37",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q014",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "73cda364c4dd92c2d86cc92c3042059f583296531765153e9931433d39760281",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q015",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "3ece5c35bab9f5dfb402741df95c02ca803a6835f286e4860ccf50f4263e846b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q016",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "c4e9a2f2d5a95470dddd1fe851c7a87f917d4e3db4b85bf51c2c4c19e3985144",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q017",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "eb4dbb3604922215b1d3b83ad344bd4e8658d32fd66b2674eefb3d1b371a2eab",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q018",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "65db74ef96de9722e63804be2998cb32cbc16ba77d4b1659980be19c4f750de9",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q019",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "cfeecfe1410a4b495e21a36930b1116e13a6f914a0d88f0a7dc1c135be9a846b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q020",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "aed04f59483149a66e3baf4d44637d03fc2e24ffe2f57c9d33974225a832e9fa",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q021",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "d5fa789fa8707c9fc1512226e0c5782d3e40b29653b91c17638f4e5e6720431c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q022",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "8ce62c0215f3419ddc99774938a03fb937cbe22dd71dbcc49d7ccad6da54a027",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q023",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "397278c5caa59439bd3fdec268dc50a18121055af566fcbb946d9cdddb8f6aff",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q024",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "dde4f915d7d9464848bb462837c56aba52096ff59f711d9be52da3308d71b4b8",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q025",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "be2549bf274343322ebd47a09c63fd875f2a0a4a5ae77da0a02530a457137a1f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q026",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "f09f8e17e9fdc35c4d931d44033b8cd745b4d1ee94069085203abc694472d254",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q027",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "8dc41a1161cbe09a11b0b9003bc5869240142b24073aca561fd557c14c2a225f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q028",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "6efdb17602ff4443e730dc09a7529428d259d5a1a7f1fb4de3bc91a9685f6292",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q029",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "e9f97a58519bf8982c859a12320ea1b44c2e07b97f4595a123891a3d17fa9759",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q030",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "73e51a0cdfa9ecb0170f40ccbe793595a6cffc4909190b367e56d17827139d60",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q031",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "96e9321c2786f91fbadbc5fa3e3d5640fd383cac599f105a32330b7804bb8f83",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q032",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "9d946a795c2425c63977c718ab03deb4e68cb878235ec7c10a03a88fd92f924f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q033",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "14fef6e79edbcd8ba594c17ca8271a01e467d87cd0611db1a9c181998fcd54c4",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q034",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "74dc84a1da920e4a164d27fb4933b103f90c79e29bd62f1188e42a966d6dcfff",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q035",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "190ca0cb4192a6eb1604a5c18b60a1f38cafb0783af886879106674e0c7d13c3",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q036",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "1298ea57c2d7f204ffd847efea7b97e238747bb9aa3e0957c4b07e44768e6862",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q037",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "168d052bf8c390023661ebe5954b3f64dd3af075af4e85024cc06a7fecf311cc",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q038",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "0b066bccdb01499a0a03030534aa3c2e664a7926aef87426018a5644afa3736e",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q039",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "564c95582f1ffda4b4f0b4d597d28a2e2e3d7b585c6d348dd5a32380353cd81f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q040",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "660431b5db7c90aa75c8563e3b446eda56528554c58a0b06a7df9e89dd95ea1b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q041",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "c045cce00be8e666e18f6e54c7bafb83d94f95a31adcda38df40c20d0f1da0a1",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q042",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "734dca4b3021241c791437f6932794f30505b55ff8cae270435df65fb321a501",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q043",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "846987886d3e2d9ac6f7aa8243dcc91b30f8547db028d7b0dd1eb54d547529f7",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q044",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "4c86c953cf0708fe7eeb2eb90bac134d8d1cb733206651a74cf2cb6b2c7d7794",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q045",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "2bc88ff2d2f6125fac0604d0c3d091bb97dea0def70592c59d11cb1a53d90c83",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q046",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "ce67713a030c33d4ac1095cb9beabe8c5a97b05585350856c9ec880594ee61cf",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q047",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "2509d60b146c65ac2cd3b07da71ed18f81b7e38272e4ce5527047ec910f716c3",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q048",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "eb63e4374b97e0efde1fd5a24725c41ebca93c5d4dc36e757e47b2bb70cbe42e",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q049",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "137092882cc397011d6f265b2d368872633937c67069806fc66c277830b23a20",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L05-Q050",
+      "topic": "Arts and Living Traditions",
+      "questionSha256": "6a4efd2c98476b0edb750ed4ff847380f135e38b1893abfb38cc2d0042c0cccf",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q001",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "bf89934340160d58dcd0f17baef73fdfd51d7d7fd46a221951887d926a4fc316",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q002",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "66e814c5cbad5ac902dd49d0b6081aa86b766973a9ce508e5914d7a98da8c782",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q003",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "e835ee51536d6b531c73d938d10bbd5ec7d4027502cb855a033f066ee5fc4ad0",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q004",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "f50f0fb1813b0fe8f2b3ba1e0e846a5d5f3d8b0cd09ed9bad6c870c339e630e4",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q005",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "22757b34038b09a40ee2760a58ebaad0eab249607e8eda62570545410fe6ab10",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q006",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "2531636e20c67d908fe55ac4c8679f73bfde68c6dcc526508783e2e77af9da75",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q007",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "1462e0edb9b8037c8c95ba0c6fa63e6b69f3f33dd5817e8a2a9211834a570d65",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q008",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "cd72fbf87959d8fec73f814b75109bb4de0c2f049bc8f9400f20ea8453c6b26a",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q009",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "249c3cca57a000ffc5fdfde323f648b2419522a5bf9dbb96ef84712fab9b4117",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q010",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "0a263e6d824b0759bce94cd714205a9a4bcecf38d9cb1cecae2c9a905e7f7986",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q011",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "c9db4ef449122d1cda564552ca3fa3a22c027dcff219aab9c40b9c93bc7328df",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q012",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "b312dc6a8d7211f30c72367627541654ca351f608c46c3d63c11ed15ded82bbb",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q013",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "912a7363a583fee8add386c6eef72301dbd873af5239650b6dc8da7f78a03701",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q014",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "7ccb34342a55f527bb58ad0134a452c68e857f182202057bc11b336d05324ff8",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q015",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "5bb3fd90b0d6a992808b595e5cd1671bbe30b575a41f5fcbd8a2792572b4367c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q016",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "f86853fc50ce3407f46bab135940a47973798f658736711240deaee0b061ef37",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q017",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "35cdc7371125066a5ce703b313956a7c4fecca5f1753ba3d2d6bedd0acaa3141",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q018",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "92e4b63b6dc63b458b3755b69f5c59f8c241a16ea595d72d95376e7865b95ad8",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q019",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "22377d2f9d3367dae7b2e00b2b3b640067e00b6cf2975cbf93e484cd813dd5b1",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q020",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "cfa777c7a0c9d58294c101bf0d3e227f9253505420bdc48aba494518349e6ccd",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q021",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "0c835e64b2785a20c68aa2e7a73b4eb72b8a53ec01e089b20dce0b8e08c5f641",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q022",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "fe3aabcfd13bd2615f6037712c53344877eba170199b010a8e978331152d56e4",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q023",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "dfda1dc973d0a0d0f8f5f706c39c31a3d90bb66bd6ce29d0942472965cdaf377",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q024",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "1806446959db649853c77e12647ef9d8866d1d9448b8791710a8ff26cccfc4db",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q025",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "66cd09e0ec7facebd52e1a9eabb63833f788c207b3e33285bdbef583b4ced163",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q026",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "786516b6b2fdc8530b132c41df7aaf363fc9480a393fbd33a28d36e0d0266713",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q027",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "5d4e718ec04cca71b4de7d451ba13c8291943318dad134f457c0092c764c6472",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q028",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "96b7da19200364f64818cd928cf5200ad43c0d6ac03537eca39e0344c7f4b15c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q029",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "186c2d97b7be3746af5f5770c50d573247315ba74595336b0b9ad34b0069628d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q030",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "922d1f7c9a391e25bf433ff41020cebe575a08f0df08138c257119d5cbd2573c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q031",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "1a3dde9f7df0f1cfacbbc368a6e20690bc4760da44f879caf879e4937e9758ec",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q032",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "3a50b8c6d98c55b51b4001f60942dc083df4c5cc256340b6dd021dbd7923f70b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q033",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "b01353b451fa5214a97508cc929fbb1eeb66dffa94c84fb113802057b8f5008b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q034",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "4f2142c48c1bea2e805dc4a60fc0e1d48cb527b00d34c2eb82763f486ac1491e",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q035",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "f7ffefbfdb3dee2bcf491b7b1feeea7fd93d099848618cbb874d30431f7430b7",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q036",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "f438810fcf3a24b0c8edaf205d900888100bfabfd4f00f13a2912882442eea9f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q037",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "7ddc30eae52e3fa8b77e3312b6db1cb1b6757acab593fde96b362c02c86da56f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q038",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "ea691ca97b9d24754e35c29b21204a2e751a54de6bc60381510fe5d326eca1d8",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q039",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "f5f0c2984a883830e1e1a104cf50f5a676928d7ef313ab9bc3a3f31a0cb53373",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q040",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "19b051d5dc3ecb985456e72aa4b5d0d3d9fe0f7bfaad6c660caf9f19aaf033bf",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q041",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "05bb5f1ac817f315c8549c9f8ff3978c154d749cdbb677dec8b6ba4da0db8034",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q042",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "ed1997e3c03952c8fe1ce13bdc05b8a8b2f0777270a72f5ad4239fa33383e96a",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q043",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "d21180f343e3484a4b08b7813b3718f2a69c694592019c5f49efbe191f0037a8",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q044",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "d2ebe27574e94707b2621a1cda275260a0d3114f982583a2cad991cb27c9cb6b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q045",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "feb800870336844cc7dd155dd02b297b28b85178cb7a27feae15e2a22f7c7eed",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q046",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "35f12811a150cc91cedf0be7a96e6f2d1f383f77ed168e2a147bf15aab57f49b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q047",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "9f796b81e3957928ce77702048b4d13940a090132b7f6e67b0a8fbff8deeb793",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q048",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "1778f565c572a0fb18ec26fbbb38a4b46b0ee574e74aa6fa7298c73376cc3a63",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q049",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "b9370e2daac11946f3bfd7e9de29f83076f8a1ad5644da3ee2df62bae253651a",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L06-Q050",
+      "topic": "Devotion and Festivals",
+      "questionSha256": "138526efd4da793f6d5a2298ddbc91df3c83018eb917c08dc70b97b2bb35294d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q001",
+      "topic": "Rituals and Life",
+      "questionSha256": "21344a1675c72558cfc96944222ba5d96936594b5c498755206764c0455586d9",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q002",
+      "topic": "Rituals and Life",
+      "questionSha256": "f4089202beaa0f41d4e9112eec93f12236f76a377db56da3de3cc39ed066168a",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q003",
+      "topic": "Rituals and Life",
+      "questionSha256": "44028b8f2e86bcdb97a78ee87f31aefbff480b6d11120703e79cd2f98922af18",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q004",
+      "topic": "Rituals and Life",
+      "questionSha256": "f1837342139a1fce7482d184c86f9b89037be3ccf0d65edaaa0c13e23a61ae87",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q005",
+      "topic": "Rituals and Life",
+      "questionSha256": "a2689606235baa58e9760fb738f66c03f7edc30ce568e21e2b223477cf1761b5",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q006",
+      "topic": "Rituals and Life",
+      "questionSha256": "a18c49ea33e06d3796e64e20a9f43fb962b642f7cc72b91febef44c3e46aa9d4",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q007",
+      "topic": "Rituals and Life",
+      "questionSha256": "ffc597ce2e006912c254cb32eff619a64f3038f165346ca0bc769ec24540785f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q008",
+      "topic": "Rituals and Life",
+      "questionSha256": "a307e61c004a8fc52dfe0810975939efd072813e3a9d57144cbc8b8b4ccac84d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q009",
+      "topic": "Rituals and Life",
+      "questionSha256": "62947dbad781fc65b821b77a89e93553ab36e3d6c470c4896986ec790360ba05",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q010",
+      "topic": "Rituals and Life",
+      "questionSha256": "cf41bb67dda1f9f0f187ebe8a3a13d80d488e22bd125004e6b54b80902ea0a4a",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q011",
+      "topic": "Rituals and Life",
+      "questionSha256": "8912615db3d14b94a3deaadd95411b924b61f175054481f2b8b2e9cf4ee9995d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q012",
+      "topic": "Rituals and Life",
+      "questionSha256": "9cfe135650e926bcbdaff276cdb8c28329b8f051b23ce6ba97e967145ff3d416",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q013",
+      "topic": "Rituals and Life",
+      "questionSha256": "1c80db69411e1237b3262e8c53928902673a8667dd824ddeb0180cdd0157a0ec",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q014",
+      "topic": "Rituals and Life",
+      "questionSha256": "de8c57737cc2eddd71180177b5dd0559b0d53433f4d15c8adec4b55132df1dfc",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q015",
+      "topic": "Rituals and Life",
+      "questionSha256": "77bdb0f00b4695ae9d50ef2e8caa102bb45b45648d9b0aecf11bb6593c62702d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q016",
+      "topic": "Rituals and Life",
+      "questionSha256": "2559c4feb8ba4c46e7fc6e4bd13b5cc56338d34caa98631543b8c29759a824a0",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q017",
+      "topic": "Rituals and Life",
+      "questionSha256": "6fab4c3c9d31c6bce64955e88c2569f2405526b33683a9f2bcb8a301be0e9833",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q018",
+      "topic": "Rituals and Life",
+      "questionSha256": "56778747f2c86fd1968d80271be4c1904f637c95cf988d0a268d3c60fdc3323e",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q019",
+      "topic": "Rituals and Life",
+      "questionSha256": "5931a3b49cad212384692d27d75a1368fcc0f067b61811cb53484a48b6b84869",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q020",
+      "topic": "Rituals and Life",
+      "questionSha256": "1c67acf7f498e71f09c46f4beaa2d3c87d987ce6b64c86a8590b0b9dc558a045",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q021",
+      "topic": "Rituals and Life",
+      "questionSha256": "0eeae528d90b0b5f965bb6df028d335a9d9d31cb7fe5f1217b77bcf0445d3263",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q022",
+      "topic": "Rituals and Life",
+      "questionSha256": "eb2d643596ce727f01494e9b848ad3152ad70f010951664caeb0dfe086bf3957",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q023",
+      "topic": "Rituals and Life",
+      "questionSha256": "3668bc64fed4355510d714f8e2bd69b41800737ac06083f4bde8f4f3793e4f20",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q024",
+      "topic": "Rituals and Life",
+      "questionSha256": "b659b7145465bbb2f41cf66a7a2f5358e6111e57e5dafecac146de4d7d2d377c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q025",
+      "topic": "Rituals and Life",
+      "questionSha256": "b869fe39a46a1a9f772ff22f64d8fb6f323a9c1122a01fd76a4473e576d2e92b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q026",
+      "topic": "Rituals and Life",
+      "questionSha256": "2e556653888e82c64d3688945163522d2e682b5930de7dbfeb6db36689e94f52",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q027",
+      "topic": "Rituals and Life",
+      "questionSha256": "e1d194b0d11a33b46a6c0ddbf1919dfcc0108a84a7cf3c7bb39bd77559ed7e92",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q028",
+      "topic": "Rituals and Life",
+      "questionSha256": "933f5898c35b05ee1268ee74c9ff952bf294d9381b3914c99216f75190f37a7c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q029",
+      "topic": "Rituals and Life",
+      "questionSha256": "59968623f2721cb058c45bd90d525d711471b5631165828897e083012ecb9ba2",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q030",
+      "topic": "Rituals and Life",
+      "questionSha256": "af6dcfea0a8d85d5f66d07624f73e0acd76afa81f1413cc5a4dfd251584d3fc9",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q031",
+      "topic": "Rituals and Life",
+      "questionSha256": "0d45f30f304b71c20cfec572493b2a44168203ce8f457e4c2c4c10431169ba3d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q032",
+      "topic": "Rituals and Life",
+      "questionSha256": "73be3aebf321c0128ed715b376ccece1e108a8ca1039d201caee51863adc447f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q033",
+      "topic": "Rituals and Life",
+      "questionSha256": "c8a8354f283df56e1036228fb4f924196482764b3f59555609ca6afb04892c39",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q034",
+      "topic": "Rituals and Life",
+      "questionSha256": "0114a810845995632ba08930a661d25b803f59004bcb7e8e16e9b226b48518f2",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q035",
+      "topic": "Rituals and Life",
+      "questionSha256": "8e70ad8db9361dbef657a8d44c599887ca94f4a47e80f57a2be3e85686399010",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q036",
+      "topic": "Rituals and Life",
+      "questionSha256": "1164ac412f0feabf9f3c601f921ddd4aa70143f7fab6e7123c97dab78e243834",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q037",
+      "topic": "Rituals and Life",
+      "questionSha256": "418590d8e5bdbdbbaf630a78ff0469e36ebce6a5b7faaab9c716f6fbe6102a81",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q038",
+      "topic": "Rituals and Life",
+      "questionSha256": "763239c5a2bf781101b9d2585392fe73a33c00546af8f183cc329469e26088b2",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q039",
+      "topic": "Rituals and Life",
+      "questionSha256": "c2e41d24f4a7379acf98ccaf467b4102d8bc955f7c3dc8954da71a24f57dfc33",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q040",
+      "topic": "Rituals and Life",
+      "questionSha256": "9fd031b9652d4ececbf99ff17b71b6ba49691e4685e9b4db66618668240b6985",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q041",
+      "topic": "Rituals and Life",
+      "questionSha256": "ed12cdea491565da0152383dafc9bfa585a3bb3be26ca8650096141eb76bae70",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q042",
+      "topic": "Rituals and Life",
+      "questionSha256": "36a24798cc652349981a0a907bdb4f3ec59830addf75cf365ec9e41598c48f73",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q043",
+      "topic": "Rituals and Life",
+      "questionSha256": "ffebe6d43dba7d5174d48502695f9803ee8054eb9ec8c3372ea16b4768b38fe3",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q044",
+      "topic": "Rituals and Life",
+      "questionSha256": "f7104bdd2354806787a08bbe96c8a1e12680ba28fecb72dea50b2d2cd255116b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q045",
+      "topic": "Rituals and Life",
+      "questionSha256": "8289588ba6b7fd98412e8f08c1a2d76fc647e1e72ed4cd8db6e957ddf4214fcb",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q046",
+      "topic": "Rituals and Life",
+      "questionSha256": "1ec1f73b3357cfae7de2143365f89d3fd3b122378aaa41ad63900d0870fdd83b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q047",
+      "topic": "Rituals and Life",
+      "questionSha256": "dfde84cd52caed6db8dbdd9e178b59cf3c3375dbd3f27cc6fcd56f83f9f36201",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q048",
+      "topic": "Rituals and Life",
+      "questionSha256": "6e8494f879df842e9c99780e28de715ebc6d0b7408bf43fb9a4065022752ac0e",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q049",
+      "topic": "Rituals and Life",
+      "questionSha256": "c5e01bae991ed46954861a1c06882caf6ff4457ba3b1ba69d694672050004f1f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L07-Q050",
+      "topic": "Rituals and Life",
+      "questionSha256": "7d19fc8bb134e6820dc80ba793db2d4a6e9ba931b728ba7f8eb03ccdbc9a57a3",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q001",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "5536db41154801ad57d56ceb2495ef21762159fca272fa5d75637d3da843a602",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q002",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "bfb6b9562f7e36e4e9437ff1bbc6c780e9946adfb20da40918587aa175bce726",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q003",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "4bb949d5c350f529fb1ee8f664622a24229dec82a6f0a34495985b611159aac4",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q004",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "d1dfcaa856d29d046c96204324dbbbd0bfbb233d07b06d254dec470bb62c0c04",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q005",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "ef8d958d98c529f1dab4fc66945ecda76cc88736f7747836a4b63743d46a958b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q006",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "c6a3df4d88655847f1ae66653c6d4e45d294d1d55e6fe8867c1a5af678c9b489",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q007",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "6a2118c58f81418e25859f82beefaca5a53d9ff44fefe18d192832d9cfd5e3de",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q008",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "2c0686dbb6c44b6eab7a0fc89249afbc3acdc65a972cc3a0c36f45375e120e3c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q009",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "27750f71f7adf2deb0df288c0d70b173e6b7acdd73779f6b1f8b905bb329d7a8",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q010",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "1ef9cd257f49980c903730fd7094c3f4f7f314190f9396e589f9ecacd26e80b6",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q011",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "fd42adb62744b72cb463886ca70970278d036395c82fb875106a7c6fbcf7dba3",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q012",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "4fb35d2cd9449092f6ec1bf9f76a16ee69fff347b5acdaca95c54d13ec63281c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q013",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "22e9d5b2938d509bccd81f86f36d519c8bc95210fa74a7cf6107e520e40bb628",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q014",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "fe3fa3a8a95586b3c66c69ff84090498e379e30d6ec932cf716510b28178b78b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q015",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "b28f394b4e3c59d4ad46a0022e8f7bbaf715bea6c82024d54d8a95f31b16320b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q016",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "86ace79c4f31ca8c9a5075fdad11be64e473b8ff1124fb2b3c558e5beda3425e",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q017",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "17f0031c8ce0a7d814846f0f5b13f832157b7a662cb470cfa7a36a92953f9db9",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q018",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "9b5c6308b25be2ff9983113de47632e6c699d7ce26626be55c63cb223fda6f51",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q019",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "5ae53119464618274e6b5a39c92e693b103a37735f0ba654ecaa79bc29c925b1",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q020",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "fb15b8f2c2027d61a5677ff4ec25dca8967e3c6b4159ee72ce0d294828e475a8",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q021",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "7f0cdb081333f751a85bdcf3b0500608119cd3d5e1346e2ffaa81701afb93de5",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q022",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "6b381631f4483eb3a69aa42621e890d969751922d3fae66e92f236500131ba74",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q023",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "7ef761319ae2a72083aec71397b333df0e8110b0b91106df3086da206b51339b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q024",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "a1f0cebd39e87ef3af49b8f2a357b54f96fcab4feedeb1e1c211f769a2a3a796",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q025",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "7e9228579e28692b0ae56dc5c1e8fe0da6d1605597931668c16e76529d97dcf3",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q026",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "5f44801d0894bf7125d6752173c64f77884bc143a4b167fc3db8f9dbd83fca3c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q027",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "c383420f73643ac53119bccc52b53742af3c9afe73971dddc2ba84dc45eb4ef6",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q028",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "b13f97d8fafadf48035fd025107122e8cdf120e3d84ec627458e98c3944c9935",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q029",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "527a5d47a2a9a25230a9b113df9b439fbc3f4eb7f3cc0cd760c99633cfb6542d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q030",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "6ba359e6dfb62e0e30c2c9652d70383641f0e851665f3cb6df22cfcae2411512",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q031",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "1058d03871e85e7e762d1a2a18c6b8cf9315a320110828e820476768a43823fa",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q032",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "b865885564ca57c546f8ee0f91c87a5d0220563a3f2dcd276eb73243fcc54c18",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q033",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "89debeba36bb43e5c5a94155200ae2e6d8d74938d017ce05395fdd0a34500deb",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q034",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "58a86ca08e53c4cb35f4dd48eb3c028b443fd67a3aad92bad0fc65e60d28eb46",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q035",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "2ddf4490a8b05e07c607e331cfbd41632a24f155392ae3901611b7a99cbb1f30",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q036",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "e800ef0f332ad6ce707c44e33265daef0cb6e2d773dbc0a2e7be45bf0018e804",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q037",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "9080168245e8f402549ab948b2bde5ba6c03ece10763ef43774578098dc9be31",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q038",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "321e83522c1596c9a30979158ca625c9dc903e9596a9f28078f5e454236fc563",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q039",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "ca05ca3356f2ce8d40b8f7563b48701af2acf4fff86768a64e5705e2b6a980ad",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q040",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "57467522418d23237d4ec23823b4eeb13f6eec7a175fec6342474501ec1b5376",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q041",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "5e1abdfeb4f44760ff02563e068e15369664c1071ad24d52372456f6b461a8ea",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q042",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "5830f16d1170acea8f99e7340cbf105341f7d49aab04053c8fe3900b4c0b139f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q043",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "cbe1a4c3915fb93a0c40e31ebefebd8bf4419338163a831fdb176698d7ea5d7f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q044",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "957c2b5ff25497df6bbdc49c2a92a04b02b1870b51fdbe1a524f1935669d5ad0",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q045",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "13e232b07587bf894b9dd759d738257b4587ca39ea36ad3d59d87a6077f910e4",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q046",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "0bff9122ebd63fda8569b3a8ca521de82cce52bcc13f8d5b195ae57e551ddd2f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q047",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "44820b1074c4e4d5f72854ad3089ab363c9d1f891b42dcc3fdb3b76be04f3980",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q048",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "883f9e588c535a675de302ee1c437698bbf9a5534be3472836599606d9cc8924",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q049",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "012fda78e49e2bef17bce45eef230552c507132c257137a3d634e867d98485db",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L08-Q050",
+      "topic": "Sages and Celestial Traditions",
+      "questionSha256": "15b344734185e35a528a994cde41680a40a5d09cf72cbba7caccce2dea181384",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q001",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "c1a2f07c9935a1b800fade4a27843d9cf59aea44a423098fd4274a615ecbf3db",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q002",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "cd2cf9ced02a8e2e765626efa9399f6829a48916b26aa85ae21f6d31887aea34",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q003",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "f984429d1f7cb53a1a10894e4d2251e48929eaf4ef44e7af0a972f0bd7cb750c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q004",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "794e740dca7fe81cdf1a315d7b5b5ad3846775d8b21057e09a09b467d68e5d92",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q005",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "f05c319a044ecf1c89070966237b4230a214996491c9e2494b0f77c0e49c17ee",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q006",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "24d85479375dffaf259698eb40149613a1c075e775b3cba5735ebe19af2bf750",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q007",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "22e83348f83d4665d80549ea4b783136e606a77f419827c46395e25892d6a4bd",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q008",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "cf41031b12d5d96d9e6eb3f0f07542037aeadbc5670fd658b743c98577f3d93a",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q009",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "f09a06984ae17b2a4f26ae07c07818fbfc7de83f4e5ebc5da87e2581accaf44b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q010",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "fd9b284f39967df5caf5722506f4bb88c33f7cdf6636d97347b367388252da1a",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q011",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "b498a4ac844574a499ba8eef651af1fbf677b81b436844c3ae86f3c25fde4f62",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q012",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "a474907490834501f349ccbec3a1d0c9b415f96848f032a7ba989900726c6f87",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q013",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "e8096ef137cdb9f76885aedc169ff0f7e5c2247e984445990e6a02ca9a3c06ae",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q014",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "cf5611ce5c4a756507bcb4594c518010e6d7e5b5b64058b12542905fe93b15e0",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q015",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "6e36c10f845945ca6f58a45ebb6791a196590f483f67b13c62aa25759787d3e3",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q016",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "796aac885e27e68d61a0b47cb63ce21c65324bb5efad7ca362f9988c6dfbe6c9",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q017",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "34f5080ce77a07e9cbdd9c0e08fd96b0f469705464e6114334932611cf0afecb",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q018",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "35c8b38b9a05dd828bbe16af53372323dd04b882c2279664c02b206bc48c72eb",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q019",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "aad057457cece12f07cbc12f9668120db5b2bf3bf86e5ae5232f9a71a5d67fa8",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q020",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "e9067d09eb6f543ee3b892f3a7a6dc32b675d8751917e8de0303427c65a16a02",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q021",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "eb52b9f31626d288336f8e3d573c34948cce2abf208ead847ac0707dd8b3aa9a",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q022",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "9a541c89ea90ff86dd94b544c858cc6a598e13c47a3b84516359e9ad6e0a8dbb",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q023",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "9c257d183f9cca70ce8f5c2fc848c5c2f9957c88027e2373188a339981d3dd96",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q024",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "4d9434f4354aab5984b170e1590a5f5da66278697cb411057696d874b10be2a5",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q025",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "2cf7f23eb05d8e3a54e6bde6efdf3c1d65baa85691087887656ae1b32099ce48",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q026",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "de0d7542b799687ed00b58b35637b07cdd86c0e2c6436562eb792f1a1fde3e9d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q027",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "b66fd8207671c3683a40e3be0032cab43a59922d5815ec606ce5336a261eeda6",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q028",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "9e7d9cc3e2646ccfe3552d13255b1269b1f4d6a0151b92deb1868524ff236ee6",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q029",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "d8ec843fba24c0dd09f18f3cf6ac8565b1ea507ba592db68604e57b84e1d7d49",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q030",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "613ca1ee8d406df91473e011610f9a0e8627ed9bf98421fcc780e2cace12779f",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q031",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "1dbb321b69aa83e8be2036dd970be9db0f1b2cd156f46b3d48537c61c1b45627",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q032",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "a1b7fc6df0f30828bdad693d1474212ef1f352001a5c267f9a4ccb99289485f7",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q033",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "4cb99727df22a682907aa0f417fd673517518e735379674ee7bc3d93c89b25be",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q034",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "b14943fccb35c91030ba82f88274f862c80eb1e89cd71259d3badae459d706a1",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q035",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "4df093a97b72c0204240c192f469541275420ee7731eef89d99c63aafef8b2ba",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q036",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "ae3c23e797be371a7950ebcf91034936ec45ad324522968d0e8aa229cbf57a6e",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q037",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "b2391f742665a83331d1685bb598d3c838a3d861c9d180eed40aa186a55d83c5",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q038",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "ac22077cdffe3cad513b70c3f4e731bcedba4c063045a970638b46d3829f313e",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q039",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "a86984ae6f578fe94d54a736677e36bacb8ccd809b64433ecb94ff778bb78417",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q040",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "06bef9e08b2f88ad219e37f1a5665911b2faa682225a82bbd2709d32c0c799fc",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q041",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "5ab81c472974dc12ed7fd6e9d53bc8cdf524fdf17b1f56867154032ec62f1fe5",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q042",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "f64b120d57938e0b99e9ea72fd85adfc3446adbbc067f6735a6aeed16b395ea3",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q043",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "fd6aa1357b6a450da0913be7bde74956a6574f985f52e928712450295567a78a",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q044",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "cea3468e293d6ec2b121de113c1227a670e78e98878ef6c3e86243840d899fd0",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q045",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "3bd4db05b0f9cabebca83eeb5aaa6bf146e99e21525b2ecac8ca8f320485a193",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q046",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "db1ad155a5a697a2f83bfbe02d58e0037ecfc7d3acaedf5f62d4958c4ae23378",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q047",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "dd74ddcabca3c5af0aef8e7fa27f9fa5627c8991e565dea5ea8ccb52a1a6e67b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q048",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "c985fc7842ca8fabe92358f1f7bf1468088354a5990344497a3eea065ea03a85",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q049",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "cc7407c416efae224aec73c540a37b8637a03c0541027d7130f251f741c03cc1",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L09-Q050",
+      "topic": "Learning and Knowledge",
+      "questionSha256": "d6581d21b67a4d8954325ccbf78d22080b547ab447ab57625ef05812a5253df9",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q001",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "8889bbc00d53c9bdd7e12ee97fda55ca9d94a14c55fb9f9a11ffdf735a0a4c3a",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q002",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "eac94c84a9fd138bf54e2a53d674188f2465016696f70456a9a8b0da7ece8ad8",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q003",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "f7c83d49f4f733e7e62f331c35145d3b968e266f6a0fba38cabdaa943bbd0561",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q004",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "c1c7fb55c4040825192333d9778e62ad3e8fad195edc6d402f0cf289e87d6f1a",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q005",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "a03eb1afeeeeb1275df8f59cd43235cbcbd4e3ba0cbb8839a1ae8a32e616c98e",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q006",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "6cfbc0dc57578c8b338e1f408c595f0c2d8dda0f846f7b822c24035e1d998a6e",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q007",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "351dfefaa368b391897677942bf828534f44256faadeec3f12c83f2ad9d85cc8",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q008",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "49ceeeb907325139b1da756dec20fc6aa27f3de2b8fd875c32df0322b109bfa5",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q009",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "8c21c36cbbb224916a9da1a9a347fb23f5c51ac5f0de867e644b1b224bac6ac2",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q010",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "1b563957716d014fd5e93b8a02372f860b07052f0e1a4173331f90dff64bf104",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q011",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "d8fe20bb43dc4c3db4b375d6fe96a1ef35cf53b7b1e839d5d09c4115219673b7",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q012",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "5ac5f3ade12c1ea31ca336814f2fe6f197821edcca6e25699bc663dbb2ab10be",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q013",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "e7b45d49558a3ccece78f0766c841d0ff8da5221ffd48e08ee15e4d11f2c78d7",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q014",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "53cfa46c9053388a74fbfe60a34529d97c4b2d3fbd8f6349f24caabb59ee7ac2",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q015",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "3140d4650ce1895dbfb434c319dc5905b4bd135b29e6f602817eb730ced487d9",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q016",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "be79e37bc921675c9f3587b6937be984eaf0e916293ebc7e21bd11d7a5fa8d19",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q017",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "5c24a01abbecddf368a04936d1b2dfc3bb59c014a481d95dfde0413b66999c73",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q018",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "3453033262549bca300c735fb19014207f6c91b2fe6e9c59bdf10d1624f28a53",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q019",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "ea6351f087aee4344eff1f77e7bf0b23904e415da6a26eaf8d644ce0c54c81dc",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q020",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "d75bc9bf6f2670c8f650d6e99a7078670d9ca51a1e2a7198a374cd8e679d1783",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q021",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "ab69183053f7a422cf68b8d2df2deba8cfd0c5625c96a0f84dc42ef3137ee222",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q022",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "27c8d0383af074084387d3c5f761ad8642a2d94146cd510173ebe63fd02095dd",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q023",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "3243bb4dca47c5181817fd31c2ebc50751eb4cba6a68086cd49755b087b89bce",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q024",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "98279b8d8b826f10fd53cebe3632fd94d52d55e22bd25b2d290f5008a23e059b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q025",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "9cec40f606ae3117c7e7946219bc34c2ecc97a551b4997a47b937fca4fcbb2a8",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q026",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "4151f444971064ac9f8be7ee9154f6a2204c2016ede8bd2a1ec16dec9db1ccc8",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q027",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "13401d9132cb484506fa7f15bfe190b746e31218a888941401ac9a96a9feb7fa",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q028",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "9a4c5210f9374213d45dd01d4b579a3b133dd13f3937e87e0b69c17f4c05f655",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q029",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "3665fb78c85c5c70e70e26a70531ba32ab5d4cd3716a650bb791edbce1618a1a",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q030",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "3197efdab4160fb066ee772960df92e0c88467a8648988995a62b333651fab67",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q031",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "4f8832bca955a138ac27e9ce0ecd6e27a799f09eab1ca2d01a78aa71e32bb4ec",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q032",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "059f763400c6963c7931f46ad2cedd0fc377295b8cb2266cda3c502a16ea008d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q033",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "f9be8362cf13bab4968030ca67ef197eca3b4b3901bc3446709c55162fea3c8e",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q034",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "fa4e06e0088e384b656bf6b6a065322114a3be71f42ffd20437e9c4469c251f8",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q035",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "c78819ad83f489b4b4c0b698874f32aba7bf02fb8276c4c19215a330e802740b",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q036",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "da1d726c35a879e18208a75ada7bcc80e9628461e5299658f2a0bab031ddc8c8",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q037",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "c22f89a34fc7188fe9114e18c19fbc15b83bfb1bdd7d1a9b7c3c967dd3dcf28c",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q038",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "8f13c5b165104fe40df7dbfb9bd8034033cc95a6598382b13a3933c7f7bcb868",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q039",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "4ba5ac2bddefbb8407cdc404afb8c346b144e380431931db59de1497f7199e0a",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q040",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "7fb776f3688b241da4275eca504d3bfa848427d4893e25d86538dea89c6de5d9",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q041",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "87a9b82f14c825328a1ead8daaafcefef243a2a0e7d6fd842babf4b3aa814b98",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q042",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "11205f573233ce9f34e3f08d92cef699f8e6de74d103f2745b1f37099240332d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q043",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "899eece6d7ed10f055164e524219979da06a0aa59521990c77e9575f21fd3809",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q044",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "58068cb24a217b85f3f67fceff6752528f186c40deca36d557e93d49944b56a9",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q045",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "de398384b11230b72a242f97d7c2ba447315f1607ddc58805bfca7ff1d65e993",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q046",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "3dd5a0977f753ec0c68e0af9342da56211a480f35f6f4fc3017ffb954fa093e4",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q047",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "599e6b1feeef30345cc69eed788c4cea86ee55e11fa398b1378e446ea511868d",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q048",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "ea4d14b9d8d8756fcbb17a9a402597d1f94fdcba3fb7246ff4729e699a985078",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q049",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "405b7493fddfe080b61d0472a67a930ddc357b3f1fb800f3c906b3503ed4f3b8",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "concept",
+      "compiledBy": "ShivBodh Research Group"
+    },
+    {
+      "id": "L10-Q050",
+      "topic": "Philosophy and Shastra",
+      "questionSha256": "d33537a496bf4354763d70127528ee74623a4721efbbcb305743dcdffa5c854a",
+      "kind": "recall",
+      "editorialStatus": "independent-review-pending",
+      "noteKind": "recall",
+      "compiledBy": "ShivBodh Research Group"
+    }
+  ],
+  "reviewPolicy": "Editorial learning material. No independent scholarly sign-off is asserted. Published administrator corrections record actual reviewer and internal evidence.",
+  "internalEvidence": [
+    {
+      "id": "L08-Q001",
+      "reference": "Bhagavata Purana 8.13.15–16",
+      "url": "https://vedabase.io/en/library/sb/8/13/15-16/",
+      "reason": "Lists of seven sages differ across Manvantaras; qualify the present-period question."
+    }
+  ]
+}

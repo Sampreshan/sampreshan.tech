@@ -5,6 +5,9 @@ on:
     branches: [main]
     paths:
       - 'buddyboss-theme-child/**'
+      - 'content/sangyani/**'
+      - 'tools/tests/**'
+      - 'tools/build-sangyani-notes.py'
       - '.github/workflows/wordpress-theme.yml'
   workflow_dispatch:
 
@@ -35,6 +38,12 @@ jobs:
           while IFS= read -r -d '' file; do
             php -l "$file"
           done < <(find buddyboss-theme-child -type f -name '*.php' -not -path '*/vendor/*' -print0)
+
+      - name: Verify resumable quiz protocol and all 500 cards
+        run: php tools/tests/sangyani-regression.php
+
+      - name: Validate quiz JavaScript
+        run: node --check buddyboss-theme-child/assets/js/quiz.js
 
       - name: Check whitespace
         run: git diff --check
@@ -94,6 +103,27 @@ jobs:
           printf '%s\n' "$WP_DEPLOY_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -p "${WP_DEPLOY_PORT:-22}" -H "$WP_DEPLOY_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          # The study bank is runtime data outside the public webroot. Prepare
+          # it before switching the theme reader; fail safely if access is missing.
+          ssh -i ~/.ssh/deploy_key -p "${WP_DEPLOY_PORT:-22}" -o IdentitiesOnly=yes \
+            "$WP_DEPLOY_USER@$WP_DEPLOY_HOST" bash -s -- "${WP_DEPLOY_TARGET%/}" <<'BANK'
+          set -euo pipefail
+          wp_root="$(cd "$1/../.." && pwd)"
+          test -f "$wp_root/wp-config.php"
+          bank="$(dirname "$wp_root")/private/sangyani"
+          if [ ! -d "$bank" ]; then
+            mkdir -p "$bank"
+            chmod 750 "$bank"
+          fi
+          # Provision a scoped ACL for a dedicated deploy account; do not
+          # require ownership changes or broad access to the private parent.
+          test -r "$bank" && test -w "$bank" && test -x "$bank"
+          BANK
+          rsync -rlz --checksum --no-perms --no-times --omit-dir-times \
+            --include '[0-9][0-9].txt' --exclude '*' \
+            -e "ssh -i ~/.ssh/deploy_key -p ${WP_DEPLOY_PORT:-22} -o IdentitiesOnly=yes" \
+            content/sangyani/ \
+            "$WP_DEPLOY_USER@$WP_DEPLOY_HOST:${WP_DEPLOY_TARGET%/}/../../../private/sangyani/"
           # Files stay owned by the site user; sync content only (no perms/times/owner).
           rsync -rlz --checksum --no-perms --no-times --omit-dir-times \
             --exclude '.DS_Store' --exclude 'node_modules/' --exclude 'assets/icons/kit-src/' \
@@ -107,7 +137,19 @@ jobs:
             "$WP_DEPLOY_USER@$WP_DEPLOY_HOST" bash -s -- "${WP_DEPLOY_TARGET%/}" <<'REMOTE' || true
           set -u
           theme="$1/buddyboss-theme-child"
-          owner="$(stat -c '%U:%G' "$theme")"
+          owner="$(stat -c '%U:%G' "$theme/template-quiz.php")"
+          wp_root="$(cd "$1/../.." && pwd)"
+          bank="$(dirname "$wp_root")/private/sangyani"
+          # The bank's inherited ACL keeps it readable by the WordPress user
+          # when files are created by the dedicated deployment account.
+          # Retire only the known legacy public study-bank files. Retain a
+          # private copy for rollback, without deleting unrelated theme files.
+          mkdir -p "$bank/legacy"
+          for n in 01 02 03 04 05 06 07 08 09 10; do
+            if [ -f "$theme/inc/quiz/bank/$n.txt" ]; then
+              mv "$theme/inc/quiz/bank/$n.txt" "$bank/legacy/$n.txt"
+            fi
+          done
           chown -R "$owner" "$theme" 2>/dev/null \
             || sudo -n /usr/bin/chown -R "$owner" "$theme" 2>/dev/null \
             || echo "chown skipped (no permission; see /etc/sudoers.d/sampreshan-deploy-chown)"
@@ -124,3 +166,8 @@ jobs:
           set -euo pipefail
           curl --fail --silent --show-error --location --max-time 30 https://sampreshan.tech/ >/tmp/sampreshan-home.html
           grep -q 'sampreshan-child' /tmp/sampreshan-home.html
+          curl --fail --silent --show-error --location --max-time 30 https://sampreshan.tech/sanatan-quiz/ >/tmp/sampreshan-quiz.html
+          grep -q 'data-start-form' /tmp/sampreshan-quiz.html
+          grep -q 'data-level="10"' /tmp/sampreshan-quiz.html
+          bank_status="$(curl --silent --show-error --max-time 30 -o /dev/null -w '%{http_code}' https://sampreshan.tech/wp-content/themes/buddyboss-theme-child/inc/quiz/bank/01.txt)"
+          [[ "$bank_status" == 403 || "$bank_status" == 404 ]]
