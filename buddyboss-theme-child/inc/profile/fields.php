@@ -135,10 +135,19 @@ if ( ! function_exists( 'sp_profile_register_rest_fields' ) ) {
      */
     function sp_profile_register_rest_fields() {
         $keys = sp_profile_field_keys();
+        // Only bio is public; the rest is personal data visible to the user and admins.
+        $public_fields = array( 'bio' );
+        $can_view_private = function ( $user_id ) {
+            return get_current_user_id() === $user_id || current_user_can( 'edit_user', $user_id );
+        };
         foreach ( array_keys( $keys ) as $field ) {
             register_rest_field( 'user', 'sampreshan_' . $field, array(
-                'get_callback' => function ( $user_data ) use ( $field ) {
-                    return sp_profile_get_field( $field, (int) $user_data['id'] );
+                'get_callback' => function ( $user_data ) use ( $field, $public_fields, $can_view_private ) {
+                    $user_id = (int) $user_data['id'];
+                    if ( ! in_array( $field, $public_fields, true ) && ! $can_view_private( $user_id ) ) {
+                        return null;
+                    }
+                    return sp_profile_get_field( $field, $user_id );
                 },
                 'update_callback' => function ( $value, $user_object ) use ( $field ) {
                     return sp_profile_set_field( $field, $value, (int) $user_object->ID );
@@ -151,8 +160,12 @@ if ( ! function_exists( 'sp_profile_register_rest_fields' ) ) {
             ) );
         }
         register_rest_field( 'user', 'sampreshan_completeness', array(
-            'get_callback' => function ( $user_data ) {
-                return sp_profile_completeness( (int) $user_data['id'] );
+            'get_callback' => function ( $user_data ) use ( $can_view_private ) {
+                $user_id = (int) $user_data['id'];
+                if ( ! $can_view_private( $user_id ) ) {
+                    return null;
+                }
+                return sp_profile_completeness( $user_id );
             },
             'schema' => array(
                 'type'        => 'integer',

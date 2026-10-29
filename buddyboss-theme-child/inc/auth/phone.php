@@ -256,7 +256,12 @@ if ( ! function_exists( 'sp_phone_rest_field' ) ) {
     function sp_phone_rest_field() {
         register_rest_field( 'user', 'sampreshan_phone', array(
             'get_callback' => function ( $user_data ) {
-                return sp_phone_get( (int) $user_data['id'] );
+                // Private: only the user themselves or an admin who can edit them.
+                $user_id = (int) $user_data['id'];
+                if ( get_current_user_id() !== $user_id && ! current_user_can( 'edit_user', $user_id ) ) {
+                    return null;
+                }
+                return sp_phone_get( $user_id );
             },
             'update_callback' => function ( $value, $user_object ) {
                 if ( sp_digits_is_active() ) {
