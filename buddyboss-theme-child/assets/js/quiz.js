@@ -83,7 +83,7 @@
         $('[data-checkpoint]').textContent = result.checkpoint ? 'Ten cards practised. A good moment to pause; your progress is saved.' : '';
         hud();
         if (sound) { var audio = new Audio(cfg.audio[result.correct ? 'correct' : 'wrong']); audio.play().catch(function () {}); }
-        if (result.correct && !result.checkpoint) {
+        if (result.correct) {
             $('[data-feedback]').textContent += ' Next question loading automatically.';
             // Keep feedback readable; next() retains backend checkpoint/certificate logic.
             autoNextTimer = setTimeout(function () {
