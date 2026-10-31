@@ -6,7 +6,7 @@
     var $ = function (s) { return root.querySelector(s); };
     var store = { get: function (k) { try { return localStorage.getItem(k); } catch (_) { return null; } }, set: function (k, v) { try { localStorage.setItem(k, v); return true; } catch (_) { return false; } }, remove: function (k) { try { localStorage.removeItem(k); } catch (_) {} } };
     var STORE = 'spQuizToken', run = null, question = null, feedback = null, busy = false, timer = null, certificate = null;
-    var practiceParent = null, fresh = false;
+    var practiceParent = null, fresh = false, autoNextTimer = null;
     var calm = store.get('spQuizCalm') === '1' || matchMedia('(prefers-reduced-motion: reduce)').matches;
     var sound = store.get('spQuizSound') === '1';
     function motion() { root.dataset.calm = String(calm); $('[data-calm]').checked = calm; }
@@ -17,7 +17,7 @@
     $('[data-sound]').addEventListener('change', function (e) { sound = e.target.checked; store.set('spQuizSound', sound ? '1' : '0'); soundSetting(); });
     $('[data-mute]').addEventListener('click', function () { sound = !sound; store.set('spQuizSound', sound ? '1' : '0'); soundSetting(); });
     document.addEventListener('visibilitychange', function () { root.dataset.paused = String(document.hidden); });
-    function show(name) { clearInterval(timer); root.dataset.screen = name; root.querySelectorAll('[data-screen]').forEach(function (el) { el.classList.toggle('is-active', el.dataset.screen === name); }); }
+    function show(name) { clearInterval(timer); if (name !== 'play') { clearTimeout(autoNextTimer); autoNextTimer = null; } root.dataset.screen = name; root.querySelectorAll('[data-screen]').forEach(function (el) { el.classList.toggle('is-active', el.dataset.screen === name); }); }
     function error(message, play) { var el = $(play ? '[data-play-error]' : '[data-error]'); el.textContent = message || ''; el.hidden = !message; if (play) $('[data-recover]').hidden = !message; }
     async function api(path, data) {
         var controller = new AbortController(), timeout = setTimeout(function () { controller.abort(); }, 15000);
@@ -47,6 +47,7 @@
         $('[data-practice]').hidden = run.mode === 'practice';
     }
     function render() {
+        clearTimeout(autoNextTimer); autoNextTimer = null;
         if (!question) { if (run && run.cert) return showCertificate(run.cert); return show('start'); }
         show('play'); hud(); root.dataset.mood = 'idle';
         $('[data-question]').textContent = question.text; $('[data-card-tag]').textContent = question.key;
@@ -74,7 +75,7 @@
         }
     }
     function paintFeedback(result) {
-        clearInterval(timer); feedback = result; root.dataset.mood = result.correct ? 'good' : 'bad';
+        clearInterval(timer); clearTimeout(autoNextTimer); autoNextTimer = null; feedback = result; root.dataset.mood = result.correct ? 'good' : 'bad';
         root.querySelectorAll('[data-choice]').forEach(function (button) { button.disabled = true; button.classList.toggle('is-right', Number(button.dataset.choice) === result.answer); });
         $('[data-feedback]').textContent = result.correct ? 'Correct. +10 points.' : (result.expired ? 'Time has ended. ' : 'Keep learning. ') + 'The correct answer is ' + question.options[result.answer] + '. −5 points. This card will return for revision.';
         $('[data-explanation]').textContent = result.explanation; $('[data-explanation]').hidden = false; $('[data-report-wrap]').hidden = false;
@@ -82,7 +83,16 @@
         $('[data-checkpoint]').textContent = result.checkpoint ? 'Ten cards practised. A good moment to pause; your progress is saved.' : '';
         hud();
         if (sound) { var audio = new Audio(cfg.audio[result.correct ? 'correct' : 'wrong']); audio.play().catch(function () {}); }
-        $('[data-next]').focus({ preventScroll: true });
+        if (result.correct && !result.checkpoint) {
+            $('[data-feedback]').textContent += ' Next question loading automatically.';
+            // Keep feedback readable; next() retains backend checkpoint/certificate logic.
+            autoNextTimer = setTimeout(function () {
+                autoNextTimer = null;
+                if (!busy && feedback === result && root.dataset.screen === 'play') next();
+            }, calm ? 2200 : 1500);
+        } else {
+            $('[data-next]').focus({ preventScroll: true });
+        }
     }
     function accept(data) {
         run = data.run; $('[name="name"]').value = run.player; $('[name="name"]').required = false; question = data.question; feedback = data.feedback || null; saveToken(run.token); fresh = false;
@@ -107,6 +117,7 @@
         catch (e) { error(e.message, true); } finally { busy = false; }
     }
     async function next() {
+        clearTimeout(autoNextTimer); autoNextTimer = null;
         if (!feedback || busy) return;
         if (run.cert) return showCertificate(run.cert);
         if (run.status === 'practised') return finishPractice();
