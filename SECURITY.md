@@ -6,7 +6,7 @@ Sampreshan और Shivbodh Trust community की सुरक्षा हम�
 
 किसी संभावित security vulnerability को public issue, discussion या pull request में पोस्ट न करें। Private report भेजें:
 
-- Email: [sampreshan.tech@gmail.com](mailto:sampreshan.tech@gmail.com)
+- Email: [hello@sampreshan.tech](mailto:hello@sampreshan.tech)
 - Subject में `Security report` लिखें।
 
 Report में, यदि सुरक्षित हो, निम्न जानकारी दें:
