@@ -1,0 +1,73 @@
+name: Diagnose live Sampreshan desktop homepage
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/desktop-home-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  desktop-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install browser controller
+        run: python3 -m pip install --user playwright
+      - name: Measure rendered desktop layout
+        run: |
+          mkdir -p audit-report
+          python3 - <<'PY'
+          import json, shutil
+          from playwright.sync_api import sync_playwright
+          binary=shutil.which('google-chrome') or shutil.which('chromium') or shutil.which('chromium-browser')
+          print('Chrome binary:',binary,flush=True)
+          if not binary: raise RuntimeError('No Chrome on runner')
+          expression="""() => {
+            const select=['html','body','#page','#content','#content.site-content',
+              '#content > .container','#content .bb-grid','.site-content-grid',
+              '#primary','#main','main.site-main--landing','.sp-landing',
+              '.d3-hero','.d3-hero__grid-inner','.d3-hero__copy','.d3-hero__art',
+              '.d3-section','.d3-section__inner','.sp-fu-social'];
+            const info=e=>{
+              if(!e)return {missing:true};
+              const r=e.getBoundingClientRect(),c=getComputedStyle(e);
+              return {tag:e.tagName.toLowerCase(),id:e.id||'',classes:
+                typeof e.className==='string'?e.className.substring(0,90):'',
+                x:Math.round(r.x),right:Math.round(r.right),width:Math.round(r.width),
+                display:c.display,position:c.position,padding:c.padding,
+                maxWidth:c.maxWidth,grid:c.gridTemplateColumns,margin:c.margin,
+                transform:c.transform,overflowX:c.overflowX};
+            };
+            const hero=document.querySelector('.d3-hero');
+            let ancestry=[];for(let e=hero;e&&ancestry.length<14;e=e.parentElement)ancestry.push(info(e));
+            return {url:location.href,viewport:innerWidth,documentWidth:document.documentElement.scrollWidth,
+              selectors:Object.fromEntries(select.map(s=>[s,info(document.querySelector(s))])),
+              ancestry,stylesheets:Array.from(document.styleSheets).map(s=>s.href)
+                .filter(Boolean).filter(s=>/desktop|responsive-layout|premium-3d|homepage|layout.css/.test(s))};
+          }"""
+          with sync_playwright() as p:
+            browser=p.chromium.launch(executable_path=binary,headless=True,args=['--no-sandbox'])
+            output=[]
+            for width in [1280,1440,1920]:
+              page=browser.new_page(viewport={'width':width,'height':900},device_scale_factor=1)
+              page.goto('https://sampreshan.tech/?desktop_audit=20261101',
+                wait_until='domcontentloaded',timeout=90000)
+              page.wait_for_timeout(5000)
+              metrics=page.evaluate(expression)
+              output.append({'width':width,**metrics})
+              print('=== DESKTOP WIDTH',width,'===',flush=True)
+              print(json.dumps(metrics,ensure_ascii=False),flush=True)
+              page.screenshot(path=f'audit-report/desktop-{width}.png',full_page=False)
+              page.close()
+            browser.close()
+          with open('audit-report/desktop-layout-metrics.json','w') as f:json.dump(output,f,indent=2)
+          PY
+      - name: Upload visual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sampreshan-desktop-render-audit
+          path: audit-report/
+          if-no-files-found: warn
