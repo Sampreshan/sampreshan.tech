@@ -155,7 +155,18 @@ jobs:
             || echo "chown skipped (no permission; see /etc/sudoers.d/sampreshan-deploy-chown)"
           wp_root="$(cd "$1/../.." && pwd)"
           if command -v wp >/dev/null 2>&1; then
-            wp --path="$wp_root" --allow-root litespeed-purge all 2>/dev/null || true
+            # Do not hide cache-purge errors: a cached page can reference the
+            # previous CSS version and preserve a broken layout in user browsers.
+            wp --path="$wp_root" --allow-root eval 'echo "Running theme version: " . ( defined( "SAMPRESHAN_CHILD_VERSION" ) ? SAMPRESHAN_CHILD_VERSION : "missing" ) . PHP_EOL;' || true
+            if wp --path="$wp_root" --allow-root litespeed-purge all; then
+              echo "LiteSpeed cache purge completed."
+            else
+              echo "::warning::LiteSpeed WP-CLI purge failed; trying the documented purge-all hook."
+              wp --path="$wp_root" --allow-root eval "if ( defined( 'LSCWP_V' ) ) { do_action( 'litespeed_purge_all', 'Theme CSS release' ); }" || true
+            fi
+            wp --path="$wp_root" --allow-root cache flush || true
+          else
+            echo "::warning::WP-CLI was unavailable; cache purge requires operator review."
           fi
           REMOTE
           rm -f ~/.ssh/deploy_key
@@ -166,6 +177,9 @@ jobs:
           set -euo pipefail
           curl --fail --silent --show-error --location --max-time 30 https://sampreshan.tech/ >/tmp/sampreshan-home.html
           grep -q 'sampreshan-child' /tmp/sampreshan-home.html
+          # Log live stylesheet version so stale page-cache HTML is visible.
+          asset_ver="$(grep -oE 'responsive-layout.css[?]ver=[0-9.]+' /tmp/sampreshan-home.html | head -1 || true)"
+          echo "Live responsive CSS reference: ${asset_ver:-not-found}"
           curl --fail --silent --show-error --location --max-time 30 https://sampreshan.tech/sanatan-quiz/ >/tmp/sampreshan-quiz.html
           grep -q 'data-start-form' /tmp/sampreshan-quiz.html
           grep -q 'data-level="10"' /tmp/sampreshan-quiz.html
