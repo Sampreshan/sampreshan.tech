@@ -293,3 +293,25 @@ body.bb-mobile-panel-open .bb-mobile-panel-wrapper.left { left: 0 !important; bo
 .bb-mobile-panel-wrapper .current-menu-item > a { background: rgba(245,158,11,.14) !important; border-radius: 12px; }
 .bb-mobile-panel-wrapper .current-menu-item > a i,
 .bb-mobile-panel-wrapper .current-menu-item > a .bb-icon-l { color: #f59e0b !important; border-color: #f59e0b !important; }
+
+/*
+ * FRONT-PAGE FLEX SHELL FIX (verified against the rendered site).
+ * BuddyBoss outputs .bb-grid.site-content-grid as display:flex. Its
+ * homepage main flex item shrank to 630/1280, 710/1440 and 950/1920px,
+ * even when main had width:100%; the empty right-hand area was the rest
+ * of the parent flex row. Only the front page's direct content grid is
+ * flattened; other page shells keep their BuddyBoss flex layouts.
+ */
+body.home #content.site-content > .container > .bb-grid.site-content-grid {
+    display: block !important;
+}
+body.home #content.site-content > .container > .bb-grid.site-content-grid > main#main.site-main--landing {
+    display: block !important;
+    flex: none !important;
+    flex-basis: auto !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
