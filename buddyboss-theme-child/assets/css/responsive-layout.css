@@ -35,8 +35,8 @@
     max-width: 100% !important;
 }
 
-/* Every page's main column: full width up to the shared cap. */
-html body #main.site-main,
+/* Every non-landing page's main column: retain the shared gutter.\n * The landing page is full-bleed; desktop.css owns its shell padding. */
+html body #main.site-main:not(.site-main--landing),
 html body main.sp-page,
 .sp-page.sp-users,
 .sp-dharma-directory,
@@ -51,12 +51,10 @@ html body main.sp-page,
     box-sizing: border-box;
 }
 
-/* Inner grids that capped themselves narrower than the page. */
+/* Directory grids may expand, but preserve premium-3d.css's\n * homepage hero/section inner caps (1320px/1200px+). */
 .sp-member-grid,
 .sp-users__count,
-.sp-users__hero,
-.d3-section__inner,
-.d3-hero__grid-inner {
+.sp-users__hero {
     max-width: 100% !important;
 }
 
