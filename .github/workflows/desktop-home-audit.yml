@@ -54,7 +54,7 @@ jobs:
             output=[]
             for width in [1280,1440,1920]:
               page=browser.new_page(viewport={'width':width,'height':900},device_scale_factor=1)
-              page.goto('https://sampreshan.tech/?desktop_audit=20261101',
+              page.goto('https://sampreshan.tech/',
                 wait_until='domcontentloaded',timeout=90000)
               page.wait_for_timeout(5000)
               metrics=page.evaluate(expression)
