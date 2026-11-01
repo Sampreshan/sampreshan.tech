@@ -14,11 +14,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install browser controller
-        run: python3 -m pip install --user playwright
+        run: |
+          python3 -m venv /tmp/sampreshan-audit-venv
+          /tmp/sampreshan-audit-venv/bin/python -m pip install --disable-pip-version-check playwright
       - name: Measure rendered desktop layout
         run: |
           mkdir -p audit-report
-          python3 - <<'PY'
+          /tmp/sampreshan-audit-venv/bin/python - <<'PY'
           import json, shutil
           from playwright.sync_api import sync_playwright
           binary=shutil.which('google-chrome') or shutil.which('chromium') or shutil.which('chromium-browser')
