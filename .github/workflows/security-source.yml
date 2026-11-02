@@ -1,0 +1,34 @@
+name: Security source checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: security-source-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  security:
+    name: Security source checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /ops/check-sensitive-files.py
+            /ops/tests/security-hardening-test.php
+            /wp-content/mu-plugins/sb-security-hardening.php
+            /wp-content/plugins/vp-firebase-auth/src/Rest.php
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+      - name: Check private-file policy and authentication boundaries
+        run: |
+          python3 ops/check-sensitive-files.py
+          php -l wp-content/mu-plugins/sb-security-hardening.php
+          php -l wp-content/plugins/vp-firebase-auth/src/Rest.php
+          php ops/tests/security-hardening-test.php
