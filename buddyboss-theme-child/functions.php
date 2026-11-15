@@ -662,7 +662,7 @@ function sampreshan_child_enqueue_styles() {
         'sampreshan-homepage',
         get_stylesheet_directory_uri() . '/assets/css/homepage.css',
         array( 'sampreshan-responsive' ),
-        SAMPRESHAN_CHILD_VERSION
+        substr( hash_file( 'sha256', get_stylesheet_directory() . '/assets/css/homepage.css' ), 0, 16 )
     );
 
     // Permanent icon system (resolution-independent SVG icons + full responsive)
@@ -919,7 +919,7 @@ function sampreshan_child_enqueue_styles() {
             'sampreshan-login',
             get_stylesheet_directory_uri() . '/assets/css/login.css',
             array( 'sampreshan-icon-system' ),
-            SAMPRESHAN_CHILD_VERSION
+            substr( hash_file( 'sha256', get_stylesheet_directory() . '/assets/css/login.css' ), 0, 16 )
         );
         wp_enqueue_script(
             'sampreshan-login',

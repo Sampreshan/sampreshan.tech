@@ -1875,3 +1875,17 @@
     .sp-flagcinema__words .w-hi { opacity: 1 !important; animation: none !important; }
     .sp-flagcinema__words .w-en { display: none; }
 }
+
+/* Keep the landing action readable through the shared slide states. */
+body.home .d3-hero a.d3-btn.d3-btn--primary,
+body.home .d3-hero a.d3-btn.d3-btn--primary:hover,
+body.home .d3-hero a.d3-btn.d3-btn--primary:focus-visible,
+body.home .d3-hero a.d3-btn.d3-btn--primary:active {
+    color: #211006;
+    -webkit-text-fill-color: #211006;
+    background: linear-gradient(135deg, #ff9933, #ff6b00);
+}
+body.home .d3-hero a.d3-btn.d3-btn--primary:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 4px;
+}

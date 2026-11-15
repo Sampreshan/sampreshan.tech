@@ -23,9 +23,10 @@ function sp_seo_site_org() {
         'description' => function_exists( 'sp_mission_short' ) ? sp_mission_short() : '',
         'logo'  => $logo ? array( '@type' => 'ImageObject', 'url' => $logo ) : home_url( '/' ),
     );
-    if ( ! is_singular( 'dharma_profile' ) && ! is_post_type_archive( 'dharma_profile' ) && ! is_tax( 'dharma_peeth' ) ) {
-        $org['sameAs'] = array( 'https://shivbodhtrust.org' );
-    }
+    $org['parentOrganization'] = array(
+        '@type' => 'Organization', '@id' => 'https://shivbodhtrust.org/#organization',
+        'name' => 'ShivBodh Trust', 'url' => 'https://shivbodhtrust.org/',
+    );
     return $org;
 }
 
@@ -376,6 +377,12 @@ function sp_seo_rank_math_graph( $data ) {
         return $data;
     }
     unset( $graph['@context'] );
+    // Rank Math and the child theme refer to the same site publisher.
+    foreach ( $data as $key => $entity ) {
+        if ( is_array( $entity ) && ( $entity['@id'] ?? '' ) === home_url( '/#organization' ) ) {
+            $data[$key] = sp_seo_site_org();
+        }
+    }
     $data['sp_child_graph']           = $graph;
     $GLOBALS['sp_seo_graph_printed'] = true;
     return $data;
@@ -408,6 +415,19 @@ function sp_seo_public_description( $description ) {
 
     if ( is_post_type_archive( 'dharma_profile' ) && function_exists( 'sp_mission_short' ) ) {
         return sp_mission_short();
+    }
+
+    if ( is_singular( 'dharma_update' ) ) {
+        $post = get_post( get_queried_object_id() );
+        $summary = trim( wp_strip_all_tags( strip_shortcodes( $post->post_excerpt ?: $post->post_content ) ) );
+        if ( '' !== $summary && ! preg_match( '/[\x{0900}-\x{097F}]/u', $summary ) ) {
+            return wp_trim_words( $summary, 30, '...' );
+        }
+        $title = get_the_title( $post );
+        if ( ! preg_match( '/[\x{0900}-\x{097F}]/u', $title ) ) {
+            return wp_trim_words( $title . ' — programme and community updates on SampreShan.', 30, '...' );
+        }
+        return $description;
     }
 
     $descriptions = array(
@@ -536,3 +556,26 @@ function sp_seo_og_image_fallback( $image ) {
 }
 add_filter( 'rank_math/opengraph/facebook/image', 'sp_seo_og_image_fallback', 20, 1 );
 add_filter( 'rank_math/opengraph/twitter/image', 'sp_seo_og_image_fallback', 20, 1 );
+
+/** Only English editorial content is published by the update importers. */
+function sp_update_needs_translation( $text ) {
+    return 1 === preg_match( '/[\x{0900}-\x{0DFF}\x{0400}-\x{052F}\x{3040}-\x{30FF}\x{4E00}-\x{9FFF}]/u', (string) $text );
+}
+function sp_update_publication_gate( $data ) {
+    if ( 'dharma_update' === ( $data['post_type'] ?? '' ) && 'publish' === ( $data['post_status'] ?? '' ) &&
+        sp_update_needs_translation( ( $data['post_title'] ?? '' ) . ( $data['post_content'] ?? '' ) . ( $data['post_excerpt'] ?? '' ) ) ) {
+        $data['post_status'] = 'pending';
+    }
+    return $data;
+}
+add_filter( 'wp_insert_post_data', 'sp_update_publication_gate', 20 );
+
+/** Keep the eligible update and profile types in Rank Math's discovery settings. */
+function sp_seo_directory_sitemap_settings( $settings ) {
+    if ( is_array( $settings ) ) {
+        $settings['pt_dharma_profile_sitemap'] = 'on';
+        $settings['pt_dharma_update_sitemap'] = 'on';
+    }
+    return $settings;
+}
+add_filter( 'option_rank-math-options-sitemap', 'sp_seo_directory_sitemap_settings' );

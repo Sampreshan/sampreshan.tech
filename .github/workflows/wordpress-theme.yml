@@ -1,6 +1,11 @@
 name: Validate and deploy WordPress child theme
 
 on:
+  pull_request:
+    paths:
+      - 'buddyboss-theme-child/**'
+      - 'tools/tests/**'
+      - '.github/workflows/wordpress-theme.yml'
   push:
     branches: [main]
     paths:
@@ -42,6 +47,12 @@ jobs:
       - name: Verify resumable quiz protocol and all 500 cards
         run: php tools/tests/sangyani-regression.php
 
+      - name: Verify petition privacy and publishing policy
+        run: |
+          php tools/tests/petition-privacy.php
+          php tools/tests/seo-publishing.php
+          php tools/tests/sangyani-audit.php > /tmp/sangyani-quality.json
+
       - name: Validate quiz JavaScript
         run: node --check buddyboss-theme-child/assets/js/quiz.js
 
@@ -67,6 +78,7 @@ jobs:
           if-no-files-found: error
 
   deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     name: Deploy theme over SFTP
     needs: validate
     runs-on: ubuntu-latest
