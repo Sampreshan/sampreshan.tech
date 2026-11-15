@@ -8,7 +8,7 @@ organization schema, supplies update metadata from existing text, enables profil
 and update sitemap types, and holds newly imported non-English updates for editing.
 Existing card IDs, option strings, learner histories and public slugs are preserved.
 
-Local verification: 2,039 quiz assertions, 22 petition privacy checks, 19 SEO and
+Local verification: 2,039 quiz assertions, 22 petition privacy checks, 22 SEO and
 publishing checks, 254 meaning-control assertions per engine at all 11 required
 widths in Chromium and WebKit, plus the existing 56-check browser suite. Homepage
 and sign-in/register/recovery preview produced 96 observations with no page errors.
@@ -27,3 +27,8 @@ remain separately tracked. Current-main parity, exact-head CI, server promotion,
 backup restoration and rendered live acceptance are recorded separately in the
 private `reports/sampreshan-fixes-20261115` evidence directory. Credentials are outside
 Git and webroot. See DEPLOYMENT-RUNBOOK.md for the deployment/rollback boundary.
+
+The first promotion reverted its complete file set when the sitemap smoke gate failed.
+Rank Math had cached its settings before the theme filter was registered; the final
+patch updates only the two sitemap keys in its initialized runtime settings cache.
+The retry retains the same data and restores no production database.

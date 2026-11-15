@@ -579,3 +579,15 @@ function sp_seo_directory_sitemap_settings( $settings ) {
     return $settings;
 }
 add_filter( 'option_rank-math-options-sitemap', 'sp_seo_directory_sitemap_settings' );
+
+/** Rank Math may load options before the active theme's option filters exist. */
+function sp_seo_activate_directory_sitemaps() {
+    if ( ! function_exists( 'rank_math' ) || ! isset( rank_math()->settings ) ) {
+        return;
+    }
+    $settings = rank_math()->settings;
+    $settings->all(); // Initialize the complete option cache before changing two keys.
+    $settings->set( 'sitemap', 'pt_dharma_profile_sitemap', true );
+    $settings->set( 'sitemap', 'pt_dharma_update_sitemap', true );
+}
+add_action( 'init', 'sp_seo_activate_directory_sitemaps', 20 );
