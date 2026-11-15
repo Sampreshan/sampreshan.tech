@@ -8,7 +8,7 @@ organization schema, supplies update metadata from existing text, enables profil
 and update sitemap types, and holds newly imported non-English updates for editing.
 Existing card IDs, option strings, learner histories and public slugs are preserved.
 
-Local verification: 2,039 quiz assertions, 22 petition privacy checks, 22 SEO and
+Local verification: 2,039 quiz assertions, 22 petition privacy checks, 24 SEO and
 publishing checks, 254 meaning-control assertions per engine at all 11 required
 widths in Chromium and WebKit, plus the existing 56-check browser suite. Homepage
 and sign-in/register/recovery preview produced 96 observations with no page errors.
@@ -32,3 +32,8 @@ The first promotion reverted its complete file set when the sitemap smoke gate f
 Rank Math had cached its settings before the theme filter was registered; the final
 patch updates only the two sitemap keys in its initialized runtime settings cache.
 The retry retains the same data and restores no production database.
+
+The sitemap corpus fits within 1,000 URLs. A 1,000-entry page size keeps imported
+records with identical modification timestamps on one XML page and avoids page-boundary
+duplication during independently cached sitemap generation. Verify exact URL-set
+coverage against the published database inventory after cache invalidation.

@@ -575,6 +575,7 @@ function sp_seo_directory_sitemap_settings( $settings ) {
     if ( is_array( $settings ) ) {
         $settings['pt_dharma_profile_sitemap'] = 'on';
         $settings['pt_dharma_update_sitemap'] = 'on';
+        $settings['items_per_page'] = 1000;
     }
     return $settings;
 }
@@ -589,5 +590,8 @@ function sp_seo_activate_directory_sitemaps() {
     $settings->all(); // Initialize the complete option cache before changing two keys.
     $settings->set( 'sitemap', 'pt_dharma_profile_sitemap', true );
     $settings->set( 'sitemap', 'pt_dharma_update_sitemap', true );
+    // Keep this sub-1,000 URL corpus together; tied import timestamps must not
+    // move entries across independently cached sitemap pages.
+    $settings->set( 'sitemap', 'items_per_page', 1000 );
 }
 add_action( 'init', 'sp_seo_activate_directory_sitemaps', 20 );

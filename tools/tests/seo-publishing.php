@@ -19,9 +19,9 @@ require dirname(__DIR__,2).'/buddyboss-theme-child/inc/seo/schema.php';
 class FixtureSettings { public $values=['existing'=>'kept']; public function all(){return $this->values;} public function set($g,$k,$v){$this->values[$g][$k]=$v;} }
 function rank_math(){static $plugin; if(!$plugin)$plugin=(object)['settings'=>new FixtureSettings]; return $plugin;}
 $checks=0;function check($ok){if(!$ok)throw new Exception('SEO fixture failed');$GLOBALS['checks']++;}
-sp_seo_activate_directory_sitemaps();check(rank_math()->settings->values['existing']==='kept');check(rank_math()->settings->values['sitemap']['pt_dharma_profile_sitemap']===true);check(rank_math()->settings->values['sitemap']['pt_dharma_update_sitemap']===true);
+sp_seo_activate_directory_sitemaps();check(rank_math()->settings->values['existing']==='kept');check(rank_math()->settings->values['sitemap']['items_per_page']===1000);check(rank_math()->settings->values['sitemap']['pt_dharma_profile_sitemap']===true);check(rank_math()->settings->values['sitemap']['pt_dharma_update_sitemap']===true);
 $o=sp_seo_site_org();check($o['name']==='SampreShan');check($o['@id']==='https://sampreshan.tech/#organization');check($o['parentOrganization']['@id']==='https://shivbodhtrust.org/#organization');check(!isset($o['sameAs']));
-$s=sp_seo_directory_sitemap_settings(['other'=>'kept']);check($s['other']==='kept');check($s['pt_dharma_profile_sitemap']==='on');check($s['pt_dharma_update_sitemap']==='on');
+$s=sp_seo_directory_sitemap_settings(['other'=>'kept']);check($s['other']==='kept');check($s['items_per_page']===1000);check($s['pt_dharma_profile_sitemap']==='on');check($s['pt_dharma_update_sitemap']==='on');
 $base=['post_type'=>'dharma_update','post_status'=>'publish','post_title'=>'A programme update','post_content'=>'English summary.','post_excerpt'=>''];check(sp_update_publication_gate($base)===$base);
 $unicode=json_decode('"\u0927\u0930\u094d\u092e"');
 foreach(['post_title','post_content','post_excerpt'] as $field){$d=$base;$d[$field]=$unicode;$r=sp_update_publication_gate($d);check($r['post_status']==='pending');check($r[$field]===$unicode);}
