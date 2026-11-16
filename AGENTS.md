@@ -57,3 +57,11 @@ third-party source lists on the page. Show the credit with
 - Before release, check the changed public copy in all supported languages, guest
   and signed-in views, promotional entry points, responsive layouts and printable
   reports. Do not reintroduce the wording removed on 2026-11-04 in a later build.
+
+## ShivBodh Trust stamp (owner rule, 2026-11-16)
+
+- Any certificate, e-certificate, receipt, letter, PDF or specimen that needs the
+  ShivBodh Trust stamp/seal/mohar uses only the owner-supplied stamp, never a redrawn
+  or generated seal. Files and placement rules: `buddyboss-theme-child/assets/images/certificate/` (`STAMP.md`); master copy in
+  `~/ShivBodh-Projects/brand-assets/shivbodh-trust-stamp/`. In specimens, leave the
+  participant's name and personal fields as dotted blanks (`........`).
