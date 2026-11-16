@@ -134,9 +134,14 @@ function sp_rest_petitions_index( WP_REST_Request $request ) {
     ), 200 );
 }
 
+/** Public endpoints never disclose unpublished or password-protected petitions. */
+function sp_rest_petition_is_public( $post ) {
+    return $post && 'petition' === $post->post_type && 'publish' === $post->post_status && '' === (string) $post->post_password;
+}
+
 function sp_rest_petitions_show( WP_REST_Request $request ) {
     $post = get_post( (int) $request['id'] );
-    if ( ! $post || 'petition' !== $post->post_type ) {
+    if ( ! sp_rest_petition_is_public( $post ) ) {
         return new WP_Error( 'not_found', 'Petition not found', array( 'status' => 404 ) );
     }
     return new WP_REST_Response( sp_rest_serialize_petition( $post, true ), 200 );
@@ -192,6 +197,9 @@ function sp_rest_petitions_delete( WP_REST_Request $request ) {
 }
 
 function sp_rest_petition_signatures( WP_REST_Request $request ) {
+    if ( ! sp_rest_petition_is_public( get_post( (int) $request['id'] ) ) ) {
+        return new WP_Error( 'not_found', 'Petition not found', array( 'status' => 404 ) );
+    }
     $rows = sp_petition_get_signatures( array(
         'petition_id' => (int) $request['id'],
         'per_page'    => (int) $request->get_param( 'per_page' ),
@@ -201,7 +209,7 @@ function sp_rest_petition_signatures( WP_REST_Request $request ) {
     foreach ( $rows as $r ) {
         $items[] = array(
             'id'         => (int) $r->id,
-            'user_id'    => (int) $r->user_id,
+            'user_id'    => (int) $r->is_anonymous ? 0 : (int) $r->user_id,
             'name'       => (int) $r->is_anonymous ? __( 'Anonymous supporter', 'sampreshan-child' ) : $r->display_name,
             'comment'    => $r->comment,
             'created_at' => $r->created_at,

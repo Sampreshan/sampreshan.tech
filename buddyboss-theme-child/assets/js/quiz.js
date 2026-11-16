@@ -6,7 +6,7 @@
     var $ = function (s) { return root.querySelector(s); };
     var store = { get: function (k) { try { return localStorage.getItem(k); } catch (_) { return null; } }, set: function (k, v) { try { localStorage.setItem(k, v); return true; } catch (_) { return false; } }, remove: function (k) { try { localStorage.removeItem(k); } catch (_) {} } };
     var STORE = 'spQuizToken', run = null, question = null, feedback = null, busy = false, timer = null, certificate = null;
-    var practiceParent = null, fresh = false, autoNextTimer = null;
+    var practiceParent = null, fresh = false, autoNextTimer = null, readingInfo = false, mouseX = null, mouseY = null;
     var calm = store.get('spQuizCalm') === '1' || matchMedia('(prefers-reduced-motion: reduce)').matches;
     var sound = store.get('spQuizSound') === '1';
     function motion() { root.dataset.calm = String(calm); $('[data-calm]').checked = calm; }
@@ -17,7 +17,7 @@
     $('[data-sound]').addEventListener('change', function (e) { sound = e.target.checked; store.set('spQuizSound', sound ? '1' : '0'); soundSetting(); });
     $('[data-mute]').addEventListener('click', function () { sound = !sound; store.set('spQuizSound', sound ? '1' : '0'); soundSetting(); });
     document.addEventListener('visibilitychange', function () { root.dataset.paused = String(document.hidden); });
-    function show(name) { clearInterval(timer); if (name !== 'play') { clearTimeout(autoNextTimer); autoNextTimer = null; } root.dataset.screen = name; root.querySelectorAll('[data-screen]').forEach(function (el) { el.classList.toggle('is-active', el.dataset.screen === name); }); }
+    function show(name) { closeOptionInfo(); clearInterval(timer); if (name !== 'play') { clearTimeout(autoNextTimer); autoNextTimer = null; } root.dataset.screen = name; root.querySelectorAll('[data-screen]').forEach(function (el) { el.classList.toggle('is-active', el.dataset.screen === name); }); }
     function error(message, play) { var el = $(play ? '[data-play-error]' : '[data-error]'); el.textContent = message || ''; el.hidden = !message; if (play) $('[data-recover]').hidden = !message; }
     async function api(path, data) {
         var controller = new AbortController(), timeout = setTimeout(function () { controller.abort(); }, 15000);
@@ -46,7 +46,24 @@
         $('[data-claim]').hidden = !cfg.loggedIn;
         $('[data-practice]').hidden = run.mode === 'practice';
     }
+    function closeOptionInfo() {
+        root.querySelectorAll('.sp-quiz__info-popover').forEach(function (el) { el.hidden = true; });
+        root.querySelectorAll('.sp-quiz__info-btn').forEach(function (el) { el.setAttribute('aria-expanded', 'false'); el.removeAttribute('aria-describedby'); delete el.dataset.pinned; });
+    }
+    function stopAutoAdvance() { clearTimeout(autoNextTimer); autoNextTimer = null; }
+    function openOptionInfo(button, popover) {
+        readingInfo = true;
+        if (feedback && feedback.correct) $('[data-feedback]').textContent = 'Correct. +10 points. Select Next card when you are ready.';
+        stopAutoAdvance(); popover.hidden = false; button.setAttribute('aria-expanded', 'true'); button.setAttribute('aria-describedby', popover.id);
+    }
+    document.addEventListener('click', function (e) { if (!e.target.closest('.sp-quiz__info-btn, .sp-quiz__info-popover')) closeOptionInfo(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeOptionInfo(); });
+    document.addEventListener('visibilitychange', function () { if (document.hidden) stopAutoAdvance(); });
+    root.addEventListener('toggle', function (e) { if (e.target.open && $('[data-report-wrap]').contains(e.target)) stopAutoAdvance(); }, true);
+    document.addEventListener('pointermove', function (e) { mouseX = e.clientX; mouseY = e.clientY; });
     function render() {
+        var hoverOriginX = mouseX, hoverOriginY = mouseY, renderedAt = performance.now();
+        readingInfo = false;
         clearTimeout(autoNextTimer); autoNextTimer = null;
         if (!question) { if (run && run.cert) return showCertificate(run.cert); return show('start'); }
         show('play'); hud(); root.dataset.mood = 'idle';
@@ -57,9 +74,27 @@
         $('[data-timer-warning]').textContent = run.seconds ? 'Challenge: 30 seconds per card. The timer continues if you leave this page.' : 'Take your time. This learning session has no timer.';
         var box = $('[data-options]'); box.replaceChildren();
         question.options.forEach(function (text, index) {
+            var row = document.createElement('div'); row.className = 'sp-quiz__option-row';
             var button = document.createElement('button'); button.type = 'button'; button.className = 'sp-quiz__option sp-quiz__btn'; button.dataset.choice = index;
             var key = document.createElement('span'); key.className = 'sp-quiz__key'; key.textContent = index + 1; key.dataset.k = index + 1;
-            var label = document.createElement('span'); label.textContent = text; button.append(key, label); button.addEventListener('click', function () { answer(index); }); box.append(button);
+            var label = document.createElement('span'); label.textContent = text; button.append(key, label); button.addEventListener('click', function () { closeOptionInfo(); answer(index); }); row.append(button);
+            var meaning = question.optionInfo && question.optionInfo[index];
+            if (meaning) {
+                var info = document.createElement('button'); info.type = 'button'; info.className = 'sp-quiz__info-btn sp-noslide'; info.textContent = 'i';
+                var popover = document.createElement('div'); popover.className = 'sp-quiz__info-popover'; popover.id = 'sp-quiz-meaning-' + index; popover.hidden = true; popover.textContent = meaning;
+                info.setAttribute('aria-label', 'Meaning of ' + text); info.setAttribute('aria-expanded', 'false'); info.setAttribute('aria-controls', popover.id);
+                info.addEventListener('click', function (e) {
+                    e.preventDefault(); e.stopPropagation(); var open = info.dataset.pinned === 'true'; closeOptionInfo();
+                    if (!open) { openOptionInfo(info, popover); info.dataset.pinned = 'true'; }
+                });
+                info.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse' && performance.now() - renderedAt > 150) { closeOptionInfo(); openOptionInfo(info, popover); } });
+                info.addEventListener('pointermove', function (e) { if (e.pointerType === 'mouse' && (e.clientX !== hoverOriginX || e.clientY !== hoverOriginY) && info.getAttribute('aria-expanded') !== 'true') { closeOptionInfo(); openOptionInfo(info, popover); } });
+                row.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse' && info.dataset.pinned !== 'true' && !row.contains(document.activeElement)) closeOptionInfo(); });
+                info.addEventListener('focus', function () { if (info.matches(':focus-visible')) { closeOptionInfo(); openOptionInfo(info, popover); } });
+                row.addEventListener('focusout', function (e) { if (!row.contains(e.relatedTarget)) closeOptionInfo(); });
+                row.append(info, popover);
+            }
+            box.append(row);
         });
         $('[data-question]').focus();
         $('.sp-quiz__timer').hidden = question.remaining === null;
@@ -83,12 +118,12 @@
         $('[data-checkpoint]').textContent = result.checkpoint ? 'Ten cards practised. A good moment to pause; your progress is saved.' : '';
         hud();
         if (sound) { var audio = new Audio(cfg.audio[result.correct ? 'correct' : 'wrong']); audio.play().catch(function () {}); }
-        if (result.correct) {
+        if (result.correct && !readingInfo) {
             $('[data-feedback]').textContent += ' Next question loading automatically.';
             // Keep feedback readable; next() retains backend checkpoint/certificate logic.
             autoNextTimer = setTimeout(function () {
                 autoNextTimer = null;
-                if (!busy && feedback === result && root.dataset.screen === 'play') next();
+                if (!readingInfo && !document.hidden && !busy && feedback === result && root.dataset.screen === 'play') next();
             }, calm ? 2200 : 1500);
         } else {
             $('[data-next]').focus({ preventScroll: true });

@@ -1,154 +1,54 @@
-# Sampreshan Deployment Runbook
+# Sampreshan deployment runbook
 
-This is the master reference for releasing `sampreshan.tech` safely.
+Verified 15 November 2026. Repository: `Sampreshan/sampreshan.tech`; release branch: `main`.
+Active source is `buddyboss-theme-child/`. Production is Hostinger VPS 1677302,
+`/home/sampreshan.tech/public_html`, site user `sampr4722`, active BuddyBoss child theme.
+WordPress and MariaDB own users, sessions, petitions, signatures and quiz progress.
+The private 10-file quiz bank is `/home/sampreshan.tech/private/sangyani`.
+Uploads, configuration, databases, caches and credentials are excluded from source promotion.
 
-## Verified project facts
+## Release paths
 
-- Git repository: `Sampreshan/sampreshan.tech`
-- Default release branch: `main`
-- Local project root: `/home/runner/work/sampreshan.tech/sampreshan.tech`
-- WordPress document root in this snapshot: `public_html/`
-- Active child theme source: `buddyboss-theme-child/`
-- Web stack: WordPress, BuddyBoss, Elementor, LiteSpeed, MariaDB
-- GitHub Pages demo URL: `https://sampreshan.github.io/sampreshan.tech/`
-- GitHub Pages workflow: `.github/workflows/pages.yml`
-- WordPress theme workflow: `.github/workflows/wordpress-theme.yml`
-- Current theme release: `1.6.0`
+`.github/workflows/wordpress-theme.yml` validates and deploys theme/bank changes on
+main when WP_DEPLOY_* secrets are configured. It uses the production environment and
+`wordpress-theme-production` concurrency. A successful security workflow alone does
+not prove theme deployment. GitHub Pages is a separate static demo.
 
-## Local validation
+Scoped manual promotion uses the existing server maintenance lock
+`/run/lock/hostinger-1677302-production-maintenance.lock`. Pause the independent theme
+workflow, verify no running/queued deploys, then hold the lock throughout backup,
+expected-before hash checks, file promotion and health checks/rollback. Restore the
+workflow's prior state afterward. Do not merge or push main during that transaction.
+The maintenance lock by itself does not exclude an independently running CI deployer.
 
-Run from the repository root:
+Analytics is a separate MU plugin, `wp-content/mu-plugins/sampreshan-google-tag.php`.
+As of the audit, its live content corresponds to PR 87 rather than main. Recheck the
+PR and exact-head CI; never overwrite unrelated MU plugins with a theme deployment.
 
-```bash
-find buddyboss-theme-child -type f -name '*.php' -not -path '*/vendor/*' -print0 \
-  | xargs -0 -n1 php -l
-git diff --check
-```
+## Gates and rollback
 
-For a WordPress browser check, serve `public_html/` with a local PHP/WordPress
-environment and verify the homepage, login, dashboard, profile, petition, and
-mobile layout. Clear LiteSpeed and browser caches after theme deployment.
+Run PHP lint, `node --check buddyboss-theme-child/assets/js/quiz.js`,
+`php tools/tests/sangyani-regression.php`, `php tools/tests/sangyani-audit.php`,
+`php tools/tests/petition-privacy.php`, `php tools/tests/seo-publishing.php`,
+the offline browser fixtures, emoji/language policy checks and `git diff --check`.
+Inspect all changed public components at 320,360,375,390,430,768,820,1024,1180,1366,
+1920 pixels in Chromium and WebKit before release. Record the page inventory and
+screenshots; a mocked fixture does not prove the full authenticated member journey.
 
-## Git release flow
+Back up only the release's target files plus a current private database export;
+verify the file archive can be extracted with identical hashes. Record database
+restore verification separately. Pin each before/after file hash and the source
+commit, including dirty status. Abort on unexpected target or drift.
 
-```bash
-git status
-git diff --check
-git add buddyboss-theme-child
-git commit -m "Release Sampreshan theme X.Y.Z"
-git push origin main
-```
+Restore the exact prior file set if syntax/health/hash checks fail. Do not replace
+the production database or learner progress as a code rollback. Do not restore old
+exposed passwords or salts. Clear LiteSpeed after promotion/rollback, then check
+normal and cache-busting URLs and served asset hashes. Record receipt and remaining
+CI, content, recovery and journey limitations in the private report directory.
 
-The Pages workflow is a static demo deployment. Theme-only pushes do not match
-its path filter, so trigger it manually when the demo must be refreshed:
+## Credentials and historical data
 
-```bash
-gh workflow run pages.yml --ref main
-gh run list --workflow pages.yml --limit 1
-```
-
-## WordPress production deployment
-
-Production deployment is **not currently automated in this repository**. The
-local `public_html/` snapshot must not be copied to production blindly because
-it contains WordPress core, plugins, uploads, caches, and database-specific
-files. Deploy the child theme only after confirming the live target.
-
-Required non-secret deployment details:
-
-- Production URL and staging URL, if available
-- Hosting provider and deployment method: SFTP, SSH/rsync, cPanel, or hosting API
-- Remote WordPress document root
-- Remote child-theme path
-- Whether a staging backup and rollback snapshot are required
-- Cache purge method and post-deploy smoke-test URLs
-
-Required secret environment variables, stored only in a local secret manager or
-CI/CD secret store:
-
-```text
-SAMPRESHAN_SFTP_HOST
-SAMPRESHAN_SFTP_PORT
-SAMPRESHAN_SFTP_USER
-SAMPRESHAN_SFTP_KEY_FILE
-SAMPRESHAN_REMOTE_THEME_PATH
-SAMPRESHAN_PRODUCTION_URL
-```
-
-Never commit passwords, private keys, WordPress salts, GitHub PATs, API keys, or
-database credentials. Rotate any credential that has appeared in chat, scripts,
-screenshots, logs, or committed history.
-
-## Production checklist
-
-1. Confirm the target and take a verified backup.
-2. Run PHP syntax and diff checks locally.
-3. Deploy only the intended child-theme files.
-4. Purge WordPress/LiteSpeed/CDN caches.
-5. Check homepage hero/art, login, dashboard, profile, single petition, and mobile layout.
-6. Check browser console and PHP error logs.
-7. Record the commit SHA, deployment time, target, and rollback location.
-
-## Current blocker
-
-No production SFTP/SSH/hosting target is configured in this repository. GitHub
-Pages is live for the static demo, but it does not publish the WordPress site.
-Production can be automated once the non-secret target details above are known
-and credentials are supplied through environment variables or CI secrets.
-
-## GitHub production secrets
-
-The WordPress theme workflow deploys only when all of these repository secrets
-exist. `WP_DEPLOY_TARGET` must be the remote WordPress themes directory, for
-example `/home/account/public_html/wp-content/themes/`.
-
-```text
-WP_DEPLOY_HOST
-WP_DEPLOY_PORT
-WP_DEPLOY_USER
-WP_DEPLOY_KEY
-WP_DEPLOY_TARGET
-```
-
-Without these secrets the validation and theme artifact jobs still run, while
-the production deploy job is skipped safely.
-
-## Live VPS layout (fixed 2026-09-28)
-
-- Git working tree on the VPS: `/home/sampreshan.tech` (this repo's root). Web root: `/home/sampreshan.tech/public_html` (this repo's `public_html/`).
-- Previously the repo had been cloned *inside* `public_html`, which removed WordPress core from the docroot and caused HTTP 500. The broken tree is kept at `/home/sampreshan.tech/public_html.broken-20260928-061352` for rollback.
-- Server-only (not in Git): `public_html/wp-config.php`, `public_html/.htaccess`, `wp-content/uploads/`, `wp-content/wpcode/`.
-- Child theme source is `/buddyboss-theme-child`; deploy with
-  `rsync -a --delete buddyboss-theme-child/ public_html/wp-content/themes/buddyboss-theme-child/` then `chown -R sampr4722:sampr4722` and purge LiteSpeed Cache.
-- Update the server: `cd /home/sampreshan.tech && git pull --ff-only` (never clone into `public_html`).
-
-## First controlled production deployment
-
-Use this once hosting details and secrets are finalized:
-
-1. Confirm that all `WP_DEPLOY_*` repository secrets are set in GitHub.
-2. Confirm `WP_DEPLOY_TARGET` points to the live server theme directory:
-   `.../wp-content/themes/`.
-3. Open the latest `Validate and deploy WordPress child theme` workflow run and
-   verify `Validate theme` succeeds.
-4. Verify `Deploy theme over SFTP` runs (not skipped) and completes without
-   transfer errors.
-5. Run smoke checks against `https://sampreshan.tech/`:
-   - Homepage loads and contains child-theme markup.
-   - Login, dashboard, profile, and one petition page load.
-   - Mobile layout sanity check and browser console error check.
-6. Record run URL, commit SHA, deploy timestamp, and operator in deployment
-   notes.
-
-## Rollback and backup confirmation
-
-Before each production deploy, verify rollback readiness:
-
-1. Confirm latest server backup/snapshot timestamp and retention window.
-2. Keep previous child-theme version archive accessible for immediate restore.
-3. Confirm restore operator and method (host panel, SFTP overwrite, or snapshot
-   rollback) are documented.
-4. Define rollback trigger conditions (critical UI break, login failure,
-   petition flow failure, severe PHP errors).
-5. If rollback is executed, restore previous version, purge caches, and rerun
-   smoke checks on homepage/login/dashboard/profile/petition.
+Credentials go only in owner-readable files outside Git and webroot. A password
+hash check and successful HTTP login are distinct from Google/OTP provider tests.
+Historical SQL exports still require approved history rewriting and GitHub retained
+object cleanup. Removing files from main does not remove public historical objects.

@@ -540,3 +540,13 @@
     .sp-quiz__rules { grid-template-columns: repeat(4,minmax(0,1fr)); margin-top: 18px; }
     .sp-quiz__rules span { font-size: 10px; }
 }
+
+/* Meanings are sibling controls, so opening one cannot submit an answer. */
+.sp-quiz__option-row { position: relative; display: flex; align-items: center; gap: 8px; min-width: 0; }
+.sp-quiz__option-row .sp-quiz__option { flex: 1; min-width: 0; height: 100%; }
+.sp-quiz__option-row .sp-quiz__option span:last-child { overflow-wrap: anywhere; }
+.sp-quiz__info-btn { flex: 0 0 36px; width: 36px; height: 36px; padding: 0; border-radius: 50%; border: 1px solid rgba(255,255,255,.4); background: #24243c; color: #fff; font: bold 16px Georgia, serif; cursor: pointer; }
+.sp-quiz__info-btn:focus-visible { outline: 3px solid var(--q-saffron); outline-offset: 2px; }
+.sp-quiz__info-popover { position: absolute; top: 100%; right: 0; z-index: 30; box-sizing: border-box; width: min(280px, 100%); padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,.25); background: #101020; color: #fff; font-size: 13px; line-height: 1.5; overflow-wrap: anywhere; box-shadow: 0 12px 30px rgba(0,0,0,.35); }
+.sp-quiz__info-popover[hidden] { display: none; }
+.sp-quiz__option-row:has(.sp-quiz__info-btn[aria-expanded="true"]) { z-index: 5; }

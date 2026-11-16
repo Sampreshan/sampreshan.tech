@@ -15,6 +15,8 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
+require_once __DIR__ . '/quality.php';
+
 const SP_QUIZ_DB_VERSION = '2.0.0';
 const SP_QUIZ_POINTS_OK  = 10;
 const SP_QUIZ_POINTS_BAD = -5;
@@ -219,6 +221,7 @@ function sp_quiz_issue_question( $run ) {
     return array(
         'id' => $current['id'], 'key' => sprintf( 'L%02d-Q%03d', $run->level, $current['i'] + 1 ),
         'text' => $item[0], 'options' => array_map( function ( $o ) use ( $item ) { return $item[$o]; }, $current['order'] ),
+        'optionInfo' => array_map( function ( $o ) use ( $item ) { return sp_quiz_option_info( $item[$o] ); }, $current['order'] ),
         'remaining' => $timed ? max( 0, SP_QUIZ_SECONDS - ( time() - $current['issued'] ) ) : null,
     );
 }

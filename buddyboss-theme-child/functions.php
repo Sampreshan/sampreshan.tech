@@ -507,6 +507,7 @@ require_once get_stylesheet_directory() . '/inc/dharma-news.php';
 require_once get_stylesheet_directory() . '/inc/dharma-calendar.php';
 require_once get_stylesheet_directory() . '/inc/auth/loader.php';
 require_once get_stylesheet_directory() . '/inc/notifications/center.php';
+require_once get_stylesheet_directory() . '/inc/account-menu.php';
 require_once get_stylesheet_directory() . '/inc/notifications/dharma-mail.php';
 require_once get_stylesheet_directory() . '/inc/seo/schema.php';
 require_once get_stylesheet_directory() . '/inc/migrated-acharya-pages.php';
@@ -662,7 +663,7 @@ function sampreshan_child_enqueue_styles() {
         'sampreshan-homepage',
         get_stylesheet_directory_uri() . '/assets/css/homepage.css',
         array( 'sampreshan-responsive' ),
-        SAMPRESHAN_CHILD_VERSION
+        substr( hash_file( 'sha256', get_stylesheet_directory() . '/assets/css/homepage.css' ), 0, 16 )
     );
 
     // Permanent icon system (resolution-independent SVG icons + full responsive)
@@ -743,7 +744,7 @@ function sampreshan_child_enqueue_styles() {
         'sampreshan-icons-transparent',
         get_stylesheet_directory_uri() . '/assets/css/icons-transparent.css',
         array( 'sampreshan-mobile' ),
-        SAMPRESHAN_CHILD_VERSION
+        substr( hash_file( 'sha256', get_stylesheet_directory() . '/assets/css/icons-transparent.css' ), 0, 16 )
     );
 
     // Premium design system — Jeton/Awwwards-grade typography, spacing, reveals.
@@ -919,7 +920,7 @@ function sampreshan_child_enqueue_styles() {
             'sampreshan-login',
             get_stylesheet_directory_uri() . '/assets/css/login.css',
             array( 'sampreshan-icon-system' ),
-            SAMPRESHAN_CHILD_VERSION
+            substr( hash_file( 'sha256', get_stylesheet_directory() . '/assets/css/login.css' ), 0, 16 )
         );
         wp_enqueue_script(
             'sampreshan-login',
@@ -1042,12 +1043,13 @@ function sampreshan_child_enqueue_styles() {
         'sampreshan-navigation',
         get_stylesheet_directory_uri() . '/assets/js/navigation.js',
         array(),
-        SAMPRESHAN_CHILD_VERSION,
+        substr( hash_file( 'sha256', get_stylesheet_directory() . '/assets/js/navigation.js' ), 0, 16 ),
         true
     );
 
     // Notification bell + Anusaran follow toggle (members only).
     if ( is_user_logged_in() ) {
+        wp_enqueue_style( 'sampreshan-account-menu', get_stylesheet_directory_uri() . '/assets/css/account-menu.css', array( 'sampreshan-responsive' ), substr( hash_file( 'sha256', get_stylesheet_directory() . '/assets/css/account-menu.css' ), 0, 16 ) );
         wp_enqueue_style(
             'sampreshan-notifications',
             get_stylesheet_directory_uri() . '/assets/css/notifications.css',
@@ -1058,7 +1060,7 @@ function sampreshan_child_enqueue_styles() {
             'sampreshan-notifications',
             get_stylesheet_directory_uri() . '/assets/js/notifications.js',
             array(),
-            SAMPRESHAN_CHILD_VERSION,
+            substr( hash_file( 'sha256', get_stylesheet_directory() . '/assets/js/notifications.js' ), 0, 16 ),
             true
         );
         do_action( 'litespeed_nonce', 'sp_notifications' );

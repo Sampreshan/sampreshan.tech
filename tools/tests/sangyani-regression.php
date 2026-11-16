@@ -50,6 +50,26 @@ function answerCurrent($age=0) {
 }
 $bank=sp_quiz_bank(); check(count($bank)===10,'ten topics');
 foreach($bank as $level=>$data) { check(count($data['items'])===50,'50 cards each'); foreach($data['items'] as $i=>$item) { check(count(array_unique(array_slice($item,1)))===4,'distinct options'); check(strlen(sp_quiz_explanation($level,$i))>30,'note coverage'); } }
+// Bank quality: exact questions are independent of option order or option changes.
+$audit = sp_quiz_audit_cards( sp_quiz_bank_cards( $bank ) );
+check( empty( $audit['duplicateQuestions'] ), 'no normalized duplicate questions in bank' );
+$fixtures = array(
+    'A' => array( 'Which ceremony marks the first haircut?', 'Mundan', 'Naming', 'Learning', 'Marriage' ),
+    'B' => array( ' WHICH ceremony marks the FIRST haircut!!! ', 'Marriage', 'Naming', 'Mundan', 'Learning' ),
+    'C' => array( 'Which ceremony marks the first haircut?', 'Different', 'Options', 'Are', 'Here' ),
+    'D' => array( 'The first haircut marks which ceremony?', 'Mundan', 'Naming', 'Learning', 'Marriage' ),
+);
+$quality = sp_quiz_audit_cards( $fixtures );
+check( count( $quality['duplicateQuestions'] ) === 2, 'same question caught despite different options' );
+check( count( $quality['duplicateCards'] ) === 1, 'same card caught with shuffled options' );
+check( ! empty( $quality['nearDuplicates'] ), 'reworded duplicate flagged for review' );
+check( sp_quiz_normalize_text( 'NAMAKARANA!  ceremony' ) === 'namakarana ceremony', 'case punctuation and whitespace normalized' );
+check( sp_quiz_normalize_text( 'word—word' ) === 'word word', 'Unicode punctuation normalized' );
+check( sp_quiz_option_info( '  KARNAVEDHA! ' ) === 'The ear-piercing ceremony.', 'glossary canonical lookup' );
+check( sp_quiz_option_info( 'Unreviewed option' ) === '', 'missing meaning remains missing' );
+$r = seed( 'learn' ); $issued = sp_quiz_issue_question( $r );
+check( count( $issued['optionInfo'] ) === 4, 'four aligned meanings issued' );
+foreach ( $issued['options'] as $i => $label ) { check( $issued['optionInfo'][$i] === sp_quiz_option_info( $label ), 'meanings follow shuffled answer labels' ); }
 $r=seed(); $qid=$r->state['current']['id']; $issued=$r->state['current']['issued'];
 $res=request('sp_quiz_rest_start',['token'=>$r->token]); check($res['question']['id']===$qid,'resume keeps ID'); check(sp_quiz_get_run($r->token)->state['current']['issued']===$issued,'resume keeps deadline');
 $res=answerCurrent(3600); check(!$res['correct']&&$res['expired']&&$res['run']['score']===-5,'server enforces expired deadline');
