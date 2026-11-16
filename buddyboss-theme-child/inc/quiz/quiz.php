@@ -560,6 +560,11 @@ function sp_quiz_assets() {
         'name'      => $user->exists() ? $user->display_name : '',
         'dashboard' => home_url( '/dashboard/' ),
         'login'     => wp_login_url( sp_quiz_page_url() ),
+        // Owner-supplied ShivBodh Trust stamp (see assets/images/certificate/STAMP.md).
+        'cert'      => array(
+            'stamp' => $uri . '/assets/images/certificate/trust-stamp-480.webp',
+            'lotus' => $uri . '/assets/images/certificate/lotus-gold.webp',
+        ),
         'audio'     => array(
             'correct' => $uri . '/assets/audio/quiz-satya.m4a',
             'wrong'   => $uri . '/assets/audio/quiz-horn.m4a',

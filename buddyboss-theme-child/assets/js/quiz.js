@@ -198,129 +198,129 @@
         lines.forEach(function (l, i) { c.fillText(l, x, y + i * lh); });
     }
 
-    function drawCertificate(cert) {
-        var cv = $('[data-cert-canvas]');
-        var c = cv.getContext('2d');
-        var W = cv.width;
-        var H = cv.height;
-        var saffron = '#c2410c';
-        var gold = '#b7791f';
-        var ink = '#3b2412';
-
-        var bg = c.createRadialGradient(W / 2, H / 2, 100, W / 2, H / 2, W * 0.7);
-        bg.addColorStop(0, '#fffaf0');
-        bg.addColorStop(1, '#fbe8c8');
-        c.fillStyle = bg;
-        c.fillRect(0, 0, W, H);
-
-        c.strokeStyle = saffron;
-        c.lineWidth = 14;
-        c.strokeRect(36, 36, W - 72, H - 72);
-        c.strokeStyle = gold;
-        c.lineWidth = 3;
-        c.strokeRect(66, 66, W - 132, H - 132);
-        c.setLineDash([2, 10]);
-        c.strokeRect(84, 84, W - 168, H - 168);
-        c.setLineDash([]);
-
-        [[110, 110], [W - 110, 110], [110, H - 110], [W - 110, H - 110]].forEach(function (p) {
-            c.save();
-            c.translate(p[0], p[1]);
-            c.fillStyle = saffron;
-            for (var k = 0; k < 8; k++) {
-                c.rotate(Math.PI / 4);
-                c.beginPath();
-                c.ellipse(0, 14, 6, 14, 0, 0, Math.PI * 2);
-                c.fill();
-            }
-            c.fillStyle = gold;
-            c.beginPath();
-            c.arc(0, 0, 7, 0, Math.PI * 2);
-            c.fill();
-            c.restore();
+    // Certificate art: owner-supplied ShivBodh Trust stamp + gold lotus (assets/images/certificate/).
+    var certArt = {};
+    var certArtReady = Promise.all(['stamp', 'lotus'].map(function (k) {
+        return new Promise(function (done) {
+            if (!cfg.cert || !cfg.cert[k]) return done();
+            var img = new Image();
+            img.onload = function () { certArt[k] = img; done(); };
+            img.onerror = function () { done(); };
+            img.src = cfg.cert[k];
         });
-
-        c.textAlign = 'center';
-        c.fillStyle = saffron;
-        c.font = '96px serif';
-        c.fillText('\u0950', W / 2, 220);
-
-        c.fillStyle = ink;
-        c.font = '600 30px Georgia, serif';
-        c.fillText('SHIVBODH TRUST', W / 2, 278);
-        c.font = 'italic 26px Georgia, serif';
-        c.fillStyle = gold;
-        c.fillText('Certificate of Course Completion', W / 2, 322);
-
-        c.fillStyle = saffron;
-        c.font = '700 74px Georgia, serif';
-        c.fillText('Sangyani Sanatan', W / 2, 430);
-
-        c.fillStyle = ink;
-        c.font = '26px Georgia, serif';
-        c.fillText('This certificate is proudly presented to', W / 2, 500);
-
-        var nameSize = 68;
-        c.font = 'italic 700 ' + nameSize + 'px Georgia, serif';
-        while (c.measureText(cert.name).width > 1180 && nameSize > 18) { nameSize--; c.font = 'italic 700 ' + nameSize + 'px Georgia, serif'; }
-        c.fillStyle = '#7c2d12';
-        c.fillText(cert.name, W / 2, 590);
-        c.strokeStyle = gold;
-        c.lineWidth = 2;
-        c.beginPath();
-        c.moveTo(W / 2 - 380, 615);
-        c.lineTo(W / 2 + 380, 615);
-        c.stroke();
-
-        c.fillStyle = ink;
-        c.font = '27px Georgia, serif';
-        wrapCenter(c, 'for completing all ten topics and studying all 500 cards, including revision where needed, with a final score of ' + cert.score + ' points.', W / 2, 675, 1080, 40);
-
-        c.font = '24px Georgia, serif';
+    }));
+    function spaced(c, text, x, y, gap) {
+        var w = 0, i;
+        for (i = 0; i < text.length; i++) w += c.measureText(text[i]).width + (i < text.length - 1 ? gap : 0);
+        var align = c.textAlign, px = x - w / 2;
         c.textAlign = 'left';
-        c.fillText('Date of issue', 210, 900);
-        c.font = '600 28px Georgia, serif';
-        c.fillText(cert.date, 210, 940);
-        c.textAlign = 'right';
-        c.font = '24px Georgia, serif';
-        c.fillText('Certificate ID', W - 210, 900);
-        c.font = '600 28px Georgia, serif';
-        c.fillText(cert.id, W - 210, 940);
-
-        // Seal
-        c.save();
-        c.translate(W / 2, 915);
-        c.fillStyle = saffron;
-        c.beginPath();
-        for (var i = 0; i < 32; i++) {
-            var r = i % 2 ? 78 : 90;
-            var a = i / 32 * Math.PI * 2;
-            c[i ? 'lineTo' : 'moveTo'](Math.cos(a) * r, Math.sin(a) * r);
-        }
-        c.closePath();
-        c.fill();
-        c.strokeStyle = '#fde68a';
-        c.lineWidth = 3;
-        c.beginPath();
-        c.arc(0, 0, 64, 0, Math.PI * 2);
-        c.stroke();
-        c.fillStyle = '#fff7ed';
-        c.textAlign = 'center';
-        c.font = '700 20px Georgia, serif';
-        c.fillText('SHIVBODH', 0, -8);
-        c.fillText('TRUST', 0, 18);
-        c.font = '14px Georgia, serif';
-        c.fillText('ISSUED', 0, 40);
-        c.restore();
-
-        c.textAlign = 'center';
-        c.fillStyle = '#8a6a4a';
-        c.font = '19px Georgia, serif';
-        c.fillText('Verify at ' + cert.url.replace(/^https?:\/\//, ''), W / 2, H - 112);
+        for (i = 0; i < text.length; i++) { c.fillText(text[i], px, y); px += c.measureText(text[i]).width + gap; }
+        c.textAlign = align;
     }
+    function dots(c, x1, x2, y, color) {
+        c.save(); c.fillStyle = color;
+        for (var x = x1; x <= x2; x += 13) { c.beginPath(); c.arc(x, y, 2.1, 0, Math.PI * 2); c.fill(); }
+        c.restore();
+    }
+    function corner(c, x, y, sx, sy) {
+        var red = '#a33633', brown = '#8a6a2f', k = 1.25;
+        c.save(); c.translate(x, y); c.scale(sx * k, sy * k);
+        c.strokeStyle = brown; c.lineCap = 'round';
+        c.lineWidth = 2; c.beginPath(); c.moveTo(30, 52); c.lineTo(30, 118); c.moveTo(52, 30); c.lineTo(118, 30); c.stroke();
+        c.lineWidth = 1.3; c.beginPath(); c.moveTo(44, 58); c.bezierCurveTo(44, 76, 54, 86, 70, 88); c.moveTo(58, 44); c.bezierCurveTo(76, 44, 86, 54, 88, 70); c.stroke();
+        c.fillStyle = red;
+        for (var a = 0; a < 8; a++) { c.save(); c.translate(30, 30); c.rotate(a * Math.PI / 4); c.beginPath(); c.ellipse(0, -9, 3.6, 8.2, 0, 0, Math.PI * 2); c.fill(); c.restore(); }
+        c.fillStyle = '#fffaf0'; c.beginPath(); c.arc(30, 30, 6.4, 0, Math.PI * 2); c.fill(); c.lineWidth = 1.6; c.stroke();
+        c.fillStyle = brown; c.beginPath(); c.arc(30, 30, 2.6, 0, Math.PI * 2); c.fill();
+        c.fillStyle = red; c.beginPath(); c.moveTo(30, 92); c.lineTo(35, 98); c.lineTo(30, 104); c.lineTo(25, 98); c.closePath(); c.fill();
+        c.beginPath(); c.moveTo(92, 30); c.lineTo(98, 25); c.lineTo(104, 30); c.lineTo(98, 35); c.closePath(); c.fill();
+        c.restore();
+    }
+    // cert = null draws the specimen: every personal field is a dotted blank.
+    function drawCertificate(cert, canvas) {
+        var cv = canvas || $('[data-cert-canvas]');
+        var c = cv.getContext('2d');
+        var W = cv.width, H = cv.height;
+        var maroon = '#7a2a27', gold = '#8a6a2f', ink = '#30292a', soft = '#6b5a3e';
+        var serif = 'Georgia, "Times New Roman", serif', sans = 'Arial, Helvetica, sans-serif';
+        c.save();
+        c.clearRect(0, 0, W, H);
+        c.fillStyle = '#fffaf0'; c.fillRect(0, 0, W, H);
+        // Maroon band studded with gold, between gold rules.
+        var o = 16, band = 30;
+        c.fillStyle = '#8f2e2b'; c.fillRect(o, o, W - 2 * o, H - 2 * o);
+        c.fillStyle = '#e2c27a';
+        for (var y = o + 6; y < H - o; y += 13) for (var x = o + 6; x < W - o; x += 13) {
+            if (x > o + band && x < W - o - band && y > o + band && y < H - o - band) continue;
+            c.beginPath(); c.arc(x, y, 2.2, 0, Math.PI * 2); c.fill();
+        }
+        c.strokeStyle = '#c9a55a'; c.lineWidth = 3; c.strokeRect(o + 1.5, o + 1.5, W - 2 * o - 3, H - 2 * o - 3);
+        var ix = o + band, iy = o + band, iw = W - 2 * ix, ih = H - 2 * iy;
+        var bg = c.createRadialGradient(W / 2, H * 0.4, 60, W / 2, H * 0.45, W * 0.62);
+        bg.addColorStop(0, '#fffdf7'); bg.addColorStop(0.62, '#fdf5e4'); bg.addColorStop(1, '#f6ead0');
+        c.fillStyle = bg; c.fillRect(ix, iy, iw, ih);
+        c.strokeStyle = '#e2c27a'; c.lineWidth = 2; c.strokeRect(ix - 3, iy - 3, iw + 6, ih + 6);
+        c.strokeStyle = gold; c.lineWidth = 1.5; c.strokeRect(ix + 1, iy + 1, iw - 2, ih - 2);
+        c.strokeStyle = '#b8995a'; c.lineWidth = 1; c.strokeRect(ix + 10, iy + 10, iw - 20, ih - 20);
+        corner(c, ix + 6, iy + 6, 1, 1); corner(c, W - ix - 6, iy + 6, -1, 1);
+        corner(c, ix + 6, H - iy - 6, 1, -1); corner(c, W - ix - 6, H - iy - 6, -1, -1);
+        if (certArt.lotus) {
+            var lw = 760, lh = lw * certArt.lotus.height / certArt.lotus.width;
+            c.globalAlpha = 0.075; c.drawImage(certArt.lotus, (W - lw) / 2, H * 0.5 - lh * 0.44, lw, lh); c.globalAlpha = 1;
+            c.drawImage(certArt.lotus, W / 2 - 55, 148, 110, 110 * certArt.lotus.height / certArt.lotus.width);
+        }
+        c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+        if (!cert) {
+            c.strokeStyle = '#b8995a'; c.lineWidth = 1.5; c.strokeRect(W / 2 - 135, 72, 270, 30);
+            c.fillStyle = maroon; c.font = '700 15px ' + sans; spaced(c, 'SPECIMEN \u00b7 NOT ISSUED', W / 2, 93, 3);
+        }
+        c.fillStyle = maroon; c.font = '700 38px ' + serif; spaced(c, 'SHIVBODH TRUST', W / 2, 270, 8);
+        c.fillStyle = soft; c.font = '17px ' + sans;
+        spaced(c, 'Reg. No. 132  \u00b7  NGO Darpan ID UP/2025/0636313  \u00b7  Hanuman Ghat, Varanasi', W / 2, 304, 1);
+        c.fillStyle = gold; c.font = '700 19px ' + sans; spaced(c, 'CERTIFICATE OF COURSE COMPLETION', W / 2, 352, 4.5);
+        c.strokeStyle = '#b8995a'; c.lineWidth = 1.5;
+        c.beginPath(); c.moveTo(W / 2 - 430, 346); c.lineTo(W / 2 - 280, 346); c.moveTo(W / 2 + 280, 346); c.lineTo(W / 2 + 430, 346); c.stroke();
+        c.fillStyle = ink; c.font = 'italic 104px ' + serif; c.fillText('Sangyani Sanatan', W / 2, 462);
+        c.fillStyle = '#5a4b3a'; c.font = 'italic 27px ' + serif; c.fillText('This certificate is proudly presented to', W / 2, 520);
+        if (cert) {
+            var nameSize = 66;
+            c.font = 'italic 700 ' + nameSize + 'px ' + serif;
+            while (c.measureText(cert.name).width > 1080 && nameSize > 18) { nameSize--; c.font = 'italic 700 ' + nameSize + 'px ' + serif; }
+            c.fillStyle = maroon; c.fillText(cert.name, W / 2, 606);
+            c.strokeStyle = '#b8995a'; c.lineWidth = 2; c.beginPath(); c.moveTo(W / 2 - 470, 632); c.lineTo(W / 2 + 470, 632); c.stroke();
+        } else {
+            dots(c, W / 2 - 470, W / 2 + 470, 610, gold);
+        }
+        c.fillStyle = ink; c.font = '28px ' + serif;
+        wrapCenter(c, cert ? 'for completing all ten topics and studying all 500 cards, including revision where needed, with a final score of ' + cert.score + ' points.' : 'for completing all ten topics and studying all 500 learning cards of the Sangyani Sanatan course.', W / 2, 692, 1060, 42);
+        // Footer: issue date, certificate ID, stamp over the Trust line.
+        var fy = 900;
+        c.strokeStyle = '#d6c39a'; c.lineWidth = 1; c.beginPath(); c.moveTo(ix + 120, 784); c.lineTo(W - ix - 120, 784); c.stroke();
+        c.textAlign = 'left'; c.fillStyle = soft; c.font = '700 15px ' + sans;
+        spacedLeft(c, 'DATE OF ISSUE', 205, fy, 2); spacedLeft(c, 'CERTIFICATE ID', 505, fy, 2);
+        c.fillStyle = ink; c.font = '600 27px ' + serif;
+        if (cert) { c.fillText(cert.date, 205, fy + 40); c.fillText(cert.id, 505, fy + 40); }
+        else { dots(c, 207, 430, fy + 36, gold); dots(c, 507, 830, fy + 36, gold); }
+        var sx = W - 360;
+        if (certArt.stamp) {
+            c.save(); c.translate(sx, fy - 78); c.rotate(-11 * Math.PI / 180);
+            c.globalCompositeOperation = 'multiply'; c.globalAlpha = 0.93;
+            c.drawImage(certArt.stamp, -112, -112, 224, 224); c.restore();
+        }
+        c.strokeStyle = gold; c.lineWidth = 1.5; c.beginPath(); c.moveTo(sx - 150, fy + 22); c.lineTo(sx + 150, fy + 22); c.stroke();
+        c.textAlign = 'center'; c.fillStyle = ink; c.font = '700 27px ' + serif; c.fillText('For ShivBodh Trust', sx, fy + 56);
+        c.fillStyle = soft; c.font = '18px ' + sans; c.fillText('Course completion certificate', sx, fy + 82);
+        c.fillStyle = '#5a4b3a'; c.font = '17px ' + sans;
+        c.fillText(cert ? 'Verify at ' + cert.url.replace(/^https?:\/\//, '') : 'Your name, date of issue and certificate ID are added when you complete all ten topics.', W / 2, H - iy - 26);
+        c.restore();
+    }
+    function spacedLeft(c, text, x, y, gap) {
+        for (var i = 0; i < text.length; i++) { c.fillText(text[i], x, y); x += c.measureText(text[i]).width + gap; }
+    }
+    function drawWhenReady(cert, canvas) { drawCertificate(cert, canvas); certArtReady.then(function () { drawCertificate(cert, canvas); }); }
 
     function showCertificate(cert) {
-        certificate = cert; show('cert'); drawCertificate(cert);
+        certificate = cert; show('cert'); drawWhenReady(cert);
         $('[data-cert-heading]').textContent = 'Your learning milestone';
         $('[data-cert-eyebrow]').textContent = 'Verified course completion';
         $('[data-cert-text]').textContent = cert.name + ' completed the Sangyani Sanatan learning course of ten topics and 500 cards, with revision where needed. Score: ' + cert.score + '. Issued by ShivBodh Trust on ' + cert.date + '. Certificate ID: ' + cert.id + '.';
@@ -328,8 +328,14 @@
         $('[data-cert-verify]').textContent = 'Certificate ID ' + cert.id + ' · ' + cert.date;
         $('[data-cert-dashboard]').hidden = !cfg.loggedIn;
     }
-    $('[data-download-png]').addEventListener('click', function () { var a = document.createElement('a'); a.download = 'Sangyani-Sanatan-' + certificate.id + '.png'; a.href = $('[data-cert-canvas]').toDataURL('image/png'); a.click(); });
-    $('[data-download-pdf]').addEventListener('click', function () { window.print(); });
+    $('[data-download-png]').addEventListener('click', function () { certArtReady.then(function () { drawCertificate(certificate); var a = document.createElement('a'); a.download = 'Sangyani-Sanatan-' + certificate.id + '.png'; a.href = $('[data-cert-canvas]').toDataURL('image/png'); a.click(); }); });
+    $('[data-download-pdf]').addEventListener('click', function () { certArtReady.then(function () { drawCertificate(certificate); window.print(); }); });
+    // Start screen: specimen of the certificate a learner receives, drawn when it scrolls into view.
+    var specimen = $('[data-cert-specimen]');
+    if (specimen) {
+        if ('IntersectionObserver' in window) { var seen = new IntersectionObserver(function (entries) { if (entries[0].isIntersecting) { seen.disconnect(); drawWhenReady(null, specimen); } }, { rootMargin: '300px' }); seen.observe(specimen); }
+        else drawWhenReady(null, specimen);
+    }
     $('[data-share]').addEventListener('click', async function () {
         try { if (navigator.share) await navigator.share({ title: 'Sangyani Sanatan completion', url: certificate.url }); else { await navigator.clipboard.writeText(certificate.url); $('[data-cert-verify]').textContent = 'Certificate link copied.'; } }
         catch (e) { if (e.name !== 'AbortError') $('[data-cert-verify]').textContent = certificate.url; }
