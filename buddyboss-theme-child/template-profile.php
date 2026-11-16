@@ -167,7 +167,7 @@ $community_url = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/
         <?php endif; ?>
 
         <!-- Stats -->
-        <div class="sp-fu-stats" aria-label="<?php esc_attr_e( 'Activity stats', 'sampreshan-child' ); ?>">
+        <div id="sp-profile-activity" class="sp-fu-stats" tabindex="-1" aria-label="<?php esc_attr_e( 'Activity stats', 'sampreshan-child' ); ?>">
             <span><strong><?php echo esc_html( number_format_i18n( (int) $stats['petitions_started'] ) ); ?></strong> <?php esc_html_e( 'Petitions', 'sampreshan-child' ); ?></span>
             <span><strong><?php echo esc_html( number_format_i18n( (int) $stats['signatures_given'] ) ); ?></strong> <?php esc_html_e( 'supports given', 'sampreshan-child' ); ?></span>
             <span><strong><?php echo esc_html( number_format_i18n( (int) $stats['supporters_received'] ) ); ?></strong> <?php esc_html_e( 'Supporters', 'sampreshan-child' ); ?></span>
