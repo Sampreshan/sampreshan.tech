@@ -524,7 +524,10 @@
     .sp-quiz [data-screen="cert"], .sp-quiz [data-screen="cert"] * { visibility: visible; }
     .sp-quiz [data-screen="cert"] { position: absolute; inset: 0; color: #111; background: #fff; }
     .sp-quiz [data-screen="cert"] .sp-quiz__actions, .sp-quiz [data-share], .sp-quiz [data-cert-eyebrow], .sp-quiz [data-cert-heading], .sp-quiz [data-screen="cert"] .sp-quiz__win-emblem, .sp-quiz [data-screen="cert"] .sp-quiz__burst { display: none !important; }
-    .sp-quiz__cert { width: 100%; max-width: none; }
+    html:has(body.page-template-template-quiz-php), body.page-template-template-quiz-php { height: 100% !important; overflow: hidden !important; }
+    .sp-quiz [data-screen="cert"] { position: fixed; inset: 0; display: flex !important; align-items: center; justify-content: center; margin: 0; padding: 0; transform: none; }
+    .sp-quiz [data-screen="cert"] > :not(.sp-quiz__cert) { display: none !important; }
+    .sp-quiz [data-screen="cert"] .sp-quiz__cert { width: auto; height: auto; max-width: 100%; max-height: 196mm; margin: 0; border-radius: 0; box-shadow: none; animation: none; }
     .sp-quiz__explanation { color: #111; }
 }
 
@@ -540,3 +543,18 @@
     .sp-quiz__rules { grid-template-columns: repeat(4,minmax(0,1fr)); margin-top: 18px; }
     .sp-quiz__rules span { font-size: 10px; }
 }
+
+/* Meanings are sibling controls, so opening one cannot submit an answer. */
+.sp-quiz__option-row { position: relative; display: flex; align-items: center; gap: 8px; min-width: 0; }
+.sp-quiz__option-row .sp-quiz__option { flex: 1; min-width: 0; height: 100%; }
+.sp-quiz__option-row .sp-quiz__option span:last-child { overflow-wrap: anywhere; }
+.sp-quiz__info-btn { flex: 0 0 36px; width: 36px; height: 36px; padding: 0; border-radius: 50%; border: 1px solid rgba(255,255,255,.4); background: #24243c; color: #fff; font: bold 16px Georgia, serif; cursor: pointer; }
+.sp-quiz__info-btn:focus-visible { outline: 3px solid var(--q-saffron); outline-offset: 2px; }
+.sp-quiz__info-popover { position: absolute; top: 100%; right: 0; z-index: 30; box-sizing: border-box; width: min(280px, 100%); padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,.25); background: #101020; color: #fff; font-size: 13px; line-height: 1.5; overflow-wrap: anywhere; box-shadow: 0 12px 30px rgba(0,0,0,.35); }
+.sp-quiz__info-popover[hidden] { display: none; }
+.sp-quiz__option-row:has(.sp-quiz__info-btn[aria-expanded="true"]) { z-index: 5; }
+
+/* Certificate specimen on the start screen (owner-supplied Trust stamp, name left blank). */
+.sp-quiz__specimen { margin: 26px auto 8px; max-width: 760px; }
+.sp-quiz__cert--specimen { margin: 0 auto; border-radius: 6px; box-shadow: 0 22px 60px rgba(0, 0, 0, .55), 0 0 40px rgba(250, 204, 21, .12); animation: none; }
+.sp-quiz__specimen figcaption { margin-top: 12px; }

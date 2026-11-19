@@ -19,7 +19,18 @@ function sp_quiz_admin() {
             if ( preg_match( '/^L(0[1-9]|10)-Q0(0[1-9]|[1-4][0-9]|50)$/', $key ) && count( $fields ) === 5 && count( array_unique( array_slice( $fields, 1 ) ) ) === 4 && ! in_array( '', $fields, true ) && strlen( $explanation ) >= 20 && strlen( $provenance ) >= 10 && ! preg_match( '/[\x{0900}-\x{097F}]/u', implode( ' ', $fields ) . $explanation ) && strlen( implode( ' ', $fields ) ) <= 1600 && strlen( $explanation ) <= 4000 && strlen( $provenance ) <= 4000 ) {
                 $entry = array( 'fields' => $fields, 'explanation' => $explanation, 'provenance' => $provenance, 'reviewer' => get_current_user_id(), 'date' => current_time( 'mysql', true ) );
                 if ( isset( $_POST['publish'] ) ) {
+                    $cards = sp_quiz_bank_cards( sp_quiz_bank() );
+                    $cards[$key] = $fields;
+                    $audit = sp_quiz_audit_cards( $cards );
+                    foreach ( $audit['duplicateQuestions'] as $duplicate ) {
+                        if ( $duplicate['first'] === $key || $duplicate['second'] === $key ) {
+                            $message = 'Not published: this question duplicates ' . ( $duplicate['first'] === $key ? $duplicate['second'] : $duplicate['first'] ) . '. Change the question or save a draft for review.';
+                            break;
+                        }
+                    }
+                    if ( ! $message ) {
                     $content[$key] = $entry; update_option( 'sp_quiz_content', $content, false ); delete_option( 'sp_quiz_draft_' . $key ); $message = 'Reviewed correction published. New cards will use it; active cards retain their issued answer.';
+                    }
                 } else { update_option( 'sp_quiz_draft_' . $key, $entry, false ); $message = 'Draft saved. It is not visible to learners.'; }
             } else { $message = 'Not saved: supply a valid card, four distinct options, an explanation and internal evidence.'; }
         } elseif ( 'resolve' === $action ) {
@@ -39,6 +50,9 @@ function sp_quiz_admin() {
             }
         }
     }
+    $audit_cards = sp_quiz_bank_cards( sp_quiz_bank() );
+    foreach ( $content as $card => $entry ) { if ( isset( $audit_cards[$card], $entry['fields'] ) ) { $audit_cards[$card] = $entry['fields']; } }
+    $audit = sp_quiz_audit_cards( $audit_cards );
     $key = sanitize_text_field( wp_unslash( $_GET['card'] ?? 'L01-Q001' ) );
     if ( ! preg_match( '/^L(0[1-9]|10)-Q0(0[1-9]|[1-4][0-9]|50)$/', $key, $m ) ) { $key = 'L01-Q001'; }
     preg_match( '/^L(\d+)-Q(\d+)$/', $key, $m ); $level = (int) $m[1]; $index = (int) $m[2] - 1;
@@ -56,6 +70,15 @@ function sp_quiz_admin() {
     <p><label>Explanation for learners<br><textarea name="explanation" rows="4" class="large-text" required><?php echo esc_textarea( $entry['explanation'] ?? sp_quiz_explanation( $level, $index ) ); ?></textarea></label></p>
     <p><label>Internal evidence: work, section, wording and tradition qualifications<br><textarea name="provenance" rows="4" class="large-text" required><?php echo esc_textarea( $entry['provenance'] ?? '' ); ?></textarea></label></p>
     <button class="button">Save draft</button> <button class="button button-primary" name="publish" value="1">Confirm review and publish</button></form>
+    <h2>Bank quality and glossary coverage</h2>
+    <p>Exact duplicate questions prevent publishing. Similar wording is a review heuristic; it can flag distinct questions and cannot detect every paraphrase. Stable card IDs and saved progress are preserved.</p>
+    <p><?php echo (int) $audit['cards']; ?> cards; <?php echo count( $audit['duplicateQuestions'] ); ?> duplicate questions; <?php echo count( $audit['duplicateCards'] ); ?> repeated question-and-option sets; <?php echo count( $audit['nearDuplicates'] ); ?> wording candidates; <?php echo count( $audit['missingMeanings'] ); ?> unique options without meanings.</p>
+    <details><summary>Duplicate and similar-question review</summary><table class="widefat striped"><thead><tr><th>Type</th><th>First card</th><th>Second card</th><th>Question</th></tr></thead><tbody>
+    <?php foreach ( array( 'duplicateQuestions' => 'Same question', 'duplicateCards' => 'Same question and options', 'nearDuplicates' => 'Review wording' ) as $type => $label ) : foreach ( $audit[$type] as $pair ) : ?>
+    <tr><td><?php echo esc_html( $label ); ?></td><td><?php echo esc_html( $pair['first'] ); ?></td><td><a href="<?php echo esc_url( add_query_arg( 'card', $pair['second'] ) ); ?>"><?php echo esc_html( $pair['second'] ); ?></a></td><td><?php echo esc_html( $pair['question'] ); ?></td></tr>
+    <?php endforeach; endforeach; ?></tbody></table></details>
+    <details><summary>Missing option meanings</summary><p>Add reviewed English definitions to inc/quiz/glossary.php. No meaning is invented for missing terms; those options keep their answer button without an info control.</p><table class="widefat striped"><thead><tr><th>Option</th><th>Cards</th></tr></thead><tbody>
+    <?php foreach ( $audit['missingMeanings'] as $missing ) : ?><tr><td><?php echo esc_html( $missing['label'] ); ?></td><td><?php echo esc_html( implode( ', ', $missing['cards'] ) ); ?></td></tr><?php endforeach; ?></tbody></table></details>
     <h2>Question reports</h2><table class="widefat striped"><thead><tr><th>Card</th><th>Issue</th><th>Date</th><th>Review</th></tr></thead><tbody>
     <?php foreach ( $reports as $i => $report ) : ?><tr><td><a href="<?php echo esc_url( add_query_arg( 'card', $report['key'] ) ); ?>"><?php echo esc_html( $report['key'] ); ?></a></td><td><?php echo esc_html( $report['message'] ); ?></td><td><?php echo esc_html( $report['date'] ); ?></td><td><?php if ( 'open' === $report['status'] ) : ?><form method="post"><?php wp_nonce_field( 'sp_quiz_editor' ); ?><input type="hidden" name="editor_action" value="resolve"><input type="hidden" name="report" value="<?php echo esc_attr( $report['id'] ); ?>"><button class="button">Resolve</button></form><?php else : ?>Resolved<?php endif; ?></td></tr><?php endforeach; ?></tbody></table>
     <h2>Card performance</h2><p>Recorded since this release. Counts include retry attempts.</p><table class="widefat striped"><thead><tr><th>Card</th><th>Attempts</th><th>Incorrect or timeout</th></tr></thead><tbody><?php foreach ( $stats as $id => $counts ) { echo '<tr><td>' . esc_html( $counts['card'] ) . '</td><td>' . (int) $counts['attempts'] . '</td><td>' . (int) $counts['wrong'] . '</td></tr>'; } ?></tbody></table>

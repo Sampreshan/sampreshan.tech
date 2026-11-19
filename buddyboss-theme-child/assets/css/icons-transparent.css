@@ -274,8 +274,8 @@ a.button.signup,
     display: none !important;
 }
 
-/* Remove any wp-login.php links from the frontend */
-a[href*="wp-login.php"] {
+/* Hide legacy sign-in links while preserving WordPress nonce-protected logout. */
+a[href*="wp-login.php"]:not([href*="action=logout"]) {
     display: none !important;
 }
 

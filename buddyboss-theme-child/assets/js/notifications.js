@@ -24,7 +24,7 @@
         var list   = root.querySelector('[data-sp-notif-list]');
         var empty  = root.querySelector('[data-sp-notif-empty]');
         var badge  = root.querySelector('[data-sp-notif-badge]');
-        var unread = 0;
+        var unread = 0, returnFocus = null;
 
         var render = function (res) {
             if (!res || !res.success) { return; }
@@ -65,11 +65,18 @@
                 }).catch(function () {});
             }
         });
+        document.addEventListener('sp:notifications-open', function (e) {
+            returnFocus = e.detail && e.detail.returnFocus;
+            if (panel.hidden) toggle.click();
+            panel.setAttribute('tabindex', '-1'); panel.focus();
+        });
+        var closeButton = root.querySelector('[data-sp-notif-close]');
+        if (closeButton) closeButton.addEventListener('click', function () { close(); if (returnFocus) returnFocus.focus(); });
         document.addEventListener('click', function (e) {
             if (!root.contains(e.target)) { close(); }
         });
         document.addEventListener('keydown', function (e) {
-            if ('Escape' === e.key && !panel.hidden) { close(); toggle.focus(); }
+            if ('Escape' === e.key && !panel.hidden) { close(); if (returnFocus) returnFocus.focus(); else toggle.focus(); }
         });
     }
 

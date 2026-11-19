@@ -1,0 +1,44 @@
+/* Account links share a single disclosure beside the member photo. */
+.sp-account-menu { position: relative; flex-shrink: 0; }
+.sp-account-menu > summary { list-style: none; width: 44px; height: 44px; touch-action: manipulation; }
+.sp-account-menu > summary::-webkit-details-marker { display: none; }
+.sp-account-menu > summary::marker { content: ''; }
+.sp-account-menu > summary img { width: 100%; height: 100%; }
+.sp-account-menu__panel {
+    position: fixed; inset-inline-end: 12px; top: 78px; z-index: 1200;
+    width: min(260px, calc(100vw - 24px)); max-height: calc(100dvh - 110px);
+    overflow-y: auto; overscroll-behavior: contain; padding: 8px;
+    background: #15171f; border: 1px solid #787d8c; border-radius: 14px;
+    box-shadow: 0 12px 32px #0005; text-align: start;
+}
+.sp-account-menu__panel .sp-account-menu__link {
+    display: flex; align-items: center; gap: 12px; width: 100%; min-height: 46px;
+    padding: 10px 12px; margin: 0; box-sizing: border-box; border: 0; border-radius: 8px;
+    background: transparent; color: #f7f8fc; -webkit-text-fill-color: #f7f8fc;
+    font: inherit; font-size: 15px; font-weight: 600; line-height: 1.4;
+    text-decoration: none; white-space: normal; overflow-wrap: break-word; cursor: pointer;
+}
+.sp-account-menu__panel .sp-account-menu__link:hover { background: #303440; }
+.sp-account-menu__panel .sp-account-menu__link:focus-visible { outline: 2px solid #ffb665; outline-offset: -2px; background: #303440; }
+.sp-account-menu__panel .sp-account-menu__logout { color: #ffc0c0; -webkit-text-fill-color: #ffc0c0; border-top: 1px solid #555c6e; margin-top: 4px; }
+#sp-profile-activity { scroll-margin-top: 100px; }
+
+.sp-account-menu__toggle { display:flex; align-items:center; justify-content:center; border-radius:50%; border:2px solid #ffb665; padding:0; cursor:pointer; }
+.sp-account-menu__toggle img { border-radius:50%; object-fit:cover; }
+.sp-account-menu__toggle:focus-visible { outline:2px solid #fff; outline-offset:3px; }
+body.admin-bar .sp-account-menu__panel { top:110px; }
+#sp-member-notifications.sp-notif { position:fixed; top:78px; right:12px; z-index:1201; }
+body.admin-bar #sp-member-notifications.sp-notif { top:110px; }
+#sp-member-notifications .sp-notif__panel { top:0; right:0; width:min(360px,calc(100vw - 24px)); max-height:calc(100dvh - 130px); overflow:auto; }
+#sp-member-notifications [data-sp-notif-close] { float:right; min-width:44px; min-height:44px; }
+/* Keep the member control below WordPress's signed-in toolbar. */
+body.admin-bar #masthead.site-header--bb { top: 32px; }
+@media (max-width: 782px) {
+    body.admin-bar #masthead.site-header--bb,
+    body.admin-bar .bb-mobile-header-wrapper { top: 46px; }
+}
+
+.sp-account-menu > summary.sp-account-menu__toggle { width:auto; min-width:44px; gap:10px; border-color:transparent; }
+.sp-account-menu > summary.sp-account-menu__toggle img { width:40px; height:40px; flex:0 0 40px; border:2px solid #ffb665; box-sizing:border-box; }
+.sp-account-menu__name { display:block; max-width:16ch; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#f7f8fc; -webkit-text-fill-color:#f7f8fc; font-size:14px; font-weight:600; }
+@media(max-width:782px) { .sp-account-menu__name { display:none; } }
