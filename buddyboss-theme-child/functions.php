@@ -202,7 +202,7 @@ add_action( 'wp_footer', 'sp_drop_unconfigured_elementor_scripts', 19 );
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.78' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.79' );
 }
 
 /**
@@ -508,6 +508,7 @@ require_once get_stylesheet_directory() . '/inc/dharma-calendar.php';
 require_once get_stylesheet_directory() . '/inc/auth/loader.php';
 require_once get_stylesheet_directory() . '/inc/notifications/center.php';
 require_once get_stylesheet_directory() . '/inc/account-menu.php';
+require_once get_stylesheet_directory() . '/inc/brand-tagline.php';
 require_once get_stylesheet_directory() . '/inc/notifications/dharma-mail.php';
 require_once get_stylesheet_directory() . '/inc/seo/schema.php';
 require_once get_stylesheet_directory() . '/inc/migrated-acharya-pages.php';
@@ -1122,6 +1123,13 @@ function sp_button_slide_assets() {
     wp_enqueue_script( 'sp-slide', get_stylesheet_directory_uri() . '/assets/js/sp-slide.js', array(), SAMPRESHAN_CHILD_VERSION, true );
 }
 add_action( 'wp_enqueue_scripts', 'sp_button_slide_assets', 1001 );
+
+/** Site footer layout for every width; loads last so older footer rules cannot override it. */
+function sp_site_footer_css() {
+    $file = get_stylesheet_directory() . '/assets/css/site-footer.css';
+    wp_enqueue_style( 'sp-site-footer', get_stylesheet_directory_uri() . '/assets/css/site-footer.css', array(), substr( hash_file( 'sha256', $file ), 0, 16 ) );
+}
+add_action( 'wp_enqueue_scripts', 'sp_site_footer_css', 1002 );
 
 /**
  * Futuristic skin: flag every frontend page so future.css applies.
