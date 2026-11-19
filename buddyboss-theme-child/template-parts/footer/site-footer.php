@@ -7,6 +7,11 @@
  * @package SampreShan_Child
  */
 
+if ( ! function_exists( 'sp_footer_v2_active' ) || ! sp_footer_v2_active() ) {
+    include __DIR__ . '/site-footer-v1.php';
+    return;
+}
+
 $site_name    = get_bloginfo( 'name' );
 $year         = date( 'Y' );
 $is_logged_in = is_user_logged_in();

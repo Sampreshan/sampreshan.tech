@@ -11,6 +11,11 @@
  * @package SampreShan_Child
  */
 
+if ( ! function_exists( 'sp_footer_v2_active' ) || ! sp_footer_v2_active() ) {
+    require get_template_directory() . '/footer.php';
+    return;
+}
+
 do_action( THEME_HOOK_PREFIX . 'end_content' );
 
 // The SampreShan footer replaces BuddyBoss's copyright bar; other footer

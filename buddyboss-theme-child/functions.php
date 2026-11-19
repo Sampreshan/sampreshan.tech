@@ -1126,6 +1126,9 @@ add_action( 'wp_enqueue_scripts', 'sp_button_slide_assets', 1001 );
 
 /** Site footer layout for every width; loads last so older footer rules cannot override it. */
 function sp_site_footer_css() {
+    if ( ! function_exists( 'sp_footer_v2_active' ) || ! sp_footer_v2_active() ) {
+        return;
+    }
     $file = get_stylesheet_directory() . '/assets/css/site-footer.css';
     wp_enqueue_style( 'sp-site-footer', get_stylesheet_directory_uri() . '/assets/css/site-footer.css', array(), substr( hash_file( 'sha256', $file ), 0, 16 ) );
 }
