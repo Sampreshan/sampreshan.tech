@@ -202,7 +202,7 @@ add_action( 'wp_footer', 'sp_drop_unconfigured_elementor_scripts', 19 );
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.78' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.79' );
 }
 
 /**
@@ -507,6 +507,8 @@ require_once get_stylesheet_directory() . '/inc/dharma-news.php';
 require_once get_stylesheet_directory() . '/inc/dharma-calendar.php';
 require_once get_stylesheet_directory() . '/inc/auth/loader.php';
 require_once get_stylesheet_directory() . '/inc/notifications/center.php';
+require_once get_stylesheet_directory() . '/inc/account-menu.php';
+require_once get_stylesheet_directory() . '/inc/brand-tagline.php';
 require_once get_stylesheet_directory() . '/inc/notifications/dharma-mail.php';
 require_once get_stylesheet_directory() . '/inc/seo/schema.php';
 require_once get_stylesheet_directory() . '/inc/migrated-acharya-pages.php';
@@ -662,7 +664,7 @@ function sampreshan_child_enqueue_styles() {
         'sampreshan-homepage',
         get_stylesheet_directory_uri() . '/assets/css/homepage.css',
         array( 'sampreshan-responsive' ),
-        SAMPRESHAN_CHILD_VERSION
+        substr( hash_file( 'sha256', get_stylesheet_directory() . '/assets/css/homepage.css' ), 0, 16 )
     );
 
     // Permanent icon system (resolution-independent SVG icons + full responsive)
@@ -743,7 +745,7 @@ function sampreshan_child_enqueue_styles() {
         'sampreshan-icons-transparent',
         get_stylesheet_directory_uri() . '/assets/css/icons-transparent.css',
         array( 'sampreshan-mobile' ),
-        SAMPRESHAN_CHILD_VERSION
+        substr( hash_file( 'sha256', get_stylesheet_directory() . '/assets/css/icons-transparent.css' ), 0, 16 )
     );
 
     // Premium design system — Jeton/Awwwards-grade typography, spacing, reveals.
@@ -919,7 +921,7 @@ function sampreshan_child_enqueue_styles() {
             'sampreshan-login',
             get_stylesheet_directory_uri() . '/assets/css/login.css',
             array( 'sampreshan-icon-system' ),
-            SAMPRESHAN_CHILD_VERSION
+            substr( hash_file( 'sha256', get_stylesheet_directory() . '/assets/css/login.css' ), 0, 16 )
         );
         wp_enqueue_script(
             'sampreshan-login',
@@ -1042,12 +1044,13 @@ function sampreshan_child_enqueue_styles() {
         'sampreshan-navigation',
         get_stylesheet_directory_uri() . '/assets/js/navigation.js',
         array(),
-        SAMPRESHAN_CHILD_VERSION,
+        substr( hash_file( 'sha256', get_stylesheet_directory() . '/assets/js/navigation.js' ), 0, 16 ),
         true
     );
 
     // Notification bell + Anusaran follow toggle (members only).
     if ( is_user_logged_in() ) {
+        wp_enqueue_style( 'sampreshan-account-menu', get_stylesheet_directory_uri() . '/assets/css/account-menu.css', array( 'sampreshan-responsive' ), substr( hash_file( 'sha256', get_stylesheet_directory() . '/assets/css/account-menu.css' ), 0, 16 ) );
         wp_enqueue_style(
             'sampreshan-notifications',
             get_stylesheet_directory_uri() . '/assets/css/notifications.css',
@@ -1058,7 +1061,7 @@ function sampreshan_child_enqueue_styles() {
             'sampreshan-notifications',
             get_stylesheet_directory_uri() . '/assets/js/notifications.js',
             array(),
-            SAMPRESHAN_CHILD_VERSION,
+            substr( hash_file( 'sha256', get_stylesheet_directory() . '/assets/js/notifications.js' ), 0, 16 ),
             true
         );
         do_action( 'litespeed_nonce', 'sp_notifications' );
@@ -1120,6 +1123,16 @@ function sp_button_slide_assets() {
     wp_enqueue_script( 'sp-slide', get_stylesheet_directory_uri() . '/assets/js/sp-slide.js', array(), SAMPRESHAN_CHILD_VERSION, true );
 }
 add_action( 'wp_enqueue_scripts', 'sp_button_slide_assets', 1001 );
+
+/** Site footer layout for every width; loads last so older footer rules cannot override it. */
+function sp_site_footer_css() {
+    if ( ! function_exists( 'sp_footer_v2_active' ) || ! sp_footer_v2_active() ) {
+        return;
+    }
+    $file = get_stylesheet_directory() . '/assets/css/site-footer.css';
+    wp_enqueue_style( 'sp-site-footer', get_stylesheet_directory_uri() . '/assets/css/site-footer.css', array(), substr( hash_file( 'sha256', $file ), 0, 16 ) );
+}
+add_action( 'wp_enqueue_scripts', 'sp_site_footer_css', 1002 );
 
 /**
  * Futuristic skin: flag every frontend page so future.css applies.

@@ -20,6 +20,16 @@ English is the first and only display language of sampreshan.tech.
 
 ## Allowed exceptions
 
+- The SampreShan brand tagline, shown in Devanagari together with its Roman
+  transliteration and English meaning (owner decision, 2026-11-19):
+  - Devanagari: परस्परानुकथनं पावनं भगवद्यशः
+  - Roman: *Parasparānukathanaṁ pāvanaṁ bhagavad-yaśaḥ*
+  - Meaning: "Sharing the glory of the Divine with one another purifies us all."
+
+  Print it only through `sp_brand_tagline_e()` / `sp_brand_tagline()` from
+  `inc/brand-tagline.php`; that file is the only place the checker accepts the
+  Devanagari line. Never show the Devanagari line without the Roman line and
+  the meaning.
 - The sacred symbol ॐ used as a decorative glyph (`aria-hidden`).
 - The `name_hi` keys in `inc/*-data.php`. They hold original-script names as
   reference data and must not be rendered on any page.

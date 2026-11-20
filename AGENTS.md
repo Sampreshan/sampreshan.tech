@@ -16,6 +16,23 @@ The full rules are in [docs/ICON-RULES.md](docs/ICON-RULES.md).
 
 The full rules are in [docs/LANGUAGE-RULES.md](docs/LANGUAGE-RULES.md).
 
+## Brand tagline (owner decision, 2026-11-19)
+
+SampreShan's own tagline is:
+
+> परस्परानुकथनं पावनं भगवद्यशः
+> *Parasparānukathanaṁ pāvanaṁ bhagavad-yaśaḥ*
+> Sharing the glory of the Divine with one another purifies us all.
+
+1. **One source:** print it with `sp_brand_tagline_e( $class )` (or read the parts from `sp_brand_tagline()`) in `inc/brand-tagline.php`. Do not copy the words into templates.
+2. **Always three lines:** Devanagari, then Roman transliteration, then the English meaning. It is the only Devanagari allowed on the site (see `docs/LANGUAGE-RULES.md`).
+3. **Where it appears:** the tagline band at the top of the site footer (every page) and the WordPress Site Tagline (Settings > General, Roman form with the meaning). Use it on new brand surfaces such as certificates, emails and campaign heroes when a tagline is needed.
+4. **Style:** `.sp-tagline` in `assets/css/site-footer.css` (saffron-gold Devanagari, italic Roman line, muted meaning).
+
+## Site footer
+
+The footer markup is `template-parts/footer/site-footer.php` and its whole layout for every width is `assets/css/site-footer.css`, which loads last (priority 1002). Change footer layout only in that file; desktop shows brand + 3 columns, tablet shows the brand row above 3 columns, phones show Platform and Community side by side.
+
 ## Content sourcing (ShivBodh Research Group)
 
 Every page, post, landing page and campaign follows `docs/CONTENT-SOURCING.md`:

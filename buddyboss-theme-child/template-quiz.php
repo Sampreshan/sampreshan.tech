@@ -88,7 +88,10 @@ $bank = sp_quiz_bank();
                 <li><b>10</b><span><?php esc_html_e( 'Levels to clear', 'sampreshan-child' ); ?></span></li>
             </ul>
 
-            <p class="sp-quiz__note">Complete all 10 topics to receive a course completion certificate from ShivBodh Trust.</p>
+            <figure class="sp-quiz__specimen">
+                <canvas class="sp-quiz__cert sp-quiz__cert--specimen" data-cert-specimen width="1600" height="1131" role="img" aria-label="<?php esc_attr_e( 'Specimen of the Sangyani Sanatan course completion certificate from ShivBodh Trust, with the ShivBodh Trust stamp. The name, date of issue and certificate ID are left blank.', 'sampreshan-child' ); ?>"></canvas>
+                <figcaption class="sp-quiz__note"><?php esc_html_e( 'Complete all 10 topics to receive this course completion certificate from ShivBodh Trust, with your name and the Trust stamp.', 'sampreshan-child' ); ?></figcaption>
+            </figure>
             <?php sp_research_credit(); ?>
             <p class="sp-quiz__section-label"><?php esc_html_e( 'The journey', 'sampreshan-child' ); ?></p>
             <ol class="sp-quiz__map" data-map>
@@ -158,7 +161,8 @@ $bank = sp_quiz_bank();
             <button type="button" class="sp-quiz__btn sp-quiz__btn--primary sp-quiz__btn--play" data-continue><?php esc_html_e( 'Next level', 'sampreshan-child' ); ?></button>
         </section>
 
-        <!-- Certificate -->
+        <!-- Certificate (prints on one A4 landscape page; quiz page only) -->
+        <style media="print">@page { size: A4 landscape; margin: 6mm; }</style>
         <section class="sp-quiz__screen sp-quiz__center" data-screen="cert">
             <div class="sp-quiz__burst" aria-hidden="true"></div>
             <div class="sp-quiz__win-emblem"><?php sp_quiz_emblem( 'lg' ); ?></div>

@@ -13,6 +13,31 @@
         document.body.classList.add('is-loaded');
     }
 
+    /* Mount the member disclosure in the active BuddyBoss desktop/mobile chrome. */
+    var accountSource = document.getElementById('sp-account-menu-source');
+    if (accountSource) {
+        var mounts = [document.querySelector('#header-aside .user-wrap-container'), document.querySelector('.bb-mobile-header .header-aside')];
+        mounts.forEach(function (mount, index) {
+            if (!mount) return;
+            var menu = accountSource.content.firstElementChild.cloneNode(true);
+            var toggle = menu.querySelector('summary'), panel = menu.querySelector('nav');
+            panel.id = 'sp-account-menu-panel-' + index; toggle.setAttribute('aria-controls', panel.id);
+            if (index === 0) mount.replaceWith(menu); else mount.appendChild(menu);
+            var close = function (restoreFocus) { menu.open = false; toggle.setAttribute('aria-expanded', 'false'); if (restoreFocus) toggle.focus(); };
+            menu.addEventListener('toggle', function () {
+                toggle.setAttribute('aria-expanded', String(menu.open));
+                if (menu.open) document.querySelectorAll('[data-sp-account-menu]').forEach(function (other) { if (other !== menu) other.open = false; });
+            });
+            document.addEventListener('click', function (e) { if (!menu.contains(e.target)) close(false); });
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menu.open) { e.preventDefault(); close(true); } });
+            menu.addEventListener('focusout', function (e) { if (e.relatedTarget && !menu.contains(e.relatedTarget)) close(false); });
+            menu.querySelector('[data-sp-open-notifications]').addEventListener('click', function (e) {
+                e.preventDefault(); e.stopPropagation(); close(false);
+                document.dispatchEvent(new CustomEvent('sp:notifications-open', {detail:{returnFocus:toggle}}));
+            });
+        });
+    }
+
     /* === HEADER SCROLL EFFECT === */
     var header = document.getElementById('site-header');
     if (header) {

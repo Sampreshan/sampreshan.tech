@@ -540,3 +540,7 @@ body.sp-login-body .vp-auth .vp-auth__switch {
         transition: none !important;
     }
 }
+/* Keep the site name together in the narrow sign-in footer. */
+.sp-login__footer p { display: block; }
+.sp-login__footer strong { white-space: nowrap; overflow-wrap: normal; word-break: normal; }
+.sp-login__footer .sp-icon { display: inline-block; vertical-align: middle; }
