@@ -1,0 +1,771 @@
+<style>
+        /* ==================== RESET & BASE ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ==================== UNIVERSE BACKGROUND ==================== */
+        .universe-bg {
+            background: #0b0f19;
+            padding: 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .unity-title-focus { color: #ffffff !important; }
+        .unity-statement-focus { color: #dddddd !important; }
+
+        /* Stars base layer */
+        .stars {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            width: 100%; height: 100%;
+            background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><circle cx="10" cy="10" r="1.5" fill="white" opacity="0.8"/><circle cx="150" cy="80" r="1" fill="white" opacity="0.5"/><circle cx="80" cy="180" r="2" fill="white" opacity="0.6"/><circle cx="190" cy="150" r="1.2" fill="white" opacity="0.7"/></svg>') repeat;
+            z-index: 1;
+            animation: moveBackground 150s linear infinite;
+            pointer-events: none;
+        }
+
+        /* Twinkling stars layer */
+        .twinkling {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            width: 100%; height: 100%;
+            background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><circle cx="50" cy="250" r="2" fill="yellow" opacity="0.9"/><circle cx="250" cy="50" r="1.5" fill="cyan" opacity="0.6"/><circle cx="150" cy="150" r="2.5" fill="white" opacity="0.8"/></svg>') repeat;
+            z-index: 2;
+            animation: moveBackground 100s linear infinite, twinkle 4s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        @keyframes moveBackground {
+            from { background-position: 0 0; }
+            to { background-position: 1000px 500px; }
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.3; }
+        }
+
+        /* ==================== TOAST MESSAGE ==================== */
+        .unity-toast-message {
+            visibility: hidden;
+            min-width: 280px;
+            max-width: 90%;
+            width: 580px;
+            background-color: rgba(179, 60, 0, 0.95); 
+            color: #ffffff;
+            text-align: center;
+            border-radius: 12px;
+            padding: 22px 30px;
+            position: fixed;
+            z-index: 99999;
+            left: 50%;
+            top: 15%; 
+            transform: translate(-50%, -20px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            border: 2px solid #ffcc66;
+            font-family: 'Alegreya', serif;
+            font-size: 1.18em;
+            line-height: 1.6;
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            backdrop-filter: blur(8px); 
+        }
+
+        @media (max-width: 768px) {
+            .unity-toast-message {
+                padding: 16px 20px;
+                font-size: 1em;
+                top: 10%;
+            }
+        }
+
+        .unity-toast-message.show-toast {
+            visibility: visible;
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        /* ==================== COMPASS LAYOUT ==================== */
+        /* Hover effect completely removed - only breath effect remains */
+        .compass-node {
+            cursor: pointer;
+            /* transform transition removed to prevent slide/hang */
+        }
+
+        /* ==================== FLOWER SHOWER ANIMATION (SLOWED) ==================== */
+        .flower-container {
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            pointer-events: none;
+            z-index: 20; 
+            overflow: hidden;
+        }
+
+        .magic-flower {
+            position: absolute;
+            font-size: clamp(20px, 5vw, 32px);
+            opacity: 0;
+            pointer-events: none;
+            filter: drop-shadow(0 4px 5px rgba(0,0,0,0.4));
+            will-change: transform, opacity, top, left;
+        }
+
+        /* Slow animation - 3s to 4.5s */
+        @keyframes flyToCenterTop {
+            0%   { top: -10%; left: var(--start-pos); transform: scale(0.5) rotate(0deg); opacity: 0; }
+            20%  { opacity: 1; transform: scale(1.2) rotate(90deg); }
+            100% { top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.2) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes flyToCenterBottom {
+            0%   { top: 110%; left: var(--start-pos); transform: scale(0.5) rotate(0deg); opacity: 0; }
+            20%  { opacity: 1; transform: scale(1.2) rotate(-90deg); }
+            100% { top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.2) rotate(-360deg); opacity: 0; }
+        }
+
+        @keyframes flyToCenterLeft {
+            0%   { top: var(--start-pos); left: -10%; transform: scale(0.5) rotate(0deg); opacity: 0; }
+            20%  { opacity: 1; transform: scale(1.2) rotate(90deg); }
+            100% { top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.2) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes flyToCenterRight {
+            0%   { top: var(--start-pos); left: 110%; transform: scale(0.5) rotate(0deg); opacity: 0; }
+            20%  { opacity: 1; transform: scale(1.2) rotate(-90deg); }
+            100% { top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.2) rotate(-360deg); opacity: 0; }
+        }
+
+        /* ==================== MAIN CONTAINER ==================== */
+        .unity-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .unity-header-focus {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .support-badge {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.2);
+            color: #ffd700;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 1rem;
+            border: 1px solid #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .support-badge i {
+            margin-right: 8px;
+        }
+
+        .unity-title-focus {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            margin: 10px 0 15px;
+            font-weight: 700;
+        }
+
+        .unity-statement-focus {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.7;
+            padding: 0 15px;
+            color: #f0f0f0 !important;
+            font-weight: 400;
+        }
+
+        .highlight-text {
+            color: #ffaa33;
+            font-weight: 600;
+            text-shadow: 0 0 8px rgba(255, 170, 51, 0.3);
+        }
+
+        .compass-layout {
+            position: relative;
+            min-height: 700px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .compass-layout {
+                min-height: 600px;
+            }
+        }
+
+        /* SVG Lasers */
+        .compass-lasers {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .unity-orbit-line {
+            fill: none;
+            stroke: rgba(255, 215, 0, 0.3);
+            stroke-width: 0.5;
+            stroke-dasharray: 4 4;
+        }
+
+        .unity-connector {
+            stroke: rgba(255, 200, 100, 0.4);
+            stroke-width: 1;
+        }
+
+        .wave-laser {
+            stroke: #ffaa33;
+            stroke-width: 1.2;
+            stroke-dasharray: 6 6;
+            animation: flowWave 3s linear infinite;
+        }
+
+        @keyframes flowWave {
+            0% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: 12; }
+        }
+
+        /* ==================== NODE POSITIONING ==================== */
+        .compass-node {
+            position: absolute;
+            z-index: 15;
+            text-align: center;
+            width: 150px;
+            transform: translate(-50%, -50%);
+        }
+
+        .node-top {
+            top: 15%;
+            left: 50%;
+        }
+
+        .node-left {
+            top: 50%;
+            left: 20%;
+        }
+
+        .node-right {
+            top: 50%;
+            left: 80%;
+        }
+
+        .node-bottom {
+            top: 85%;
+            left: 50%;
+        }
+
+        .node-center {
+            top: 50%;
+            left: 50%;
+            width: 280px;
+            transform: translate(-50%, -50%);
+        }
+
+        @media (max-width: 768px) {
+            .node-left { left: 15%; }
+            .node-right { left: 85%; }
+            .node-center { width: 220px; }
+        }
+
+        /* ==================== IMAGE FRAMES ==================== */
+        .framed-image-box {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 10px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1a1f2e;
+        }
+
+        @media (max-width: 768px) {
+            .framed-image-box {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        .gold-frame { border-color: #ffd700; }
+        .saffron-frame { border-color: #ff9933; }
+        .red-frame { border-color: #e63946; }
+        .yellow-frame { border-color: #f4d03f; }
+
+        /* ==================== BREATH EFFECT ONLY (No hover slide) ==================== */
+        .framed-img, .out-of-frame-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: breathEffect 4s ease-in-out infinite;
+            transform-origin: center;
+            will-change: transform;
+            /* No transition on hover - only breath animation */
+        }
+
+        @keyframes breathEffect {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+
+        .node-title {
+            font-size: clamp(0.8rem, 2.5vw, 1rem);
+            margin: 5px 0 0;
+            font-weight: 600;
+        }
+
+        .gold-text { color: #ffd700; }
+        .saffron-text { color: #ff9933; }
+        .red-text { color: #e63946; }
+        .yellow-text { color: #f4d03f; }
+
+        /* ==================== ROTATING DIAL ==================== */
+        .rotating-dial-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .rotating-dial-container {
+                width: 160px;
+                height: 160px;
+            }
+        }
+
+        .rotating-text-svg {
+            width: 100%;
+            height: 100%;
+            animation: rotateDial 20s linear infinite;
+        }
+
+        @keyframes rotateDial {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .dial-text {
+            font-size: 8px;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .dial-text {
+                font-size: 6px;
+            }
+        }
+
+        .sanskrit-dial {
+            fill: #ffaa33;
+        }
+
+        .english-dial {
+            fill: #ffffff;
+        }
+
+        .absorb-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .ring-1 {
+            width: 160px;
+            height: 160px;
+        }
+
+        .ring-2 {
+            width: 120px;
+            height: 120px;
+            border-color: rgba(255, 170, 51, 0.5);
+        }
+
+        .ring-3 {
+            width: 80px;
+            height: 80px;
+            border-color: #ffaa33;
+        }
+
+        @media (max-width: 768px) {
+            .ring-1 {
+                width: 130px;
+                height: 130px;
+            }
+            .ring-2 {
+                width: 100px;
+                height: 100px;
+            }
+            .ring-3 {
+                width: 70px;
+                height: 70px;
+            }
+        }
+
+        /* ==================== CENTER IMAGE - HALF OUT OF FRAME EFFECT ==================== */
+        .out-of-frame-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 280px;
+            height: 280px;
+            z-index: 25;
+            /* No border or shadow here - they are on pseudo-element */
+            border: none;
+            box-shadow: none;
+            overflow: visible; /* Allow image to overflow */
+        }
+
+        /* The image itself - slightly larger to peek out */
+        .out-of-frame-img {
+            width: 115%;
+            height: 115%;
+            object-fit: cover;
+            position: absolute;
+            top: -7.5%; /* Move up to extend out */
+            left: -7.5%;
+            border-radius: 50%;
+            animation: breathEffect 4s ease-in-out infinite;
+            transform-origin: center;
+            z-index: 26;
+        }
+
+        /* Half-frame using pseudo-element (only bottom half visible) */
+        .out-of-frame-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid #ffd700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.7);
+            clip-path: inset(50% 0 0 0); /* Shows only bottom half */
+            pointer-events: none;
+            z-index: 27;
+        }
+
+        @media (max-width: 768px) {
+            .out-of-frame-box {
+                width: 200px;
+                height: 200px;
+            }
+        }
+
+        .support-tag {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.7);
+            color: #ffd700;
+            padding: 4px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            border: 1px solid #ffd700;
+            z-index: 28;
+        }
+
+        @media (max-width: 768px) {
+            .support-tag {
+                font-size: 0.7rem;
+                padding: 3px 10px;
+                bottom: -25px;
+            }
+        }
+
+        /* ==================== CAMPAIGN SECTION ==================== */
+        .campaign-section {
+            margin-top: 60px;
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .campaign-title {
+            font-size: clamp(1.4rem, 4vw, 2rem);
+            color: #ffd700;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .campaign-message {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: #ffffff;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .campaign-message p {
+            margin: 10px 0;
+        }
+
+        .campaign-message i {
+            color: #ffaa33;
+            margin: 0 5px;
+        }
+
+        /* Glowing Transparent Button */
+        .glow-button {
+            display: inline-block;
+            padding: 15px 40px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ffd700;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #ffd700;
+            border-radius: 50px;
+            text-decoration: none;
+            letter-spacing: 1px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            transition: all 0.3s ease;
+            animation: glowPulse 2s infinite;
+        }
+
+        .glow-button:hover {
+            background: rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+            transform: scale(1.05);
+            color: #ffffff;
+        }
+
+        @keyframes glowPulse {
+            0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); }
+            100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+        }
+
+        /* Responsive button */
+        @media (max-width: 768px) {
+            .glow-button {
+                padding: 12px 30px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+
+
+<!-- MAIN SECTION: Sanatana Dharma Unity -->
+<section class="unity-focus-section universe-bg" id="unitySection">
+    
+    <!-- Star Background Layers -->
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+
+    <div class="unity-container">
+        
+        <!-- ===== HEADER SECTION (Updated as per request) ===== -->
+        <div class="unity-header-focus">
+            <span class="support-badge"><i class="fas fa-shield-alt"></i> गौ माता राष्ट्र माता</span>
+            <h2 class="unity-title-focus">हिंदू धर्म में असली - नकली की लड़ाई में आप किसके साथ हैं?</h2>
+            <p class="unity-statement-focus">
+                हम सभी सनातन धर्म के सर्वोच्च पद पर आसीन 
+                <span class="highlight-text">श्री अविमुक्तेश्वरानंद स्वामी जी 1008</span> 
+                शंकराचार्य जी के साथ हैं।
+            </p>
+        </div>
+
+        <!-- Toast Message Container -->
+        <div id="unity-toast" class="unity-toast-message"></div>
+
+        <!-- Compass Layout -->
+        <div class="compass-layout" id="compassLayout">
+
+            <!-- Flower Container -->
+            <div id="flowerContainer" class="flower-container"></div>
+
+            <!-- SVG Lasers -->
+            <svg class="compass-lasers" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <defs>
+                    <filter id="glow-laser" x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur stdDeviation="1.5" result="blur" />
+                        <feMerge>
+                            <feMergeNode in="blur" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                </defs>
+                <circle cx="50" cy="50" r="38" class="unity-orbit-line" />
+                <line x1="50" y1="15" x2="50" y2="12" class="unity-connector" />
+                <line x1="15" y1="50" x2="12" y2="50" class="unity-connector" />
+                <line x1="85" y1="50" x2="88" y2="50" class="unity-connector" />
+                <line x1="50" y1="85" x2="50" y2="88" class="unity-connector" />
+                <line x1="50" y1="15" x2="50" y2="50" class="wave-laser top-laser" filter="url(#glow-laser)" />
+                <line x1="15" y1="50" x2="50" y2="50" class="wave-laser left-laser" filter="url(#glow-laser)" />
+                <line x1="85" y1="50" x2="50" y2="50" class="wave-laser right-laser" filter="url(#glow-laser)" />
+                <line x1="50" y1="85" x2="50" y2="50" class="wave-laser bottom-laser" filter="url(#glow-laser)" />
+            </svg>
+
+            <!-- TOP NODE: Adi Shankaracharya -->
+            <div class="compass-node node-top" onclick="showUnityMessage('shiva')">
+                <div class="framed-image-box gold-frame">
+                    <img src="https://sampreshan.tech/wp-content/uploads/2026/10/AFTERS-SANYAS-ARROUND-3-YEAR-AADI-GURU-.png" alt="Adi Shankaracharya" class="framed-img">
+                </div>
+                <h4 class="node-title gold-text">आदि शंकराचार्य</h4>
+            </div>
+
+            <!-- LEFT NODE: Dwarka Peetham (New message) -->
+            <div class="compass-node node-left" onclick="showUnityMessage('dwarka')">
+                <div class="framed-image-box saffron-frame">
+                    <img src="https://sampreshan.tech/wp-content/uploads/2026/03/swamisadananda.png" alt="Dwarka" class="framed-img">
+                </div>
+                <h4 class="node-title saffron-text">द्वारका पीठ</h4>
+            </div>
+
+            <!-- RIGHT NODE: Puri Peetham (New message) -->
+            <div class="compass-node node-right" onclick="showUnityMessage('puri')">
+                <div class="framed-image-box red-frame">
+                    <img src="https://sampreshan.tech/wp-content/uploads/2026/03/swaminischalananda.png" alt="Puri" class="framed-img">
+                </div>
+                <h4 class="node-title red-text">पुरी पीठ</h4>
+            </div>
+
+            <!-- BOTTOM NODE: Sringeri Peetham (New message) -->
+            <div class="compass-node node-bottom" onclick="showUnityMessage('sringeri')">
+                <div class="framed-image-box yellow-frame">
+                    <img src="https://sampreshan.tech/wp-content/uploads/2026/03/swamividhushekhar.png" alt="Sringeri" class="framed-img">
+                </div>
+                <h4 class="node-title yellow-text">शृंगेरी पीठ</h4>
+            </div>
+
+            <!-- CENTER NODE: Jyotirmath (1 Guna Larger Image with Half-Out Effect) -->
+            <div class="compass-node node-center">
+                <div class="rotating-dial-container">
+                    <svg viewBox="0 0 200 200" class="rotating-text-svg">
+                        <path id="textPath" d="M 100, 100 m -80, 0 a 80,80 0 1,1 160,0 a 80,80 0 1,1 -160,0" fill="none"></path>
+                        <text class="dial-text sanskrit-dial">
+                            <textPath href="#textPath" startOffset="0%">सनातनधर्मः एकः • वयम् एकम् • हिन्दवः एकाः • सनातनधर्मः एकः •</textPath>
+                        </text>
+                        <text class="dial-text english-dial">
+                            <textPath href="#textPath" startOffset="0%">WE ARE ONE • WE ARE SANATANI • WE ARE ONE • WE ARE SANATANI •</textPath>
+                        </text>
+                    </svg>
+                </div>
+
+                <div class="absorb-ring ring-1"></div>
+                <div class="absorb-ring ring-2"></div>
+                <div class="absorb-ring ring-3"></div>
+
+                <!-- Center Image with Half-Out Frame Effect -->
+                <div class="out-of-frame-box center-focus-img">
+                    <img src="https://sampreshan.tech/wp-content/uploads/2026/10/gau-mata-rastra-mata-1008.png" alt="Swami Avimukteshwaranand Ji" class="out-of-frame-img">
+                </div>
+                <span class="support-tag">ज्योतिर्मठ</span>
+            </div>
+        </div>
+
+        <!-- ===== GAU MATA CAMPAIGN SECTION ===== -->
+        <div class="campaign-section">
+            <div class="campaign-title">🚩 गौ माता को राष्ट्रमाता का पुनीत अभियान 🚩</div>
+            <div class="campaign-message">
+                <p>✨ हम सब मिलकर इस परम पवित्र अभियान का समर्थन करें, सहयोग करें। ✨</p>
+                <p>🙏 गौ माता हमारी सनातन संस्कृति की आधारशिला हैं। उन्हें राष्ट्रमाता का दर्जा दिलाना हर सनातनी का कर्तव्य है। 🙏</p>
+                <p>💪 जो भी गाय को माता मानते हैं, वे अब इस आंदोलन में सम्मिलित हो जाएँ और अपना योगदान दें। 💪</p>
+                <p>🌺 आइए, मिलकर गौ माता के सम्मान के लिए एकजुट हों। 🌺</p>
+            </div>
+            <!-- Glowing Transparent Button -->
+            <a href="https://www.1008.guru/go" target="_blank" class="glow-button">समर्थन करें</a>
+        </div>
+
+    </div>
+</section>
+
+<!-- JavaScript -->
+<script>
+    // Function to show toast messages on node click
+    function showUnityMessage(type) {
+        const toastBox = document.getElementById('unity-toast');
+        let messageHTML = '';
+
+        if(type === 'puri') {
+            messageHTML = `<strong>"सत्य के साथ भगवान हैं, उसे विश्व में कोई हरा नहीं सकता "गो वर्धन पीठ गौ माता को राष्ट्रमाता घोषित करने के इस महा संग्राम में सभी सनातन हिंदुओं का आव्हान करते हुये एकजुट होने का संदेश देते हैं।"</strong><br><br>
+                           <span style="font-size:0.95em; color:#ffe6cc;">(गौ माता की रक्षा के लिए सब एकजुट हों )</span>`;
+        } 
+        else if (type === 'shiva') {
+            messageHTML = `<strong>"Shivoham Shivoham"</strong><br><br>
+                           <span style="font-size:1.1em; color:#ffe6cc;">"शिवोहम शिवोहम"</span>`;
+        }
+        else if (type === 'dwarka') {
+            messageHTML = `<strong>"हम अपनी पूरी शक्ति के साथ स्वामी अविमुक्तेश्वरानंद जी के साथ हैं। केवल वही ज्योतिर्मठ के प्रामाणिक शंकराचार्य हैं। हम सभी उनको शंकराचार्य मानते ही हैं और गौ रक्षा कार्य में हम सब एक साथ हैं।"</strong><br><br>
+                           <span style="font-size:0.95em; color:#ffe6cc;">(द्वारका पीठ का समर्थन)</span>`;
+        }
+        else if (type === 'sringeri') {
+            messageHTML = `<strong>"  गौ रक्षा  होना चाहिये इस कार्य में हम एक साथ हैं चारों पीठा के आचार्यों में कोई भेद नहीं अपनी परम्परा के अनुसार हम सभी धर्म के रक्षण के लिये सदैव उपस्थित हैं ।"</strong><br><br>
+                           <span style="font-size:0.95em; color:#ffe6cc;">(शृंगेरी पीठ का समर्थन)</span>`;
+        }
+        else {
+            // Default message (if any other)
+            messageHTML = `<strong>"सनातन धर्म की एकता ही हमारी शक्ति है।"</strong><br><br>
+                           <span style="font-size:0.95em; color:#ffe6cc;">"एकात्मता ही सनातन धर्म का मूल है।"</span>`;
+        }
+
+        toastBox.innerHTML = messageHTML;
+        toastBox.classList.add('show-toast');
+        
+        // Hide after 5.5 seconds
+        setTimeout(() => toastBox.classList.remove('show-toast'), 5500);
+    }
+
+    // Continuous 4-directional flower shower to center
+    function startFlowerShower() {
+        const container = document.getElementById('flowerContainer');
+        if (!container) return;
+
+        const flowers = ['🌼', '🌹', '🪷', '🌺', '💮', '🌸', '🌻', '🌞'];
+        const sides = ['Top', 'Bottom', 'Left', 'Right'];
+
+        function createFlower() {
+            const flower = document.createElement('div');
+            flower.className = 'magic-flower';
+            flower.innerText = flowers[Math.floor(Math.random() * flowers.length)];
+
+            const side = sides[Math.floor(Math.random() * sides.length)];
+            const randomPos = Math.floor(Math.random() * 80) + 10;
+            flower.style.setProperty('--start-pos', `${randomPos}%`);
+
+            // Slower animation: 3 to 4.5 seconds
+            const duration = (Math.random() * 1.5 + 3).toFixed(2);
+            flower.style.animation = `flyToCenter${side} ${duration}s ease-in-out forwards`;
+
+            container.appendChild(flower);
+
+            setTimeout(() => {
+                flower.remove();
+            }, duration * 1000);
+        }
+
+        setInterval(createFlower, 250);
+    }
+
+    window.onload = startFlowerShower;
+</script>
