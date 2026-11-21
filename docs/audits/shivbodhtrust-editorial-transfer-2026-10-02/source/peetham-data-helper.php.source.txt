@@ -1,0 +1,47 @@
+/**
+ * Helper: Get Peethams data for homepage/frontend
+ */
+function shivbodh_get_peethams() {
+    return array(
+        array(
+            'name'     => 'Sringeri Peetham',
+            'url'      => home_url( '/sringeri-peetha/' ),
+            'image'    => content_url( 'uploads/2026/04/Sringeri-Peetham.jpg' ),
+            'direction'=> 'South',
+            'veda'     => 'Yajur Veda',
+            'mahavakya'=> 'Aham Brahmasmi',
+        ),
+        array(
+            'name'     => 'Dwarka Peetham',
+            'url'      => home_url( '/dwarka-peetha/' ),
+            'image'    => content_url( 'uploads/2026/04/Dwarka-Peetham.jpg' ),
+            'direction'=> 'West',
+            'veda'     => 'Sama Veda',
+            'mahavakya'=> 'Tat Tvam Asi',
+        ),
+        array(
+            'name'     => 'Jyotirmath Peetham',
+            'url'      => home_url( '/jyotishpeetha/' ),
+            'image'    => content_url( 'uploads/2026/04/Jyotirmath-Peetham.jpg' ),
+            'direction'=> 'North',
+            'veda'     => 'Atharva Veda',
+            'mahavakya'=> 'Ayam Atma Brahma',
+        ),
+        array(
+            'name'     => 'Puri Peetham',
+            'url'      => home_url( '/puri-peetha/' ),
+            'image'    => content_url( 'uploads/2026/04/Puri-Peetham.jpg' ),
+            'direction'=> 'East',
+            'veda'     => 'Rig Veda',
+            'mahavakya'=> 'Prajnanam Brahma',
+        ),
+        array(
+            'name'     => 'Kanchi Peetham',
+            'url'      => home_url( '/kanchi-peetha/' ),
+            'image'    => content_url( 'uploads/2026/04/Kanchi-Peetham.jpg' ),
+            'direction'=> 'South-East',
+            'veda'     => 'All Vedas',
+            'mahavakya'=> 'Sarvam Khalvidam Brahma',
+        ),
+    );
+}

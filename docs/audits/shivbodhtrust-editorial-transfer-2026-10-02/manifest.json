@@ -1,0 +1,23 @@
+{
+  "package": "shivbodhtrust-editorial-transfer",
+  "status": "audit-required",
+  "source": {
+    "repository": "Avikalp-Shukla/shivboshtrust.org",
+    "commit": "e6f3ab6dd0ae96f09b58bf22ed1ee2b417d40ec2"
+  },
+  "destination": {
+    "repository": "Sampreshan/sampreshan.tech",
+    "base_commit": "c7d1b5bd7c1abd5618bb1412a65718377d712db6"
+  },
+  "production_deployable": false,
+  "includes_menu_hierarchy": true,
+  "files": [
+    "AUDIT_REQUIRED.md",
+    "LIVE_ROUTE_INVENTORY.md",
+    "MENU_MIGRATION.md",
+    "menu-structure.json",
+    "source/template-peetham.php.source.txt",
+    "source/peetham-data-helper.php.source.txt",
+    "source/about-faq-related-excerpts.source.txt"
+  ]
+}
